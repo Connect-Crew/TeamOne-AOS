@@ -25,6 +25,10 @@
             <meta-data
                 android:name="com.connectcrew.teamone.initalize.TimberInitializer"
                 android:value="androidx.startup" />
+
+            <meta-data
+                android:name="com.connectcrew.teamone.initalize.FirebaseInitializer"
+                android:value="androidx.startup" />
         </provider>
 
         <meta-data
