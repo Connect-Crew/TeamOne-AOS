@@ -3,6 +3,8 @@ import com.connectcrew.teamone.convention.TeamOneConfig
 plugins {
     id("teamone.android.application")
     id("teamone.android.hilt")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -19,9 +21,11 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = false
         }
         getByName("release") {
             isMinifyEnabled = false
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -42,6 +46,10 @@ dependencies {
     // Kotlin
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
 
     // log tracker
     api(libs.timber)

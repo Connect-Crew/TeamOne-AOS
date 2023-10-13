@@ -26,5 +26,9 @@
                 android:name="com.connectcrew.teamone.initalize.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}" />
     </application>
 </manifest>

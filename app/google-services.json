@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1073196297662",
+    "project_id": "teamone-1af21",
+    "storage_bucket": "teamone-1af21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073196297662:android:e65ba973946b5c4a145def",
+        "android_client_info": {
+          "package_name": "com.connectcrew.teamone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4wJ8sSM_kmLpP3t2ega7hmy_p2xX3UyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
