@@ -25,6 +25,10 @@ internal fun Project.configureKotlinAndroid(
             targetCompatibility = TeamOneConfig.javaCompileTarget
             isCoreLibraryDesugaringEnabled = true
         }
+
+        buildFeatures {
+            buildConfig = true
+        }
     }
 
     configureKotlin()

@@ -2,15 +2,12 @@ package com.connectcrew.teamone.initalize
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.connectcrew.teamone.BuildConfig
-import timber.log.Timber
+import com.google.firebase.FirebaseApp
 
-class TimberInitializer : Initializer<Unit> {
+class FirebaseInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
+        FirebaseApp.initializeApp(context)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
