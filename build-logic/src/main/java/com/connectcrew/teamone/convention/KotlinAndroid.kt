@@ -15,10 +15,9 @@ internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *>,
 ) {
     commonExtension.apply {
-        compileSdk = TeamOneConfig.compileSdk
-
         defaultConfig {
             minSdk = TeamOneConfig.minSdk
+            compileSdk = TeamOneConfig.compileSdk
         }
 
         compileOptions {
