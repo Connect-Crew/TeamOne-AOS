@@ -20,4 +20,9 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
         _dataBinding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
         return dataBinding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _dataBinding = null
+    }
 }

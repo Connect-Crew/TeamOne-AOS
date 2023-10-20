@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TeamOne</string>
+
+    <!-- Bottom Menu -->
+    <string name="menu_home">홈</string>
+    <string name="menu_community">커뮤니티</string>
+    <string name="menu_team_recruitment">모집</string>
+    <string name="menu_my_team">나의 팀</string>
+    <string name="menu_my_page">마이페이지</string>
 </resources>
