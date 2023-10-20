@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.TeamOne.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemTextColor">@color/selected_bottom_menu</item>
+    </style>
+</resources>
