@@ -12,8 +12,8 @@ androidxRecyclerView = "1.3.0"
 androidxStartUp = "1.1.1"
 androidxActivity = "1.7.0"
 androidxLifecycle = "2.6.1"
-androidxRoom = "2.5.0"
-androidxPaging = "3.1.1"
+androidxRoom = "2.5.2"
+androidxPaging = "3.2.1"
 androidxNavigation = "2.5.3"
 androidxHilt = "1.0.0"
 androidxDataStore = "1.0.0"
@@ -49,6 +49,8 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
+kakaoCore = "2.17.0"
+googleAuth = "20.7.0"
 
 [libraries]
 # AndroidX
@@ -120,6 +122,8 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 glide-compiler = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 compressor = { group = "id.zelory", name = "compressor", version.ref = "compressor" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakaoCore" }
+google-login = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googleAuth" }
 leakCanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakCanary" }
 
 # Dependencies of the included build-logic

@@ -22,8 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
         navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ -> currentNavId = destination.id }
+
         dataBinding.bottomNav.apply {
             setupWithNavController(navController)
             itemIconTintList = null
@@ -41,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             R.id.communityFragment,
             R.id.teamRecruitmentFragment,
             R.id.myTeamFragment,
-            R.id.teamRecruitmentFragment
+            R.id.myPageFragment
         )
 
         private const val NAV_ID_NONE = -1

@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("teamone.android.library")
     id("teamone.android.hilt")
@@ -8,6 +10,7 @@ plugins {
 }
 
 android {
+    val localProperties = gradleLocalProperties(rootDir)
 
     defaultConfig {
         namespace = "com.connectcrew.presentation"
@@ -16,9 +19,15 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            resValue("string", "KAKAO_APP_KEY", localProperties["KAKAO_APP_KEY"].toString())
+        }
+
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            resValue("string", "KAKAO_APP_KEY", localProperties["KAKAO_APP_KEY"].toString())
         }
     }
 
@@ -55,6 +64,10 @@ dependencies {
     // Image loading library
     implementation(libs.glide)
     ksp(libs.glide.compiler)
+
+    implementation(libs.kakao.login)
+    implementation(libs.google.login)
+
     // log tracker
     api(libs.timber)
 
