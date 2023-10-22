@@ -2,6 +2,7 @@ package com.connectcrew.teamone.convention
 
 import org.gradle.api.JavaVersion
 
+@Suppress("unused")
 object TeamOneConfig {
     const val applicationId = "com.connectcrew.teamone"
 
