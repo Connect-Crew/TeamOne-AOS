@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import com.connectcrew.teamone.convention.TeamOneConfig
 
 plugins {
@@ -8,6 +9,8 @@ plugins {
 }
 
 android {
+    val localProperties = gradleLocalProperties(rootDir)
+
     defaultConfig {
         namespace = "com.connectcrew.teamone"
         applicationId = TeamOneConfig.applicationId
@@ -16,6 +19,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        create("release") {
+            storeFile = file("release.keystore")
+            storePassword = localProperties["STORE_PASSWORD"].toString()
+            keyAlias = localProperties["KEY_ALIAS"].toString()
+            keyPassword = localProperties["KEY_PASSWORD"].toString()
+        }
+    }
 
     buildTypes {
         getByName("debug") {
@@ -23,9 +34,11 @@ android {
             isDebuggable = true
             manifestPlaceholders["crashlyticsCollectionEnabled"] = false
         }
+
         getByName("release") {
             isMinifyEnabled = false
             manifestPlaceholders["crashlyticsCollectionEnabled"] = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -50,7 +63,6 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
-
     // log tracker
     api(libs.timber)
 

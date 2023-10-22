@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("teamone.android.library")
     id("teamone.android.hilt")
@@ -5,6 +7,8 @@ plugins {
 }
 
 android {
+    val localProperties = gradleLocalProperties(rootDir)
+
     defaultConfig {
         namespace = "com.connectcrew.data"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -12,9 +16,15 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "API_URL", localProperties["DEV_API_URL"].toString())
+        }
+
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            buildConfigField("String", "API_URL", localProperties["RELEASE_API_URL"].toString())
         }
     }
 }
