@@ -1,4 +1,4 @@
-package com.connectcrew.teamone.initalize
+package com.connectcrew.teamone.util.initalize
 
 import android.content.Context
 import androidx.startup.Initializer
