@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TeamOne"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <provider
@@ -25,11 +26,15 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.connectcrew.teamone.initalize.TimberInitializer"
+                android:name="com.connectcrew.teamone.util.initalize.TimberInitializer"
                 android:value="androidx.startup" />
 
             <meta-data
-                android:name="com.connectcrew.teamone.initalize.FirebaseInitializer"
+                android:name="com.connectcrew.teamone.util.initalize.FirebaseInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="com.connectcrew.presentation.util.initialize.KakaoInitializer"
                 android:value="androidx.startup" />
         </provider>
 

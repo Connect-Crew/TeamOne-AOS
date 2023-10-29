@@ -29,9 +29,7 @@ val <T> ApiResult<T>.data: T?
 
 fun <T> Flow<T>.asResult(): Flow<ApiResult<T>> {
     return this
-        .map<T, ApiResult<T>> {
-            ApiResult.Success(it)
-        }
+        .map<T, ApiResult<T>> { ApiResult.Success(it) }
         .onStart { emit(ApiResult.Loading) }
-        .catch { emit(ApiResult.Error(exception = Exception(it))) }
+        .catch { emit(ApiResult.Error(it as? Exception ?: Exception(it))) }
 }

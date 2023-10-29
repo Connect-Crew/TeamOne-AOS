@@ -2,6 +2,7 @@ package com.connectcrew.presentation.screen
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -24,7 +25,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         navController = navHostFragment.navController
-        navController.addOnDestinationChangedListener { _, destination, _ -> currentNavId = destination.id }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            currentNavId = destination.id
+            dataBinding.bottomNav.isVisible = TOP_LEVEL_DESTINATIONS.any { it == destination.id }
+        }
 
         dataBinding.bottomNav.apply {
             setupWithNavController(navController)

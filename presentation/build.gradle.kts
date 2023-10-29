@@ -20,14 +20,16 @@ android {
 
     buildTypes {
         getByName("debug") {
-            resValue("string", "KAKAO_APP_KEY", localProperties["KAKAO_APP_KEY"].toString())
+            resValue("string", "KAKAO_API_KEY", localProperties["KAKAO_API_KEY"].toString())
+            resValue("string", "KAKAO_APP_SCHEME", "kakao".plus(localProperties["KAKAO_API_KEY"].toString()))
         }
 
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            resValue("string", "KAKAO_APP_KEY", localProperties["KAKAO_APP_KEY"].toString())
+            resValue("string", "KAKAO_API_KEY", localProperties["KAKAO_API_KEY"].toString())
+            resValue("string", "KAKAO_APP_SCHEME", "kakao".plus(localProperties["KAKAO_API_KEY"].toString()))
         }
     }
 

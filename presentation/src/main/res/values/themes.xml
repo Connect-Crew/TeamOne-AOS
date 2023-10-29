@@ -18,6 +18,9 @@
 
         <!-- Bottom Navigation -->
         <item name="bottomNavigationStyle">@style/Widget.TeamOne.BottomNavigation</item>
+
+        <!-- Alert Dialog -->
+        <item name="materialAlertDialogTheme">@style/TeamOneAlertDialogTheme</item>
     </style>
 
     <style name="Theme.TeamOne" parent="Base.Theme.TeamOne" />
