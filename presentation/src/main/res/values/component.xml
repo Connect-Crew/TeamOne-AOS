@@ -10,7 +10,9 @@
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
         <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button1</item>
-        <item name="backgroundTint">@color/selected_button</item>
+        <item name="android:stateListAnimator">@null</item>
         <item name="android:textColor">@color/color_fdfdfd</item>
+        <item name="backgroundTint">@color/selected_button</item>
+        <item name="elevation">0dp</item>
     </style>
 </resources>

@@ -1,9 +1,14 @@
 package com.connectcrew.data.service
 
-import retrofit2.http.GET
+import com.connectcrew.data.model.user.User
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 internal interface ServiceApi {
 
-    @GET("test/test")
-    suspend fun getTestInfo()
+    @POST("auth/login")
+    suspend fun signInForOauth(@Body params: Any): User
+
+    @POST("auth/register")
+    suspend fun signUpForOauth(@Body params: Any): User
 }

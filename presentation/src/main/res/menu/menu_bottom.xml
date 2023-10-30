@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@id/homeFragment"
+        android:id="@id/nav_home"
         android:icon="@drawable/ic_nav_home"
         android:title="@string/menu_home"
         app:contentDescription="@string/menu_home" />
 
     <item
-        android:id="@id/communityFragment"
+        android:id="@id/nav_community"
         android:icon="@drawable/ic_nav_community"
         android:title="@string/menu_community"
         app:contentDescription="@string/menu_community" />
 
     <item
-        android:id="@id/teamRecruitmentFragment"
+        android:id="@id/nav_team_recruitment"
         android:icon="@drawable/ic_nav_team_recruitment"
         android:title="@string/menu_team_recruitment"
         app:contentDescription="@string/menu_team_recruitment" />
 
     <item
-        android:id="@id/myTeamFragment"
+        android:id="@id/nav_my_team"
         android:icon="@drawable/ic_nav_my_team"
         android:title="@string/menu_my_team"
         app:contentDescription="@string/menu_my_team" />
 
     <item
-        android:id="@id/myPageFragment"
+        android:id="@id/nav_my_page"
         android:icon="@drawable/ic_nav_my_page"
         android:title="@string/menu_my_page"
         app:contentDescription="@string/menu_my_page" />

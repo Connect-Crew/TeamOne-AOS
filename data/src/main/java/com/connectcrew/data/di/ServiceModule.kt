@@ -63,7 +63,7 @@ internal object ServiceModule {
     ): ServiceApi {
         return Retrofit.Builder()
             .callFactory(okHttpCallFactory)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create().withNullSerialization())
             .baseUrl(BuildConfig.API_URL)
             .build()
             .create(ServiceApi::class.java)
