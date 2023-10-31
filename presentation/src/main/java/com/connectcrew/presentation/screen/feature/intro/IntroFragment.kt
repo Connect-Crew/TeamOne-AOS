@@ -28,7 +28,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
         launchAndRepeatWithViewLifecycle {
             launch {
                 introViewModel.navigateToSignIn.collect {
-                    findNavController().safeNavigate(IntroFragmentDirections.actionIntroFragmentToNavSign())
+                    findNavController().safeNavigate(IntroFragmentDirections.actionIntroFragmentToNavSignIn())
                 }
             }
 

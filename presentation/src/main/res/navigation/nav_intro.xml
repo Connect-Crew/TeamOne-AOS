@@ -11,8 +11,8 @@
         tools:layout="@layout/fragment_intro">
 
         <action
-            android:id="@+id/action_introFragment_to_nav_sign"
-            app:destination="@id/nav_sign"
+            android:id="@+id/action_introFragment_to_nav_sign_in"
+            app:destination="@id/nav_sign_in"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -31,7 +31,7 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <include app:graph="@navigation/nav_sign" />
+    <include app:graph="@navigation/nav_sign_in" />
 
     <activity
         android:id="@+id/activity_main"
