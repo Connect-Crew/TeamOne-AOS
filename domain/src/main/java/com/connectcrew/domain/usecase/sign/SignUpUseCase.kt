@@ -14,13 +14,26 @@ class SignUpUseCase @Inject constructor(
 ) : FlowUseCase<SignUpUseCase.Params, UserEntity>(ioDispatcher) {
 
     override fun execute(params: Params): Flow<UserEntity> = flow {
-        emit(signRepository.signUp(params.accessToken, params.socialType, params.userName, params.isAdNotificationAgree))
+        emit(
+            signRepository.signUp(
+                accessToken = params.accessToken,
+                socialType = params.socialType,
+                userName = params.userName,
+                nickname = params.nickname,
+                email = params.email,
+                profileUrl = params.profileUrl,
+                isAdNotificationAgree = params.isAdNotificationAgree
+            )
+        )
     }
 
     data class Params(
         val accessToken: String,
         val socialType: String,
-        val userName: String,
-        val isAdNotificationAgree: Boolean
+        val userName: String? = null,
+        val nickname: String,
+        val email: String?,
+        val profileUrl: String?,
+        val isAdNotificationAgree: Boolean,
     )
 }

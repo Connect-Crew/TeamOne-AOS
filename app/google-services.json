@@ -12,7 +12,20 @@
           "package_name": "com.connectcrew.teamone"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1073196297662-jsotal0v10rmdm6g4ghfih4148258397.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectcrew.teamone",
+            "certificate_hash": "6f5342113ca1a9afe5c758a6b0b17bc0ec460103"
+          }
+        },
+        {
+          "client_id": "1073196297662-1v2sar9pmssm7n4v3d6sgd25cr6dreee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB4wJ8sSM_kmLpP3t2ega7hmy_p2xX3UyU"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073196297662-1v2sar9pmssm7n4v3d6sgd25cr6dreee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -12,7 +12,12 @@ internal interface SignRemoteDataSource {
     suspend fun signUp(
         accessToken: String,
         socialType: String,
-        name: String,
+        username: String?,
+        nickname: String,
+        email: String?,
+        profileUrl: String?,
         isAdNotificationAgree: Boolean
     ): UserEntity
+
+    suspend fun getGoogleTokenInfo(authCode: String): String
 }

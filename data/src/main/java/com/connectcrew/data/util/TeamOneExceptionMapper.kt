@@ -1,7 +1,9 @@
 package com.connectcrew.data.util
 
 import com.connectcrew.domain.util.BadRequestException
+import com.connectcrew.domain.util.ConflictException
 import com.connectcrew.domain.util.ForbiddenException
+import com.connectcrew.domain.util.NotFoundException
 import com.connectcrew.domain.util.ServerErrorException
 import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.UnknownErrorException
@@ -31,6 +33,8 @@ internal fun converterException(exception: Exception): Exception {
                 400 -> BadRequestException(message, cause)
                 401 -> UnAuthorizedException(message, cause)
                 403 -> ForbiddenException(message, cause)
+                404 -> NotFoundException(message, cause)
+                409 -> ConflictException(message, cause)
                 500 -> ServerErrorException(message, cause)
                 else -> UnknownErrorException(message, cause)
             }

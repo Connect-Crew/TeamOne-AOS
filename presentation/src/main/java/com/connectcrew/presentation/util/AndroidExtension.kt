@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -30,6 +31,16 @@ fun NavController.safeNavigate(
 fun <T : ViewDataBinding> T.executeAfter(block: T.() -> Unit) {
     block()
     executePendingBindings()
+}
+
+// EditText
+fun TextInputLayout.setTextInputError(editTextState: EditTextState) {
+    if (editTextState is EditTextState.Error) {
+        isErrorEnabled = true
+        error = context.getString(editTextState.stringRes)
+    } else if (editTextState is EditTextState.Success) {
+        isErrorEnabled = false
+    }
 }
 
 // keyboard

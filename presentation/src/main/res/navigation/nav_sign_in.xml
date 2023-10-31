@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sign_in"
+    app:startDestination="@id/signInFragment">
+
+    <action
+        android:id="@+id/action_nav_sign_in_to_activity_main"
+        app:destination="@id/activity_main"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.connectcrew.presentation.screen.feature.sign.signin.SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+
+        <action
+            android:id="@+id/action_signInFragment_to_nav_sign_up"
+            app:destination="@id/nav_sign_up">
+
+            <argument
+                android:name="sign_token_info"
+                app:argType="com.connectcrew.presentation.model.token.TokenInfo"
+                app:nullable="true" />
+
+            <argument
+                android:name="sign_email"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="sign_profile_url"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+    </fragment>
+
+    <include app:graph="@navigation/nav_sign_up" />
+</navigation>

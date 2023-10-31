@@ -119,6 +119,20 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="Widget.TeamOne.TextView.Button1">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button1</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Button2">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button2</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="Widget.TeamOne.TextView.Caption1">
         <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption1</item>
         <item name="android:letterSpacing">-0.02</item>
