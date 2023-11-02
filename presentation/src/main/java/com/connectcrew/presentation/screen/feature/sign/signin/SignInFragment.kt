@@ -1,7 +1,11 @@
 package com.connectcrew.presentation.screen.feature.sign.signin
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.connectcrew.presentation.R
@@ -9,6 +13,14 @@ import com.connectcrew.presentation.databinding.FragmentSignInBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.safeNavigate
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Scope
+import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
@@ -20,6 +32,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
 
     private val signInViewModel: SignInViewModel by viewModels()
 
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var loginLauncher: ActivityResultLauncher<Intent>
+
     private val kakaoCallback: (OAuthToken?, Throwable?) -> Unit = { token, exception ->
         when {
             exception != null -> when {
@@ -28,11 +43,17 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             }
 
             token != null -> UserApiClient.instance.me { user, _ ->
-                user?.let { signInViewModel.validateWithOAuthLogin(token.accessToken, SOCIAL_TYPE_KAKAO) }
-                    ?: signInViewModel.setMessage(R.string.sign_in_kakao_fail)
+                user?.let {
+                    signInViewModel.validateWithOAuthLogin(
+                        token = token.accessToken,
+                        oAuthType = SOCIAL_TYPE_KAKAO,
+                        profileUrl = it.kakaoAccount?.profile?.profileImageUrl,
+                        email = it.kakaoAccount?.email
+                    )
+                } ?: signInViewModel.setMessage(R.string.sign_in_kakao_fail)
             }
 
-            else -> signInViewModel.setMessage(R.string.unknown_error)
+            else -> signInViewModel.setMessage(R.string.sign_in_kakao_fail)
         }
     }
 
@@ -45,6 +66,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
         }
 
         initObserver()
+        initGoogle()
     }
 
     private fun initObserver() {
@@ -62,20 +84,20 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
 
             launch {
                 signInViewModel.navigateToSignInForGoogle.collect {
-                    //TODO:: 구글 로그인 환경설정 후 build 설정
+                    loginLauncher.launch(googleSignInClient.signInIntent)
                 }
             }
 
             launch {
-                signInViewModel.navigateToSignUp.collect {
-                    //TODO:: 회원가입 화면으로 이동
+                signInViewModel.navigateToSignUp.collect { (tokenInfo, email, profileUrl) ->
+                    findNavController().safeNavigate(SignInFragmentDirections.actionSignInFragmentToNavSignUp(tokenInfo, email, profileUrl))
                 }
             }
 
             launch {
                 signInViewModel.navigateToHome.collect {
                     activity?.run {
-                        findNavController().safeNavigate(SignInFragmentDirections.actionSignInFragmentToActivityMain())
+                        findNavController().safeNavigate(SignInFragmentDirections.actionNavSignInToActivityMain())
                         finish()
                     }
                 }
@@ -98,6 +120,48 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
                     showToast(it)
                 }
             }
+        }
+    }
+
+    private fun initGoogle() {
+        val googleClientId = requireContext().getString(R.string.GOOGLE_CLIENT_ID)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestScopes(Scope(Scopes.DRIVE_APPFOLDER))
+            .requestIdToken(googleClientId)
+            .requestServerAuthCode(googleClientId)
+            .requestEmail()
+            .requestProfile()
+            .build()
+
+        loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            signInViewModel.setLoading(false)
+
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleSignInResult(task)
+            } else {
+                signInViewModel.setMessage(R.string.sign_in_google_fail)
+            }
+        }
+
+        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val signInResult = completedTask.getResult(ApiException::class.java)
+            signInResult.serverAuthCode
+                ?.let {
+                    signInViewModel.getAccessTokenForGoogle(
+                        authCode = it,
+                        oAuthType = SOCIAL_TYPE_GOOGLE,
+                        profileUrl = signInResult.photoUrl.toString(),
+                        email = signInResult.email
+                    )
+                }
+                ?: signInViewModel.setMessage(R.string.sign_in_google_fail)
+        } catch (e: ApiException) {
+            signInViewModel.setMessage(R.string.unknown_error)
         }
     }
 

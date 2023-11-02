@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.connectcrew.domain.usecase.sign.SignInUseCase
 import com.connectcrew.domain.usecase.token.GetTokenInfoUseCase
 import com.connectcrew.domain.util.ApiResult
+import com.connectcrew.domain.util.NotFoundException
 import com.connectcrew.domain.util.TeamOneException
-import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.presentation.model.token.asItem
@@ -45,7 +45,8 @@ class IntroViewModel @Inject constructor(
                                     is ApiResult.Success -> _navigateToHome.emit(Unit)
                                     is ApiResult.Error -> when (apiResult.exception) {
                                         is TeamOneException -> when (apiResult.exception) {
-                                            is UnAuthorizedException -> _navigateToSignIn.emit(Unit)
+                                            //TODO:: UnAuthorizedException Exception 시 토큰 갱신
+                                            is NotFoundException -> _navigateToSignIn.emit(Unit)
                                             else -> _navigateToErrorDialog.emit(Unit)
                                         }
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_sign_up"
+    app:startDestination="@id/termsOfUseFragment">
+
+    <fragment
+        android:id="@+id/termsOfUseFragment"
+        android:name="com.connectcrew.presentation.screen.feature.sign.signup.TermsOfUseFragment"
+        tools:layout="@layout/fragment_terms_of_use">
+
+        <action
+            android:id="@+id/action_termsOfUseFragment_to_writeUserNameFragment"
+            app:destination="@id/writeUserNameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_termsOfUseFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/writeUserNameFragment"
+        android:name="com.connectcrew.presentation.screen.feature.sign.signup.WriteUserNameFragment"
+        tools:layout="@layout/fragment_write_user_name">
+
+        <action
+            android:id="@+id/action_writeUserNameFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/termsOfUseFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.connectcrew.presentation.screen.feature.sign.signup.OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding" />
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.connectcrew.presentation.screen.feature.webview.WebViewFragment"
+        tools:layout="@layout/fragment_web_view">
+
+        <argument
+            android:name="web_url"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+</navigation>

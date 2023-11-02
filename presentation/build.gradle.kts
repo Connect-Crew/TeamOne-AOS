@@ -22,6 +22,8 @@ android {
         getByName("debug") {
             resValue("string", "KAKAO_API_KEY", localProperties["KAKAO_API_KEY"].toString())
             resValue("string", "KAKAO_APP_SCHEME", "kakao".plus(localProperties["KAKAO_API_KEY"].toString()))
+
+            resValue("string", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
         }
 
         getByName("release") {
@@ -30,6 +32,8 @@ android {
 
             resValue("string", "KAKAO_API_KEY", localProperties["KAKAO_API_KEY"].toString())
             resValue("string", "KAKAO_APP_SCHEME", "kakao".plus(localProperties["KAKAO_API_KEY"].toString()))
+
+            resValue("string", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
         }
     }
 

@@ -3,6 +3,7 @@
 
     <!-- Common -->
     <string name="common_confirm">확인</string>
+    <string name="common_next">다음</string>
     <string name="common_close">닫기</string>
     <string name="common_exit">종료</string>
 
@@ -27,4 +28,28 @@
 
     <string name="sign_in_google">Google 계정으로 로그인</string>
     <string name="sign_in_google_fail">Google 로그인에 실패했습니다.</string>
+
+    <!-- Terms Of Use -->
+    <string name="terms_of_use_title">약관 동의</string>
+    <string name="terms_of_use_confirm">약관을 확인해 주세요.</string>
+    <string name="terms_of_use_confirm_description">팀원을 보다 안전하고 즐겁게 이용하기 위한 약관이에요. 약관 동의 후 회원가입이 시작됩니다.</string>
+    <string name="terms_of_use_all_agree">전체 동의하기</string>
+    <string name="terms_of_use_for_service">서비스 이용약관</string>
+    <string name="terms_of_use_for_privacy">개인정보 처리방침</string>
+    <string name="terms_of_use_for_community">커뮤니티 정책</string>
+    <string name="terms_of_use_for_ad">광고성 혜택 알림 수신동의 (선택)</string>
+
+    <!-- Write User Name -->
+    <string name="write_user_name_title">회원가입</string>
+    <string name="write_user_name_setting">닉네임을 설정해주세요.</string>
+    <string name="write_user_name_setting_description">팀원에서 사용할 닉네임을 만들어주세요.\n건강한 프로젝트 모임을 만들어 나가요!</string>
+    <string name="write_user_name_nickname">닉네임</string>
+    <string name="write_user_name_nickname_hint">최소 2글자 이상 입력해주세요!</string>
+    <string name="write_user_name_nickname_pattern_error">공백과 특수문자는 들어갈 수 없어요.</string>
+    <string name="write_user_name_nickname_duplicated_error">이미 사용중인 닉네임이에요.</string>
+
+    <!-- OnBoarding -->
+    <string name="onboarding_sign_up_complete">회원가입 완료!</string>
+    <string name="onboarding_sign_up_complete_description">지금 당장\n빛나는 아이디어를 함께할\n팀원들을 모집해보세요!</string>
+    <string name="onboarding_start">시작하기</string>
 </resources>

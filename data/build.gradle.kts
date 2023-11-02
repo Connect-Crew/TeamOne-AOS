@@ -18,6 +18,8 @@ android {
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "API_URL", localProperties["DEV_API_URL"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_ID_DATA", localProperties["GOOGLE_CLIENT_ID_DATA"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_SECRET_DATA", localProperties["GOOGLE_CLIENT_SECRET_DATA"].toString())
         }
 
         getByName("release") {
@@ -25,6 +27,8 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
             buildConfigField("String", "API_URL", localProperties["RELEASE_API_URL"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_ID_DATA", localProperties["GOOGLE_CLIENT_ID_DATA"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_SECRET_DATA", localProperties["GOOGLE_CLIENT_SECRET_DATA"].toString())
         }
     }
 }

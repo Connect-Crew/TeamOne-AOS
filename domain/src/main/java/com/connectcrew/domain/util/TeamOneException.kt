@@ -11,6 +11,12 @@ class UnAuthorizedException(message: String?, throwable: Throwable?) : TeamOneEx
 // HTTP STATUS CODE 403
 class ForbiddenException(message: String?, throwable: Throwable?) : TeamOneException(message, throwable)
 
+// HTTP STATUS CODE 404
+class NotFoundException(message: String?, throwable: Throwable?) : TeamOneException(message, throwable)
+
+// HTTP STATUS CODE 409
+class ConflictException(message: String?, throwable: Throwable?) : TeamOneException(message, throwable)
+
 // HTTP STATUS CODE 500
 class ServerErrorException(message: String?, throwable: Throwable?) : TeamOneException(message, throwable)
 
