@@ -13,6 +13,7 @@ import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,6 +41,7 @@ class IntroViewModel @Inject constructor(
                         signInUseCase(SignInUseCase.Params(tokenInfo.accessToken, tokenInfo.socialType))
                             .asResult()
                             .collect { apiResult ->
+                                delay(1000L)
                                 when (apiResult) {
                                     is ApiResult.Loading -> return@collect
                                     is ApiResult.Success -> _navigateToHome.emit(Unit)
@@ -55,6 +57,7 @@ class IntroViewModel @Inject constructor(
                                 }
                             }
                     } else {
+                        delay(1000L)
                         _navigateToSignIn.emit(Unit)
                     }
                 }

@@ -23,5 +23,15 @@
         <item name="materialAlertDialogTheme">@style/TeamOneAlertDialogTheme</item>
     </style>
 
-    <style name="Theme.TeamOne" parent="Base.Theme.TeamOne" />
+    <style name="Theme.TeamOne" parent="Base.Theme.TeamOne"/>
+
+    <!-- Splash Screen -->
+    <style name="Theme.TeamOne.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.TeamOne</item>
+        <item name="windowSplashScreenBackground">@color/color_primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@color/color_primary</item>
+        <item name="android:statusBarColor">@color/color_primary</item>
+        <item name="android:navigationBarColor">@color/color_primary</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>
