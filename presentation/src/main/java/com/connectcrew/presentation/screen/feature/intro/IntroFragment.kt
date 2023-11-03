@@ -2,6 +2,9 @@ package com.connectcrew.presentation.screen.feature.intro
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.connectcrew.presentation.R
@@ -21,6 +24,7 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        hideSystemUi()
         initObserver()
     }
 
@@ -54,5 +58,23 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
                 }
             }
         }
+    }
+
+    private fun hideSystemUi() {
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
+        WindowInsetsControllerCompat(requireActivity().window, dataBinding.root).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    private fun showSystemUi() {
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
+        WindowInsetsControllerCompat(requireActivity().window, dataBinding.root).show(WindowInsetsCompat.Type.systemBars())
+    }
+
+    override fun onDestroyView() {
+        showSystemUi()
+        super.onDestroyView()
     }
 }

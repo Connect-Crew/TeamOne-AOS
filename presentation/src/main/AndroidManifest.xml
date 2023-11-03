@@ -16,7 +16,8 @@
         <activity
             android:name=".screen.feature.intro.IntroActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TeamOne.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
