@@ -2,18 +2,20 @@ package com.connectcrew.data.datasource.sign.remote
 
 import com.connectcrew.data.BuildConfig
 import com.connectcrew.data.model.user.asEntity
-import com.connectcrew.data.service.ServiceApi
+import com.connectcrew.data.service.AuthApi
+import com.connectcrew.data.service.ExternalApi
 import com.connectcrew.data.util.converterException
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import javax.inject.Inject
 
 internal class SignRemoteDataSourceImpl @Inject constructor(
-    private val serviceApi: ServiceApi
+    private val authApi: AuthApi,
+    private val externalApi: ExternalApi
 ) : SignRemoteDataSource {
 
     override suspend fun signIn(accessToken: String, socialType: String): UserEntity {
         return try {
-            serviceApi.signInForOauth(
+            authApi.signInForOauth(
                 mapOf(
                     KEY_TOKEN to accessToken,
                     KEY_SOCIAL_TYPE to socialType
@@ -34,7 +36,7 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
         isAdNotificationAgree: Boolean
     ): UserEntity {
         return try {
-            serviceApi.signUpForOauth(
+            authApi.signUpForOauth(
                 mapOf(
                     KEY_TOKEN to accessToken,
                     KEY_SOCIAL_TYPE to socialType,
@@ -55,7 +57,7 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getGoogleTokenInfo(authCode: String): String {
         return try {
-            serviceApi.getGoogleAccessToken(
+            externalApi.getGoogleAccessToken(
                 mapOf(
                     KEY_GOOGLE_GRANT_TYPE to "authorization_code",
                     KEY_GOOGLE_CLIENT_ID to BuildConfig.GOOGLE_CLIENT_ID_DATA,
