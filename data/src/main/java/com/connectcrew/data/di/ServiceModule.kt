@@ -1,18 +1,18 @@
 package com.connectcrew.data.di
 
 import com.connectcrew.data.BuildConfig
-import com.connectcrew.data.service.ServiceApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Call
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -44,10 +44,29 @@ internal object ServiceModule {
             .build()
     }
 
+    @Provides
+    fun provideHeaderInterceptor(): Interceptor = Interceptor { chain ->
+        chain.proceed(chain.addDeviceTypeToHeader())
+    }
+
+    @TeamOneApiOkHttpCallFactory
     @Singleton
-    @Named("ApiOkHttpCallFactory")
     @Provides
     fun provideApiOkHttpCallFactory(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        headerInterceptor: Interceptor,
+    ): Call.Factory = OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.MINUTES)
+        .readTimeout(10, TimeUnit.MINUTES)
+        .writeTimeout(10, TimeUnit.MINUTES)
+        .addInterceptor(headerInterceptor)
+        .addInterceptor(httpLoggingInterceptor)
+        .build()
+
+    @NormalApiOkHttpCallFactory
+    @Singleton
+    @Provides
+    fun provideNormalApiOkHttpCallFactory(
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): Call.Factory = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.MINUTES)
@@ -56,16 +75,34 @@ internal object ServiceModule {
         .addInterceptor(httpLoggingInterceptor)
         .build()
 
+    @TeamOneApi
     @Singleton
     @Provides
     fun provideRetrofit(
-        @Named("ApiOkHttpCallFactory") okHttpCallFactory: Call.Factory
-    ): ServiceApi {
+        @TeamOneApiOkHttpCallFactory okHttpCallFactory: Call.Factory
+    ): Retrofit {
         return Retrofit.Builder()
             .callFactory(okHttpCallFactory)
             .addConverterFactory(MoshiConverterFactory.create().withNullSerialization())
             .baseUrl(BuildConfig.API_URL)
             .build()
-            .create(ServiceApi::class.java)
     }
+
+    @NormalApi
+    @Singleton
+    @Provides
+    fun provideRetrofitWithoutHeader(
+        @NormalApiOkHttpCallFactory okHttpCallFactory: Call.Factory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .callFactory(okHttpCallFactory)
+            .addConverterFactory(MoshiConverterFactory.create().withNullSerialization())
+            .baseUrl(BuildConfig.API_URL)
+            .build()
+    }
+
+    private fun Interceptor.Chain.addDeviceTypeToHeader(): Request = this.request().newBuilder()
+        .addHeader("device", "aOS")
+        .addHeader("version", BuildConfig.VERSION_NAME)
+        .build()
 }

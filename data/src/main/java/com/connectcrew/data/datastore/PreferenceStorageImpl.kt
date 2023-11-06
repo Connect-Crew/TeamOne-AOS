@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.connectcrew.data.datastore.PreferenceStorageImpl.PreferenceKeys.PREF_AUTH_LOGIN_TYPE
 import com.connectcrew.data.datastore.PreferenceStorageImpl.PreferenceKeys.PREF_AUTH_TOKEN
 import com.connectcrew.data.datastore.PreferenceStorageImpl.PreferenceKeys.PREF_USER
 import com.connectcrew.data.model.user.User
@@ -15,6 +14,7 @@ import com.connectcrew.domain.preference.PreferenceStorage
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 
 internal class PreferenceStorageImpl @Inject constructor(
@@ -29,7 +29,6 @@ internal class PreferenceStorageImpl @Inject constructor(
 
     object PreferenceKeys {
         val PREF_AUTH_TOKEN = stringPreferencesKey("pref_auth_token")
-        val PREF_AUTH_LOGIN_TYPE = stringPreferencesKey("pref_auth_login_type")
         val PREF_USER = stringPreferencesKey("pref_user")
     }
 
@@ -39,17 +38,12 @@ internal class PreferenceStorageImpl @Inject constructor(
 
     override val token: Flow<String?> = userPreferences.data.map { it[PREF_AUTH_TOKEN] }
 
-    override suspend fun saveSocialType(socialType: String) {
-        userPreferences.edit { it[PREF_AUTH_LOGIN_TYPE] = socialType }
-    }
-
-    override val socialType: Flow<String?> = userPreferences.data.map { it[PREF_AUTH_LOGIN_TYPE] }
-
     override suspend fun saveUser(user: UserEntity) {
         userPreferences.edit {
             it[PREF_USER] = try {
                 JsonUtil.getAdapter<User>().toJson(user.asExternalModel())
-            } catch (exception: Exception) {
+            } catch (e: Exception) {
+                Timber.e("Set User Exception $e")
                 ""
             }
         }
@@ -59,6 +53,7 @@ internal class PreferenceStorageImpl @Inject constructor(
         try {
             JsonUtil.getAdapter<User>().fromJson(it[PREF_USER] ?: "")?.asEntity()
         } catch (e: Exception) {
+            Timber.e("Get User Exception $e")
             null
         }
     }

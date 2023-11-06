@@ -19,6 +19,9 @@
     <string name="menu_my_team">나의 팀</string>
     <string name="menu_my_page">마이페이지</string>
 
+    <!-- Intro -->
+    <string name="intro_title">TEAM no.1</string>
+
     <!-- Sign In -->
     <string name="sign_in_introduction">함께 만들어가는\n프로젝트, 팀 원</string>
 
@@ -52,7 +55,4 @@
     <string name="onboarding_sign_up_complete">회원가입 완료!</string>
     <string name="onboarding_sign_up_complete_description">지금 당장\n빛나는 아이디어를 함께할\n팀원들을 모집해보세요!</string>
     <string name="onboarding_start">시작하기</string>
-
-    <!-- Intro -->
-    <string name="intro_title">TEAM no.1</string>
 </resources>

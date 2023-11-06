@@ -13,12 +13,13 @@
             android:id="@+id/iv_splash"
             android:layout_width="237dp"
             android:layout_height="237dp"
-            android:layout_marginTop="240dp"
-            android:tint="@android:color/white"
             android:src="@drawable/ic_team_one_logo"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/tv_splash"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_splash"
@@ -28,9 +29,9 @@
             android:layout_marginTop="25dp"
             android:text="@string/intro_title"
             android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/iv_splash"
             app:layout_constraintStart_toStartOf="@id/iv_splash"
             app:layout_constraintTop_toBottomOf="@id/iv_splash" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

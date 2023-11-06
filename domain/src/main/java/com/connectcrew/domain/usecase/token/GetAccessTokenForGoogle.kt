@@ -1,7 +1,8 @@
-package com.connectcrew.domain.usecase.sign
+package com.connectcrew.domain.usecase.token
 
 import com.connectcrew.domain.di.IoDispatcher
 import com.connectcrew.domain.usecase.FlowUseCase
+import com.connectcrew.domain.usecase.sign.SignRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
