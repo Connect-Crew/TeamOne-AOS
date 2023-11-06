@@ -8,5 +8,4 @@ data class UserEntity(
     val nickname: String,
     val profile: String?,
     val email: String?,
-    val isNewUser: Boolean
 ) : Entity

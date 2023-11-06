@@ -1,26 +1,21 @@
 package com.connectcrew.presentation.screen.feature.intro
 
 import androidx.lifecycle.viewModelScope
-import com.connectcrew.domain.usecase.sign.SignInUseCase
-import com.connectcrew.domain.usecase.token.GetTokenInfoUseCase
+import com.connectcrew.domain.usecase.user.ObserveUserInfoUseCase
 import com.connectcrew.domain.util.ApiResult
-import com.connectcrew.domain.util.NotFoundException
-import com.connectcrew.domain.util.TeamOneException
 import com.connectcrew.domain.util.asResult
-import com.connectcrew.domain.util.data
-import com.connectcrew.presentation.model.token.asItem
+import com.connectcrew.presentation.model.user.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class IntroViewModel @Inject constructor(
-    private val getTokenInfoUseCase: GetTokenInfoUseCase,
-    private val signInUseCase: SignInUseCase
+    private val observeUserInfoUseCase: ObserveUserInfoUseCase,
 ) : BaseViewModel() {
 
     private val _navigateToHome = MutableEventFlow<Unit>()
@@ -34,31 +29,22 @@ class IntroViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getTokenInfoUseCase(Unit).data
-                ?.asItem()
-                ?.let { tokenInfo ->
-                    if (!tokenInfo.accessToken.isNullOrBlank() && !tokenInfo.socialType.isNullOrBlank()) {
-                        signInUseCase(SignInUseCase.Params(tokenInfo.accessToken, tokenInfo.socialType))
-                            .asResult()
-                            .collect { apiResult ->
-                                delay(1000L)
-                                when (apiResult) {
-                                    is ApiResult.Loading -> return@collect
-                                    is ApiResult.Success -> _navigateToHome.emit(Unit)
-                                    is ApiResult.Error -> when (apiResult.exception) {
-                                        is TeamOneException -> when (apiResult.exception) {
-                                            //TODO:: UnAuthorizedException Exception 시 토큰 갱신
-                                            is NotFoundException -> _navigateToSignIn.emit(Unit)
-                                            else -> _navigateToErrorDialog.emit(Unit)
-                                        }
-
-                                        else -> _navigateToErrorDialog.emit(Unit)
-                                    }
-                                }
+            //::TODO 유저 정보 조회 API 호출하기 (현재 백엔드 작업 중)
+            observeUserInfoUseCase(Unit)
+                .asResult()
+                .debounce(1000)
+                .collect {
+                    when (it) {
+                        is ApiResult.Loading -> return@collect
+                        is ApiResult.Success -> {
+                            if (it.data?.asItem() == null) {
+                                _navigateToSignIn.emit(Unit)
+                            } else {
+                                _navigateToHome.emit(Unit)
                             }
-                    } else {
-                        delay(1000L)
-                        _navigateToSignIn.emit(Unit)
+                        }
+
+                        is ApiResult.Error -> _navigateToSignIn.emit(Unit)
                     }
                 }
         }

@@ -8,7 +8,6 @@ data class User(
     val nickname: String,
     val profile: String?,
     val email: String?,
-    val isNewUser: Boolean
 )
 
 fun UserEntity.asItem(): User {
@@ -18,6 +17,5 @@ fun UserEntity.asItem(): User {
         nickname = nickname,
         profile = profile,
         email = email,
-        isNewUser = isNewUser
     )
 }

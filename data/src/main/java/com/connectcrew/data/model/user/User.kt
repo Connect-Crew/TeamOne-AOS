@@ -15,9 +15,7 @@ internal data class User(
     @Json(name = "profile")
     val profile: String?,
     @Json(name = "email")
-    val email: String?,
-    @Json(name = "isNewUser")
-    val isNewUser: Boolean
+    val email: String?
 )
 
 internal fun User.asEntity(): UserEntity {
@@ -27,7 +25,6 @@ internal fun User.asEntity(): UserEntity {
         nickname = nickname,
         profile = profile,
         email = email,
-        isNewUser = isNewUser
     )
 }
 
@@ -38,6 +35,5 @@ internal fun UserEntity.asExternalModel(): User {
         nickname = nickname,
         profile = profile,
         email = email,
-        isNewUser = isNewUser
     )
 }

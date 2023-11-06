@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.connectcrew.teamone.convention.TeamOneConfig
 
 plugins {
     id("teamone.android.library")
@@ -13,6 +14,7 @@ android {
         namespace = "com.connectcrew.data"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "VERSION_NAME", "\"${TeamOneConfig.versionName}\"")
     }
 
     buildTypes {

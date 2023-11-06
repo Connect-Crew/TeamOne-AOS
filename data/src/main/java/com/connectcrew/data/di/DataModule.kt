@@ -1,11 +1,13 @@
 package com.connectcrew.data.di
 
-import com.connectcrew.data.datasource.sign.local.SignLocalDataSource
-import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSource
 import com.connectcrew.data.datasource.sign.SignRepositoryImpl
-import com.connectcrew.data.datasource.sign.local.SignLocalDataSourceImpl
+import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSource
 import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSourceImpl
+import com.connectcrew.data.datasource.token.TokenRepositoryImpl
+import com.connectcrew.data.datasource.token.remote.TokenRemoteDataSource
+import com.connectcrew.data.datasource.token.remote.TokenRemoteDataSourceImpl
 import com.connectcrew.domain.usecase.sign.SignRepository
+import com.connectcrew.domain.usecase.token.TokenRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,5 +28,9 @@ internal abstract class DataModule {
 
     @Singleton
     @Binds
-    abstract fun bindSignLocalDataSource(sinLocalDataSourceImpl: SignLocalDataSourceImpl): SignLocalDataSource
+    abstract fun bindTokenRepository(tokenRepositoryImpl: TokenRepositoryImpl): TokenRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindTokenRemoteDataSource(tokenRemoteDataSourceImpl: TokenRemoteDataSourceImpl): TokenRemoteDataSource
 }
