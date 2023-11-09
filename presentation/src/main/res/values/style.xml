@@ -9,6 +9,13 @@
         <item name="itemTextColor">@color/selected_bottom_menu</item>
     </style>
 
+    <!-- Toolbar -->
+    <style name="Widget.Teamone.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/color_424242</item>
+        <item name="titleTextAppearance">@style/TextAppearance.TeamOne.Title1</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
     <!-- Alert Dialog -->
     <style name="TextAppearance.TeamOne.Dialog.Alert.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:fontFamily">@font/font_bold</item>

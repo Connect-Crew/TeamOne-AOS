@@ -6,8 +6,6 @@
 
     <include app:graph="@navigation/nav_home" />
 
-    <include app:graph="@navigation/nav_community" />
-
     <include app:graph="@navigation/nav_team_recruitment" />
 
     <include app:graph="@navigation/nav_my_team" />

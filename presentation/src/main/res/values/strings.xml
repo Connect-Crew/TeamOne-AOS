@@ -6,6 +6,8 @@
     <string name="common_next">다음</string>
     <string name="common_close">닫기</string>
     <string name="common_exit">종료</string>
+    <string name="common_refresh">새로고침</string>
+    <string name="common_online">온라인</string>
 
     <!-- Common Error -->
     <string name="network_error_title">접속 실패</string>
@@ -14,10 +16,22 @@
 
     <!-- Bottom Menu -->
     <string name="menu_home">홈</string>
-    <string name="menu_community">커뮤니티</string>
     <string name="menu_team_recruitment">모집</string>
     <string name="menu_my_team">나의 팀</string>
     <string name="menu_my_page">마이페이지</string>
+
+    <!-- Category -->
+    <string name="category_all">전체</string>
+    <string name="category_develop">개발</string>
+    <string name="category_plan">기획</string>
+    <string name="category_design">디자인</string>
+    <string name="category_marketing">마케팅</string>
+    <string name="category_sales">영업</string>
+    <string name="category_cs">고객서비스</string>
+    <string name="category_professional">전문직</string>
+    <string name="category_engineering">엔지니어링</string>
+    <string name="category_media">미디어</string>
+    <string name="category_etc">기타</string>
 
     <!-- Intro -->
     <string name="intro_title">TEAM no.1</string>
@@ -55,4 +69,13 @@
     <string name="onboarding_sign_up_complete">회원가입 완료!</string>
     <string name="onboarding_sign_up_complete_description">지금 당장\n빛나는 아이디어를 함께할\n팀원들을 모집해보세요!</string>
     <string name="onboarding_start">시작하기</string>
+
+    <!-- Home -->
+    <string name="home_menu_title">모집</string>
+    <string name="home_menu_notification">알림</string>
+    <string name="home_menu_filter">필터</string>
+    <string name="home_menu_search">검색</string>
+    <string name="home_banner_title">프로젝트 구경하러 가기 (준비 중)</string>
+    <string name="home_banner_description">이번 달에 완성된 프로젝트를 구경하고\n직접 커피챗을 보내보세요!</string>
+    <string name="home_empty_project">지원할 프로젝트가 없습니다.</string>
 </resources>
