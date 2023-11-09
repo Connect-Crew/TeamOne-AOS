@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TeamOne" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Base.Theme.TeamOne" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color-->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorOnPrimary">@android:color/white</item>
@@ -19,11 +19,15 @@
         <!-- Bottom Navigation -->
         <item name="bottomNavigationStyle">@style/Widget.TeamOne.BottomNavigation</item>
 
+        <!-- Menu Style -->
+        <item name="actionMenuTextAppearance">@style/TextAppearance.TeamOne.Body3</item>
+        <item name="toolbarStyle">@style/Widget.Teamone.Toolbar</item>
+
         <!-- Alert Dialog -->
         <item name="materialAlertDialogTheme">@style/TeamOneAlertDialogTheme</item>
     </style>
 
-    <style name="Theme.TeamOne" parent="Base.Theme.TeamOne"/>
+    <style name="Theme.TeamOne" parent="Base.Theme.TeamOne" />
 
     <!-- Splash Screen -->
     <style name="Theme.TeamOne.Splash" parent="Theme.SplashScreen">

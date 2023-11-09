@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.base.BaseViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_network_error_title"
+            style="@style/Widget.TeamOne.TextView.Title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/network_error_title"
+            app:layout_constraintBottom_toTopOf="@id/tv_network_error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_network_error"
+            style="@style/Widget.TeamOne.TextView.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/network_error"
+            android:textColor="@color/color_424242"
+            app:layout_constraintBottom_toTopOf="@id/btn_network_error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_network_error_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_network_error"
+            style="@style/Widget.TeamOne.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/common_refresh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_network_error"
+            app:onSingleClick="@{() -> viewModel.onRefresh()}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
