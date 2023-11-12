@@ -31,15 +31,14 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?colorPrimary"
-                app:shapeAppearance="?shapeAppearanceLargeComponent" />
+                android:background="@color/color_1ca3d4"
+                app:shapeAppearance="@style/ShapeAppearance.TeamOne.LargeComponent.rectangle" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="18dp"
-                android:src="@drawable/ic_team_one_logo"
-                app:tint="@android:color/white" />
+                android:src="@drawable/ic_team_one_logo" />
         </FrameLayout>
 
         <TextView
@@ -75,9 +74,9 @@
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="24dp"
             android:text="@string/onboarding_start"
-            app:onSingleClick="@{()-> viewModel.navigateToHome()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onSingleClick="@{()-> viewModel.navigateToHome()}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

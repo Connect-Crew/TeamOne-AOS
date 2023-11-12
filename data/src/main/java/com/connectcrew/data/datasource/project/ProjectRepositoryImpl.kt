@@ -24,4 +24,8 @@ internal class ProjectRepositoryImpl @Inject constructor(
     ): List<ProjectFeedEntity> {
         return remoteDataSource.getProjectFeeds(accessToken, lastId, loadSize, goal, career, region, isOnline, part, skills, states, category)
     }
+
+    override suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean {
+        return remoteDataSource.setProjectLike(accessToken, projectId)
+    }
 }
