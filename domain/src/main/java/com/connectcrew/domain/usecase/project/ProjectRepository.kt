@@ -17,4 +17,6 @@ interface ProjectRepository {
         states: String?,
         category: String?
     ): List<ProjectFeedEntity>
+
+    suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean
 }

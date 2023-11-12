@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Button -->
     <style name="Widget.TeamOne.Button" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearance">?shapeAppearanceSmallComponent</item>
         <item name="android:layout_height">60dp</item>
@@ -16,6 +17,7 @@
         <item name="elevation">0dp</item>
     </style>
 
+    <!-- TextField -->
     <style name="Widget.TeamOne.TextInputLayout.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:padding">0dp</item>
         <item name="hintEnabled">false</item>
@@ -31,5 +33,21 @@
         <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Body1</item>
         <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body1</item>
         <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
+
+    <!-- Chip -->
+    <style name="Widget.TeamOne.Chip.ProjectFeed" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:clickable">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="android:textColor">@color/color_616161</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="maxLines">1</item>
+        <item name="closeIconVisible">false</item>
+        <item name="chipBackgroundColor">@color/color_eeeeee</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipMinHeight">17dp</item>
+        <item name="chipMinTouchTargetSize">17dp</item>
     </style>
 </resources>

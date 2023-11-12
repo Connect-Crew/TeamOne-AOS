@@ -10,7 +10,7 @@ import com.connectcrew.presentation.model.user.asItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
@@ -63,6 +63,6 @@ class SignViewModelDelegateImpl @Inject constructor(
     }
 
     override suspend fun refreshUserToken() {
-        getUpdatedTokenUseCase(Unit).asResult().first()
+        getUpdatedTokenUseCase(Unit).asResult().collect()
     }
 }

@@ -1,8 +1,10 @@
 package com.connectcrew.data.model.project
 
+import com.connectcrew.data.util.convertToDateTime
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.time.ZonedDateTime
 
 @JsonClass(generateAdapter = true)
 internal data class ProjectFeed(
@@ -49,9 +51,9 @@ internal fun ProjectFeed.asEntity(): ProjectFeedEntity {
         isOnline = isOnline,
         careerMin = careerMin,
         careerMax = careerMax,
-        createdAt = createdAt,
-        startDate = startDate,
-        endDate = endDate,
+        createdAt = createdAt.convertToDateTime() ?: ZonedDateTime.now().toString(),
+        startDate = startDate.convertToDateTime(),
+        endDate = endDate.convertToDateTime(),
         state = state,
         likeCount = likeCount,
         category = category,
