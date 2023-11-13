@@ -15,8 +15,7 @@ internal interface SignRemoteDataSource {
         username: String?,
         nickname: String,
         email: String?,
-        profileUrl: String?,
-        isAdNotificationAgree: Boolean
+        profileUrl: String?
     ): UserEntity
 
     suspend fun getGoogleTokenInfo(authCode: String): String

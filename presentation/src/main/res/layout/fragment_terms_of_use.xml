@@ -90,11 +90,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
-                        android:onClick="@{() -> viewModel.setTermsOfUseAllAgree(!(viewModel.isTermsOfUseForService &amp;&amp; viewModel.isTermsOfUseForPrivacy &amp;&amp; viewModel.isTermsOfUseForCommunity &amp;&amp; viewModel.isTermsOfUseForAd))}"
+                        android:onClick="@{() -> viewModel.setTermsOfUseAllAgree(!(viewModel.isTermsOfUseForService &amp;&amp; viewModel.isTermsOfUseForPrivacy))}"
                         android:src="@drawable/ic_check"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_terms_confirm_description"
-                        app:selected="@{viewModel.isTermsOfUseForService &amp;&amp; viewModel.isTermsOfUseForPrivacy &amp;&amp; viewModel.isTermsOfUseForCommunity &amp;&amp; viewModel.isTermsOfUseForAd}"
+                        app:selected="@{viewModel.isTermsOfUseForService &amp;&amp; viewModel.isTermsOfUseForPrivacy}"
                         app:tint="@color/selected_checked" />
 
                     <TextView
@@ -205,93 +205,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/ll_terms_for_privacy"
                         app:onSingleClick="@{()-> viewModel.navigateToTermsOfUseDetail(Const.URL_TERMS_OF_USE_FOR_PRIVACY)}" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_terms_for_community"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:onClick="@{()-> viewModel.setTermsOfUseForCommunity(!viewModel.isTermsOfUseForCommunity)}"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp"
-                        app:layout_constraintEnd_toStartOf="@id/iv_terms_for_community"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ll_terms_for_privacy">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="26dp"
-                            android:src="@drawable/ic_check"
-                            android:tint="@color/selected_checked"
-                            app:selected="@{viewModel.isTermsOfUseForCommunity}" />
-
-                        <TextView
-                            style="@style/Widget.TeamOne.TextView.Button2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="8dp"
-                            android:layout_weight="1"
-                            android:text="@string/terms_of_use_for_community"
-                            android:textColor="@color/color_424242" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_terms_for_community"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:rotation="180"
-                        android:src="@drawable/ic_arrow"
-                        app:layout_constraintBottom_toBottomOf="@id/ll_terms_for_community"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/ll_terms_for_community"
-                        app:onSingleClick="@{()-> viewModel.navigateToTermsOfUseDetail(Const.URL_TERMS_OF_USE_FOR_COMMUNITY)}" />
-
-
-                    <LinearLayout
-                        android:id="@+id/ll_terms_for_ad"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:onClick="@{()-> viewModel.setTermsOfUseForAd(!viewModel.isTermsOfUseForAd)}"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/iv_terms_for_ad"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ll_terms_for_community"
-                        app:layout_constraintVertical_bias="0">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="26dp"
-                            android:src="@drawable/ic_check"
-                            android:tint="@color/selected_checked"
-                            app:selected="@{viewModel.isTermsOfUseForAd}" />
-
-                        <TextView
-                            style="@style/Widget.TeamOne.TextView.Button2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="8dp"
-                            android:layout_weight="1"
-                            android:text="@string/terms_of_use_for_ad"
-                            android:textColor="@color/color_424242" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_terms_for_ad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:rotation="180"
-                        android:src="@drawable/ic_arrow"
-                        app:layout_constraintBottom_toBottomOf="@id/ll_terms_for_ad"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/ll_terms_for_ad"
-                        app:onSingleClick="@{()-> viewModel.navigateToTermsOfUseDetail(Const.URL_TERMS_OF_USE_FOR_AD)}" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 

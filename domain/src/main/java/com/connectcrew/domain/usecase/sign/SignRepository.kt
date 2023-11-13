@@ -6,7 +6,7 @@ interface SignRepository {
 
     suspend fun signIn(accessToken: String, socialType: String): UserEntity
 
-    suspend fun signUp(accessToken: String, socialType: String, userName: String?, nickname: String, email: String?, profileUrl: String?, isAdNotificationAgree: Boolean): UserEntity
+    suspend fun signUp(accessToken: String, socialType: String, userName: String?, nickname: String, email: String?, profileUrl: String?): UserEntity
 
     suspend fun getGoogleTokenInfo(authCode: String) : String
 }

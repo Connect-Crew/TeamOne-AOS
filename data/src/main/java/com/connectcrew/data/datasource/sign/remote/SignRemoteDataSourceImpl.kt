@@ -32,8 +32,7 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
         username: String?,
         nickname: String,
         email: String?,
-        profileUrl: String?,
-        isAdNotificationAgree: Boolean
+        profileUrl: String?
     ): UserEntity {
         return try {
             authApi.signUpForOauth(
@@ -45,9 +44,7 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
                     KEY_EMAIL to email,
                     KEY_PROFILE to profileUrl,
                     KEY_TERMS_AGREEMENT to true,
-                    KEY_PRIVACY_AGREEMENT to true,
-                    KEY_COMMUNITY_POLICY_AGREEMENT to true,
-                    KEY_AD_NOTIFICATION_AGREEMENT to isAdNotificationAgree
+                    KEY_PRIVACY_AGREEMENT to true
                 )
             ).asEntity()
         } catch (e: Exception) {
@@ -80,8 +77,6 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
         private const val KEY_PROFILE = "profile"
         private const val KEY_TERMS_AGREEMENT = "termsAgreement"
         private const val KEY_PRIVACY_AGREEMENT = "privacyAgreement"
-        private const val KEY_COMMUNITY_POLICY_AGREEMENT = "communityPolicyAgreement"
-        private const val KEY_AD_NOTIFICATION_AGREEMENT = "adNotificationAgreement"
 
         private const val KEY_GOOGLE_GRANT_TYPE = "grant_type"
         private const val KEY_GOOGLE_CLIENT_ID = "client_id"
