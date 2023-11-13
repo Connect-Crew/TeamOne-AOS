@@ -22,10 +22,9 @@ internal class SignRepositoryImpl @Inject constructor(
         userName: String?,
         nickname: String,
         email: String?,
-        profileUrl: String?,
-        isAdNotificationAgree: Boolean
+        profileUrl: String?
     ): UserEntity {
-        return remoteDataSource.signUp(accessToken, socialType, userName, nickname, email, profileUrl, isAdNotificationAgree)
+        return remoteDataSource.signUp(accessToken, socialType, userName, nickname, email, profileUrl)
             .also { saveUserInfo(it) }
     }
 

@@ -21,8 +21,7 @@ class SignUpUseCase @Inject constructor(
                 userName = params.userName,
                 nickname = params.nickname,
                 email = params.email,
-                profileUrl = params.profileUrl,
-                isAdNotificationAgree = params.isAdNotificationAgree
+                profileUrl = params.profileUrl
             )
         )
     }
@@ -33,7 +32,6 @@ class SignUpUseCase @Inject constructor(
         val userName: String? = null,
         val nickname: String,
         val email: String?,
-        val profileUrl: String?,
-        val isAdNotificationAgree: Boolean,
+        val profileUrl: String?
     )
 }
