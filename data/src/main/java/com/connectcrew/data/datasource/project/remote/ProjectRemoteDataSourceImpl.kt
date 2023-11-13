@@ -43,4 +43,19 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
             throw converterException(e)
         }
     }
+
+    override suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean {
+        return try {
+            projectApi.setProjectLike(
+                accessToken = accessToken.convertToAccessToken(),
+                params = mapOf(KEY_PROJECT_ID to projectId)
+            ).isLike
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    companion object {
+        private const val KEY_PROJECT_ID = "projectId"
+    }
 }

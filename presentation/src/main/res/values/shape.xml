@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ShapeAppearance.TeamOne.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <style name="ShapeAppearance.TeamOne.LargeComponent.circle" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearance.TeamOne.LargeComponent.rectangle" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
     </style>
 
     <style name="ShapeAppearance.TeamOne.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">

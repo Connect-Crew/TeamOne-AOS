@@ -1,15 +1,15 @@
 package com.connectcrew.presentation.model.project
 
-enum class ProjectCategoryType(val type: String) {
-    CATEGORY_ALL("all"),
-    CATEGORY_DEVELOP("develop"),
-    CATEGORY_PLAN("plan"),
-    CATEGORY_DESIGN("design"),
-    CATEGORY_MARKETING("marketing"),
-    CATEGORY_SALES("sales"),
-    CATEGORY_CS("service"),
-    CATEGORY_PROFESSIONAL("professional"),
-    CATEGORY_ENGINEERING("engineering"),
-    CATEGORY_MEDIA("media"),
-    CATEGORY_ETC("etc"),
+enum class ProjectCategoryType(val type: String?) {
+    CATEGORY_ALL(null),
+    CATEGORY_DEVELOP("TOTAL_DEVELOP"),
+    CATEGORY_PLAN("TOTAL_MANAGER"),
+    CATEGORY_DESIGN("TOTAL_DESIGN"),
+    CATEGORY_MARKETING("TOTAL_MARKETING"),
+    CATEGORY_SALES("TOTAL_SALES"),
+    CATEGORY_CS("TOTAL_CUSTOMER"),
+    CATEGORY_PROFESSIONAL("TOTAL_SPECIAL"),
+    CATEGORY_ENGINEERING("TOTAL_ENGINEER"),
+    CATEGORY_MEDIA("TOTAL_MEDIA"),
+    CATEGORY_ETC("ETC"),
 }

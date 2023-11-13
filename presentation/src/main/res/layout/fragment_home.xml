@@ -99,13 +99,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/color_background"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@android:color/white"
                 android:clipToPadding="false"
+                android:elevation="1dp"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +123,9 @@
                 android:id="@+id/rv_project_feed"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="20dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -138,11 +145,13 @@
                 app:layout_constraintTop_toBottomOf="@id/rv_category"
                 app:layout_constraintVertical_bias="0.3">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_team_one_logo" />
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_team_one_logo_gray"
+                    app:shapeAppearance="@style/ShapeAppearance.TeamOne.SmallComponent" />
 
                 <TextView
                     style="@style/Widget.TeamOne.TextView.Body3"
@@ -150,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:text="@string/home_empty_project"
-                    android:textColor="@color/color_00aee4" />
+                    android:textColor="@color/color_9e9e9e" />
             </LinearLayout>
 
             <ProgressBar

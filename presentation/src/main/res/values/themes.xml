@@ -14,7 +14,7 @@
         <!-- Shape -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.TeamOne.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.TeamOne.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TeamOne.LargeComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TeamOne.LargeComponent.circle</item>
 
         <!-- Bottom Navigation -->
         <item name="bottomNavigationStyle">@style/Widget.TeamOne.BottomNavigation</item>
@@ -25,6 +25,9 @@
 
         <!-- Alert Dialog -->
         <item name="materialAlertDialogTheme">@style/TeamOneAlertDialogTheme</item>
+
+        <!-- Chip -->
+        <item name="ProjectFeedChipStyle">@style/Widget.TeamOne.Chip.ProjectFeed</item>
     </style>
 
     <style name="Theme.TeamOne" parent="Base.Theme.TeamOne" />
