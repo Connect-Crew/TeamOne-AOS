@@ -3,9 +3,10 @@ package com.connectcrew.presentation.model.user
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 
 data class User(
-    val id: Int,
     val accessToken: String,
     val refreshToken: String,
+
+    val id: Int,
     val nickname: String,
     val profile: String?,
     val email: String?,

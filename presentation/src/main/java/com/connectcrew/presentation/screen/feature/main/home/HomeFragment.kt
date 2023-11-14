@@ -25,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -80,7 +81,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             rvProjectFeed.apply {
                 setHasFixedSize(true)
                 adapter = homeProjectFeedAdapter.withLoadStateFooter(TeamOneLoadAdapter { homeProjectFeedAdapter.retry() })
-                layoutManager = if (resources.equals(R.bool.isTablet)) {
+                layoutManager = if (resources.getBoolean(R.bool.isTablet)) {
                     GridLayoutManager(requireContext(), 2).apply {
                         isMeasurementCacheEnabled = false
                         this.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
