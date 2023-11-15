@@ -3,6 +3,9 @@ package com.connectcrew.data.di
 import com.connectcrew.data.datasource.project.ProjectRepositoryImpl
 import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSource
 import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSourceImpl
+import com.connectcrew.data.datasource.searchhistory.SearchHistoryRepositoryImpl
+import com.connectcrew.data.datasource.searchhistory.local.SearchHistoryLocalDataSource
+import com.connectcrew.data.datasource.searchhistory.local.SearchHistoryLocalDataSourceImpl
 import com.connectcrew.data.datasource.sign.SignRepositoryImpl
 import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSource
 import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSourceImpl
@@ -13,6 +16,7 @@ import com.connectcrew.data.datasource.user.UserRepositoryImpl
 import com.connectcrew.data.datasource.user.remote.UserRemoteDataSource
 import com.connectcrew.data.datasource.user.remote.UserRemoteDataSourceImpl
 import com.connectcrew.domain.usecase.project.ProjectRepository
+import com.connectcrew.domain.usecase.searchhistory.SearchHistoryRepository
 import com.connectcrew.domain.usecase.sign.SignRepository
 import com.connectcrew.domain.usecase.token.TokenRepository
 import com.connectcrew.domain.usecase.user.UserRepository
@@ -57,4 +61,12 @@ internal abstract class DataModule {
     @Singleton
     @Binds
     abstract fun bindProjectRemoteDataSource(projectRemoteDataSourceImpl: ProjectRemoteDataSourceImpl): ProjectRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindSearchHistoryRepository(searchHistoryRepositoryImpl: SearchHistoryRepositoryImpl): SearchHistoryRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindSearchHistoryLocalDataSource(searchHistoryLocalDataSourceImpl: SearchHistoryLocalDataSourceImpl): SearchHistoryLocalDataSource
 }

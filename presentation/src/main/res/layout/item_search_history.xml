@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_search_history_clock"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginVertical="10dp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/color_9e9e9e" />
+
+        <TextView
+            android:id="@+id/tv_search_history"
+            style="@style/Widget.TeamOne.TextView.Button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:maxLines="1"
+            android:textColor="@color/color_9e9e9e"
+            app:layout_constraintBottom_toBottomOf="@id/iv_search_history_clock"
+            app:layout_constraintEnd_toStartOf="@id/iv_search_history_delete"
+            app:layout_constraintStart_toEndOf="@id/iv_search_history_clock"
+            app:layout_constraintTop_toTopOf="@+id/iv_search_history_clock"
+            tools:text="검색 내용" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_search_history_delete"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_delete"
+            android:tint="@color/color_9e9e9e"
+            app:layout_constraintBottom_toBottomOf="@id/iv_search_history_clock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_search_history_clock"
+            app:tint="@color/color_9e9e9e" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
