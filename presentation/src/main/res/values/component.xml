@@ -35,6 +35,30 @@
         <item name="android:imeOptions">flagNoExtractUi</item>
     </style>
 
+    <style name="Widget.TeamOne.TextInputLayout.SearchBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:textColor">@color/color_424242</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="boxStrokeColor">@color/color_9e9e9e</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@null</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.SearchBox" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:imeOptions">flagNoExtractUi</item>
+        <item name="android:inputType">text</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button2</item>
+        <item name="android:textColor">@color/color_616161</item>
+        <item name="android:textColorHint">@color/color_9e9e9e</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Button2</item>
+    </style>
+
     <!-- Chip -->
     <style name="Widget.TeamOne.Chip.ProjectFeed" parent="Widget.MaterialComponents.Chip.Action">
         <item name="android:clickable">false</item>

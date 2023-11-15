@@ -2,6 +2,7 @@ package com.connectcrew.presentation.screen.feature.main.home
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.ContextMenu
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -20,10 +21,13 @@ import com.connectcrew.presentation.databinding.FragmentHomeBinding
 import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
+import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
+import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
@@ -110,7 +114,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         }
 
                         R.id.menu_search -> {
-                            //TODO:: 검색 화면으로 이동
+                            findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
                             true
                         }
 
