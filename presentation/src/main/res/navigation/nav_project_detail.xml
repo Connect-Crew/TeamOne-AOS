@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_project_detail"
+    app:startDestination="@id/projectDetailContainerFragment">
+
+    <argument
+        android:name="project_id"
+        app:argType="integer" />
+
+    <fragment
+        android:id="@+id/projectDetailContainerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerFragment"
+        tools:layout="@layout/fragment_project_detail_container" />
+</navigation>

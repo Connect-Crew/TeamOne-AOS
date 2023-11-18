@@ -58,6 +58,7 @@ class HomeProjectFeedAdapter(
             tvLikeCount.text = DecimalFormat(root.context.resources.getString(R.string.decimal_format_not_digit)).format(projectFeed.likeCount)
             ivLikeCount.isSelected = projectFeed.isLike
             llLikeCount.setOnSingleClickListener { onClickFavoriteProjectFeed(projectFeed) }
+            root.setOnSingleClickListener { onClickProjectFeed(projectFeed) }
 
             projectFeed.thumbnail
                 ?.let { loadImage(ivProjectThumbnail, it) }

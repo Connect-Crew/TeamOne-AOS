@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.screen.base.BaseViewModel.InitializerUiState" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectDetailIntroductionViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background"
+        tools:context=".screen.feature.project.projectintroduction.ProjectDetailIntroductionFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_project_introduction"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:visibility="visible"
+            app:isGone="@{viewModel.projectFeedDetailUiState != InitializerUiState.Success}"
+            app:layout_constraintBottom_toTopOf="@id/cv_project_enroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_project_enroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="4dp"
+            app:contentPaddingLeft="24dp"
+            app:contentPaddingRight="24dp"
+            app:isGone="@{viewModel.projectFeedDetailUiState != InitializerUiState.Success}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_project_introduction"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="24dp"
+                        android:src="@drawable/ic_like"
+                        app:selected="@{viewModel.projectDetail.isLike}" />
+
+                    <TextView
+                        style="@style/Widget.TeamOne.TextView.Caption1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:ellipsize="end"
+                        android:maxLength="5"
+                        android:text="@{Integer.toString(viewModel.projectDetail.likeCount)}"
+                        android:textColor="@color/color_d62246"
+                        tools:text="1,0000" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.TeamOne.Button"
+                    android:layout_width="0dp"
+                    android:layout_marginVertical="12dp"
+                    android:layout_marginStart="24dp"
+                    android:enabled="@{viewModel.projectDetail.isEnroll}"
+                    android:text="@{viewModel.projectDetail.isEnroll ? @string/project_detail_introduction_enroll : @string/project_detail_introduction_enroll_disable}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ll_like_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:onSingleClick="@{()-> viewModel.navigateToProjectEnrollDialog()}"
+                    tools:text="지원하기" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <include
+            android:id="@+id/view_loading"
+            layout="@layout/dialog_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:isGone="@{viewModel.projectFeedDetailUiState != InitializerUiState.Loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/view_network_error"
+            layout="@layout/layout_network_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:isGone="@{viewModel.projectFeedDetailUiState != InitializerUiState.Error}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,7 +9,8 @@ data class RecruitStatus(
     val part: String,
     val comment: String,
     val currentCount: Int,
-    val maxCount: Int
+    val maxCount: Int,
+    val category: String
 ) : Parcelable
 
 fun RecruitStatusEntity.asItem(): RecruitStatus {
@@ -17,7 +18,8 @@ fun RecruitStatusEntity.asItem(): RecruitStatus {
         part = part,
         comment = comment,
         currentCount = currentCount,
-        maxCount = maxCount
+        maxCount = maxCount,
+        category = category
     )
 }
 
@@ -26,6 +28,7 @@ fun RecruitStatus.asEntity(): RecruitStatusEntity {
         part = part,
         comment = comment,
         currentCount = currentCount,
-        maxCount = maxCount
+        maxCount = maxCount,
+        category = category
     )
 }
