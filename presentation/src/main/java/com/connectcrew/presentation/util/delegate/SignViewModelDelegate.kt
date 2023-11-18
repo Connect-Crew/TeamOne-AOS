@@ -28,6 +28,14 @@ interface SignViewModelDelegate {
 
     val userProfileUrl: StateFlow<String?>
 
+    val userTemperaTure: StateFlow<Float>
+
+    val userResponseRate: StateFlow<Float>
+
+    val userIntroduction: StateFlow<String?>
+
+    val userParts: StateFlow<List<String>>
+
     suspend fun refreshUserToken()
 }
 
@@ -57,6 +65,22 @@ class SignViewModelDelegateImpl @Inject constructor(
     override val userProfileUrl: StateFlow<String?> = user
         .mapLatest { it?.profile }
         .stateIn(applicationScope, SharingStarted.Eagerly, null)
+
+    override val userTemperaTure: StateFlow<Float> = user
+        .mapLatest { it?.temperature ?: 0f }
+        .stateIn(applicationScope, SharingStarted.Eagerly, 0f)
+
+    override val userResponseRate: StateFlow<Float> = user
+        .mapLatest { it?.responseRate ?: 0f }
+        .stateIn(applicationScope, SharingStarted.Eagerly, 0f)
+
+    override val userIntroduction: StateFlow<String?> = user
+        .mapLatest { it?.introduction }
+        .stateIn(applicationScope, SharingStarted.Eagerly, null)
+
+    override val userParts: StateFlow<List<String>> = user
+        .mapLatest { it?.parts ?: emptyList() }
+        .stateIn(applicationScope, SharingStarted.Eagerly, emptyList())
 
     init {
         user.launchIn(applicationScope)

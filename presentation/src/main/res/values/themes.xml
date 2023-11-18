@@ -16,6 +16,9 @@
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.TeamOne.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TeamOne.LargeComponent.circle</item>
 
+        <!-- bottomSheet -->
+        <item name="bottomSheetDialogTheme">@style/Theme.TeamOne.BottomSheetDialog</item>
+
         <!-- Bottom Navigation -->
         <item name="bottomNavigationStyle">@style/Widget.TeamOne.BottomNavigation</item>
 
@@ -24,7 +27,7 @@
         <item name="toolbarStyle">@style/Widget.Teamone.Toolbar</item>
 
         <!-- Alert Dialog -->
-        <item name="materialAlertDialogTheme">@style/TeamOneAlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.TeamOne.AlertDialog</item>
 
         <!-- Chip -->
         <item name="ProjectFeedChipStyle">@style/Widget.TeamOne.Chip.ProjectFeed</item>

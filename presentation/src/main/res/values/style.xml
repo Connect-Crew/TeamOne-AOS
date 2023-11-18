@@ -48,7 +48,7 @@
         <item name="android:textColor">@color/color_d62246</item>
     </style>
 
-    <style name="TeamOneAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+    <style name="ThemeOverlay.TeamOne.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorBackgroundFloating">@android:color/white</item>
         <item name="android:background">@android:color/white</item>
 
@@ -62,5 +62,18 @@
         <item name="android:buttonBarNegativeButtonStyle">@style/Widget.TeamOne.Dialog.Alert.Button.TextButton.Negative</item>
 
         <item name="dialogCornerRadius">12dp</item>
+    </style>
+
+    <!-- BottomSheet -->
+    <style name="Widget.TeamOne.BottomSheet.Model" parent="@style/Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_skipCollapsed">true</item>
+        <item name="shapeAppearance">?shapeAppearanceSmallComponent</item>
+    </style>
+
+    <style name="Theme.TeamOne.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="colorOnSurface">@color/color_eeeeee</item>
+        <item name="bottomSheetStyle">@style/Widget.TeamOne.BottomSheet.Model</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 </resources>

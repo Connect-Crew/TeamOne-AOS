@@ -41,15 +41,12 @@ class SignUpContainerViewModel @Inject constructor(
 
     val isTermsOfUseForService = savedStateHandle.getStateFlow(KEY_IS_TERMS_OF_USE_FOR_SERVICE, false)
     val isTermsOfUseForPrivacy = savedStateHandle.getStateFlow(KEY_IS_TERMS_OF_USE_FOR_PRIVACY, false)
-    val isTermsOfUseForCommunity = savedStateHandle.getStateFlow(KEY_IS_TERMS_OF_USE_FOR_COMMUNITY, false)
-    val isTermsOfUseForAd = savedStateHandle.getStateFlow(KEY_IS_TERMS_OF_USE_FOR_AD, false)
 
     val enableTermsOfUse: StateFlow<Boolean> = combine(
         isTermsOfUseForService,
         isTermsOfUseForPrivacy,
-        isTermsOfUseForCommunity
-    ) { service, privacy, community ->
-        service && privacy && community
+    ) { service, privacy ->
+        service && privacy
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     val userNickName
@@ -74,8 +71,6 @@ class SignUpContainerViewModel @Inject constructor(
     fun setTermsOfUseAllAgree(isChecked: Boolean) {
         setTermsOfUseForService(isChecked)
         setTermsOfUseForPrivacy(isChecked)
-        setTermsOfUseForCommunity(isChecked)
-        setTermsOfUseForAd(isChecked)
     }
 
     fun setTermsOfUseForService(isChecked: Boolean) {
@@ -84,14 +79,6 @@ class SignUpContainerViewModel @Inject constructor(
 
     fun setTermsOfUseForPrivacy(isChecked: Boolean) {
         savedStateHandle.set(KEY_IS_TERMS_OF_USE_FOR_PRIVACY, isChecked)
-    }
-
-    fun setTermsOfUseForCommunity(isChecked: Boolean) {
-        savedStateHandle.set(KEY_IS_TERMS_OF_USE_FOR_COMMUNITY, isChecked)
-    }
-
-    fun setTermsOfUseForAd(isChecked: Boolean) {
-        savedStateHandle.set(KEY_IS_TERMS_OF_USE_FOR_AD, isChecked)
     }
 
     fun setUserName(name: String) {
@@ -139,8 +126,7 @@ class SignUpContainerViewModel @Inject constructor(
                     socialType = signTokenInfo?.socialType ?: "",
                     nickname = userNickName,
                     email = signEmail,
-                    profileUrl = signProfileUrl,
-                    isAdNotificationAgree = isTermsOfUseForAd.value
+                    profileUrl = signProfileUrl
                 )
             ).asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
@@ -174,8 +160,6 @@ class SignUpContainerViewModel @Inject constructor(
 
         private const val KEY_IS_TERMS_OF_USE_FOR_SERVICE = "is_terms_of_use_for_service"
         private const val KEY_IS_TERMS_OF_USE_FOR_PRIVACY = "is_terms_of_use_for_privacy"
-        private const val KEY_IS_TERMS_OF_USE_FOR_COMMUNITY = "is_terms_of_use_for_community"
-        private const val KEY_IS_TERMS_OF_USE_FOR_AD = "is_terms_of_use_for_ad"
 
         private const val KEY_USER_NICKNAME = "user_nickname"
         private const val KEY_USER_NICKNAME_STATE = "user_nickname_state"
