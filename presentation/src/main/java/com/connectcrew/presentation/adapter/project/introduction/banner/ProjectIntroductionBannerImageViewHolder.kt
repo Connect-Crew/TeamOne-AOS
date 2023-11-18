@@ -1,0 +1,8 @@
+package com.connectcrew.presentation.adapter.project.introduction.banner
+
+import com.connectcrew.presentation.adapter.DataBindingViewHolder
+import com.connectcrew.presentation.databinding.ItemProjectIntroductionBannerImageBinding
+
+class ProjectIntroductionBannerImageViewHolder(
+    val binding: ItemProjectIntroductionBannerImageBinding
+) : DataBindingViewHolder<ItemProjectIntroductionBannerImageBinding>(binding)

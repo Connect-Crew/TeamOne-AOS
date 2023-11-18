@@ -51,4 +51,10 @@ open class BaseViewModel : ViewModel() {
             _message.emit(message)
         }
     }
+
+    enum class InitializerUiState {
+        Loading,
+        Success,
+        Error
+    }
 }

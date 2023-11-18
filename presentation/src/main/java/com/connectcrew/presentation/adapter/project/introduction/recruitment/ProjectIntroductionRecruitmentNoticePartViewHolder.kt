@@ -1,0 +1,8 @@
+package com.connectcrew.presentation.adapter.project.introduction.recruitment
+
+import com.connectcrew.presentation.adapter.DataBindingViewHolder
+import com.connectcrew.presentation.databinding.ItemProjectIntroductionRecruitmentNoticePartBinding
+
+class ProjectIntroductionRecruitmentNoticePartViewHolder(
+    val binding: ItemProjectIntroductionRecruitmentNoticePartBinding
+) : DataBindingViewHolder<ItemProjectIntroductionRecruitmentNoticePartBinding>(binding)

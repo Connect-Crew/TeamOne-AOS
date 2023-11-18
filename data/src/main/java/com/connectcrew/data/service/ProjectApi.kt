@@ -1,11 +1,13 @@
 package com.connectcrew.data.service
 
 import com.connectcrew.data.model.project.ProjectFeed
+import com.connectcrew.data.model.project.ProjectFeedDetail
 import com.connectcrew.data.model.project.ProjectLike
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 internal interface ProjectApi {
@@ -24,6 +26,12 @@ internal interface ProjectApi {
         @Query("states") states: String?,
         @Query("category") category: String?,
     ): List<ProjectFeed>
+
+    @GET("project/{projectId}")
+    suspend fun getProjectFeedDetail(
+        @Header("Authorization") accessToken: String?,
+        @Path("projectId") projectId: Int
+    ): ProjectFeedDetail
 
     @POST("project/favorite")
     suspend fun setProjectLike(

@@ -8,5 +8,21 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.connectcrew.presentation.screen.feature.main.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_nav_project_detail"
+            app:destination="@id/nav_project_detail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+
+            <argument
+                android:name="project_id"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <include app:graph="@navigation/nav_project_detail" />
 </navigation>

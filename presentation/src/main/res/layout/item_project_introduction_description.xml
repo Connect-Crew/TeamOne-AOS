@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="description"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="12dp"
+        tools:context=".adapter.project.introduction.ProjectIntroductionDescriptionViewHolder">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Widget.TeamOne.TextView.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/project_detail_introduction_description_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/Widget.TeamOne.TextView.Body3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/color_616161"
+            android:text="@{description}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="맛집 광고가 판치는 세상 속, 현지인 추천이나 지인 추천하는 맛집을 찾아낼 수 있다면?! 하는 아이디어로 기획하게 되었습니다.
+그래서 저희 앱의 타겟은 동해물과 백두산이 마르고 닳도록이고, 프로젝트 기간은 MVP 출시로 2달 예상하고 있습니다.
+직장인들이 두 분 계십니다. 시간협의 때문에 최대한 대학생 분들을 모집하고 싶습니다." />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

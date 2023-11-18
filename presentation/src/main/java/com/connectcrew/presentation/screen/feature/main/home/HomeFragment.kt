@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
+import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -140,7 +142,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         val state = loadState.source.refresh
 
                         with(dataBinding) {
-                            pbLoading.isVisible = state is LoadState.Loading
+                            viewLoading.root.isVisible = state is LoadState.Loading
                             rvProjectFeed.isVisible = state !is LoadState.Error
                             llProjectFeedEmpty.isVisible = state is LoadState.NotLoading && homeProjectFeedAdapter.itemCount == 0
 
@@ -165,7 +167,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             launch {
                 homeViewModel.navigateToProjectFeedDetail.collect {
-                    //TODO:: 프로젝트 상세 화면으로 이동
+                    findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToNavProjectDetail(it))
                 }
             }
         }
