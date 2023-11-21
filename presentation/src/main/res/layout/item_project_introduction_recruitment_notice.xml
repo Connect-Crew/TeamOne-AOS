@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="12dp"
+        app:cardBackgroundColor="@color/color_f1fcff"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/color_00aee4"
+        app:strokeWidth="1dp"
+        tools:context=".adapter.project.introduction.ProjectIntroductionRecruitmentNoticeViewHolder">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/ic_member"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_member"
+                style="@style/Widget.TeamOne.TextView.Body4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/project_detail_introduction_current_member"
+                android:textColor="@color/color_00aee4"
+                app:layout_constraintBottom_toBottomOf="@id/iv_member"
+                app:layout_constraintStart_toEndOf="@id/iv_member"
+                app:layout_constraintTop_toTopOf="@id/iv_member" />
+
+            <TextView
+                android:id="@+id/tv_member_total_count"
+                style="@style/Widget.TeamOne.TextView.Body4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/color_00aee4"
+                app:layout_constraintBottom_toBottomOf="@id/iv_member"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/tv_member"
+                app:layout_constraintTop_toTopOf="@id/iv_member"
+                tools:text="3 / 7" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_member"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_member"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_project_introduction_recruitment_notice_part" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

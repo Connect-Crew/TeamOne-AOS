@@ -5,6 +5,7 @@ import com.connectcrew.data.model.project.asEntity
 import com.connectcrew.data.service.ProjectApi
 import com.connectcrew.data.util.convertToAccessToken
 import com.connectcrew.data.util.converterException
+import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import javax.inject.Inject
 
@@ -39,6 +40,17 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
                 states = states,
                 category = category
             ).map(ProjectFeed::asEntity)
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun getProjectFeedDetail(accessToken: String?, projectId: Int): ProjectFeedDetailEntity {
+        return try {
+            projectApi.getProjectFeedDetail(
+                accessToken= accessToken.convertToAccessToken(),
+                projectId = projectId
+            ).asEntity()
         } catch (e: Exception) {
             throw converterException(e)
         }

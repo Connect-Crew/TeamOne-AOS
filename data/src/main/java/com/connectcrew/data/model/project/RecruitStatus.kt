@@ -13,7 +13,9 @@ internal data class RecruitStatus(
     @Json(name = "current")
     val currentCount: Int,
     @Json(name = "max")
-    val maxCount: Int
+    val maxCount: Int,
+    @Json(name = "category")
+    val category: String
 )
 
 internal fun RecruitStatus.asEntity(): RecruitStatusEntity {
@@ -21,6 +23,7 @@ internal fun RecruitStatus.asEntity(): RecruitStatusEntity {
         part = part,
         comment = comment,
         currentCount = currentCount,
-        maxCount = maxCount
+        maxCount = maxCount,
+        category = category
     )
 }

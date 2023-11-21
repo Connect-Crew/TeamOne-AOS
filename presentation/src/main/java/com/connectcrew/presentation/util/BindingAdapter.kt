@@ -12,13 +12,22 @@ import com.connectcrew.presentation.R
 fun loadImage(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         if (!isValidContextForGlide(view.context)) return
-
         Glide.with(view.context)
             .load(imageUrl)
             .placeholder(R.color.color_9e9e9e)
             .error(R.color.color_9e9e9e)
             .into(view)
     }
+}
+
+@BindingAdapter("profileUrl")
+fun loadProfileUrl(view: ImageView, imageUrl: String?) {
+    if (!isValidContextForGlide(view.context)) return
+    Glide.with(view.context)
+        .load(imageUrl ?: R.drawable.ic_default_profile)
+        .placeholder(R.color.color_9e9e9e)
+        .error(R.color.color_9e9e9e)
+        .into(view)
 }
 
 @BindingAdapter("isGone")

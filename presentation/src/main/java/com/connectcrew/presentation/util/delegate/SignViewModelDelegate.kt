@@ -30,7 +30,7 @@ interface SignViewModelDelegate {
 
     val userTemperaTure: StateFlow<Float>
 
-    val userResponseRate: StateFlow<Float>
+    val userResponseRate: StateFlow<Int>
 
     val userIntroduction: StateFlow<String?>
 
@@ -70,9 +70,9 @@ class SignViewModelDelegateImpl @Inject constructor(
         .mapLatest { it?.temperature ?: 0f }
         .stateIn(applicationScope, SharingStarted.Eagerly, 0f)
 
-    override val userResponseRate: StateFlow<Float> = user
-        .mapLatest { it?.responseRate ?: 0f }
-        .stateIn(applicationScope, SharingStarted.Eagerly, 0f)
+    override val userResponseRate: StateFlow<Int> = user
+        .mapLatest { it?.responseRate ?: 0 }
+        .stateIn(applicationScope, SharingStarted.Eagerly, 0)
 
     override val userIntroduction: StateFlow<String?> = user
         .mapLatest { it?.introduction }

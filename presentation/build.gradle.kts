@@ -71,6 +71,9 @@ dependencies {
     implementation(libs.glide)
     ksp(libs.glide.compiler)
 
+    // Lottie
+    implementation(libs.lottie)
+
     implementation(libs.kakao.login)
     implementation(libs.google.login)
 

@@ -3,4 +3,5 @@
     <bool name="isTablet">false</bool>
 
     <attr name="ProjectFeedChipStyle" format="reference" />
+    <attr name="ProjectTechStackChipStyle" format="reference" />
 </resources>
