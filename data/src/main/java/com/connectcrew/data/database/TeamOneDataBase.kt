@@ -4,17 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.connectcrew.data.model.test.TestDao
-import com.connectcrew.data.model.test.TestModel
+import com.connectcrew.data.datasource.searchhistory.local.SearchHistoryDao
+import com.connectcrew.data.model.searchhistory.SearchKeyword
 
 @Database(
-    entities = [TestModel::class], // TODO:: 더미 파일입니다. 추후 제거 예정
+    entities = [SearchKeyword::class],
     version = 1,
     exportSchema = false
 )
 internal abstract class TeamOneDataBase : RoomDatabase() {
 
-    abstract fun testDao(): TestDao // TODO:: 더미 파일입니다. 추후 제거 예정
+    abstract fun searchHistoryDao(): SearchHistoryDao
 
     companion object {
         private const val databaseName = "team-one-db"

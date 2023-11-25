@@ -102,4 +102,11 @@
 
     <string name="project_detail_member">팀원</string>
     <string name="project_detail_chat">채팅</string>
+
+    <!-- Search -->
+    <string name="search_history_title">최근 검색</string>
+    <string name="search_history_delete_all">전체 삭제</string>
+    <string name="search_hint">두 글자 이상 입력해주세요.</string>
+    <string name="search_error">검색어는 두 글자 이상 입력해주세요</string>
+    <string name="search_empty_history">검색 기록이 없습니다.</string>
 </resources>
