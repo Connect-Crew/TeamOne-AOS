@@ -22,4 +22,6 @@ interface ProjectRepository {
     suspend fun getProjectFeedDetail(accessToken: String?, projectId: Int): ProjectFeedDetailEntity
 
     suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean
+
+    suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String)
 }

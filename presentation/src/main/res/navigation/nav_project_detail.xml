@@ -12,5 +12,54 @@
     <fragment
         android:id="@+id/projectDetailContainerFragment"
         android:name="com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerFragment"
-        tools:layout="@layout/fragment_project_detail_container" />
+        tools:layout="@layout/fragment_project_detail_container">
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_nav_project_enrollment"
+            app:destination="@id/nav_project_enrollment" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/nav_project_enrollment"
+        app:startDestination="@id/projectEnrollmentBottomSheetDialogFragment">
+
+        <argument
+            android:name="project_id"
+            app:argType="integer" />
+
+        <argument
+            android:name="project_feed_detail"
+            app:argType="com.connectcrew.presentation.model.project.ProjectFeedDetail"
+            app:nullable="false" />
+
+        <dialog
+            android:id="@+id/projectEnrollmentBottomSheetDialogFragment"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentBottomSheetDialogFragment"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment">
+
+            <action
+                android:id="@+id/action_projectEnrollmentBottomSheetDialogFragment_to_projectEnrollmentReasonAlertDialog"
+                app:destination="@id/projectEnrollmentReasonAlertDialog" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/projectEnrollmentReasonAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentReasonAlertDialog"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment_reason">
+
+            <action
+                android:id="@+id/action_projectEnrollmentReasonAlertDialog_to_projectEnrollmentCompletedAlertDialog"
+                app:destination="@id/projectEnrollmentCompletedAlertDialog"
+                app:popUpTo="@id/projectEnrollmentBottomSheetDialogFragment"
+                app:popUpToInclusive="true" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/projectEnrollmentCompletedAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentCompletedAlertDialog"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment_completed" />
+    </navigation>
 </navigation>

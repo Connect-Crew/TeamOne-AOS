@@ -14,11 +14,12 @@ class SignInUseCase @Inject constructor(
 ) : FlowUseCase<SignInUseCase.Params, UserEntity>(ioDispatcher) {
 
     override fun execute(params: Params): Flow<UserEntity> = flow {
-        emit(signRepository.signIn(params.accessToken, params.socialType))
+        emit(signRepository.signIn(params.accessToken, params.fcmToken, params.socialType))
     }
 
     data class Params(
         val accessToken: String,
-        val socialType: String
+        val fcmToken: String?,
+        val socialType: String,
     )
 }

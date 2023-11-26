@@ -27,9 +27,12 @@ data class ProjectFeedDetail(
     val recruitStatus: List<RecruitStatus>,
     val skills: List<String>,
     val totalCurrentCount: Int,
-    val totalMaxCount: Int,
-    val isEnroll: Boolean = totalCurrentCount < totalMaxCount
-) : Parcelable
+    val totalMaxCount: Int
+) : Parcelable {
+
+    val isEnroll: Boolean
+        get() = totalCurrentCount < totalMaxCount
+}
 
 fun ProjectFeedDetailEntity.asItem(): ProjectFeedDetail {
     return ProjectFeedDetail(

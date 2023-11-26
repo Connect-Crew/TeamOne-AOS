@@ -12,7 +12,6 @@ import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
@@ -26,8 +25,9 @@ class IntroViewModel @Inject constructor(
     signViewModelDelegate: SignViewModelDelegate
 ) : BaseViewModel(), SignViewModelDelegate by signViewModelDelegate {
 
-    private val currentUserInfo = loadDataSignal.combine(userToken, ::Pair)
-        .flatMapLatest { (_, userToken) -> getUserInfoUseCase(GetUserInfoUseCase.Params(userToken)).asResult() }
+    private val currentUserInfo = userToken
+        .debounce(600)
+        .flatMapLatest { userToken -> getUserInfoUseCase(GetUserInfoUseCase.Params(userToken)).asResult() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ApiResult.Loading)
 
     private val _navigateToHome = MutableEventFlow<Unit>()
@@ -39,25 +39,23 @@ class IntroViewModel @Inject constructor(
     private val _navigateToErrorDialog = MutableEventFlow<Unit>()
     val navigateToErrorDialog: EventFlow<Unit> = _navigateToErrorDialog
 
-    init {
+    fun navigateToNextScreen() {
         viewModelScope.launch {
-            currentUserInfo
-                .debounce(600)
-                .collect {
-                    when (it) {
-                        is ApiResult.Loading -> return@collect
-                        is ApiResult.Success -> _navigateToHome.emit(Unit)
-                        is ApiResult.Error -> when (it.exception) {
-                            is IOException -> _navigateToErrorDialog.emit(Unit)
-                            is TeamOneException -> when (it.exception) {
-                                is UnAuthorizedException -> refreshUserToken()
-                                else -> _navigateToSignIn.emit(Unit)
-                            }
-
+            currentUserInfo.collect {
+                when (it) {
+                    is ApiResult.Loading -> return@collect
+                    is ApiResult.Success -> _navigateToHome.emit(Unit)
+                    is ApiResult.Error -> when (it.exception) {
+                        is IOException -> _navigateToErrorDialog.emit(Unit)
+                        is TeamOneException -> when (it.exception) {
+                            is UnAuthorizedException -> refreshUserToken()
                             else -> _navigateToSignIn.emit(Unit)
                         }
+
+                        else -> _navigateToSignIn.emit(Unit)
                     }
                 }
+            }
         }
     }
 }

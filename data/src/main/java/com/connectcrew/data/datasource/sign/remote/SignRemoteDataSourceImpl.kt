@@ -13,12 +13,17 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
     private val externalApi: ExternalApi
 ) : SignRemoteDataSource {
 
-    override suspend fun signIn(accessToken: String, socialType: String): UserEntity {
+    override suspend fun signIn(
+        accessToken: String,
+        fcmToken: String?,
+        socialType: String
+    ): UserEntity {
         return try {
             authApi.signInForOauth(
                 mapOf(
                     KEY_TOKEN to accessToken,
-                    KEY_SOCIAL_TYPE to socialType
+                    KEY_FCM_TOKEN to fcmToken,
+                    KEY_SOCIAL_TYPE to socialType,
                 )
             ).asEntity()
         } catch (e: Exception) {
@@ -28,6 +33,7 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun signUp(
         accessToken: String,
+        fcmToken: String?,
         socialType: String,
         username: String?,
         nickname: String,
@@ -38,6 +44,7 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
             authApi.signUpForOauth(
                 mapOf(
                     KEY_TOKEN to accessToken,
+                    KEY_FCM_TOKEN to fcmToken,
                     KEY_SOCIAL_TYPE to socialType,
                     KEY_USER_NAME to username,
                     KEY_NICKNAME to nickname,
@@ -57,8 +64,8 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
             externalApi.getGoogleAccessToken(
                 mapOf(
                     KEY_GOOGLE_GRANT_TYPE to "authorization_code",
-                    KEY_GOOGLE_CLIENT_ID to BuildConfig.GOOGLE_CLIENT_ID_DATA,
-                    KEY_GOOGLE_CLIENT_SECRET to BuildConfig.GOOGLE_CLIENT_SECRET_DATA,
+                    KEY_GOOGLE_CLIENT_ID to BuildConfig.GOOGLE_CLIENT_ID,
+                    KEY_GOOGLE_CLIENT_SECRET to BuildConfig.GOOGLE_CLIENT_SECRET,
                     KEY_GOOGLE_REDIRECT_URI to "",
                     KEY_GOOGLE_AUTH_CODE to authCode,
                 )
@@ -70,7 +77,9 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
 
     companion object {
         private const val KEY_TOKEN = "token"
+        private const val KEY_FCM_TOKEN = "fcm"
         private const val KEY_SOCIAL_TYPE = "social"
+
         private const val KEY_NICKNAME = "nickname"
         private const val KEY_USER_NAME = "username"
         private const val KEY_EMAIL = "email"

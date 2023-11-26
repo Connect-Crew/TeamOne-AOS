@@ -38,4 +38,10 @@ internal interface ProjectApi {
         @Header("Authorization") accessToken: String?,
         @Body params: Any
     ): ProjectLike
+
+    @POST("project/apply")
+    suspend fun setProjectEnrollment(
+        @Header("Authorization") accessToken: String?,
+        @Body params: Any
+    )
 }

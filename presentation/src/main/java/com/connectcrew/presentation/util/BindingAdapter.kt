@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.connectcrew.presentation.BuildConfig
 import com.connectcrew.presentation.R
 
 @BindingAdapter("imageUrl")
@@ -13,7 +14,7 @@ fun loadImage(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         if (!isValidContextForGlide(view.context)) return
         Glide.with(view.context)
-            .load(imageUrl)
+            .load(if (imageUrl.startsWith("http")) imageUrl else (BuildConfig.API_URL + imageUrl))
             .placeholder(R.color.color_9e9e9e)
             .error(R.color.color_9e9e9e)
             .into(view)
@@ -23,8 +24,10 @@ fun loadImage(view: ImageView, imageUrl: String?) {
 @BindingAdapter("profileUrl")
 fun loadProfileUrl(view: ImageView, imageUrl: String?) {
     if (!isValidContextForGlide(view.context)) return
+    val profileImageUrl = imageUrl?.let { if (it.startsWith("http")) it else (BuildConfig.API_URL + it) }
+
     Glide.with(view.context)
-        .load(imageUrl ?: R.drawable.ic_default_profile)
+        .load(profileImageUrl ?: R.drawable.ic_default_profile)
         .placeholder(R.color.color_9e9e9e)
         .error(R.color.color_9e9e9e)
         .into(view)

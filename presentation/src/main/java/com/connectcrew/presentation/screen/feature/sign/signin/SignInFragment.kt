@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.connectcrew.presentation.BuildConfig
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.FragmentSignInBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
@@ -124,7 +125,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
     }
 
     private fun initGoogle() {
-        val googleClientId = requireContext().getString(R.string.GOOGLE_CLIENT_ID)
+        val googleClientId = BuildConfig.GOOGLE_CLIENT_ID
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestScopes(Scope(Scopes.DRIVE_APPFOLDER))
             .requestIdToken(googleClientId)

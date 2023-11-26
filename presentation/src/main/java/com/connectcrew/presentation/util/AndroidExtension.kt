@@ -35,11 +35,22 @@ fun <T : ViewDataBinding> T.executeAfter(block: T.() -> Unit) {
 
 // EditText
 fun TextInputLayout.setTextInputError(editTextState: EditTextState) {
-    if (editTextState is EditTextState.Error) {
-        isErrorEnabled = true
-        error = context.getString(editTextState.stringRes)
-    } else if (editTextState is EditTextState.Success) {
-        isErrorEnabled = false
+    when (editTextState) {
+        is EditTextState.Error -> {
+            isErrorEnabled = true
+            error = context.getString(editTextState.stringRes)
+        }
+
+        is EditTextState.ErrorMessage -> {
+            isErrorEnabled = true
+            error = editTextState.message
+        }
+
+        is EditTextState.Success -> {
+            isErrorEnabled = false
+        }
+
+        else -> return
     }
 }
 

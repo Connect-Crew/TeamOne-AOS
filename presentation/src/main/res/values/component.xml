@@ -12,9 +12,16 @@
         <item name="android:paddingBottom">0dp</item>
         <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button1</item>
         <item name="android:stateListAnimator">@null</item>
-        <item name="android:textColor">@color/color_fdfdfd</item>
+        <item name="android:textColor">@color/selected_button_text</item>
         <item name="backgroundTint">@color/selected_button</item>
         <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Widget.TeamOne.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="shapeAppearance">?shapeAppearanceSmallComponent</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body3</item>
+        <item name="android:textColor">@color/color_616161</item>
+        <item name="android:minWidth">0dp</item>
     </style>
 
     <!-- TextField -->
@@ -27,12 +34,50 @@
         <item name="boxBackgroundColor">@android:color/transparent</item>
     </style>
 
+    <style name="Widget.TeamOne.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearance">@style/ShapeAppearance.TeamOne.SmallComponent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/color_9e9e9e</item>
+        <item name="boxBackgroundColor">@android:color/white</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconTint">@null</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="errorTextColor">@color/color_d62246</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
     <style name="Widget.TeamOne.TextInputEditText.OutlinedBox" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:paddingStart">0dp</item>
         <item name="android:textColor">@color/color_424242</item>
+        <item name="android:textColorHint">@color/color_9e9e9e</item>
         <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Body1</item>
         <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body1</item>
         <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.OutlinedBox.OneLine" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:textColor">@color/color_424242</item>
+        <item name="android:textColorHint">@color/color_9e9e9e</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.OutlinedBox.MultiLine">
+        <item name="android:padding">16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="lineHeight">24dp</item>
     </style>
 
     <style name="Widget.TeamOne.TextInputLayout.SearchBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

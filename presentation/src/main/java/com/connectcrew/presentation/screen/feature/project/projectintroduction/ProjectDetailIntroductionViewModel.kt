@@ -50,8 +50,8 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     private val _projectFeedDetailUiState = MutableStateFlow(InitializerUiState.Loading)
     val projectFeedDetailUiState: StateFlow<InitializerUiState> = _projectFeedDetailUiState
 
-    private val _navigateToProjectEnrollDialog = MutableEventFlow<Unit>()
-    val navigateToProjectEnrollDialog: EventFlow<Unit> = _navigateToProjectEnrollDialog
+    private val _navigateToProjectEnrollDialog = MutableEventFlow<ProjectFeedDetail>()
+    val navigateToProjectEnrollDialog: EventFlow<ProjectFeedDetail> = _navigateToProjectEnrollDialog
 
     init {
         viewModelScope.launch {
@@ -113,7 +113,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
 
     fun navigateToProjectEnrollDialog() {
         viewModelScope.launch {
-            _navigateToProjectEnrollDialog.emit(Unit)
+            projectDetail.value?.let { _navigateToProjectEnrollDialog.emit(it) }
         }
     }
 

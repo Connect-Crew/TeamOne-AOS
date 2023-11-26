@@ -9,12 +9,6 @@
         app:contentDescription="@string/menu_home" />
 
     <item
-        android:id="@id/nav_team_recruitment"
-        android:icon="@drawable/ic_nav_team_recruitment"
-        android:title="@string/menu_team_recruitment"
-        app:contentDescription="@string/menu_team_recruitment" />
-
-    <item
         android:id="@id/nav_my_team"
         android:icon="@drawable/ic_nav_my_team"
         android:title="@string/menu_my_team"

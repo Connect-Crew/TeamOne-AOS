@@ -1,7 +1,16 @@
 package com.connectcrew.presentation.screen.feature.intro
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -21,11 +30,37 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
 
     private val introViewModel: IntroViewModel by viewModels()
 
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            introViewModel.navigateToNextScreen()
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        hideSystemUi()
+        initView()
+        initListener()
         initObserver()
+    }
+
+    private fun initView() {
+        hideSystemUi()
+    }
+
+    private fun initListener() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPostNotificationPermission()
+        } else {
+            introViewModel.navigateToNextScreen()
+        }
     }
 
     private fun initObserver() {
@@ -57,6 +92,16 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>(R.layout.fragment_intro
                         }.show()
                 }
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestPostNotificationPermission() {
+        val isPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+        val isShowPermissionRequest = shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)
+        when {
+            isPermissionGranted == PackageManager.PERMISSION_GRANTED || isShowPermissionRequest -> introViewModel.navigateToNextScreen()
+            else -> requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 

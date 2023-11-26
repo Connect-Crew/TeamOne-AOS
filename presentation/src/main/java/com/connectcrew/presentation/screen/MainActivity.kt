@@ -25,9 +25,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         navController = navHostFragment.navController
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { navController, destination, _ ->
             currentNavId = destination.id
-            dataBinding.bottomNav.isVisible = TOP_LEVEL_DESTINATIONS.any { it == destination.id }
+            dataBinding.bottomNav.isVisible = if (destination.label == resources.getString(R.string.label_dialog)) {
+                TOP_LEVEL_DESTINATIONS.any { it == navController.previousBackStackEntry?.destination?.id }
+            } else {
+                TOP_LEVEL_DESTINATIONS.any { it == destination.id }
+            }
         }
 
         dataBinding.bottomNav.apply {
@@ -44,7 +48,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     companion object {
         private val TOP_LEVEL_DESTINATIONS = listOf(
             R.id.homeFragment,
-            R.id.teamRecruitmentFragment,
             R.id.myTeamFragment,
             R.id.myPageFragment
         )

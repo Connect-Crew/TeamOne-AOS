@@ -56,6 +56,12 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
             }
 
             launch {
+                projectDetailContainerViewModel.invalidateProjectDetail.collect {
+                    projectDetailIntroductionViewModel.onRefresh()
+                }
+            }
+
+            launch {
                 projectDetailIntroductionViewModel.projectDetail
                     .filterNotNull()
                     .map { projectDetailIntroductionViewModel.createProjectDetailIntroductionUiModels(it) }
@@ -64,7 +70,7 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
 
             launch {
                 projectDetailIntroductionViewModel.navigateToProjectEnrollDialog.collect {
-                    // TODO:: 지원하기 바텀시트 호출
+                    projectDetailContainerViewModel.navigateToProjectEnrollDialog(it)
                 }
             }
         }

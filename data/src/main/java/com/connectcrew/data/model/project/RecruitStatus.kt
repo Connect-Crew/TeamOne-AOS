@@ -8,6 +8,8 @@ import com.squareup.moshi.JsonClass
 internal data class RecruitStatus(
     @Json(name = "part")
     val part: String,
+    @Json(name = "partKey")
+    val partKey: String,
     @Json(name = "comment")
     val comment: String,
     @Json(name = "current")
@@ -15,15 +17,19 @@ internal data class RecruitStatus(
     @Json(name = "max")
     val maxCount: Int,
     @Json(name = "category")
-    val category: String
+    val category: String,
+    @Json(name = "applied")
+    val isApplied: Boolean?
 )
 
 internal fun RecruitStatus.asEntity(): RecruitStatusEntity {
     return RecruitStatusEntity(
         part = part,
+        partKey = partKey,
         comment = comment,
         currentCount = currentCount,
         maxCount = maxCount,
-        category = category
+        category = category,
+        isApplied = isApplied
     )
 }
