@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_project_enroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/color_f1fcff"
+        app:cardElevation="0dp"
+        app:contentPaddingBottom="16dp"
+        app:contentPaddingLeft="12dp"
+        app:contentPaddingRight="12dp"
+        app:contentPaddingTop="16dp"
+        app:shapeAppearance="@style/ShapeAppearance.TeamOne.SmallComponent"
+        app:strokeColor="@color/color_00aee4"
+        app:strokeWidth="1dp"
+        tools:context=".adapter.project.enrollment.ProjectEnrollmentAdapter">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_member_part"
+                style="@style/Widget.TeamOne.TextView.Button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_424242"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="백엔드 엔지니어" />
+
+            <TextView
+                android:id="@+id/tv_member_category"
+                style="@style/Widget.TeamOne.TextView.Caption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/color_00aee4"
+                app:layout_constraintBottom_toBottomOf="@id/tv_member_part"
+                app:layout_constraintStart_toEndOf="@id/tv_member_part"
+                app:layout_constraintTop_toTopOf="@id/tv_member_part"
+                app:layout_constraintVertical_bias="1"
+                tools:text="개발" />
+
+            <TextView
+                android:id="@+id/tv_member_count"
+                style="@style/Widget.TeamOne.TextView.Caption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_d62246"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_member_part"
+                app:layout_constraintEnd_toStartOf="@id/btn_enroll"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@id/tv_member_category"
+                app:layout_constraintTop_toTopOf="@id/tv_member_part"
+                tools:text="0 / 2" />
+
+            <TextView
+                android:id="@+id/tv_member_description"
+                style="@style/Widget.TeamOne.TextView.Caption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_9e9e9e"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_enroll"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_member_category"
+                tools:text="검색서비스 개발 경험자 환영입니다." />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_enroll"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/project_detail_introduction_enroll"
+                android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_member_count"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

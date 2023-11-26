@@ -110,7 +110,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tiet_user_name"
-                            style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox"
+                            style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox.OneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/white"

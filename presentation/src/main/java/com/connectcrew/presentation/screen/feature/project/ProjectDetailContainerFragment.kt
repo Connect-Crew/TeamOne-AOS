@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -17,12 +18,15 @@ import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.screen.feature.project.projectchat.ProjectDetailChatFragment
 import com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectDetailIntroductionFragment
 import com.connectcrew.presentation.screen.feature.project.projectmember.ProjectDetailMemberFragment
+import com.connectcrew.presentation.util.Const.KEY_IS_PROJECT_UPDATE
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
+import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.toPx
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContainerBinding>(R.layout.fragment_project_detail_container) {
@@ -48,6 +52,7 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
         initView()
         initListener()
         initObserver()
+        initNavBackStackObserve()
     }
 
     private fun initView() {
@@ -88,8 +93,36 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
     private fun initObserver() {
         launchAndRepeatWithViewLifecycle {
-            projectDetailContainerViewModel.projectId.collect()
+            launch {
+                projectDetailContainerViewModel.projectId.collect()
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToProjectEnrollDialog.collect { (projectId, projectFeedDetail) ->
+                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToNavProjectEnrollment(projectId, projectFeedDetail))
+                }
+            }
         }
+    }
+
+    private fun initNavBackStackObserve() {
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.projectDetailContainerFragment)
+
+        val resultObserver = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                if (!navBackStackEntry.savedStateHandle.contains(KEY_IS_PROJECT_UPDATE)) return@LifecycleEventObserver
+                val isUpdate: Boolean = navBackStackEntry.savedStateHandle[KEY_IS_PROJECT_UPDATE] ?: false
+                if (isUpdate) projectDetailContainerViewModel.invalidateProjectDetail()
+                navBackStackEntry.savedStateHandle.remove<Boolean>(KEY_IS_PROJECT_UPDATE)
+            }
+        }
+
+        navBackStackEntry.getLifecycle().addObserver(resultObserver)
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.getLifecycle().removeObserver(resultObserver)
+            }
+        })
     }
 
     override fun onDestroyView() {

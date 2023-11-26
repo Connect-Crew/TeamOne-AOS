@@ -32,7 +32,7 @@ class ProjectIntroductionBannerViewHolder(
     }
 
     private fun calculateTabIndicator(binding: ItemProjectIntroductionBannerBinding, indicatorSize: Int) {
-        binding.tbBannerImage.let {
+        binding.tabBannerImage.let {
             it.removeAllTabs()
             for (index in 0 until indicatorSize) {
                 it.addTab(it.newTab())

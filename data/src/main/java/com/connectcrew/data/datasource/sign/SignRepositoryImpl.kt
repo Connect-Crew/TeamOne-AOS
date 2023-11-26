@@ -11,20 +11,21 @@ internal class SignRepositoryImpl @Inject constructor(
     private val preferenceStorage: PreferenceStorage
 ) : SignRepository {
 
-    override suspend fun signIn(accessToken: String, socialType: String): UserEntity {
-        return remoteDataSource.signIn(accessToken, socialType)
+    override suspend fun signIn(accessToken: String, fcmToken: String?, socialType: String): UserEntity {
+        return remoteDataSource.signIn(accessToken, fcmToken, socialType)
             .also { saveUserInfo(it) }
     }
 
     override suspend fun signUp(
         accessToken: String,
+        fcmToken: String?,
         socialType: String,
         userName: String?,
         nickname: String,
         email: String?,
         profileUrl: String?
     ): UserEntity {
-        return remoteDataSource.signUp(accessToken, socialType, userName, nickname, email, profileUrl)
+        return remoteDataSource.signUp(accessToken, fcmToken, socialType, userName, nickname, email, profileUrl)
             .also { saveUserInfo(it) }
     }
 

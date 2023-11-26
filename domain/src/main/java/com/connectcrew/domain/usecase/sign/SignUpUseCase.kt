@@ -17,6 +17,7 @@ class SignUpUseCase @Inject constructor(
         emit(
             signRepository.signUp(
                 accessToken = params.accessToken,
+                fcmToken = params.fcmToken,
                 socialType = params.socialType,
                 userName = params.userName,
                 nickname = params.nickname,
@@ -28,6 +29,7 @@ class SignUpUseCase @Inject constructor(
 
     data class Params(
         val accessToken: String,
+        val fcmToken: String?,
         val socialType: String,
         val userName: String? = null,
         val nickname: String,

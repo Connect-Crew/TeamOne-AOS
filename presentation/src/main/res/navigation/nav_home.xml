@@ -24,6 +24,10 @@
         </action>
 
         <action
+            android:id="@+id/action_homeFragment_to_summaryRecruitmentNoticeDialog"
+            app:destination="@id/summaryRecruitmentNoticeDialog" />
+
+        <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/nav_search"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -31,6 +35,12 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
+    <dialog
+        android:id="@+id/summaryRecruitmentNoticeDialog"
+        android:name="com.connectcrew.presentation.screen.feature.main.home.SummaryRecruitmentNoticeDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_summary_recruitment_notice" />
 
     <include app:graph="@navigation/nav_project_detail" />
 

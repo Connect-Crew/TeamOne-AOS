@@ -22,7 +22,7 @@
             android:id="@+id/nsh_project_banner"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/tb_banner_image"
+            app:layout_constraintBottom_toTopOf="@id/tab_banner_image"
             app:layout_constraintDimensionRatio="3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tb_banner_image"
+            android:id="@+id/tab_banner_image"
             android:layout_width="wrap_content"
             android:layout_height="12dp"
             android:layout_gravity="center"

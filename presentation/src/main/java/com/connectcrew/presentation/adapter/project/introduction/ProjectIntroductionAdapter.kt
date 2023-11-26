@@ -48,7 +48,7 @@ class ProjectIntroductionAdapter : ListAdapter<ProjectDetailIntroductionUiModel,
                         registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                             override fun onPageSelected(position: Int) {
                                 super.onPageSelected(position)
-                                it.binding.tbBannerImage.apply { selectTab(getTabAt(position), true) }
+                                it.binding.tabBannerImage.apply { selectTab(getTabAt(position), true) }
                             }
                         })
                     }

@@ -44,6 +44,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel(), SignViewModelDelegate by signViewModelDelegate {
 
     private val selectedCategory = savedStateHandle.getStateFlow(KEY_SELECTED_CATEGORY, ProjectCategoryType.CATEGORY_ALL)
+    val selectedProjectFeed = savedStateHandle.getStateFlow<ProjectFeed?>(KEY_SELECTED_PROJECT, null)
 
     val projectCategoryItems = createProjectCategoryFlow()
         .combine(selectedCategory, ::Pair)
@@ -60,6 +61,9 @@ class HomeViewModel @Inject constructor(
 
     private val _navigateToProjectFeedDetail = MutableEventFlow<Int>()
     val navigateToProjectFeedDetail: EventFlow<Int> = _navigateToProjectFeedDetail
+
+    private val _navigateToRecruitmentNoticeSummary = MutableEventFlow<Unit>()
+    val navigateToRecruitmentNoticeSummary: EventFlow<Unit> = _navigateToRecruitmentNoticeSummary
 
     fun setSelectedCategory(categoryType: ProjectCategoryType) {
         viewModelScope.launch {
@@ -107,11 +111,19 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun navigateToRecruitmentNoticeSummary(projectFeed: ProjectFeed) {
+        viewModelScope.launch {
+            savedStateHandle.set(KEY_SELECTED_PROJECT, projectFeed)
+            _navigateToRecruitmentNoticeSummary.emit(Unit)
+        }
+    }
+
     private fun createProjectCategoryFlow() = flow {
         emit(ProjectCategoryType.values().toList().map { ProjectCategoryItem(it, false) })
     }
 
     companion object {
         private const val KEY_SELECTED_CATEGORY = "selected_category"
+        private const val KEY_SELECTED_PROJECT = "selected_project"
     }
 }

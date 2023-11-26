@@ -20,20 +20,26 @@ android {
 
     buildTypes {
         getByName("debug") {
+            buildConfigField("String", "API_URL", localProperties["DEV_API_URL"].toString())
+
+            // Google
+            buildConfigField("String", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
+            // Kakao
             resValue("string", "KAKAO_API_KEY", localProperties["KAKAO_API_KEY"].toString())
             resValue("string", "KAKAO_APP_SCHEME", "kakao".plus(localProperties["KAKAO_API_KEY"].toString()))
-
-            resValue("string", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
         }
 
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
+            buildConfigField("String", "API_URL", localProperties["RELEASE_API_URL"].toString())
+
+            // Google
+            buildConfigField("String", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
+            // Kakao
             resValue("string", "KAKAO_API_KEY", localProperties["KAKAO_API_KEY"].toString())
             resValue("string", "KAKAO_APP_SCHEME", "kakao".plus(localProperties["KAKAO_API_KEY"].toString()))
-
-            resValue("string", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
         }
     }
 
@@ -59,6 +65,10 @@ dependencies {
     // Android
     implementation(libs.android.material)
 
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messageing)
+
     // Kotlin
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines)
@@ -74,6 +84,7 @@ dependencies {
     // Lottie
     implementation(libs.lottie)
 
+    // Social Login
     implementation(libs.kakao.login)
     implementation(libs.google.login)
 

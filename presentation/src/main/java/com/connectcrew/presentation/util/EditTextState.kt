@@ -13,12 +13,16 @@ sealed class EditTextState {
     data class Error(@StringRes val stringRes: Int) : EditTextState(), Parcelable
 
     @Parcelize
+    data class ErrorMessage(val message: String) : EditTextState(), Parcelable
+
+    @Parcelize
     object Loading : EditTextState(), Parcelable
 
     override fun toString(): String {
         return when (this) {
             is Success -> "Success"
             is Error -> "Error"
+            is ErrorMessage -> "ErrorMessage"
             Loading -> "Loading"
         }
     }
