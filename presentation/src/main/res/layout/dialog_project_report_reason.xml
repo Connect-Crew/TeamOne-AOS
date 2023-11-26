@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".screen.feature.project.projectreport.ProjectReportReasonAlertDialog">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Widget.TeamOne.TextView.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/project_detail_report" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.TeamOne.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            app:endIconMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_write_project_report_reason"
+                style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox.MultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/project_detail_report_hint"
+                android:maxHeight="260dp"
+                android:minHeight="160dp"
+                android:scrollbars="vertical"
+                android:text="@{viewModel.projectReportReason}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/color_eeeeee"
+                android:gravity="center"
+                android:text="@string/common_cancel"
+                android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                android:textColor="@color/color_616161"
+                app:cornerRadius="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_report"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="@{viewModel.projectReportReason.length() > 0}"
+                android:text="@string/common_report"
+                android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                app:cornerRadius="0dp"
+                app:onSingleClick="@{()-> viewModel.navigateToProjectReportCompletedDialog()}" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

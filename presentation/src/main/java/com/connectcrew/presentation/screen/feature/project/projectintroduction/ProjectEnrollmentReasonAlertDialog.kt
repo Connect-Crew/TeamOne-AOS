@@ -81,7 +81,7 @@ class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProject
 
             launch {
                 projectEnrollmentViewModel.loading.collect {
-                    if (it) showProgress() else hideProgress()
+                    if (it) showLoadingDialog() else hideLoadingDialog()
                 }
             }
 

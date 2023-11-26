@@ -14,6 +14,7 @@ data class RecruitStatus(
     val category: String,
     val isApplied: Boolean
 ) : Parcelable {
+
     val isEnroll: Boolean
         get() = currentCount <= maxCount
 }

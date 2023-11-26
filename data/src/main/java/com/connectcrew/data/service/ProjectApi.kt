@@ -44,4 +44,10 @@ internal interface ProjectApi {
         @Header("Authorization") accessToken: String?,
         @Body params: Any
     )
+
+    @POST("project/report")
+    suspend fun createProjectReport(
+        @Header("Authorization") accessToken: String?,
+        @Body params: Any
+    )
 }

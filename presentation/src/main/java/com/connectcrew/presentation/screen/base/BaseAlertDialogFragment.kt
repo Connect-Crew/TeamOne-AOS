@@ -48,13 +48,13 @@ abstract class BaseAlertDialogFragment<T : ViewDataBinding> : DialogFragment() {
         return dataBinding.root
     }
 
-    fun showProgress() {
+    fun showLoadingDialog() {
         if (!loadingDialog.isShowing) {
             loadingDialog.show()
         }
     }
 
-    fun hideProgress() {
+    fun hideLoadingDialog() {
         if (loadingDialog.isShowing) {
             loadingDialog.dismiss()
         }
