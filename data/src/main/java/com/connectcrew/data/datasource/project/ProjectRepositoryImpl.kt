@@ -37,4 +37,8 @@ internal class ProjectRepositoryImpl @Inject constructor(
     override suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String) {
         return remoteDataSource.setProjectEnrollment(accessToken, projectId, part, message)
     }
+
+    override suspend fun createProjectReport(accessToken: String?, projectId: Int, reportReason: String) {
+        return remoteDataSource.createProjectReport(accessToken, projectId, reportReason)
+    }
 }

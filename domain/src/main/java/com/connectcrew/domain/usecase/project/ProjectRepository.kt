@@ -24,4 +24,6 @@ interface ProjectRepository {
     suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean
 
     suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String)
+
+    suspend fun createProjectReport(accessToken: String?, projectId: Int, reportReason: String)
 }

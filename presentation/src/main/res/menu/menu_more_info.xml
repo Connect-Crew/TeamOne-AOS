@@ -6,6 +6,7 @@
         android:id="@+id/menu_more"
         android:icon="@drawable/ic_more"
         android:title=""
+        app:actionViewClass="android.widget.Spinner"
         app:contentDescription=""
         app:showAsAction="ifRoom" />
 </menu>

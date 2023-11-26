@@ -93,13 +93,13 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding> : BottomSheetDialogF
         return newMaterialShapeDrawable
     }
 
-    fun showProgress() {
+    fun showLoadingDialog() {
         if (!loadingDialog.isShowing) {
             loadingDialog.show()
         }
     }
 
-    fun hideProgress() {
+    fun hideLoadingDialog() {
         if (loadingDialog.isShowing) {
             loadingDialog.dismiss()
         }
