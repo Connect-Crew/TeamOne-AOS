@@ -2,16 +2,22 @@ package com.connectcrew.presentation.screen.base
 
 import android.app.Dialog
 import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.connectcrew.presentation.R
+import com.connectcrew.presentation.databinding.DialogLoadingBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -26,6 +32,18 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding> : BottomSheetDialogF
     private var _dataBinding: T? = null
     protected val dataBinding: T
         get() = _dataBinding!!
+
+    private val loadingDialog: AppCompatDialog by lazy {
+        DialogLoadingBinding.inflate(LayoutInflater.from(requireContext()), null, false)
+            .run {
+                AppCompatDialog(requireContext())
+                    .apply {
+                        setCancelable(false)
+                        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                        setContentView(this@run.root)
+                    }
+            }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
@@ -57,10 +75,10 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding> : BottomSheetDialogF
     }
 
     @ColorRes
-    protected open val backgroundColor: Int? = null
+    protected open val backgroundColor: Int = R.color.color_fdfdfd
 
     private fun createMaterialShapeDrawable(bottomSheet: View): MaterialShapeDrawable {
-        val shapeAppearanceModel = ShapeAppearanceModel.builder(context, 0, R.style.ShapeAppearance_TeamOne_SmallComponent).build()
+        val shapeAppearanceModel = ShapeAppearanceModel.builder(context, 0, R.style.ShapeAppearance_TeamOne_MediumComponent).build()
 
         //Create a new MaterialShapeDrawable (you can't use the original MaterialShapeDrawable in the BottomSheet)
         val currentMaterialShapeDrawable = bottomSheet.background as? MaterialShapeDrawable ?: MaterialShapeDrawable()
@@ -73,6 +91,26 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding> : BottomSheetDialogF
         newMaterialShapeDrawable.strokeWidth = currentMaterialShapeDrawable.strokeWidth
         newMaterialShapeDrawable.strokeColor = currentMaterialShapeDrawable.strokeColor
         return newMaterialShapeDrawable
+    }
+
+    fun showProgress() {
+        if (!loadingDialog.isShowing) {
+            loadingDialog.show()
+        }
+    }
+
+    fun hideProgress() {
+        if (loadingDialog.isShowing) {
+            loadingDialog.dismiss()
+        }
+    }
+
+    fun showToast(@StringRes id: Int) {
+        Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

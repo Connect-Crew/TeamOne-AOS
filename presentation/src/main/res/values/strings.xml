@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">TeamOne</string>
 
+    <!--  Navigation Label -->
+    <string name="label_dialog">dialog</string>
+
     <!-- Common -->
     <string name="common_confirm">확인</string>
+    <string name="common_cancel">취소</string>
     <string name="common_next">다음</string>
     <string name="common_close">닫기</string>
     <string name="common_exit">종료</string>
@@ -91,6 +95,10 @@
     <string name="home_banner_description">이번 달에 완성된 프로젝트를 구경하고\n직접 커피챗을 보내보세요!</string>
     <string name="home_empty_project">지원할 프로젝트가 없습니다.</string>
 
+    <!-- Summary Recruitment Notice   -->
+    <string name="summary_recruitment_notice_title">모집현황</string>
+    <string name="summary_recruitment_notice_detail">상세보기</string>
+
     <!-- Project Detail -->
     <string name="project_detail_introduction">소개</string>
     <string name="project_detail_introduction_leader_response">리더 응답률 %d%%</string>
@@ -99,6 +107,14 @@
     <string name="project_detail_introduction_tech_stack_title">기술 스택</string>
     <string name="project_detail_introduction_enroll">지원하기</string>
     <string name="project_detail_introduction_enroll_disable">지원이 모두 마감되었습니다.</string>
+    <string name="project_detail_introduction_enroll_disable_short">지원마감</string>
+    <string name="project_detail_introduction_enroll_completed">지원완료</string>
+
+    <string name="project_detail_enrollment_reason">%s에 지원합니다.</string>
+    <string name="project_detail_enrollment_reason_hint">지원 이유 및 강점 (최대 1,000자 입력 가능합니다.)</string>
+
+    <string name="project_detail_enrollment_completed">지원이 완료되었습니다.</string>
+    <string name="project_detail_enrollment_completed_description">결과는 지원 현황 페이지에서\n확인하실 수 있습니다.</string>
 
     <string name="project_detail_member">팀원</string>
     <string name="project_detail_chat">채팅</string>

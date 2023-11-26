@@ -6,6 +6,7 @@ import android.view.ContextMenu
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
@@ -36,17 +37,16 @@ import timber.log.Timber
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by hiltNavGraphViewModels(R.id.nav_home)
 
     private val homeCategoryAdapter by lazy {
-        HomeCategoryAdapter {
-            homeViewModel.setSelectedCategory(it.category)
-        }
+        HomeCategoryAdapter { homeViewModel.setSelectedCategory(it.category) }
     }
     private val homeProjectFeedAdapter by lazy {
         HomeProjectFeedAdapter(
-            onClickFavoriteProjectFeed = { homeViewModel.setProjectFeedLike(it) },
-            onClickProjectFeed = { homeViewModel.navigateToProjectFeedDetail(it) }
+            onClickFavoriteProjectFeed = homeViewModel::setProjectFeedLike,
+            onClickMemberCount = homeViewModel::navigateToRecruitmentNoticeSummary,
+            onClickProjectFeed = homeViewModel::navigateToProjectFeedDetail
         )
     }
 
@@ -170,7 +170,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
             launch {
+                homeViewModel.navigateToRecruitmentNoticeSummary.collect {
+                    findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToSummaryRecruitmentNoticeDialog())
+                }
+            }
+
+            launch {
                 homeViewModel.navigateToProjectFeedDetail.collect {
+                    if (findNavController().currentDestination?.id == R.id.summaryRecruitmentNoticeDialog) {
+                        findNavController().navigateUp()
+                    }
+
                     findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToNavProjectDetail(it))
                 }
             }

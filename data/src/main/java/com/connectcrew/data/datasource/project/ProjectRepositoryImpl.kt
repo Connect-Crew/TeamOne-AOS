@@ -33,4 +33,8 @@ internal class ProjectRepositoryImpl @Inject constructor(
     override suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean {
         return remoteDataSource.setProjectLike(accessToken, projectId)
     }
+
+    override suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String) {
+        return remoteDataSource.setProjectEnrollment(accessToken, projectId, part, message)
+    }
 }

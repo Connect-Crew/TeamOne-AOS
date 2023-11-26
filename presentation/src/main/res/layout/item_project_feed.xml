@@ -9,7 +9,6 @@
         android:layout_margin="6dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardElevation="4dp"
-        app:contentPadding="10dp"
         app:shapeAppearance="?shapeAppearanceSmallComponent"
         tools:context=".adapter.home.project.HomeProjectFeedAdapter">
 
@@ -21,6 +20,7 @@
                 android:id="@+id/iv_project_thumbnail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintHeight_max="120dp"
@@ -93,45 +93,83 @@
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/cg_project_tag"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
                 app:chipSpacing="4dp"
-                app:layout_constraintBottom_toTopOf="@id/spinner_member"
+                app:layout_constraintBottom_toTopOf="@id/view_horizontal_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_project_thumbnail"
                 app:layout_constraintTop_toBottomOf="@id/iv_project_location"
-                app:layout_constraintVertical_chainStyle="spread_inside" />
+                app:layout_constraintVertical_bias="0" />
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner_member"
-                android:layout_width="wrap_content"
+            <View
+                android:id="@+id/view_horizontal_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/color_eeeeee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_project_thumbnail" />
+
+            <LinearLayout
+                android:id="@+id/ll_member_count"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:spinnerMode="dropdown"
+                android:background="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/ll_like_count"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/iv_project_thumbnail"
-                app:layout_constraintTop_toBottomOf="@id/cg_project_tag"
-                app:layout_constraintVertical_bias="1"
-                tools:listitem="@layout/item_project_feed_member_header" />
+                app:layout_constraintEnd_toStartOf="@id/view_vertical_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_horizontal_line">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_member_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_member" />
+
+                <TextView
+                    android:id="@+id/tv_member_count"
+                    style="@style/Widget.TeamOne.TextView.Caption1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_00aee4"
+                    tools:text="3 / 7" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_vertical_line"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/color_eeeeee"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_horizontal_line" />
 
             <LinearLayout
                 android:id="@+id/ll_like_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="?selectableItemBackground"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@id/spinner_member"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/spinner_member">
+                app:layout_constraintStart_toEndOf="@id/view_vertical_line"
+                app:layout_constraintTop_toBottomOf="@id/view_horizontal_line">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_like_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_like" />
 
                 <TextView
@@ -141,6 +179,7 @@
                     android:textColor="@color/color_d62246"
                     tools:text="49" />
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

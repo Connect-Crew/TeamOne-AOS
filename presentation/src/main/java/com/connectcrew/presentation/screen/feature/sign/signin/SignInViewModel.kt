@@ -12,6 +12,7 @@ import com.connectcrew.presentation.model.token.TokenInfo
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
+import com.connectcrew.presentation.util.firebase.FirebaseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -21,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val getAccessTokenForGoogle: GetAccessTokenForGoogle
+    private val getAccessTokenForGoogle: GetAccessTokenForGoogle,
+    private val firebaseUtil: FirebaseUtil
 ) : BaseViewModel() {
 
     private val _navigateToSignInForKakao = MutableEventFlow<Unit>()
@@ -63,7 +65,7 @@ class SignInViewModel @Inject constructor(
         email: String?
     ) {
         viewModelScope.launch {
-            signInUseCase(SignInUseCase.Params(token, oAuthType))
+            signInUseCase(SignInUseCase.Params(token, firebaseUtil.getFirebaseMessageToken(), oAuthType))
                 .asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
                 .collect { apiResult ->

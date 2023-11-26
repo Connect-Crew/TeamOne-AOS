@@ -63,6 +63,7 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
+
     // log tracker
     api(libs.timber)
 

@@ -1,16 +1,16 @@
 package com.connectcrew.presentation.adapter.home.project
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.connectcrew.presentation.R
-import com.connectcrew.presentation.adapter.home.project.member.ProjectFeedMemberSpinnerAdapter
 import com.connectcrew.presentation.databinding.ItemProjectFeedBinding
 import com.connectcrew.presentation.model.project.ProjectFeed
-import com.connectcrew.presentation.model.project.RecruitStatusUiModel
 import com.connectcrew.presentation.util.TimeUtil
 import com.connectcrew.presentation.util.executeAfter
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
@@ -20,6 +20,7 @@ import java.text.DecimalFormat
 
 class HomeProjectFeedAdapter(
     private val onClickFavoriteProjectFeed: (ProjectFeed) -> Unit,
+    private val onClickMemberCount: (ProjectFeed) -> Unit,
     private val onClickProjectFeed: (ProjectFeed) -> Unit,
 ) : PagingDataAdapter<ProjectFeed, HomeProjectFeedViewHolder>(
     object : DiffUtil.ItemCallback<ProjectFeed>() {
@@ -48,12 +49,13 @@ class HomeProjectFeedAdapter(
                 dateTime = projectFeed.createdAt,
                 context = tvProjectCreatedAt.context
             )
-
-            spinnerMember.adapter = ProjectFeedMemberSpinnerAdapter(
-                spinnerMember.context,
-                listOf(RecruitStatusUiModel.TotalMemberRecruitStatusUiModel(projectFeed.recruitStatus.sumOf { it.currentCount }, projectFeed.recruitStatus.sumOf { it.maxCount }))
-                    .plus(projectFeed.recruitStatus.map(RecruitStatusUiModel::PartMembersRecruitStatusUiModel))
-            )
+            val recruitmentColor = if (projectFeed.isEnroll) R.color.color_00aee4 else R.color.color_9e9e9e
+            ivMemberCount.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(ivMemberCount.context, recruitmentColor))
+            tvMemberCount.apply {
+                text = "${projectFeed.totalCurrentCount} / ${projectFeed.totalMaxCount}"
+                setTextColor(ContextCompat.getColor(tvMemberCount.context, recruitmentColor))
+            }
+            llMemberCount.setOnSingleClickListener { onClickMemberCount(projectFeed) }
 
             tvLikeCount.text = DecimalFormat(root.context.resources.getString(R.string.decimal_format_not_digit)).format(projectFeed.likeCount)
             ivLikeCount.isSelected = projectFeed.isLike

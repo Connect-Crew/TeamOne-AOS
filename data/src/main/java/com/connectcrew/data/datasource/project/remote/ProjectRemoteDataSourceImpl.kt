@@ -48,7 +48,7 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
     override suspend fun getProjectFeedDetail(accessToken: String?, projectId: Int): ProjectFeedDetailEntity {
         return try {
             projectApi.getProjectFeedDetail(
-                accessToken= accessToken.convertToAccessToken(),
+                accessToken = accessToken.convertToAccessToken(),
                 projectId = projectId
             ).asEntity()
         } catch (e: Exception) {
@@ -67,7 +67,24 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String) {
+        return try {
+            projectApi.setProjectEnrollment(
+                accessToken = accessToken.convertToAccessToken(),
+                params = mapOf(
+                    KEY_PROJECT_ID to projectId,
+                    KEY_PROJECT_ENROLLMENT_PART to part,
+                    KEY_PROJECT_ENROLLMENT_REASON to message
+                )
+            )
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_ID = "projectId"
+        private const val KEY_PROJECT_ENROLLMENT_PART = "part"
+        private const val KEY_PROJECT_ENROLLMENT_REASON = "message"
     }
 }

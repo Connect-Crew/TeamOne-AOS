@@ -6,11 +6,13 @@ internal interface SignRemoteDataSource {
 
     suspend fun signIn(
         accessToken: String,
+        fcmToken: String?,
         socialType: String
     ): UserEntity
 
     suspend fun signUp(
         accessToken: String,
+        fcmToken: String?,
         socialType: String,
         username: String?,
         nickname: String,

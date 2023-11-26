@@ -15,6 +15,7 @@ import com.connectcrew.presentation.util.RegexUtil
 import com.connectcrew.presentation.util.Success
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
+import com.connectcrew.presentation.util.firebase.FirebaseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +30,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpContainerViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val signUpUseCase: SignUpUseCase
+    private val signUpUseCase: SignUpUseCase,
+    private val firebaseUtil: FirebaseUtil
 ) : BaseViewModel() {
 
     private val signTokenInfo
@@ -123,6 +125,7 @@ class SignUpContainerViewModel @Inject constructor(
             signUpUseCase(
                 SignUpUseCase.Params(
                     accessToken = signTokenInfo?.accessToken ?: "",
+                    fcmToken = firebaseUtil.getFirebaseMessageToken(),
                     socialType = signTokenInfo?.socialType ?: "",
                     nickname = userNickName,
                     email = signEmail,
@@ -137,7 +140,7 @@ class SignUpContainerViewModel @Inject constructor(
                         is ApiResult.Error -> when (it.exception) {
                             is TeamOneException -> when (it.exception) {
                                 is BadRequestException -> setInputUserNicknameTextState(EditTextState.Error(R.string.write_user_name_nickname_duplicated_error))
-                                else -> setMessage(R.string.network_error)
+                                else -> setInputUserNicknameTextState(EditTextState.ErrorMessage(it.exception.message.toString()))
                             }
 
                             else -> setMessage(R.string.unknown_error)
