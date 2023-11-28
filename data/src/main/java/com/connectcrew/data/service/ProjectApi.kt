@@ -2,7 +2,7 @@ package com.connectcrew.data.service
 
 import com.connectcrew.data.model.project.ProjectFeed
 import com.connectcrew.data.model.project.ProjectFeedDetail
-import com.connectcrew.data.model.project.ProjectLike
+import com.connectcrew.data.model.project.ProjectFeedLikeInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -37,7 +37,7 @@ internal interface ProjectApi {
     suspend fun setProjectLike(
         @Header("Authorization") accessToken: String?,
         @Body params: Any
-    ): ProjectLike
+    ): ProjectFeedLikeInfo
 
     @POST("project/apply")
     suspend fun setProjectEnrollment(

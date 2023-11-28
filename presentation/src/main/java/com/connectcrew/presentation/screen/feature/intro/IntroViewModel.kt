@@ -3,6 +3,7 @@ package com.connectcrew.presentation.screen.feature.intro
 import androidx.lifecycle.viewModelScope
 import com.connectcrew.domain.usecase.user.GetUserInfoUseCase
 import com.connectcrew.domain.util.ApiResult
+import com.connectcrew.domain.util.NotFoundException
 import com.connectcrew.domain.util.TeamOneException
 import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
@@ -13,7 +14,9 @@ import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -27,7 +30,14 @@ class IntroViewModel @Inject constructor(
 
     private val currentUserInfo = userToken
         .debounce(600)
-        .flatMapLatest { userToken -> getUserInfoUseCase(GetUserInfoUseCase.Params(userToken)).asResult() }
+        .filterNotNull()
+        .flatMapLatest { userToken ->
+            if (userToken.isNotEmpty()) {
+                getUserInfoUseCase(GetUserInfoUseCase.Params(userToken)).asResult()
+            } else {
+                flowOf(ApiResult.Error(NotFoundException("",null)))
+            }
+        }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ApiResult.Loading)
 
     private val _navigateToHome = MutableEventFlow<Unit>()

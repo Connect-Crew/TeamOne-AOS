@@ -1,5 +1,7 @@
 package com.connectcrew.presentation.di
 
+import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
+import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegateDelegateImpl
 import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.delegate.SignViewModelDelegateImpl
 import dagger.Binds
@@ -17,4 +19,10 @@ abstract class DelegateModule {
     abstract fun bindSignViewModelDelegate(
         signViewModelDelegateImpl: SignViewModelDelegateImpl
     ): SignViewModelDelegate
+
+    @Singleton
+    @Binds
+    abstract fun bindProjectFeedViewModelDelegate(
+        projectFeedViewModelDelegateDelegateImpl: ProjectFeedViewModelDelegateDelegateImpl
+    ): ProjectFeedViewModelDelegate
 }

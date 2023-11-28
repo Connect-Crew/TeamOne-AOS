@@ -179,7 +179,6 @@
                     android:textColor="@color/color_d62246"
                     tools:text="49" />
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

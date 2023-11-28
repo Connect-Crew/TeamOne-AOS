@@ -35,20 +35,20 @@ class ProjectEnrollmentViewModel @Inject constructor(
     val projectFeedDetail = savedStateHandle.getStateFlow<ProjectFeedDetail?>(KEY_PROJECT_FEED_DETAIL, null)
     val enrollmentReason = savedStateHandle.getStateFlow<String>(KEY_PROJECT_ENROLLMENT_REASON, "")
 
-    private val _navigateToProjectEnrollmentReason = MutableEventFlow<Unit>()
-    val navigateToProjectEnrollmentReason: EventFlow<Unit> = _navigateToProjectEnrollmentReason
+    private val _navigateToProjectEnrollmentReasonDialog = MutableEventFlow<Unit>()
+    val navigateToProjectEnrollmentReasonDialog: EventFlow<Unit> = _navigateToProjectEnrollmentReasonDialog
 
-    private val _navigateToProjectEnrollmentCompleted = MutableEventFlow<Unit>()
-    val navigateToProjectEnrollmentCompleted: EventFlow<Unit> = _navigateToProjectEnrollmentCompleted
+    private val _navigateToProjectEnrollmentCompletedDialog = MutableEventFlow<Unit>()
+    val navigateToProjectEnrollmentCompletedDialog: EventFlow<Unit> = _navigateToProjectEnrollmentCompletedDialog
 
     fun setEnrollmentReason(text: String) {
         savedStateHandle.set(KEY_PROJECT_ENROLLMENT_REASON, text)
     }
 
-    fun navigateToProjectEnrollmentReason(recruitStatus: RecruitStatus) {
+    fun navigateToProjectEnrollmentReasonDialog(recruitStatus: RecruitStatus) {
         viewModelScope.launch {
             savedStateHandle.set(KEY_SELECTED_PART, recruitStatus)
-            _navigateToProjectEnrollmentReason.emit(Unit)
+            _navigateToProjectEnrollmentReasonDialog.emit(Unit)
         }
     }
 
@@ -66,7 +66,7 @@ class ProjectEnrollmentViewModel @Inject constructor(
                 .collect {
                     when (it) {
                         is ApiResult.Loading -> return@collect
-                        is ApiResult.Success -> _navigateToProjectEnrollmentCompleted.emit(Unit)
+                        is ApiResult.Success -> _navigateToProjectEnrollmentCompletedDialog.emit(Unit)
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
                             is TeamOneException -> when (it.exception) {

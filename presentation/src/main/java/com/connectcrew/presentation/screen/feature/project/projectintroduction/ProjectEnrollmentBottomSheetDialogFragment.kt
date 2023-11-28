@@ -27,7 +27,7 @@ class ProjectEnrollmentBottomSheetDialogFragment : BaseBottomSheetFragment<Dialo
     private val projectEnrollmentViewModel: ProjectEnrollmentViewModel by hiltNavGraphViewModels(R.id.nav_project_enrollment)
 
     private val projectEnrollmentAdapter by lazy {
-        ProjectEnrollmentAdapter(projectEnrollmentViewModel::navigateToProjectEnrollmentReason)
+        ProjectEnrollmentAdapter(projectEnrollmentViewModel::navigateToProjectEnrollmentReasonDialog)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class ProjectEnrollmentBottomSheetDialogFragment : BaseBottomSheetFragment<Dialo
             }
 
             launch {
-                projectEnrollmentViewModel.navigateToProjectEnrollmentReason.collect {
+                projectEnrollmentViewModel.navigateToProjectEnrollmentReasonDialog.collect {
                     findNavController().safeNavigate(ProjectEnrollmentBottomSheetDialogFragmentDirections.actionProjectEnrollmentBottomSheetDialogFragmentToProjectEnrollmentReasonAlertDialog())
                 }
             }

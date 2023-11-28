@@ -7,6 +7,7 @@ import com.connectcrew.data.util.convertToAccessToken
 import com.connectcrew.data.util.converterException
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import javax.inject.Inject
 
 internal class ProjectRemoteDataSourceImpl @Inject constructor(
@@ -56,12 +57,12 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean {
+    override suspend fun setProjectLike(accessToken: String?, projectId: Int): ProjectFeedLikeInfoEntity {
         return try {
             projectApi.setProjectLike(
                 accessToken = accessToken.convertToAccessToken(),
                 params = mapOf(KEY_PROJECT_ID to projectId)
-            ).isLike
+            ).asEntity()
         } catch (e: Exception) {
             throw converterException(e)
         }

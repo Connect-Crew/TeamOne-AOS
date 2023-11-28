@@ -31,6 +31,14 @@ class HomeProjectFeedAdapter(
         override fun areContentsTheSame(oldItem: ProjectFeed, newItem: ProjectFeed): Boolean {
             return oldItem == newItem
         }
+
+        override fun getChangePayload(oldItem: ProjectFeed, newItem: ProjectFeed): Any? {
+            return if (oldItem.id == newItem.id) {
+                PAYLOAD_PROJECT
+            } else {
+                super.getChangePayload(oldItem, newItem)
+            }
+        }
     }
 ) {
 
@@ -39,9 +47,22 @@ class HomeProjectFeedAdapter(
         return HomeProjectFeedViewHolder(ItemProjectFeedBinding.inflate(inflater, parent, false))
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: HomeProjectFeedViewHolder, position: Int) {
         val projectFeed = getItem(position) ?: return
+        setOnBindViewHolder(holder , projectFeed)
+    }
+
+    override fun onBindViewHolder(holder: HomeProjectFeedViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.contains(PAYLOAD_PROJECT)) {
+            val projectFeed = getItem(position) ?: return
+            setOnBindViewHolder(holder , projectFeed)
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setOnBindViewHolder(holder: HomeProjectFeedViewHolder, projectFeed: ProjectFeed) {
         holder.binding.executeAfter {
             tvProjectTitle.text = projectFeed.title
             tvProjectLocation.text = if (projectFeed.isOnline) root.context.resources.getString(R.string.common_online) else projectFeed.region
@@ -82,4 +103,8 @@ class HomeProjectFeedAdapter(
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.item_project_feed
+
+    companion object {
+        private const val PAYLOAD_PROJECT = "PAYLOAD_PROJECT"
+    }
 }

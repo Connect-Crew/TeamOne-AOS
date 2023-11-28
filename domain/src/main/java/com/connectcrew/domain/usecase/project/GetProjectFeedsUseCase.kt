@@ -10,12 +10,15 @@ import com.connectcrew.domain.usecase.FlowUseCase
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 class GetProjectFeedsUseCase @Inject constructor(
     private val projectRepository: ProjectRepository,
     @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<GetProjectFeedsUseCase.Params, PagingData<ProjectFeedEntity>>(ioDispatcher) {
+
+    var loadedAt: ZonedDateTime = ZonedDateTime.now()
 
     override fun execute(params: Params): Flow<PagingData<ProjectFeedEntity>> = Pager(
         config = PagingConfig(pageSize = params.loadSize, enablePlaceholders = true)

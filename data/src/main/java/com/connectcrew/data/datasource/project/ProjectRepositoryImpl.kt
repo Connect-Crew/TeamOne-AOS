@@ -4,6 +4,7 @@ import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSource
 import com.connectcrew.domain.usecase.project.ProjectRepository
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import javax.inject.Inject
 
 internal class ProjectRepositoryImpl @Inject constructor(
@@ -30,7 +31,7 @@ internal class ProjectRepositoryImpl @Inject constructor(
         return remoteDataSource.getProjectFeedDetail(accessToken, projectId)
     }
 
-    override suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean {
+    override suspend fun setProjectLike(accessToken: String?, projectId: Int): ProjectFeedLikeInfoEntity {
         return remoteDataSource.setProjectLike(accessToken, projectId)
     }
 

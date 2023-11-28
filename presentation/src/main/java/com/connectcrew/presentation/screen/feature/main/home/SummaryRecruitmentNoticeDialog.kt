@@ -26,17 +26,20 @@ class SummaryRecruitmentNoticeDialog : BaseAlertDialogFragment<DialogSummaryRecr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dataBinding.apply {
+            viewModel = homeViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+
         initView()
         initListener()
         initObserver()
     }
 
     private fun initView() {
-        with(dataBinding) {
-            rvMember.apply {
-                adapter = summaryMemberAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+        dataBinding.rvMember.apply {
+            adapter = summaryMemberAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
@@ -58,5 +61,10 @@ class SummaryRecruitmentNoticeDialog : BaseAlertDialogFragment<DialogSummaryRecr
                 summaryMemberAdapter.submitList(it.recruitStatus)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        dataBinding.rvMember.adapter = null
+        super.onDestroyView()
     }
 }
