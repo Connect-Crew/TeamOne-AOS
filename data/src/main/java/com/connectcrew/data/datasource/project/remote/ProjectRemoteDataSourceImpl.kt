@@ -82,9 +82,24 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun createProjectReport(accessToken: String?, projectId: Int, reportReason: String) {
+        return try {
+            projectApi.createProjectReport(
+                accessToken = accessToken.convertToAccessToken(),
+                params = mapOf(
+                    KEY_PROJECT_ID to projectId,
+                    KEY_PROJECT_REPORT_REASON to reportReason
+                )
+            )
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_ID = "projectId"
         private const val KEY_PROJECT_ENROLLMENT_PART = "part"
         private const val KEY_PROJECT_ENROLLMENT_REASON = "message"
+        private const val KEY_PROJECT_REPORT_REASON = "reason"
     }
 }

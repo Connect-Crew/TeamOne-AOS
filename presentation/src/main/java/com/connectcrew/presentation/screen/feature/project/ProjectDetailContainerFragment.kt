@@ -1,7 +1,12 @@
 package com.connectcrew.presentation.screen.feature.project
 
 import android.os.Bundle
+import android.view.Gravity.END
+import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.Spinner
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -12,6 +17,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.connectcrew.presentation.R
+import com.connectcrew.presentation.adapter.menuspinner.MenuSpinnerAdapter
 import com.connectcrew.presentation.databinding.FragmentProjectDetailContainerBinding
 import com.connectcrew.presentation.model.project.ProjectFeedDetailCategory
 import com.connectcrew.presentation.screen.base.BaseFragment
@@ -20,7 +26,6 @@ import com.connectcrew.presentation.screen.feature.project.projectintroduction.P
 import com.connectcrew.presentation.screen.feature.project.projectmember.ProjectDetailMemberFragment
 import com.connectcrew.presentation.util.Const.KEY_IS_PROJECT_UPDATE
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
-import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.toPx
 import com.google.android.material.tabs.TabLayoutMediator
@@ -32,6 +37,12 @@ import kotlinx.coroutines.launch
 class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContainerBinding>(R.layout.fragment_project_detail_container) {
 
     private val projectDetailContainerViewModel: ProjectDetailContainerViewModel by hiltNavGraphViewModels(R.id.nav_project_detail)
+
+    private val menuSpinnerAdapter by lazy {
+        MenuSpinnerAdapter(requireContext(), resources.getStringArray(R.array.project_detail_spinner).toList()) {
+            projectDetailContainerViewModel.navigateToProjectReportReasonDialog()
+        }
+    }
 
     private val pagedChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
@@ -57,6 +68,16 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
     private fun initView() {
         with(dataBinding) {
+            (tlProjectContainer.menu.findItem(R.id.menu_more) as MenuItem).let {
+                (it.actionView as Spinner).apply {
+                    setPadding(0)
+                    dropDownVerticalOffset = 46.toPx(requireContext())
+                    background = null
+                    gravity = END
+                    adapter = menuSpinnerAdapter
+                }
+            }
+
             vpProjectContainer.apply {
                 adapter = ProjectDetailContainerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
                 setPageTransformer(MarginPageTransformer(8.toPx(requireContext())))
@@ -75,17 +96,6 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
                     requireActivity().finish()
                 }
             }
-            tlProjectContainer.setOnMenuItemSingleClickListener {
-                when (it.itemId) {
-                    R.id.menu_more -> {
-                        // TODO :: 신고하기 로직 추가
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-
 
             vpProjectContainer.registerOnPageChangeCallback(pagedChangeCallback)
         }
@@ -100,6 +110,12 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
             launch {
                 projectDetailContainerViewModel.navigateToProjectEnrollDialog.collect { (projectId, projectFeedDetail) ->
                     findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToNavProjectEnrollment(projectId, projectFeedDetail))
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToProjectReportReasonDialog.collect {
+                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToProjectReportReasonAlertDialog())
                 }
             }
         }
@@ -126,7 +142,12 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
     }
 
     override fun onDestroyView() {
-        dataBinding.vpProjectContainer.unregisterOnPageChangeCallback(pagedChangeCallback)
+        with(dataBinding) {
+            vpProjectContainer.unregisterOnPageChangeCallback(pagedChangeCallback)
+            (tlProjectContainer.menu.findItem(R.id.menu_more) as MenuItem).let {
+                (it.actionView as Spinner).adapter = null
+            }
+        }
         super.onDestroyView()
     }
 

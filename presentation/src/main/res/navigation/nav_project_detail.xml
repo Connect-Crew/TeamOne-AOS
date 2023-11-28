@@ -17,7 +17,28 @@
         <action
             android:id="@+id/action_projectDetailContainerFragment_to_nav_project_enrollment"
             app:destination="@id/nav_project_enrollment" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectReportReasonAlertDialog"
+            app:destination="@id/projectReportReasonAlertDialog" />
     </fragment>
+
+    <dialog
+        android:id="@+id/projectReportReasonAlertDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectreport.ProjectReportReasonAlertDialog"
+        tools:layout="@layout/dialog_project_report_reason">
+
+        <action
+            android:id="@+id/action_projectReportReasonAlertDialog_to_projectReportCompletedAlertDialog"
+            app:destination="@id/projectReportCompletedAlertDialog"
+            app:popUpTo="@id/projectReportReasonAlertDialog"
+            app:popUpToInclusive="true" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/projectReportCompletedAlertDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectreport.ProjectReportCompletedAlertDialog"
+        tools:layout="@layout/dialog_project_report_completed" />
 
     <navigation
         android:id="@+id/nav_project_enrollment"

@@ -13,6 +13,7 @@
     <string name="common_refresh">새로고침</string>
     <string name="common_online">온라인</string>
     <string name="common_leader">리더</string>
+    <string name="common_report">신고하기</string>
 
     <!-- Common Error -->
     <string name="network_error_title">접속 실패</string>
@@ -100,6 +101,15 @@
     <string name="summary_recruitment_notice_detail">상세보기</string>
 
     <!-- Project Detail -->
+    <string-array name="project_detail_spinner">
+        <item>신고하기</item>
+    </string-array>
+
+    <string name="project_detail_report">이 프로젝트를 신고하시겠습니까?</string>
+    <string name="project_detail_report_hint">신고 사유를 최대 100자 까지 작성해주세요.</string>
+    <string name="project_detail_report_completed">신고가 완료되었습니다.</string>
+    <string name="project_detail_report_completed_description">소중한 의견 감사합니다.</string>
+
     <string name="project_detail_introduction">소개</string>
     <string name="project_detail_introduction_leader_response">리더 응답률 %d%%</string>
     <string name="project_detail_introduction_current_member">모집현황</string>
