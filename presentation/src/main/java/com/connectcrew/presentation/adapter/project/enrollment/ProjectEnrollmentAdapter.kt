@@ -25,6 +25,7 @@ class ProjectEnrollmentAdapter(
         }
     }
 ) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectEnrollmentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ProjectEnrollmentViewHolder(ItemProjectDetailIntroductionEnrollmentBinding.inflate(inflater, parent, false))

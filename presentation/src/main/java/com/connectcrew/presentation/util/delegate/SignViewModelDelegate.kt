@@ -51,7 +51,7 @@ class SignViewModelDelegateImpl @Inject constructor(
         .stateIn(applicationScope, SharingStarted.Eagerly, null)
 
     override val userToken: StateFlow<String?> = user
-        .mapLatest { it?.accessToken }
+        .mapLatest { it?.accessToken ?: "" }
         .stateIn(applicationScope, SharingStarted.Eagerly, null)
 
     override val userNickname: StateFlow<String?> = user

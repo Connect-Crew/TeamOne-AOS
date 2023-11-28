@@ -57,3 +57,24 @@ fun ProjectFeedDetailEntity.asItem(): ProjectFeedDetail {
         totalMaxCount = (recruitStatus.sumOf { it.maxCount })
     )
 }
+
+fun ProjectFeedDetail.toSummary(): ProjectFeed {
+    return ProjectFeed(
+        id = id,
+        title = title,
+        region = region,
+        thumbnail = bannerImageUrls.firstOrNull(),
+        isOnline = isOnline,
+        careerMin = careerMin,
+        careerMax = careerMax,
+        createdAt = createdAt,
+        state = state,
+        likeCount = likeCount,
+        category = category,
+        goal = goal,
+        isLike = isLike,
+        recruitStatus = recruitStatus,
+        totalCurrentCount = totalCurrentCount,
+        totalMaxCount = totalMaxCount
+    )
+}

@@ -118,6 +118,7 @@
         <item name="chipStrokeWidth">0dp</item>
         <item name="chipMinHeight">17dp</item>
         <item name="chipMinTouchTargetSize">17dp</item>
+        <item name="rippleColor">@null</item>
     </style>
 
     <style name="Widget.TeamOne.Chip.TechStack" parent="Widget.MaterialComponents.Chip.Action">
@@ -134,5 +135,6 @@
         <item name="chipStrokeColor">@color/color_00aee4</item>
         <item name="chipMinHeight">24dp</item>
         <item name="chipMinTouchTargetSize">24dp</item>
+        <item name="rippleColor">@null</item>
     </style>
 </resources>

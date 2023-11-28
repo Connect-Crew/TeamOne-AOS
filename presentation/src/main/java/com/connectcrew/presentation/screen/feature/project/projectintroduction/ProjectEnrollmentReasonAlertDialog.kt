@@ -71,7 +71,7 @@ class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProject
     private fun initObserver() {
         launchAndRepeatWithViewLifecycle {
             launch {
-                projectEnrollmentViewModel.navigateToProjectEnrollmentCompleted.collect {
+                projectEnrollmentViewModel.navigateToProjectEnrollmentCompletedDialog.collect {
                     dataBinding.tietWriteEnrollmentReason.hideKeyboard().also {
                         delay(100)
                         findNavController().safeNavigate(ProjectEnrollmentReasonAlertDialogDirections.actionProjectEnrollmentReasonAlertDialogToProjectEnrollmentCompletedAlertDialog())

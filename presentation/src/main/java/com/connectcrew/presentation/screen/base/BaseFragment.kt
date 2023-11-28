@@ -23,7 +23,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
         get() = _dataBinding!!
 
     private val loadingDialog: AppCompatDialog by lazy {
-        DialogLoadingBinding.inflate(LayoutInflater.from(requireContext()), null, false)
+        DialogLoadingBinding.inflate(layoutInflater, null, false)
             .run {
                 AppCompatDialog(requireContext())
                     .apply {

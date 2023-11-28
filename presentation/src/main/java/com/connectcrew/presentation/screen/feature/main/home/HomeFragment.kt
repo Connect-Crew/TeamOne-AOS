@@ -2,10 +2,9 @@ package com.connectcrew.presentation.screen.feature.main.home
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.ContextMenu
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -22,17 +21,13 @@ import com.connectcrew.presentation.databinding.FragmentHomeBinding
 import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
-import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
-import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -42,6 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeCategoryAdapter by lazy {
         HomeCategoryAdapter { homeViewModel.setSelectedCategory(it.category) }
     }
+
     private val homeProjectFeedAdapter by lazy {
         HomeProjectFeedAdapter(
             onClickFavoriteProjectFeed = homeViewModel::setProjectFeedLike,
@@ -58,6 +54,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
                 return (KEY_CATEGORY_SCROLL_DURATION / (displayMetrics?.densityDpi ?: 0))
+            }
+        }
+    }
+
+    private var backPressedClickTime: Long = 0L
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (System.currentTimeMillis() > backPressedClickTime.plus(2000)) {
+                backPressedClickTime = System.currentTimeMillis()
+                showToast(R.string.back_pressed_description)
+                return
+            } else {
+                if (!findNavController().navigateUp()) {
+                    requireActivity().finish()
+                }
             }
         }
     }
@@ -104,6 +115,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun initListener() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+
         with(dataBinding) {
             tlHome.apply {
                 setOnMenuItemSingleClickListener {
@@ -182,6 +195,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     }
 
                     findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToNavProjectDetail(it))
+                }
+            }
+
+            launch {
+                homeViewModel.loading.collect {
+                    if (it) showLoadingDialog() else hideLoadingDialog()
+                }
+            }
+
+            launch {
+                homeViewModel.message.collect {
+                    showToast(it)
+                }
+            }
+
+            launch {
+                homeViewModel.messageRes.collect {
+                    showToast(it)
                 }
             }
         }

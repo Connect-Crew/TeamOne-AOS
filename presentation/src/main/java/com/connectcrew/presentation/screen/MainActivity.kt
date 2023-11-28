@@ -22,9 +22,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
+        initView()
+        initListener()
+    }
+
+    private fun initView() {
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+
+        dataBinding.bottomNav.apply {
+            setupWithNavController(navController)
+            itemIconTintList = null
+        }
+    }
+
+    private fun initListener() {
         navController.addOnDestinationChangedListener { navController, destination, _ ->
             currentNavId = destination.id
             dataBinding.bottomNav.isVisible = if (destination.label == resources.getString(R.string.label_dialog)) {
@@ -34,10 +47,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
 
-        dataBinding.bottomNav.apply {
-            setupWithNavController(navController)
-            itemIconTintList = null
-        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
