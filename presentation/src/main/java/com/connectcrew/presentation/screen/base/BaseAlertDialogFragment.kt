@@ -25,7 +25,7 @@ abstract class BaseAlertDialogFragment<T : ViewDataBinding> : DialogFragment() {
         get() = _dataBinding!!
 
     private val loadingDialog: AppCompatDialog by lazy {
-        DialogLoadingBinding.inflate(LayoutInflater.from(requireContext()), null, false)
+        DialogLoadingBinding.inflate(layoutInflater, null, false)
             .run {
                 AppCompatDialog(requireContext())
                     .apply {
@@ -37,7 +37,7 @@ abstract class BaseAlertDialogFragment<T : ViewDataBinding> : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _dataBinding = DataBindingUtil.inflate(LayoutInflater.from(requireContext()), layoutResId, null, false)
+        _dataBinding = DataBindingUtil.inflate(layoutInflater, layoutResId, null, false)
 
         return MaterialAlertDialogBuilder(requireContext())
             .setView(dataBinding.root)

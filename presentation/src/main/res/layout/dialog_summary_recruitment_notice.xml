@@ -53,12 +53,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:text="@{Integer.toString(viewModel.selectedProjectFeed.totalCurrentCount) + ` / ` + Integer.toString(viewModel.selectedProjectFeed.totalMaxCount)}"
                 android:textColor="@color/color_616161"
                 app:layout_constraintBottom_toBottomOf="@id/tv_member"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_member"
                 app:layout_constraintTop_toTopOf="@id/tv_member"
-                tools:text="3/ 7" />
+                tools:text="3 / 7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

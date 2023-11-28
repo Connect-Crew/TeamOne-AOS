@@ -11,8 +11,6 @@ data class ProjectFeedEntity(
     val careerMin: String,
     val careerMax: String,
     val createdAt: String,
-    val startDate: String?,
-    val endDate: String?,
     val state: String,
     val likeCount: Int,
     val category: List<String>,

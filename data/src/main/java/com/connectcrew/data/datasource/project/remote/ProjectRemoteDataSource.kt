@@ -2,6 +2,7 @@ package com.connectcrew.data.datasource.project.remote
 
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 
 internal interface ProjectRemoteDataSource {
 
@@ -21,7 +22,7 @@ internal interface ProjectRemoteDataSource {
 
     suspend fun getProjectFeedDetail(accessToken: String?, projectId: Int): ProjectFeedDetailEntity
 
-    suspend fun setProjectLike(accessToken: String?, projectId: Int): Boolean
+    suspend fun setProjectLike(accessToken: String?, projectId: Int): ProjectFeedLikeInfoEntity
 
     suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String)
 

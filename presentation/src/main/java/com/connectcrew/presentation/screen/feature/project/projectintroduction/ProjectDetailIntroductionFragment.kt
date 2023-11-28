@@ -73,6 +73,24 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
                     projectDetailContainerViewModel.navigateToProjectEnrollDialog(it)
                 }
             }
+
+            launch {
+                projectDetailIntroductionViewModel.loading.collect {
+                    if (it) showLoadingDialog() else hideLoadingDialog()
+                }
+            }
+
+            launch {
+                projectDetailIntroductionViewModel.message.collect {
+                    showToast(it)
+                }
+            }
+
+            launch {
+                projectDetailIntroductionViewModel.messageRes.collect {
+                    showToast(it)
+                }
+            }
         }
     }
 

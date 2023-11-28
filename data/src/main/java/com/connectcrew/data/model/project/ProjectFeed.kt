@@ -24,10 +24,6 @@ internal data class ProjectFeed(
     val careerMax: String,
     @Json(name = "createdAt")
     val createdAt: String,
-    @Json(name = "startDate")
-    val startDate: String?,
-    @Json(name = "endDate")
-    val endDate: String?,
     @Json(name = "state")
     val state: String,
     @Json(name = "favorite")
@@ -52,8 +48,6 @@ internal fun ProjectFeed.asEntity(): ProjectFeedEntity {
         careerMin = careerMin,
         careerMax = careerMax,
         createdAt = createdAt.convertToDateTime() ?: ZonedDateTime.now().toString(),
-        startDate = startDate.convertToDateTime(),
-        endDate = endDate.convertToDateTime(),
         state = state,
         likeCount = likeCount,
         category = category,

@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.filter
+import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.connectcrew.domain.usecase.project.GetProjectFeedsUseCase
 import com.connectcrew.domain.usecase.project.SetProjectFeedLikeUseCase
@@ -18,6 +20,8 @@ import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.model.project.ProjectFeed
 import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.delegate.ProjectFeedUpdateActionFlow
+import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
 import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
@@ -33,6 +37,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,8 +45,12 @@ class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getProjectFeedsUseCase: GetProjectFeedsUseCase,
     private val setProjectFeedLikeUseCase: SetProjectFeedLikeUseCase,
+    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate,
     signViewModelDelegate: SignViewModelDelegate
-) : BaseViewModel(), SignViewModelDelegate by signViewModelDelegate {
+) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate, SignViewModelDelegate by signViewModelDelegate {
+
+    private val projectFeedActionReceiver = projectFeedUpdateActionFlow
+        .stateIn(viewModelScope, SharingStarted.Eagerly, ProjectFeedUpdateActionFlow.None)
 
     private val selectedCategory = savedStateHandle.getStateFlow(KEY_SELECTED_CATEGORY, ProjectCategoryType.CATEGORY_ALL)
     val selectedProjectFeed = savedStateHandle.getStateFlow<ProjectFeed?>(KEY_SELECTED_PROJECT, null)
@@ -51,9 +60,58 @@ class HomeViewModel @Inject constructor(
         .map { (category, selectedItem) -> category.map { it.copy(isSelected = selectedItem == it.category) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val projectFeeds: Flow<PagingData<ProjectFeed>> = combine(loadDataSignal, userToken, selectedCategory, ::Triple)
+    private var _projectFeeds: Flow<PagingData<ProjectFeed>> = combine(loadDataSignal, userToken, selectedCategory, ::Triple)
         .flatMapLatest { (_, token, category) -> getProjectFeedsUseCase(GetProjectFeedsUseCase.Params(userToken = token, part = category.type)) }
         .mapLatest { pagingData -> pagingData.map(ProjectFeedEntity::asItem) }
+        .cachedIn(viewModelScope)
+
+    val projectFeeds: Flow<PagingData<ProjectFeed>> = projectFeedActionReceiver
+        .flatMapLatest { receiver ->
+            when (receiver) {
+                is ProjectFeedUpdateActionFlow.None -> return@flatMapLatest _projectFeeds
+
+                is ProjectFeedUpdateActionFlow.CreateProjectFeed -> _projectFeeds.map { pagingData ->
+                    if (receiver.updateAt.isBefore(getProjectFeedsUseCase.loadedAt)) {
+                        pagingData
+                    } else {
+                        pagingData.insertSeparators { _: ProjectFeed?, after: ProjectFeed? ->
+                            val feedCreatedAt = ZonedDateTime.parse(after?.createdAt)
+                            val receiverCreatedAt = ZonedDateTime.parse(receiver.projectFeed?.createdAt)
+
+                            return@insertSeparators if (receiverCreatedAt.isBefore(feedCreatedAt)) {
+                                receiver.projectFeed
+                            } else {
+                                null
+                            }
+                        }
+                    }
+                }
+
+                is ProjectFeedUpdateActionFlow.UpdateProjectFeed -> _projectFeeds.map { pagingData ->
+                    if (receiver.updateAt.isBefore(getProjectFeedsUseCase.loadedAt)) {
+                        pagingData
+                    } else {
+                        pagingData.map { projectFeed ->
+                            if (projectFeed.id == receiver.projectFeed?.id) {
+                                receiver.projectFeed!!
+                            } else {
+                                projectFeed
+                            }
+                        }
+                    }
+                }
+
+                is ProjectFeedUpdateActionFlow.DeleteProjectFeed -> _projectFeeds.map { pagingData ->
+                    if (receiver.updateAt.isBefore(getProjectFeedsUseCase.loadedAt)) {
+                        pagingData
+                    } else {
+                        pagingData.filter { projectFeed -> (projectFeed.id == receiver.projectFeed?.id) }
+                    }
+                }
+            }.also {
+                _projectFeeds = it
+            }
+        }
         .cachedIn(viewModelScope)
 
     private val _scrollToCenterForProjectCategory = MutableEventFlow<ProjectCategoryType>()
@@ -86,7 +144,16 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is ApiResult.Loading -> return@collect
                     is ApiResult.Success -> {
-                        //TODO:: 좋아요 클릭 성공 시 피드 업데이트 로직 작성
+                        val projectFeedLikeInfo = it.data.asItem()
+
+                        updateProjectFeedAction(
+                            projectFeed.copy(
+                                id = projectFeedLikeInfo.projectId,
+                                isLike = projectFeedLikeInfo.isLike,
+                                likeCount = projectFeedLikeInfo.likeCount
+                            ),
+                            ZonedDateTime.now()
+                        )
                     }
 
                     is ApiResult.Error -> {
