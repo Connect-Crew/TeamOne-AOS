@@ -127,7 +127,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         }
 
                         R.id.menu_search -> {
-                            findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+                            findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToNavSearch())
                             true
                         }
 

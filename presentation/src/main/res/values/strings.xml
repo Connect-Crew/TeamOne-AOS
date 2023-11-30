@@ -138,4 +138,11 @@
     <string name="search_hint">두 글자 이상 입력해주세요.</string>
     <string name="search_error">검색어는 두 글자 이상 입력해주세요</string>
     <string name="search_empty_history">검색 기록이 없습니다.</string>
+
+    <!-- media picker -->
+    <string name="media_picker_permission_storage">이미지 첨부를 원하시는 경우\n저장 공간 접근 권한이 필요합니다.</string>
+    <string name="media_picker_permission_setting_storage_title">권한 설정</string>
+    <string name="media_picker_permission_setting_storage_description">저장공간 접근 권한이 필요합니다. 휴대폰 설정 > 앱 > 저장공간 권한을 허용으로 변경해주세요.</string>
+    <string name="media_picker_max_selected_description">최대 %d장까지 선택 가능합니다.</string>
+    <string name="media_picker_empty_images">가져올 수 있는 이미지가 없습니다.</string>
 </resources>

@@ -8,13 +8,16 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.connectcrew.presentation.BuildConfig
 import com.connectcrew.presentation.R
+import com.google.android.material.imageview.ShapeableImageView
+import timber.log.Timber
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         if (!isValidContextForGlide(view.context)) return
         Glide.with(view.context)
-            .load(if (imageUrl.startsWith("http")) imageUrl else (BuildConfig.API_URL + imageUrl))
+            .load(if (imageUrl.startsWith("http") || imageUrl.startsWith("content")) imageUrl else (BuildConfig.API_URL + imageUrl))
+            .load(imageUrl)
             .placeholder(R.color.color_9e9e9e)
             .error(R.color.color_9e9e9e)
             .into(view)
@@ -39,6 +42,13 @@ fun bindIsGone(view: View, isGone: Boolean?) {
         view.visibility = View.GONE
     } else {
         view.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("imageStrokeWidth")
+fun setImageStrokeWith(imageView: ShapeableImageView, isSelected: Boolean) {
+    imageView.apply {
+        strokeWidth = (if (isSelected) 2 else 0).toPx(context).toFloat()
     }
 }
 
