@@ -1,5 +1,8 @@
 package com.connectcrew.data.di
 
+import com.connectcrew.data.datasource.media.MediaRepositoryImpl
+import com.connectcrew.data.datasource.media.local.MediaLocalDataSource
+import com.connectcrew.data.datasource.media.local.MediaLocalDataSourceImpl
 import com.connectcrew.data.datasource.project.ProjectRepositoryImpl
 import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSource
 import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSourceImpl
@@ -15,6 +18,7 @@ import com.connectcrew.data.datasource.token.remote.TokenRemoteDataSourceImpl
 import com.connectcrew.data.datasource.user.UserRepositoryImpl
 import com.connectcrew.data.datasource.user.remote.UserRemoteDataSource
 import com.connectcrew.data.datasource.user.remote.UserRemoteDataSourceImpl
+import com.connectcrew.domain.usecase.media.MediaRepository
 import com.connectcrew.domain.usecase.project.ProjectRepository
 import com.connectcrew.domain.usecase.searchhistory.SearchHistoryRepository
 import com.connectcrew.domain.usecase.sign.SignRepository
@@ -69,4 +73,12 @@ internal abstract class DataModule {
     @Singleton
     @Binds
     abstract fun bindSearchHistoryLocalDataSource(searchHistoryLocalDataSourceImpl: SearchHistoryLocalDataSourceImpl): SearchHistoryLocalDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindMediaRepository(mediaRepositoryImpl: MediaRepositoryImpl): MediaRepository
+
+    @Singleton
+    @Binds
+    abstract fun bineMediaLocalDataSource(mediaLocalDataSourceImpl: MediaLocalDataSourceImpl): MediaLocalDataSource
 }

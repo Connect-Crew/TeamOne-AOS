@@ -28,7 +28,7 @@
             app:destination="@id/summaryRecruitmentNoticeDialog" />
 
         <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
+            android:id="@+id/action_homeFragment_to_nav_search"
             app:destination="@id/nav_search"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
