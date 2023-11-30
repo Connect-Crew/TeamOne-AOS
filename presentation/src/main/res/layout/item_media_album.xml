@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="album"
+            type="com.connectcrew.presentation.model.media.Album" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        tools:context=".adapter.media.MediaAlbumAdapter">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/siv_album_thumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            app:imageStrokeWidth="@{album.isSelected}"
+            app:imageUrl="@{album.thumbnailUri}"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="?shapeAppearanceSmallComponent"
+            app:strokeColor="@color/color_00aee4"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_album_name"
+            style="@style/Widget.TeamOne.TextView.Caption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{album.name}"
+            android:textColor="@{album.selected ? @color/color_00aee4 : @color/color_424242}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/siv_album_thumbnail"
+            app:layout_constraintStart_toStartOf="@id/siv_album_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/siv_album_thumbnail"
+            tools:text="앨범 이름" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
