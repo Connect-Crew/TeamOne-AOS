@@ -8,11 +8,16 @@ import com.connectcrew.data.util.converterException
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
 import javax.inject.Inject
 
 internal class ProjectRemoteDataSourceImpl @Inject constructor(
     private val projectApi: ProjectApi
 ) : ProjectRemoteDataSource {
+
+    override suspend fun getProjectInfo(): ProjectInfoContainerEntity {
+        return projectApi.getProjectInfo().asEntity()
+    }
 
     override suspend fun getProjectFeeds(
         accessToken: String?,

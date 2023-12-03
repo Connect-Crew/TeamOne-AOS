@@ -3,6 +3,7 @@ package com.connectcrew.data.service
 import com.connectcrew.data.model.project.ProjectFeed
 import com.connectcrew.data.model.project.ProjectFeedDetail
 import com.connectcrew.data.model.project.ProjectFeedLikeInfo
+import com.connectcrew.data.model.project.ProjectInfoContainer
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -11,6 +12,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 internal interface ProjectApi {
+
+    @GET("project/")
+    suspend fun getProjectInfo(): ProjectInfoContainer
 
     @GET("project/list")
     suspend fun getProjectFeeds(

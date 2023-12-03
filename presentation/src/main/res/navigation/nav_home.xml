@@ -34,6 +34,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_projectWriteContainerFragment"
+            app:destination="@id/projectWriteContainerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <dialog
@@ -45,4 +53,9 @@
     <include app:graph="@navigation/nav_project_detail" />
 
     <include app:graph="@navigation/nav_search" />
+
+    <fragment
+        android:id="@+id/projectWriteContainerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerFragment"
+        tools:layout="@layout/fragment_project_write_container" />
 </navigation>

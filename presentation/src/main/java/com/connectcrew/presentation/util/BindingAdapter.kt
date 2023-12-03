@@ -4,12 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.doOnLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.connectcrew.presentation.BuildConfig
 import com.connectcrew.presentation.R
 import com.google.android.material.imageview.ShapeableImageView
-import timber.log.Timber
+import com.google.android.material.progressindicator.BaseProgressIndicator
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String?) {
@@ -49,6 +50,14 @@ fun bindIsGone(view: View, isGone: Boolean?) {
 fun setImageStrokeWith(imageView: ShapeableImageView, isSelected: Boolean) {
     imageView.apply {
         strokeWidth = (if (isSelected) 2 else 0).toPx(context).toFloat()
+    }
+}
+
+@BindingAdapter("progress_bar_progress", "progress_bar_color", requireAll = false)
+fun setProgressBarProgress(progressIndicator: BaseProgressIndicator<*>, progress: Int? = null, color: Int? = null) {
+    with(progressIndicator) {
+        if (color != null) setIndicatorColor(color)
+        if (progress != null) doOnLayout { setProgressCompat(progress, true) }
     }
 }
 

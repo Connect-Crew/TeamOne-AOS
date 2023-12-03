@@ -3,8 +3,11 @@ package com.connectcrew.data.datasource.project.remote
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
 
 internal interface ProjectRemoteDataSource {
+
+    suspend fun getProjectInfo(): ProjectInfoContainerEntity
 
     suspend fun getProjectFeeds(
         accessToken: String?,
