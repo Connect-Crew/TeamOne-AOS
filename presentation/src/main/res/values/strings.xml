@@ -103,6 +103,14 @@
     <string name="summary_recruitment_notice_title">모집현황</string>
     <string name="summary_recruitment_notice_detail">상세보기</string>
 
+    <!-- Project Write -->
+    <string name="project_write_container_step_1">이름</string>
+    <string name="project_write_container_step_2">기간/장소</string>
+    <string name="project_write_container_step_3">목적/경력</string>
+    <string name="project_write_container_step_4">분야</string>
+    <string name="project_write_container_step_5">게시글 작성</string>
+
+
     <!-- Project Detail -->
     <string-array name="project_detail_spinner">
         <item>신고하기</item>

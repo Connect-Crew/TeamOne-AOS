@@ -22,6 +22,7 @@ import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
+import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -134,6 +135,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         else -> false
                     }
                 }
+            }
+
+            fabTeamRecruitmentWrite.setOnSingleClickListener {
+                findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToProjectWriteContainerFragment())
             }
         }
     }
