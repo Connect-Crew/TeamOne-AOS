@@ -8,6 +8,7 @@ import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.domain.util.succeeded
 import com.connectcrew.presentation.R
+import com.connectcrew.presentation.model.project.ProjectInfo
 import com.connectcrew.presentation.model.project.ProjectInfoContainer
 import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -65,6 +67,13 @@ class ProjectWriteContainerViewModel @Inject constructor(
     val projectStep2State = projectProgress
         .map { getProjectState(2, it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+
+    val projectProgressState = savedStateHandle.getStateFlow<ProjectWriteProgressState?>(KEY_PROJECT_WRITE_PERIOD_PROGRESS_STATE, null)
+    val projectLocationType = savedStateHandle.getStateFlow<ProjectWriteLocationType?>(KEY_PROJECT_WRITE_LOCATION_TYPE, null)
+    val projectLocation = savedStateHandle.getStateFlow<ProjectInfo?>(KEY_PROJECT_WRITE_LOCATION, null)
+    val enableProjectPeriodAndLocation = combine(projectProgressState, projectLocationType, projectLocation, ::Triple)
+        .map { (it.first != null && it.second != null && (if (it.second != ProjectWriteLocationType.TYPE_ONLINE) it.third != null else true)) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
     // endregion Step 2
 
     // region Step 3
@@ -114,9 +123,34 @@ class ProjectWriteContainerViewModel @Inject constructor(
         }
     }
 
+    fun setProjectPeriodProgress(progressState: ProjectWriteProgressState) {
+        savedStateHandle.set(KEY_PROJECT_WRITE_PERIOD_PROGRESS_STATE, progressState)
+    }
+
+    fun setProjectLocationType(locationType: ProjectWriteLocationType) {
+        savedStateHandle.set(KEY_PROJECT_WRITE_LOCATION_TYPE, locationType)
+
+        if (projectLocationType.value == ProjectWriteLocationType.TYPE_ONLINE) {
+            savedStateHandle.set(KEY_PROJECT_WRITE_LOCATION, null)
+        }
+    }
+
+    fun setProjectLocation(projectInfo: ProjectInfo) {
+        if (projectLocationType.value == ProjectWriteLocationType.TYPE_ONLINE) {
+            savedStateHandle.set(KEY_PROJECT_WRITE_LOCATION, null)
+        } else {
+            savedStateHandle.set(KEY_PROJECT_WRITE_LOCATION, if (projectLocation.value?.key == projectInfo.key) null else projectInfo)
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_WRITE_STEP = "project_write_step"
+
         private const val KEY_PROJECT_WRITE_TITLE = "project_write_title"
         private const val KEY_PROJECT_WRITE_TITLE_EDIT_TEXT_STATE = "project_write_title_edit_text_state"
+
+        private const val KEY_PROJECT_WRITE_PERIOD_PROGRESS_STATE = "project_write_period_progress_state"
+        private const val KEY_PROJECT_WRITE_LOCATION_TYPE = "project_write_location_type"
+        private const val KEY_PROJECT_WRITE_LOCATION = "project_write_location"
     }
 }
