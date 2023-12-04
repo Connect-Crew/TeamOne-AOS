@@ -32,6 +32,7 @@
         <item name="errorIconDrawable">@null</item>
         <item name="errorTextAppearance">@style/TextAppearance.TeamOne.Caption1</item>
         <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="endIconTint">@null</item>
     </style>
 
     <style name="Widget.TeamOne.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
