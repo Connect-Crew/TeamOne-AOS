@@ -5,3 +5,9 @@ enum class ProjectWriteProgressState {
     STATE_PROCEEDING,
     STATE_PROGRESS_COMPLETED
 }
+
+enum class ProjectWriteLocationType {
+    TYPE_ONLINE,
+    TYPE_OFFLINE,
+    TYPE_ALL
+}
