@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".adapter.projectwrite.ProjectFieldViewHolder">
+
+        <FrameLayout
+            android:id="@+id/fl_project_write_filed"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="100dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/siv_project_write_filed_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:padding="2dp"
+                app:shapeAppearance="?shapeAppearanceLargeComponent"
+                app:strokeColor="@color/color_eeeeee"
+                app:strokeWidth="1dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_project_write_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_project_field_it" />
+
+                <TextView
+                    android:id="@+id/tv_project_write_field"
+                    style="@style/Widget.TeamOne.TextView.Caption1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_616161"
+                    tools:text="IT" />
+            </LinearLayout>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

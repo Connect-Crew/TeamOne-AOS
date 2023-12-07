@@ -152,6 +152,10 @@
         <item>10년+</item>
     </string-array>
 
+    <string name="project_write_field_title">프로젝트 분야가 무엇인가요?</string>
+    <string name="project_write_field_sub_title">모집 화면에 태그가 생성되어 더욱 눈에 뛸 수 있어요!\n최대 3개까지 선택할 수 있어요! <font color="#D62246">(최소 1개 선택)</font></string>
+    <string name="project_write_field_max_selected_description">분야는 최대 3개 까지만 선택 가능합니다.</string>
+
     <!-- Project Detail -->
     <string-array name="project_detail_spinner">
         <item>신고하기</item>

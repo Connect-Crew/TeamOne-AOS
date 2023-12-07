@@ -8,6 +8,8 @@ import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.domain.util.succeeded
 import com.connectcrew.presentation.R
+import com.connectcrew.presentation.model.project.ProjectCategoryItem
+import com.connectcrew.presentation.model.project.ProjectFieldInfo
 import com.connectcrew.presentation.model.project.ProjectInfo
 import com.connectcrew.presentation.model.project.ProjectInfoContainer
 import com.connectcrew.presentation.model.project.asItem
@@ -94,6 +96,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
     val projectStep4State = projectProgress
         .map { getProjectState(4, it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+    val projectSelectedFiled = savedStateHandle.getStateFlow<List<ProjectFieldInfo>>(KEY_PROJECT_WRITE_SELECT_FIELD, emptyList())
     // endregion Step 4
 
     // region Step 5
@@ -191,6 +194,25 @@ class ProjectWriteContainerViewModel @Inject constructor(
         }
     }
 
+    fun setProjectFiled(projectFieldInfo: ProjectFieldInfo) {
+        savedStateHandle.set(
+            KEY_PROJECT_WRITE_SELECT_FIELD,
+            projectSelectedFiled.value
+                .toMutableList()
+                .apply {
+                    if (any { it.category.key == projectFieldInfo.category.key }) {
+                        removeAll { it.category.key == projectFieldInfo.category.key }
+                    } else {
+                        if (size >= PROJECT_WRITE_FIELD_MAX_SIZE) {
+                            setMessage(R.string.project_write_field_max_selected_description)
+                        } else {
+                            add(projectFieldInfo)
+                        }
+                    }
+                }
+        )
+    }
+
     companion object {
         private const val KEY_PROJECT_WRITE_STEP = "project_write_step"
 
@@ -205,5 +227,8 @@ class ProjectWriteContainerViewModel @Inject constructor(
         private const val KEY_PROJECT_WRITE_CAREER_NO_LIMIT = "project_write_career_no_limit"
         private const val KEY_PROJECT_WRITE_MIN_CAREER = "project_write_min_career"
         private const val KEY_PROJECT_WRITE_MAX_CAREER = "project_write_max_career"
+
+        private const val KEY_PROJECT_WRITE_SELECT_FIELD = "project_write_select_field"
+        private const val PROJECT_WRITE_FIELD_MAX_SIZE = 3
     }
 }

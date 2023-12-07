@@ -1,38 +1,51 @@
 package com.connectcrew.presentation.model.project
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectJobInfoEntity
+import com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteFieldType
+import com.connectcrew.presentation.screen.feature.projectwrite.getFiledIcon
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProjectInfoContainer(
     val regions: List<ProjectInfo>,
     val jobs: List<ProjectJobInfo>,
-    val category: List<ProjectInfo>,
+    val category: List<ProjectFieldInfo>,
     val skills: List<String>,
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class ProjectJobInfo(
     val key: String,
     val name: String,
     val value: List<ProjectInfo>
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class ProjectInfo(
     val key: String,
     val name: String,
     val isSelected: Boolean = false
-): Parcelable
+) : Parcelable
+
+@Parcelize
+data class ProjectFieldInfo(
+    val category: ProjectWriteFieldType,
+    @DrawableRes val categoryIcon: Int?,
+    val isSelected: Boolean = false
+) : Parcelable
 
 fun ProjectInfoContainerEntity.asItem(): ProjectInfoContainer {
     return ProjectInfoContainer(
         regions = regions.map(ProjectInfoEntity::asItem),
         jobs = jobs.map(ProjectJobInfoEntity::asItem),
-        category = category.map(ProjectInfoEntity::asItem),
+        category = category.mapNotNull {
+            val item = ProjectWriteFieldType.values().find { type -> type.key == it.key }
+            if (item != null) ProjectFieldInfo(category = item, categoryIcon = item.getFiledIcon()) else null
+        },
         skills = skills
     )
 }
