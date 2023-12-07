@@ -36,6 +36,7 @@ androidMaterial = "1.8.0"
 androidDesugarJdkLibs = "1.1.5"
 
 ## ETC
+powerspinner = "1.2.7"
 retrofit = "2.9.0"
 okhttp = "4.11.0"
 moshi = "1.14.0"
@@ -110,6 +111,7 @@ android-material = { group = "com.google.android.material", name = "material", v
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" } # coreLibraryDesugaring
 
 # ETC
+powerspinner = { group = "com.github.skydoves", name = "powerspinner", version.ref = "powerspinner" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
