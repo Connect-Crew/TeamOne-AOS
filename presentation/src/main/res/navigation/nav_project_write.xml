@@ -51,7 +51,7 @@
     <fragment
         android:id="@+id/projectWritePurposeAndCareerFragment"
         android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWritePurposeAndCareerFragment"
-        tools:layout="@layout/fragment_project_write_period_and_location">
+        tools:layout="@layout/fragment_project_write_purpose_and_career">
 
         <action
             android:id="@+id/action_projectWritePurposeAndCareerFragment_to_projectWriteFieldFragment"

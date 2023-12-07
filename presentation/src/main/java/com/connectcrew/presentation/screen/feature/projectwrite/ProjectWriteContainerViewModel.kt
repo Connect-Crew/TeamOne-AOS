@@ -80,6 +80,14 @@ class ProjectWriteContainerViewModel @Inject constructor(
     val projectStep3State = projectProgress
         .map { getProjectState(3, it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+
+    val projectPurposeType = savedStateHandle.getStateFlow<ProjectWritePurposeType?>(KEY_PROJECT_WRITE_PURPOSE_TYPE, null)
+    val projectMinCareer = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_MIN_CAREER, ProjectWriteCareerType.NONE)
+    val projectMaxCareer = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_MAX_CAREER, ProjectWriteCareerType.NONE)
+    val isNoLimitCheck = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_CAREER_NO_LIMIT, false)
+    val enableProjectPurposeAndCareer = combine(projectPurposeType, projectMinCareer, projectMaxCareer, isNoLimitCheck) { type, minCareer, maxCareer, isNoLimitCareer -> Triple(type, Pair(minCareer, maxCareer), isNoLimitCareer) }
+        .map { (type, careerRange, isNoLimitCareer) -> (type != null && isNoLimitCareer) || (type != null && careerRange.first != ProjectWriteCareerType.NONE && careerRange.second != ProjectWriteCareerType.NONE) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
     // endregion Step 3
 
     // region Step 4
@@ -128,6 +136,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
     }
 
     fun setProjectLocationType(locationType: ProjectWriteLocationType) {
+        if (projectLocationType.value == locationType) return
         savedStateHandle.set(KEY_PROJECT_WRITE_LOCATION_TYPE, locationType)
 
         if (projectLocationType.value == ProjectWriteLocationType.TYPE_ONLINE) {
@@ -143,6 +152,45 @@ class ProjectWriteContainerViewModel @Inject constructor(
         }
     }
 
+    fun setProjectPurposeType(purposeType: ProjectWritePurposeType) {
+        if (projectPurposeType.value == purposeType) return
+        savedStateHandle.set(KEY_PROJECT_WRITE_PURPOSE_TYPE, purposeType)
+    }
+
+    fun setProjectCareerNoLimit(isCheck: Boolean) {
+        savedStateHandle.set(KEY_PROJECT_WRITE_CAREER_NO_LIMIT, isCheck)
+        if (isCheck) {
+            setProjectCareer(true, ProjectWriteCareerType.NONE.value)
+            setProjectCareer(false, ProjectWriteCareerType.NONE.value)
+        }
+    }
+
+    fun setProjectCareer(isMin: Boolean, career: String) {
+        val careerType = ProjectWriteCareerType.values().toList().find { it.value == career } ?: ProjectWriteCareerType.NONE
+
+        if (isMin) {
+            savedStateHandle.set(KEY_PROJECT_WRITE_MIN_CAREER, careerType)
+
+            if (careerType.index > projectMaxCareer.value.index
+                && projectMinCareer.value != ProjectWriteCareerType.NONE
+                && projectMaxCareer.value != ProjectWriteCareerType.NONE
+            ) {
+                savedStateHandle.set(KEY_PROJECT_WRITE_MIN_CAREER, ProjectWriteCareerType.NONE)
+                setMessage(R.string.project_write_career_min_choice_error)
+            }
+        } else {
+            savedStateHandle.set(KEY_PROJECT_WRITE_MAX_CAREER, careerType)
+
+            if (careerType.index < projectMinCareer.value.index
+                && projectMinCareer.value != ProjectWriteCareerType.NONE
+                && projectMaxCareer.value != ProjectWriteCareerType.NONE
+            ) {
+                savedStateHandle.set(KEY_PROJECT_WRITE_MAX_CAREER, ProjectWriteCareerType.NONE)
+                setMessage(R.string.project_write_career_max_choice_error)
+            }
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_WRITE_STEP = "project_write_step"
 
@@ -152,5 +200,10 @@ class ProjectWriteContainerViewModel @Inject constructor(
         private const val KEY_PROJECT_WRITE_PERIOD_PROGRESS_STATE = "project_write_period_progress_state"
         private const val KEY_PROJECT_WRITE_LOCATION_TYPE = "project_write_location_type"
         private const val KEY_PROJECT_WRITE_LOCATION = "project_write_location"
+
+        private const val KEY_PROJECT_WRITE_PURPOSE_TYPE = "project_write_purpose_type"
+        private const val KEY_PROJECT_WRITE_CAREER_NO_LIMIT = "project_write_career_no_limit"
+        private const val KEY_PROJECT_WRITE_MIN_CAREER = "project_write_min_career"
+        private const val KEY_PROJECT_WRITE_MAX_CAREER = "project_write_max_career"
     }
 }

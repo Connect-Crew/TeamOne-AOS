@@ -34,6 +34,7 @@
 
     <!-- Unit -->
     <string name="unit_member">%d 명</string>
+    <string name="unit_range">~</string>
 
     <!-- Bottom Menu -->
     <string name="menu_home">홈</string>
@@ -116,8 +117,8 @@
     <string name="project_write_title_hint">프로젝트 이름</string>
     <string name="project_write_title_error">*최소 두 글자 이상 입력해주세요.</string>
 
-    <string name="project_write_period_title">프로젝트는 진행 전인가요, 진행 중인가요?</string>
-    <string name="project_write_period_sub_title">진행 전인가요, 진행 중인가요?</string>
+    <string name="project_write_period_title">프로젝트를 시작하신 상태인가요?</string>
+    <string name="project_write_period_sub_title">프로젝트 진행 상태를 선택해주세요.</string>
     <string name="project_write_period_before">진행 전</string>
     <string name="project_write_period_proceeding">진행 중</string>
     <string name="project_write_location_title">프로젝트를 어디에서 진행하시나요?</string>
@@ -125,6 +126,31 @@
     <string name="project_write_location_is_online">온라인</string>
     <string name="project_write_location_is_offline">오프라인</string>
     <string name="project_write_location_is_online_and_offline">온/오프라인</string>
+
+    <string name="project_write_purpose_title">프로젝트의 목적이 무엇인가요?</string>
+    <string name="project_write_purpose_sub_title">두 가지 용도 중 하나를 선택해주세요.</string>
+    <string name="project_write_purpose_type_start_up">예비창업</string>
+    <string name="project_write_purpose_type_portfolio">포트폴리오</string>
+    <string name="project_write_career_title">선호하는 팀원들의 경력을 알려주세요.</string>
+    <string name="project_write_career_sub_title">취준생부터 경력 10년 이상까지 선택가능합니다.</string>
+    <string name="project_write_career_no_limit">경력 무관</string>
+    <string name="project_write_career_choice">경력 선택</string>
+    <string name="project_write_career_min_choice_error">최소 경력이 최대 경력보다 높을 수 없습니다</string>
+    <string name="project_write_career_max_choice_error">최대 경력이 최소 경력보다 낮을 수 없습니다</string>
+    <string-array name="project_write_career_spinner">
+        <item>준비생</item>
+        <item>신입</item>
+        <item>1년</item>
+        <item>2년</item>
+        <item>3년</item>
+        <item>4년</item>
+        <item>5년</item>
+        <item>6년</item>
+        <item>7년</item>
+        <item>8년</item>
+        <item>9년</item>
+        <item>10년+</item>
+    </string-array>
 
     <!-- Project Detail -->
     <string-array name="project_detail_spinner">

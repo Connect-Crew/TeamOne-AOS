@@ -67,7 +67,7 @@ class ProjectWritePeriodAndLocationFragment : BaseFragment<FragmentProjectWriteP
                 projectWriteContainerViewModel.projectLocation,
                 ::Pair
             ).collect { (projectInfoList, selectInfo) ->
-                projectWriteLocationAdapter.submitList(projectInfoList.regions.map { it.copy(isSelected = it == selectInfo) })
+                projectWriteLocationAdapter.submitList(projectInfoList.regions.drop(1).map { it.copy(isSelected = it == selectInfo) })
             }
         }
     }
