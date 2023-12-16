@@ -14,15 +14,21 @@
             type="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         tools:context=".screen.feature.projectwrite.ProjectWriteContainerFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
+            android:id="@+id/abl_project_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:elevation="0dp">
+            app:elevation="0dp"
+            app:isGone="@{viewModel.projectProgress == -1}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tl_project_write_container"
@@ -32,210 +38,208 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:id="@+id/cl_write_progress_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:isGone="@{viewModel.projectProgress == -1}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_min="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/abl_project_container">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_write_progress_container"
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/lpi_write_progress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_min="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/lpi_write_progress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:max="6"
-                    app:indicatorColor="@color/color_00aee4"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.4"
-                    app:progress_bar_progress="@{viewModel.projectProgress}"
-                    app:trackColor="@color/color_9e9e9e"
-                    app:trackThickness="1dp"
-                    tools:progress="5" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_write_progress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/lpi_write_progress"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/lpi_write_progress"
-                    tools:ignore="HardcodedText">
-
-                    <TextView
-                        android:id="@+id/tv_step_1"
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="@dimen/project_write_circle"
-                        android:layout_height="@dimen/project_write_circle"
-                        android:background="@drawable/bg_project_write_circle"
-                        android:gravity="center"
-                        android:text="1"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_step_2"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:progressStateCircleColor="@{viewModel.projectStep1State}" />
-
-                    <TextView
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/project_write_container_step_1"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_step_1"
-                        app:layout_constraintStart_toStartOf="@id/tv_step_1"
-                        app:layout_constraintTop_toBottomOf="@id/tv_step_1"
-                        app:progressStateTextColor="@{viewModel.projectStep1State}" />
-
-                    <TextView
-                        android:id="@+id/tv_step_2"
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="@dimen/project_write_circle"
-                        android:layout_height="@dimen/project_write_circle"
-                        android:background="@drawable/bg_project_write_circle"
-                        android:gravity="center"
-                        android:text="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_step_3"
-                        app:layout_constraintStart_toEndOf="@id/tv_step_1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:progressStateCircleColor="@{viewModel.projectStep2State}" />
-
-                    <TextView
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/project_write_container_step_2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_step_2"
-                        app:layout_constraintStart_toStartOf="@id/tv_step_2"
-                        app:layout_constraintTop_toBottomOf="@id/tv_step_2"
-                        app:progressStateTextColor="@{viewModel.projectStep2State}" />
-
-                    <TextView
-                        android:id="@+id/tv_step_3"
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="@dimen/project_write_circle"
-                        android:layout_height="@dimen/project_write_circle"
-                        android:background="@drawable/bg_project_write_circle"
-                        android:gravity="center"
-                        android:text="3"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_step_4"
-                        app:layout_constraintStart_toEndOf="@id/tv_step_2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:progressStateCircleColor="@{viewModel.projectStep3State}" />
-
-                    <TextView
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/project_write_container_step_3"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_step_3"
-                        app:layout_constraintStart_toStartOf="@id/tv_step_3"
-                        app:layout_constraintTop_toBottomOf="@id/tv_step_3"
-                        app:progressStateTextColor="@{viewModel.projectStep3State}" />
-
-                    <TextView
-                        android:id="@+id/tv_step_4"
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="@dimen/project_write_circle"
-                        android:layout_height="@dimen/project_write_circle"
-                        android:background="@drawable/bg_project_write_circle"
-                        android:gravity="center"
-                        android:text="4"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_step_5"
-                        app:layout_constraintStart_toEndOf="@id/tv_step_3"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:progressStateCircleColor="@{viewModel.projectStep4State}" />
-
-                    <TextView
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/project_write_container_step_4"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_step_4"
-                        app:layout_constraintStart_toStartOf="@id/tv_step_4"
-                        app:layout_constraintTop_toBottomOf="@id/tv_step_4"
-                        app:progressStateTextColor="@{viewModel.projectStep4State}" />
-
-                    <TextView
-                        android:id="@+id/tv_step_5"
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="@dimen/project_write_circle"
-                        android:layout_height="@dimen/project_write_circle"
-                        android:background="@drawable/bg_project_write_circle"
-                        android:gravity="center"
-                        android:text="5"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/tv_step_4"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:progressStateCircleColor="@{viewModel.projectStep5State}" />
-
-                    <TextView
-                        style="@style/Widget.TeamOne.TextView.Caption2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/project_write_container_step_5"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_step_5"
-                        app:layout_constraintStart_toStartOf="@id/tv_step_5"
-                        app:layout_constraintTop_toBottomOf="@id/tv_step_5"
-                        app:progressStateTextColor="@{viewModel.projectStep5State}" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/nav_host_child_fragment_container"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:paddingHorizontal="24dp"
-                android:paddingTop="30dp"
-                android:paddingBottom="40dp"
-                app:defaultNavHost="true"
-                app:isGone="@{viewModel.projectWriteInitializerUiState != InitializerUiState.Success}"
+                android:max="6"
+                app:indicatorColor="@color/color_00aee4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_write_progress_container" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4"
+                app:progress_bar_progress="@{viewModel.projectProgress}"
+                app:trackColor="@color/color_9e9e9e"
+                app:trackThickness="1dp"
+                tools:progress="5" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_write_progress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/lpi_write_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/lpi_write_progress"
+                tools:ignore="HardcodedText">
+
+                <TextView
+                    android:id="@+id/tv_step_1"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="@dimen/project_write_circle"
+                    android:layout_height="@dimen/project_write_circle"
+                    android:background="@drawable/bg_project_write_circle"
+                    android:gravity="center"
+                    android:text="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_step_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progressStateCircleColor="@{viewModel.projectStep1State}" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_container_step_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_step_1"
+                    app:layout_constraintStart_toStartOf="@id/tv_step_1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_step_1"
+                    app:progressStateTextColor="@{viewModel.projectStep1State}" />
+
+                <TextView
+                    android:id="@+id/tv_step_2"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="@dimen/project_write_circle"
+                    android:layout_height="@dimen/project_write_circle"
+                    android:background="@drawable/bg_project_write_circle"
+                    android:gravity="center"
+                    android:text="2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_step_3"
+                    app:layout_constraintStart_toEndOf="@id/tv_step_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progressStateCircleColor="@{viewModel.projectStep2State}" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_container_step_2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_step_2"
+                    app:layout_constraintStart_toStartOf="@id/tv_step_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_step_2"
+                    app:progressStateTextColor="@{viewModel.projectStep2State}" />
+
+                <TextView
+                    android:id="@+id/tv_step_3"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="@dimen/project_write_circle"
+                    android:layout_height="@dimen/project_write_circle"
+                    android:background="@drawable/bg_project_write_circle"
+                    android:gravity="center"
+                    android:text="3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_step_4"
+                    app:layout_constraintStart_toEndOf="@id/tv_step_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progressStateCircleColor="@{viewModel.projectStep3State}" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_container_step_3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_step_3"
+                    app:layout_constraintStart_toStartOf="@id/tv_step_3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_step_3"
+                    app:progressStateTextColor="@{viewModel.projectStep3State}" />
+
+                <TextView
+                    android:id="@+id/tv_step_4"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="@dimen/project_write_circle"
+                    android:layout_height="@dimen/project_write_circle"
+                    android:background="@drawable/bg_project_write_circle"
+                    android:gravity="center"
+                    android:text="4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_step_5"
+                    app:layout_constraintStart_toEndOf="@id/tv_step_3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progressStateCircleColor="@{viewModel.projectStep4State}" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_container_step_4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_step_4"
+                    app:layout_constraintStart_toStartOf="@id/tv_step_4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_step_4"
+                    app:progressStateTextColor="@{viewModel.projectStep4State}" />
+
+                <TextView
+                    android:id="@+id/tv_step_5"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="@dimen/project_write_circle"
+                    android:layout_height="@dimen/project_write_circle"
+                    android:background="@drawable/bg_project_write_circle"
+                    android:gravity="center"
+                    android:text="5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_step_4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progressStateCircleColor="@{viewModel.projectStep5State}" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_container_step_5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tv_step_5"
+                    app:layout_constraintStart_toStartOf="@id/tv_step_5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_step_5"
+                    app:progressStateTextColor="@{viewModel.projectStep5State}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_child_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:isGone="@{viewModel.projectWriteInitializerUiState != InitializerUiState.Success}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_write_progress_container" />
 
         <include
             android:id="@+id/view_loading"
             layout="@layout/dialog_loading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:visibility="gone"
             app:isGone="@{viewModel.projectWriteInitializerUiState != InitializerUiState.Loading}"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/view_network_error"
             layout="@layout/layout_network_error"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:visibility="gone"
             app:isGone="@{viewModel.projectWriteInitializerUiState != InitializerUiState.Error}"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:viewModel="@{viewModel}" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

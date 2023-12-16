@@ -57,5 +57,5 @@
     <fragment
         android:id="@+id/projectWriteContainerFragment"
         android:name="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerFragment"
-        tools:layout="@layout/fragment_project_write_container" />
+        tools:layout="@layout/fragment_project_write_container"/>
 </navigation>

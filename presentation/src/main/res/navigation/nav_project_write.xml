@@ -65,5 +65,21 @@
     <fragment
         android:id="@+id/projectWritePostFragment"
         android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWritePostFragment"
-        tools:layout="@layout/fragment_project_write_post" />
+        tools:layout="@layout/fragment_project_write_post">
+
+        <action
+            android:id="@+id/action_projectWritePostFragment_to_nav_media"
+            app:destination="@id/nav_media"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+
+            <argument
+                android:name="max_select_count"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <include app:graph="@navigation/nav_media" />
 </navigation>

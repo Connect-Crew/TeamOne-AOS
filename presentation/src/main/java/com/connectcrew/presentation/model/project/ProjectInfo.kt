@@ -25,6 +25,15 @@ data class ProjectJobInfo(
 ) : Parcelable
 
 @Parcelize
+data class ProjectJobUiModel(
+    val mainJobName: String,
+    val key: String,
+    val name: String,
+    val maxCount: Int = 1,
+    val comment: String? = null
+) : Parcelable
+
+@Parcelize
 data class ProjectInfo(
     val key: String,
     val name: String,

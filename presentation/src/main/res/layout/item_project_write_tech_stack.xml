@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="techStack"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_tech_stack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/color_f1fcff"
+                android:padding="1dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_tech_stack"
+                app:layout_constraintEnd_toEndOf="@id/tv_tech_stack"
+                app:layout_constraintStart_toStartOf="@id/tv_tech_stack"
+                app:layout_constraintTop_toTopOf="@id/tv_tech_stack"
+                app:shapeAppearance="?shapeAppearanceLargeComponent"
+                app:strokeColor="@color/color_00aee4"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:id="@+id/tv_tech_stack"
+                style="@style/Widget.TeamOne.TextView.Caption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="@{techStack}"
+                android:textColor="@color/color_00aee4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Android" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_delete_text" />
+    </FrameLayout>
+</layout>
