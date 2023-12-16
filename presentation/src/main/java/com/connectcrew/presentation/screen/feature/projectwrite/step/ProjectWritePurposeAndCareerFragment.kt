@@ -11,6 +11,7 @@ import com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteCont
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
+import com.skydoves.powerspinner.OnSpinnerOutsideTouchListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,14 +34,18 @@ class ProjectWritePurposeAndCareerFragment : BaseFragment<FragmentProjectWritePu
 
     private fun initListener() {
         with(dataBinding) {
-            spCareerMin.setOnSpinnerItemSelectedListener<String> { _, _, _, text ->
-                spCareerMax.dismiss()
-                projectWriteContainerViewModel.setProjectCareer(true, text)
+            spCareerMin.apply {
+                spinnerOutsideTouchListener = OnSpinnerOutsideTouchListener { _, _ -> dismiss() }
+                setOnSpinnerItemSelectedListener<String> { _, _, _, text ->
+                    projectWriteContainerViewModel.setProjectCareer(true, text)
+                }
             }
 
-            spCareerMax.setOnSpinnerItemSelectedListener<String> { _, _, _, text ->
-                spCareerMin.dismiss()
-                projectWriteContainerViewModel.setProjectCareer(false, text)
+            spCareerMax.apply {
+                spinnerOutsideTouchListener = OnSpinnerOutsideTouchListener { _, _ -> dismiss() }
+                setOnSpinnerItemSelectedListener<String> { _, _, _, text ->
+                    projectWriteContainerViewModel.setProjectCareer(false, text)
+                }
             }
 
             btnPrevious.setOnSingleClickListener {
@@ -65,18 +70,22 @@ class ProjectWritePurposeAndCareerFragment : BaseFragment<FragmentProjectWritePu
             }
 
             launch {
+                projectWriteContainerViewModel.projectMinCareer.collect {
+                    dataBinding.spCareerMin.selectItemByIndex(resources.getStringArray(R.array.project_write_career_spinner).toList().indexOf(it.value))
+                }
+            }
+
+            launch {
+                projectWriteContainerViewModel.projectMaxCareer.collect {
+                    dataBinding.spCareerMax.selectItemByIndex(resources.getStringArray(R.array.project_write_career_spinner).toList().indexOf(it.value))
+                }
+            }
+
+            launch {
                 projectWriteContainerViewModel.messageRes.collect {
                     showToast(it)
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        with(dataBinding) {
-            spCareerMin.dismiss()
-            spCareerMax.dismiss()
-        }
-        super.onDestroyView()
     }
 }

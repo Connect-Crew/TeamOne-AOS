@@ -8,14 +8,17 @@ import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.domain.util.succeeded
 import com.connectcrew.presentation.R
-import com.connectcrew.presentation.model.project.ProjectCategoryItem
 import com.connectcrew.presentation.model.project.ProjectFieldInfo
 import com.connectcrew.presentation.model.project.ProjectInfo
 import com.connectcrew.presentation.model.project.ProjectInfoContainer
+import com.connectcrew.presentation.model.project.ProjectJobInfo
+import com.connectcrew.presentation.model.project.ProjectJobUiModel
 import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.EditTextState
 import com.connectcrew.presentation.util.Success
+import com.connectcrew.presentation.util.event.EventFlow
+import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +28,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -96,6 +99,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
     val projectStep4State = projectProgress
         .map { getProjectState(4, it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+
     val projectSelectedFiled = savedStateHandle.getStateFlow<List<ProjectFieldInfo>>(KEY_PROJECT_WRITE_SELECT_FIELD, emptyList())
     // endregion Step 4
 
@@ -103,6 +107,35 @@ class ProjectWriteContainerViewModel @Inject constructor(
     val projectStep5State = projectProgress
         .map { getProjectState(5, it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+
+    val projectBannerUrls = savedStateHandle.getStateFlow<List<String>>(KEY_PROJECT_WRITE_BANNER_URL, emptyList())
+    val projectIntroduction = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_INTRODUCTION, "")
+    private val projectIntroductionEditTextState = savedStateHandle.getStateFlow<EditTextState>(KEY_PROJECT_WRITE_INTRODUCTION_EDIT_TEXT_STATE, EditTextState.Loading)
+
+    val selectedLeaderMainJobCategory = savedStateHandle.getStateFlow<ProjectJobInfo?>(KEY_PROJECT_WRITE_LEADER_MAIN_JOB, null)
+    val selectedLeaderSubJobCategory = savedStateHandle.getStateFlow<ProjectInfo?>(KEY_PROJECT_WRITE_LEADER_SUB_JOB, null)
+
+    val selectedMemberMainJobCategory = savedStateHandle.getStateFlow<ProjectJobInfo?>(KEY_PROJECT_WRITE_MEMBER_MAIN_JOB, null)
+    val selectedMemberSubJobCategory = savedStateHandle.getStateFlow<ProjectInfo?>(KEY_PROJECT_WRITE_MEMBER_SUB_JOB, null)
+
+    private val _recruitmentMembers = MutableStateFlow<List<ProjectJobUiModel>>(emptyList())
+    val recruitmentMembers: StateFlow<List<ProjectJobUiModel>> = _recruitmentMembers
+
+    val projectTechStacks = savedStateHandle.getStateFlow<List<String>>(KEY_PROJECT_WRITE_TECH_STACK, emptyList())
+
+    val enableProjectPost = combine(
+        projectIntroductionEditTextState,
+        selectedLeaderMainJobCategory,
+        selectedLeaderSubJobCategory,
+        recruitmentMembers
+    ) { projectIntroduction, leaderMainJob, leaderSubJob, recruitmentMembers ->
+        Triple(projectIntroduction, leaderMainJob to leaderSubJob, recruitmentMembers)
+    }.map { (editTextState, leaderCategory, members) ->
+        editTextState.Success && leaderCategory.first != null && leaderCategory.second != null && recruitmentMembers.value.isNotEmpty()
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    private val _navigateToMediaPicker = MutableEventFlow<Int>()
+    val navigateToMediaPicker: EventFlow<Int> = _navigateToMediaPicker
     // endregion Step 5
 
     fun setWriteProgress(progress: Int) {
@@ -213,6 +246,119 @@ class ProjectWriteContainerViewModel @Inject constructor(
         )
     }
 
+    fun setProjectBanner(imageUrl: List<String>, isRemove: Boolean) {
+        savedStateHandle.set(
+            KEY_PROJECT_WRITE_BANNER_URL,
+            projectBannerUrls.value.toMutableList().apply {
+                if (!isRemove) addAll(imageUrl) else remove(imageUrl.first())
+            }
+        )
+    }
+
+    fun setProjectIntroduction(text: String) {
+        savedStateHandle.set(KEY_PROJECT_WRITE_INTRODUCTION, text)
+
+        if (text.isEmpty()) {
+            setInputProjectIntroductionTextState(EditTextState.Loading)
+        } else {
+            setInputProjectIntroductionTextState(EditTextState.Success)
+        }
+    }
+
+    private fun setInputProjectIntroductionTextState(editTextState: EditTextState) {
+        if (projectIntroductionEditTextState == editTextState) return
+        savedStateHandle.set(KEY_PROJECT_WRITE_INTRODUCTION_EDIT_TEXT_STATE, editTextState)
+    }
+
+    fun setProjectLeaderMainJob(job: String) {
+        projectContainerInfo.value?.jobs
+            ?.find { it.name == job }
+            ?.let { savedStateHandle.set(KEY_PROJECT_WRITE_LEADER_MAIN_JOB, it) }
+    }
+
+    fun setProjectLeaderSubJob(job: String?) {
+        selectedLeaderMainJobCategory.value
+            ?.value
+            ?.find { it.name == job }
+            .let { savedStateHandle.set(KEY_PROJECT_WRITE_LEADER_SUB_JOB, it) }
+    }
+
+    fun setProjectMemberMainJob(job: String) {
+        projectContainerInfo.value?.jobs
+            ?.find { it.name == job }
+            ?.let { savedStateHandle.set(KEY_PROJECT_WRITE_MEMBER_MAIN_JOB, it) }
+    }
+
+    fun setProjectMemberSubJob(job: String?) {
+        selectedMemberMainJobCategory.value
+            ?.value
+            ?.find { it.name == job }
+            .let { subJobInfo ->
+                savedStateHandle.set(KEY_PROJECT_WRITE_MEMBER_SUB_JOB, subJobInfo)
+
+                if (subJobInfo != null) {
+                    selectedMemberMainJobCategory.value?.name?.let { mainJobName ->
+                        _recruitmentMembers.value = recruitmentMembers.value
+                            .toMutableList()
+                            .apply {
+                                val projectJobUiModel = ProjectJobUiModel(mainJobName, subJobInfo.key, subJobInfo.name)
+
+                                if (sumOf { it.maxCount } >= PROJECT_WRITE_MAXIMUM_MEMBER_COUNT) {
+                                    setMessage(R.string.project_write_post_part_max_count)
+                                } else if (!contains(projectJobUiModel)) {
+                                    add(projectJobUiModel)
+                                }
+                            }
+                    }
+                }
+            }
+    }
+
+    fun removeRecruitmentMembers(jobInfo: ProjectJobUiModel) {
+        _recruitmentMembers.value = recruitmentMembers.value
+            .toMutableList()
+            .apply { remove(jobInfo) }
+    }
+
+    fun updateRecruitmentMembersCount(index: Int, jobInfo: ProjectJobUiModel) {
+        val members = recruitmentMembers.value.toMutableList().apply { set(index, jobInfo) }
+
+        if (members.sumOf { it.maxCount } > PROJECT_WRITE_MAXIMUM_MEMBER_COUNT) {
+            setMessage(R.string.project_write_post_part_max_count)
+        } else {
+            _recruitmentMembers.value = recruitmentMembers.value.toMutableList().apply { set(index, jobInfo) }
+        }
+    }
+
+    fun updateRecruitmentMembersComment(index: Int, jobInfo: ProjectJobUiModel) {
+        _recruitmentMembers.value = recruitmentMembers.value.toMutableList().apply { set(index, jobInfo) }
+    }
+
+    fun setProjectTechStacks(techStack: String) {
+        savedStateHandle.set(
+            KEY_PROJECT_WRITE_TECH_STACK,
+            projectTechStacks.value.toMutableList().apply {
+                if (any { it == techStack }) return
+                add(techStack)
+            }
+        )
+    }
+
+    fun removeProjectTechStacks(techStack: String) {
+        savedStateHandle.set(
+            KEY_PROJECT_WRITE_TECH_STACK,
+            projectTechStacks.value.toMutableList().apply {
+                removeAll { it == techStack }
+            }
+        )
+    }
+
+    fun navigateToMediaPicker() {
+        viewModelScope.launch {
+            _navigateToMediaPicker.emit(PROJECT_WRITE_BANNER_MAX_SIZE - projectBannerUrls.value.size)
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_WRITE_STEP = "project_write_step"
 
@@ -230,5 +376,17 @@ class ProjectWriteContainerViewModel @Inject constructor(
 
         private const val KEY_PROJECT_WRITE_SELECT_FIELD = "project_write_select_field"
         private const val PROJECT_WRITE_FIELD_MAX_SIZE = 3
+
+        private const val KEY_PROJECT_WRITE_BANNER_URL = "project_write_banner_url"
+        private const val KEY_PROJECT_WRITE_INTRODUCTION = "project_write_introduction"
+        private const val KEY_PROJECT_WRITE_INTRODUCTION_EDIT_TEXT_STATE = "project_write_introduction_edit_text_state"
+        private const val KEY_PROJECT_WRITE_LEADER_MAIN_JOB = "project_write_leader_main_job"
+        private const val KEY_PROJECT_WRITE_LEADER_SUB_JOB = "project_write_leader_sub_job"
+        private const val KEY_PROJECT_WRITE_MEMBER_MAIN_JOB = "project_write_member_main_job"
+        private const val KEY_PROJECT_WRITE_MEMBER_SUB_JOB = "project_write_member_sub_job"
+        private const val KEY_PROJECT_WRITE_TECH_STACK = "project_write_tech_stack"
+
+        private const val PROJECT_WRITE_BANNER_MAX_SIZE = 3
+        private const val PROJECT_WRITE_MAXIMUM_MEMBER_COUNT = 29
     }
 }

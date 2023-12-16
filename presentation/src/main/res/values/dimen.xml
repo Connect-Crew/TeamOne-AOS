@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="project_write_circle">20dp</dimen>
+    <dimen name="project_write_top_padding">30dp</dimen>
+    <dimen name="project_write_horizontal_padding">24dp</dimen>
+    <dimen name="project_write_bottom_padding">20dp</dimen>
 </resources>

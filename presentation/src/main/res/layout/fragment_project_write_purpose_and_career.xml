@@ -17,6 +17,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/project_write_horizontal_padding"
+        android:paddingTop="@dimen/project_write_top_padding"
+        android:paddingBottom="@dimen/project_write_bottom_padding"
         tools:context=".screen.feature.projectwrite.step.ProjectWritePurposeAndCareerFragment">
 
         <androidx.core.widget.NestedScrollView

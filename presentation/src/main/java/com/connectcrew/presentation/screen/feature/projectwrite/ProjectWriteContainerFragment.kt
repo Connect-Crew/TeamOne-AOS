@@ -3,7 +3,6 @@ package com.connectcrew.presentation.screen.feature.projectwrite
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.connectcrew.presentation.R
@@ -11,8 +10,6 @@ import com.connectcrew.presentation.databinding.FragmentProjectWriteContainerBin
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainerBinding>(R.layout.fragment_project_write_container) {
@@ -55,7 +52,7 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
                     R.id.projectWritePurposeAndCareerFragment -> 3
                     R.id.projectWriteFieldFragment -> 4
                     R.id.projectWritePostFragment -> 5
-                    else -> return@addOnDestinationChangedListener
+                    else -> -1
                 }.let {
                     projectWriteContainerViewModel.setWriteProgress(it)
                 }
