@@ -81,5 +81,14 @@
         </action>
     </fragment>
 
+    <dialog
+        android:id="@+id/projectWriteExitDialog"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWriteExitDialog"
+        tools:layout="@layout/dialog_project_write_exit" />
+
+    <action
+        android:id="@+id/action_global_projectWriteExitDialog"
+        app:destination="@id/projectWriteExitDialog" />
+
     <include app:graph="@navigation/nav_media" />
 </navigation>

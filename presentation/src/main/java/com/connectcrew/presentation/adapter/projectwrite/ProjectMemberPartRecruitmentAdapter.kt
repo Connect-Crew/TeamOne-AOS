@@ -15,8 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 class ProjectMemberPartRecruitmentAdapter(
     private val coroutineScope: CoroutineScope,
     private val onRemoveProjectMemberPartRecruitment: (ProjectJobUiModel) -> Unit,
-    private val onUpdateProjectMemberPartRecruitmentCount: (Int, ProjectJobUiModel) -> Unit,
-    private val onUpdateProjectMemberPartRecruitmentComment: (Int, ProjectJobUiModel) -> Unit,
+    private val onUpdateProjectMemberPartRecruitmentCount: (ProjectJobUiModel) -> Unit,
+    private val onUpdateProjectMemberPartRecruitmentComment: (ProjectJobUiModel) -> Unit,
 ) : ListAdapter<ProjectJobUiModel, ProjectMemberPartRecruitmentViewHolder>(
     object : DiffUtil.ItemCallback<ProjectJobUiModel>() {
         override fun areItemsTheSame(oldItem: ProjectJobUiModel, newItem: ProjectJobUiModel): Boolean {
@@ -44,20 +44,20 @@ class ProjectMemberPartRecruitmentAdapter(
 
     override fun onBindViewHolder(holder: ProjectMemberPartRecruitmentViewHolder, position: Int) {
         val jobUiModelItem = getItem(position) ?: return
-        onBindViewHolder(holder.binding, position, jobUiModelItem)
+        onBindViewHolder(holder.binding, jobUiModelItem)
     }
 
     override fun onBindViewHolder(holder: ProjectMemberPartRecruitmentViewHolder, position: Int, payloads: MutableList<Any>) {
         val jobUiModelItem = getItem(position) ?: return
 
         if (payloads.contains(PAYLOAD_PROJECT_PART_RECRUITMENT)) {
-            onBindViewHolder(holder.binding, position, jobUiModelItem)
+            onBindViewHolder(holder.binding, jobUiModelItem)
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }
     }
 
-    private fun onBindViewHolder(binding: ItemProjectWriteMemberRecruitmentBinding, position: Int, jobUiModel: ProjectJobUiModel) {
+    private fun onBindViewHolder(binding: ItemProjectWriteMemberRecruitmentBinding, jobUiModel: ProjectJobUiModel) {
         binding.executeAfter {
             projectJobUiModel = jobUiModel
 
@@ -67,17 +67,18 @@ class ProjectMemberPartRecruitmentAdapter(
 
             tvMinus.setOnClickListener {
                 if (jobUiModel.maxCount > 1) {
-                    onUpdateProjectMemberPartRecruitmentCount(position, jobUiModel.copy(maxCount = jobUiModel.maxCount.minus(1)))
+                    onUpdateProjectMemberPartRecruitmentCount(jobUiModel.copy(maxCount = jobUiModel.maxCount.minus(1)))
                 }
             }
 
             tvPlus.setOnClickListener {
-                onUpdateProjectMemberPartRecruitmentCount(position, jobUiModel.copy(maxCount = jobUiModel.maxCount.plus(1)))
+                onUpdateProjectMemberPartRecruitmentCount(jobUiModel.copy(maxCount = jobUiModel.maxCount.plus(1)))
             }
 
             tietPartIntroduction.addTextChangedListener(DebounceEditTextListener(
+                debouncePeriod = 0,
                 scope = coroutineScope,
-                onDebounceEditTextChange = { onUpdateProjectMemberPartRecruitmentComment(position, jobUiModel.copy(comment = it)) }
+                onDebounceEditTextChange = { onUpdateProjectMemberPartRecruitmentComment(jobUiModel.copy(comment = it)) }
             ))
         }
     }

@@ -214,15 +214,7 @@ class ProjectWritePostFragment : BaseFragment<FragmentProjectWritePostBinding>(R
             }
 
             launch {
-                projectWriteContainerViewModel.navigateToMediaPicker.collect {
-                    findNavController().safeNavigate(ProjectWritePostFragmentDirections.actionProjectWritePostFragmentToNavMedia(it))
-                }
-            }
-
-            launch {
                 projectWriteContainerViewModel.recruitmentMembers.collect {
-                    dataBinding.spMemberPartSubCategory.clearSelectedItem()
-                    projectWriteContainerViewModel.setProjectMemberSubJob(null)
                     projectProjectMemberPartRecruitmentAdapter.submitList(it)
                 }
             }
@@ -230,6 +222,12 @@ class ProjectWritePostFragment : BaseFragment<FragmentProjectWritePostBinding>(R
             launch {
                 projectWriteContainerViewModel.projectTechStacks.collect {
                     projectTechStackAdapter.submitList(it)
+                }
+            }
+
+            launch {
+                projectWriteContainerViewModel.navigateToMediaPicker.collect {
+                    findNavController().safeNavigate(ProjectWritePostFragmentDirections.actionProjectWritePostFragmentToNavMedia(it))
                 }
             }
 

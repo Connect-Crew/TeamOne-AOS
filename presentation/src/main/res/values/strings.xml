@@ -108,6 +108,9 @@
     <string name="summary_recruitment_notice_detail">상세보기</string>
 
     <!-- Project Write -->
+    <string name="project_write_exit_title">생성을 중단하시겠습니까?</string>
+    <string name="project_write_exit_description">확인을 누르시면 모든 내용이 삭제됩니다.</string>
+
     <string name="project_write_container_step_1">이름</string>
     <string name="project_write_container_step_2">기간/장소</string>
     <string name="project_write_container_step_3">목적/경력</string>

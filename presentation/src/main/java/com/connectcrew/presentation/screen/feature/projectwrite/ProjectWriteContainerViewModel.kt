@@ -133,10 +133,13 @@ class ProjectWriteContainerViewModel @Inject constructor(
     }.map { (editTextState, leaderCategory, members) ->
         editTextState.Success && leaderCategory.first != null && leaderCategory.second != null && recruitmentMembers.value.isNotEmpty()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    // endregion Step 5
 
     private val _navigateToMediaPicker = MutableEventFlow<Int>()
     val navigateToMediaPicker: EventFlow<Int> = _navigateToMediaPicker
-    // endregion Step 5
+
+    private val _navigateToExit = MutableEventFlow<Unit>()
+    val navigateToExit: EventFlow<Unit> = _navigateToExit
 
     fun setWriteProgress(progress: Int) {
         if (projectProgress.value == progress) return
@@ -320,18 +323,22 @@ class ProjectWriteContainerViewModel @Inject constructor(
             .apply { remove(jobInfo) }
     }
 
-    fun updateRecruitmentMembersCount(index: Int, jobInfo: ProjectJobUiModel) {
-        val members = recruitmentMembers.value.toMutableList().apply { set(index, jobInfo) }
+    fun updateRecruitmentMembersCount(jobInfo: ProjectJobUiModel) {
+        val members = recruitmentMembers.value
+            .toMutableList()
+            .apply { find { jobInfo.key == it.key }?.let { set(indexOf(it), jobInfo) } }
 
         if (members.sumOf { it.maxCount } > PROJECT_WRITE_MAXIMUM_MEMBER_COUNT) {
             setMessage(R.string.project_write_post_part_max_count)
         } else {
-            _recruitmentMembers.value = recruitmentMembers.value.toMutableList().apply { set(index, jobInfo) }
+            _recruitmentMembers.value = members
         }
     }
 
-    fun updateRecruitmentMembersComment(index: Int, jobInfo: ProjectJobUiModel) {
-        _recruitmentMembers.value = recruitmentMembers.value.toMutableList().apply { set(index, jobInfo) }
+    fun updateRecruitmentMembersComment(jobInfo: ProjectJobUiModel) {
+        _recruitmentMembers.value = recruitmentMembers.value
+            .toMutableList()
+            .apply { find { jobInfo.key == it.key }?.let { set(indexOf(it), jobInfo) } }
     }
 
     fun setProjectTechStacks(techStack: String) {
@@ -356,6 +363,12 @@ class ProjectWriteContainerViewModel @Inject constructor(
     fun navigateToMediaPicker() {
         viewModelScope.launch {
             _navigateToMediaPicker.emit(PROJECT_WRITE_BANNER_MAX_SIZE - projectBannerUrls.value.size)
+        }
+    }
+
+    fun navigateToExit() {
+        viewModelScope.launch {
+            _navigateToExit.emit(Unit)
         }
     }
 
