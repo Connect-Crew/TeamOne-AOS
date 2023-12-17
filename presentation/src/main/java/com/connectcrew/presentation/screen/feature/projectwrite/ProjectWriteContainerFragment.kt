@@ -5,10 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.connectcrew.presentation.NavProjectWriteDirections
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.FragmentProjectWriteContainerBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
+import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
+import com.connectcrew.presentation.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +33,7 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
         }
 
         initListener()
+        initObserver()
     }
 
     private fun initListener() {
@@ -37,7 +41,7 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
             tlProjectWriteContainer.setOnMenuItemSingleClickListener {
                 when (it.itemId) {
                     R.id.menu_close -> {
-                        findNavController().navigateUp()
+                        childNavController?.safeNavigate(NavProjectWriteDirections.actionGlobalProjectWriteExitDialog())
                         true
                     }
 
@@ -52,10 +56,19 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
                     R.id.projectWritePurposeAndCareerFragment -> 3
                     R.id.projectWriteFieldFragment -> 4
                     R.id.projectWritePostFragment -> 5
+                    R.id.projectWriteExitDialog -> return@addOnDestinationChangedListener
                     else -> -1
                 }.let {
                     projectWriteContainerViewModel.setWriteProgress(it)
                 }
+            }
+        }
+    }
+
+    private fun initObserver() {
+        launchAndRepeatWithViewLifecycle {
+            projectWriteContainerViewModel.navigateToExit.collect {
+                findNavController().navigateUp()
             }
         }
     }
