@@ -90,6 +90,7 @@ dependencies {
 
     // log tracker
     api(libs.timber)
+    api(libs.powerspinner)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteProgressState" />
+
+        <import type="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteLocationType" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/project_write_horizontal_padding"
+        android:paddingTop="@dimen/project_write_top_padding"
+        android:paddingBottom="@dimen/project_write_bottom_padding"
+        tools:context=".screen.feature.projectwrite.step.ProjectWritePeriodAndLocationFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_period_and_location"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/ll_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_project_write_period_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/project_write_period_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_project_write_period_sub_title"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_period_sub_title"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_write_period_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_project_write_period_before"
+                    style="@style/Widget.TeamOne.Button.StrokeButton"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="@{()-> viewModel.setProjectPeriodProgress(ProjectWriteProgressState.STATE_IDLE)}"
+                    android:text="@string/project_write_period_before"
+                    app:layout_constraintEnd_toStartOf="@id/btn_project_write_period_proceeding"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_write_period_sub_title"
+                    app:selected="@{viewModel.projectProgressState == ProjectWriteProgressState.STATE_IDLE}" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_project_write_period_proceeding"
+                    style="@style/Widget.TeamOne.Button.StrokeButton"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="18dp"
+                    android:onClick="@{()-> viewModel.setProjectPeriodProgress(ProjectWriteProgressState.STATE_PROCEEDING)}"
+                    android:text="@string/project_write_period_proceeding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_project_write_period_before"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_write_period_sub_title"
+                    app:selected="@{viewModel.projectProgressState == ProjectWriteProgressState.STATE_PROCEEDING}" />
+
+                <TextView
+                    android:id="@+id/tv_project_write_location_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/project_write_location_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_project_write_period_before" />
+
+                <TextView
+                    android:id="@+id/tv_project_write_location_sub_title"
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/project_write_location_sub_title"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_write_location_title" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_project_write_location_online"
+                    style="@style/Widget.TeamOne.Button.StrokeButton"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="16dp"
+                    android:onClick="@{()-> viewModel.setProjectLocationType(ProjectWriteLocationType.TYPE_ONLINE)}"
+                    android:text="@string/project_write_location_is_online"
+                    app:layout_constraintEnd_toStartOf="@id/btn_project_write_location_online_and_offline"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_write_location_sub_title"
+                    app:selected="@{viewModel.projectLocationType == ProjectWriteLocationType.TYPE_ONLINE}" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_project_write_location_online_and_offline"
+                    style="@style/Widget.TeamOne.Button.StrokeButton"
+                    android:layout_width="0dp"
+                    android:layout_marginHorizontal="14dp"
+                    android:onClick="@{()-> viewModel.setProjectLocationType(ProjectWriteLocationType.TYPE_ALL)}"
+                    android:text="@string/project_write_location_is_online_and_offline"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_project_write_location_online"
+                    app:layout_constraintEnd_toStartOf="@id/btn_project_write_location_offline"
+                    app:layout_constraintStart_toEndOf="@id/btn_project_write_location_online"
+                    app:layout_constraintTop_toTopOf="@id/btn_project_write_location_online"
+                    app:selected="@{viewModel.projectLocationType == ProjectWriteLocationType.TYPE_ALL}" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_project_write_location_offline"
+                    style="@style/Widget.TeamOne.Button.StrokeButton"
+                    android:layout_width="0dp"
+                    android:onClick="@{()-> viewModel.setProjectLocationType(ProjectWriteLocationType.TYPE_OFFLINE)}"
+                    android:text="@string/project_write_location_is_offline"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_project_write_location_online_and_offline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_project_write_location_online_and_offline"
+                    app:layout_constraintTop_toTopOf="@id/btn_project_write_location_online_and_offline"
+                    app:selected="@{viewModel.projectLocationType == ProjectWriteLocationType.TYPE_OFFLINE}" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_project_write_location_online"
+                    app:strokeColor="@color/color_eeeeee"
+                    app:strokeWidth="1dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        tools:listitem="@layout/item_project_write_location"
+                        tools:spanCount="3" />
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_previous"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="@string/common_previous" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:enabled="@{viewModel.enableProjectPeriodAndLocation}"
+                android:text="@string/common_next" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

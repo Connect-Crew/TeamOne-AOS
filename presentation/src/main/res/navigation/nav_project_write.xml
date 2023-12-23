@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_project_write"
+    app:startDestination="@id/projectWriteTitleFragment">
+
+    <fragment
+        android:id="@+id/projectWriteTitleFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWriteTitleFragment"
+        android:label="ProjectWriteTitleFragment"
+        tools:layout="@layout/fragment_project_write_title">
+
+        <action
+            android:id="@+id/action_projectWriteTitleFragment_to_projectWritePeriodAndLocationFragment"
+            app:destination="@id/projectWritePeriodAndLocationFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectWritePeriodAndLocationFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWritePeriodAndLocationFragment"
+        tools:layout="@layout/fragment_project_write_period_and_location">
+
+        <action
+            android:id="@+id/action_projectWritePeriodAndLocationFragment_to_projectWritePurposeAndCareerFragment"
+            app:destination="@id/projectWritePurposeAndCareerFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectWriteFieldFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWriteFieldFragment"
+        tools:layout="@layout/fragment_project_write_field">
+
+        <action
+            android:id="@+id/action_projectWriteFieldFragment_to_projectWritePostFragment"
+            app:destination="@id/projectWritePostFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectWritePurposeAndCareerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWritePurposeAndCareerFragment"
+        tools:layout="@layout/fragment_project_write_purpose_and_career">
+
+        <action
+            android:id="@+id/action_projectWritePurposeAndCareerFragment_to_projectWriteFieldFragment"
+            app:destination="@id/projectWriteFieldFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectWritePostFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWritePostFragment"
+        tools:layout="@layout/fragment_project_write_post">
+
+        <action
+            android:id="@+id/action_projectWritePostFragment_to_nav_media"
+            app:destination="@id/nav_media"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+
+            <argument
+                android:name="max_select_count"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <dialog
+        android:id="@+id/projectWriteExitDialog"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWriteExitDialog"
+        tools:layout="@layout/dialog_project_write_exit" />
+
+    <action
+        android:id="@+id/action_global_projectWriteExitDialog"
+        app:destination="@id/projectWriteExitDialog" />
+
+    <include app:graph="@navigation/nav_media" />
+</navigation>

@@ -11,7 +11,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { setUrl("https://devrepo.kakao.com/nexus/content/groups/public/") }
+        maven {
+            setUrl("https://oss.sonatype.org/content/repositories/snapshots/")
+            setUrl("https://devrepo.kakao.com/nexus/content/groups/public/")
+        }
     }
 }
 

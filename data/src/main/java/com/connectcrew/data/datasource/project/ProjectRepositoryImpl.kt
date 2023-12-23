@@ -5,11 +5,16 @@ import com.connectcrew.domain.usecase.project.ProjectRepository
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
 import javax.inject.Inject
 
 internal class ProjectRepositoryImpl @Inject constructor(
     private val remoteDataSource: ProjectRemoteDataSource
 ) : ProjectRepository {
+
+    override suspend fun getProjectInfo(): ProjectInfoContainerEntity {
+        return remoteDataSource.getProjectInfo()
+    }
 
     override suspend fun getProjectFeeds(
         accessToken: String?,

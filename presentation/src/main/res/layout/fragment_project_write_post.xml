@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:paddingHorizontal="@dimen/project_write_horizontal_padding"
+        android:paddingTop="@dimen/project_write_top_padding"
+        android:paddingBottom="@dimen/project_write_bottom_padding"
+        tools:context=".screen.feature.projectwrite.step.ProjectWritePostFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/ll_post"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_project_post_banner_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/project_write_post_banner_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/project_write_post_banner_description"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_project_post_banner_title"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_project_post_banner_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_project_post_banner_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_project_post_banner_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_post_banner_title"
+                    tools:itemCount="3"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_project_write_banner"
+                    tools:orientation="horizontal" />
+
+                <FrameLayout
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="10dp"
+                    app:isGone="@{viewModel.projectBannerUrls.size() == 3}"
+                    app:layout_constraintBottom_toBottomOf="@id/rv_banner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/rv_banner"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_post_banner_title"
+                    app:layout_constraintVertical_bias="1"
+                    app:onSingleClick="@{()-> viewModel.navigateToMediaPicker()}">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/color_eeeeee"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearance="?shapeAppearanceSmallComponent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_camera" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_project_post_introduction_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/project_write_post_introduction_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_banner" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_post_introduction"
+                    style="@style/Widget.TeamOne.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:endIconMode="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_project_post_introduction_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_post_introduction"
+                        style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox.MultiLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top"
+                        android:hint="@string/project_write_post_introduction_hint"
+                        android:minHeight="194dp"
+                        android:text="@{viewModel.projectIntroduction}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_leader_part_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/project_write_post_leader_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_post_introduction" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/project_write_post_leader_description"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_leader_part_title"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_leader_part_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_leader_part_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_leader_part_title" />
+
+                <LinearLayout
+                    android:id="@+id/ll_leader_part"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp"
+                    android:weightSum="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_leader_part_title">
+
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/sp_leader_part_main_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_rectangle"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:hint="@string/project_write_post_part_main_category_hint"
+                        android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                        android:textColor="@color/color_9e9e9e"
+                        app:spinnerBackgroundColor="@{viewModel.selectedLeaderMainJobCategory == null}"
+                        app:spinner_arrow_gravity="end"
+                        app:spinner_arrow_tint="@color/color_9e9e9e"
+                        app:spinner_popup_animation="dropdown"
+                        app:spinner_popup_background="@color/color_f9fafc"
+                        app:spinner_popup_elevation="14dp" />
+
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/sp_leader_part_sub_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_rectangle"
+                        android:enabled="@{viewModel.selectedLeaderMainJobCategory != null}"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:hint="@string/project_write_post_part_sub_category_hint"
+                        android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                        android:textColor="@color/color_9e9e9e"
+                        app:spinnerBackgroundColor="@{viewModel.selectedLeaderSubJobCategory == null}"
+                        app:spinner_arrow_gravity="end"
+                        app:spinner_arrow_tint="@color/color_9e9e9e"
+                        app:spinner_popup_animation="dropdown"
+                        app:spinner_popup_background="@color/color_f9fafc"
+                        app:spinner_popup_elevation="14dp"
+                        app:spinner_popup_height="200dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_member_part_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/project_write_post_member_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_leader_part" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/project_write_post_member_description"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_member_part_title"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_member_part_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_member_part_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_member_part_title" />
+
+                <LinearLayout
+                    android:id="@+id/ll_member_recruitment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_member_part_title">
+
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/sp_memeber_part_main_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_rectangle"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:hint="@string/project_write_post_part_main_category_hint"
+                        android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                        android:textColor="@color/color_9e9e9e"
+                        app:spinnerBackgroundColor="@{viewModel.selectedMemberMainJobCategory == null}"
+                        app:spinner_arrow_gravity="end"
+                        app:spinner_arrow_tint="@color/color_9e9e9e"
+                        app:spinner_popup_animation="dropdown"
+                        app:spinner_popup_background="@color/color_f9fafc"
+                        app:spinner_popup_elevation="14dp" />
+
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/sp_member_part_sub_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_rectangle"
+                        android:enabled="@{viewModel.selectedMemberMainJobCategory != null}"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:hint="@string/project_write_post_part_sub_category_hint"
+                        android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                        android:textColor="@color/color_9e9e9e"
+                        app:spinnerBackgroundColor="@{viewModel.selectedMemberSubJobCategory == null}"
+                        app:spinner_arrow_gravity="end"
+                        app:spinner_arrow_tint="@color/color_9e9e9e"
+                        app:spinner_popup_animation="dropdown"
+                        app:spinner_popup_background="@color/color_f9fafc"
+                        app:spinner_popup_elevation="14dp" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_member_part"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardElevation="0dp"
+                    app:contentPaddingBottom="12dp"
+                    app:contentPaddingLeft="24dp"
+                    app:contentPaddingRight="24dp"
+                    app:contentPaddingTop="12dp"
+                    app:isGone="@{viewModel.recruitmentMembers.size() == 0}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_member_recruitment"
+                    app:strokeColor="@color/color_9e9e9e"
+                    app:strokeWidth="0.5dp"
+                    tools:visibility="visible">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_member_recruitment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_project_write_member_recruitment" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_tech_stack_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/project_write_post_tech_stack_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintBottom_toTopOf="@id/til_tech_stack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_member_part"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_tech_stack"
+                    style="@style/Widget.TeamOne.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/rv_tech_stack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_tech_stack_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_tech_stack"
+                        style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:hint="@string/project_write_post_tech_stack_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLength="20"
+                        android:maxLines="1"
+                        android:textAppearance="@style/TextAppearance.TeamOne.Button2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tech_stack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="60dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_tech_stack"
+                    tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_project_write_tech_stack"
+                    tools:orientation="horizontal" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_post"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_previous"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="@string/common_previous" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_post"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:enabled="@{viewModel.enableProjectPost}"
+                android:text="@string/project_write_post" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
