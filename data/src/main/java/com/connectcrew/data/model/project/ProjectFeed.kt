@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 @JsonClass(generateAdapter = true)
 internal data class ProjectFeed(
     @Json(name = "id")
-    val id: Int,
+    val id: Long,
     @Json(name = "title")
     val title: String,
     @Json(name = "region")

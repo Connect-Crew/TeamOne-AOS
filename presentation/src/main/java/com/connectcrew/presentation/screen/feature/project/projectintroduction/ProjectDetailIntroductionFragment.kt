@@ -56,16 +56,16 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
             }
 
             launch {
-                projectDetailContainerViewModel.invalidateProjectDetail.collect {
-                    projectDetailIntroductionViewModel.onRefresh()
-                }
-            }
-
-            launch {
                 projectDetailIntroductionViewModel.projectDetail
                     .filterNotNull()
                     .map { projectDetailIntroductionViewModel.createProjectDetailIntroductionUiModels(it) }
                     .collect { projectIntroductionAdapter.submitList(it) }
+            }
+
+            launch {
+                projectDetailContainerViewModel.invalidateProjectDetail.collect {
+                    projectDetailIntroductionViewModel.onRefresh()
+                }
             }
 
             launch {

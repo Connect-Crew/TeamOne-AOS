@@ -13,6 +13,7 @@ import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainerBinding>(R.layout.fragment_project_write_container) {
@@ -56,7 +57,7 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
                     R.id.projectWritePurposeAndCareerFragment -> 3
                     R.id.projectWriteFieldFragment -> 4
                     R.id.projectWritePostFragment -> 5
-                    R.id.projectWriteExitDialog -> return@addOnDestinationChangedListener
+                    R.id.projectWriteExitDialog, R.id.projectWriteConfirmDialog -> return@addOnDestinationChangedListener
                     else -> -1
                 }.let {
                     projectWriteContainerViewModel.setWriteProgress(it)
@@ -67,8 +68,34 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
 
     private fun initObserver() {
         launchAndRepeatWithViewLifecycle {
-            projectWriteContainerViewModel.navigateToExit.collect {
-                findNavController().navigateUp()
+            launch {
+                projectWriteContainerViewModel.navigateToExit.collect {
+                    findNavController().navigateUp()
+                }
+            }
+
+            launch {
+                projectWriteContainerViewModel.navigateToProjectDetail.collect {
+                    findNavController().safeNavigate(ProjectWriteContainerFragmentDirections.actionProjectWriteContainerFragmentToNavProjectDetail(it))
+                }
+            }
+
+            launch {
+                projectWriteContainerViewModel.loading.collect {
+                    if (it) showLoadingDialog() else hideLoadingDialog()
+                }
+            }
+
+            launch {
+                projectWriteContainerViewModel.messageRes.collect {
+                    showToast(it)
+                }
+            }
+
+            launch {
+                projectWriteContainerViewModel.message.collect {
+                    showToast(it)
+                }
             }
         }
     }

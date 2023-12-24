@@ -26,7 +26,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val saveSearchHistoryUseCase: SaveSearchHistoryUseCase,
-    private val getSearchHistoriesUseCase: GetSearchHistoriesUseCase,
+    getSearchHistoriesUseCase: GetSearchHistoriesUseCase,
     private val deleteSearchHistoryUseCase: DeleteSearchHistoryUseCase,
     private val deleteSearchHistoriesUseCase: DeleteSearchHistoriesUseCase
 ) : BaseViewModel() {

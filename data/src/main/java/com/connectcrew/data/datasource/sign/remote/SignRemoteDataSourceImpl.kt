@@ -2,9 +2,11 @@ package com.connectcrew.data.datasource.sign.remote
 
 import com.connectcrew.data.BuildConfig
 import com.connectcrew.data.model.user.asEntity
+import com.connectcrew.data.model.user.asTokenEntity
 import com.connectcrew.data.service.AuthApi
 import com.connectcrew.data.service.ExternalApi
 import com.connectcrew.data.util.converterException
+import com.connectcrew.domain.usecase.sign.entity.TokenEntity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import javax.inject.Inject
 
@@ -17,15 +19,17 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
         accessToken: String,
         fcmToken: String?,
         socialType: String
-    ): UserEntity {
+    ): Pair<UserEntity, TokenEntity> {
         return try {
-            authApi.signInForOauth(
+            val userResponse = authApi.signInForOauth(
                 mapOf(
                     KEY_TOKEN to accessToken,
                     KEY_FCM_TOKEN to fcmToken,
                     KEY_SOCIAL_TYPE to socialType,
                 )
-            ).asEntity()
+            )
+
+            (userResponse.asEntity() to userResponse.asTokenEntity())
         } catch (e: Exception) {
             throw converterException(e)
         }
@@ -39,9 +43,9 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
         nickname: String,
         email: String?,
         profileUrl: String?
-    ): UserEntity {
+    ): Pair<UserEntity, TokenEntity> {
         return try {
-            authApi.signUpForOauth(
+            val userResponse = authApi.signUpForOauth(
                 mapOf(
                     KEY_TOKEN to accessToken,
                     KEY_FCM_TOKEN to fcmToken,
@@ -53,7 +57,9 @@ internal class SignRemoteDataSourceImpl @Inject constructor(
                     KEY_TERMS_AGREEMENT to true,
                     KEY_PRIVACY_AGREEMENT to true
                 )
-            ).asEntity()
+            )
+
+            (userResponse.asEntity() to userResponse.asTokenEntity())
         } catch (e: Exception) {
             throw converterException(e)
         }

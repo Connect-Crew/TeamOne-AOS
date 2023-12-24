@@ -1,5 +1,6 @@
 package com.connectcrew.data.datasource.sign.remote
 
+import com.connectcrew.domain.usecase.sign.entity.TokenEntity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 
 internal interface SignRemoteDataSource {
@@ -8,7 +9,7 @@ internal interface SignRemoteDataSource {
         accessToken: String,
         fcmToken: String?,
         socialType: String
-    ): UserEntity
+    ): Pair<UserEntity, TokenEntity>
 
     suspend fun signUp(
         accessToken: String,
@@ -18,7 +19,7 @@ internal interface SignRemoteDataSource {
         nickname: String,
         email: String?,
         profileUrl: String?
-    ): UserEntity
+    ): Pair<UserEntity, TokenEntity>
 
     suspend fun getGoogleTokenInfo(authCode: String): String
 }

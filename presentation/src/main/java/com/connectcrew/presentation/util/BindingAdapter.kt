@@ -16,11 +16,11 @@ import com.google.android.material.progressindicator.BaseProgressIndicator
 fun loadImage(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         if (!isValidContextForGlide(view.context)) return
+
         Glide.with(view.context)
             .load(if (imageUrl.startsWith("http") || imageUrl.startsWith("content")) imageUrl else (BuildConfig.API_URL + imageUrl))
-            .load(imageUrl)
-            .placeholder(R.color.color_9e9e9e)
-            .error(R.color.color_9e9e9e)
+            .placeholder(R.color.color_f5f5f5)
+            .error(R.color.color_f5f5f5)
             .into(view)
     }
 }
@@ -32,8 +32,8 @@ fun loadProfileUrl(view: ImageView, imageUrl: String?) {
 
     Glide.with(view.context)
         .load(profileImageUrl ?: R.drawable.ic_default_profile)
-        .placeholder(R.color.color_9e9e9e)
-        .error(R.color.color_9e9e9e)
+        .placeholder(R.color.color_f5f5f5)
+        .error(R.color.color_f5f5f5)
         .into(view)
 }
 

@@ -16,7 +16,7 @@
             android:layout_marginTop="20dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/siv_bg_warnig"
+                android:id="@+id/siv_bg_warning"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:padding="2dp"
@@ -32,10 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_warning"
-                app:layout_constraintBottom_toBottomOf="@id/siv_bg_warnig"
-                app:layout_constraintEnd_toEndOf="@id/siv_bg_warnig"
-                app:layout_constraintStart_toStartOf="@id/siv_bg_warnig"
-                app:layout_constraintTop_toTopOf="@id/siv_bg_warnig"
+                app:layout_constraintBottom_toBottomOf="@id/siv_bg_warning"
+                app:layout_constraintEnd_toEndOf="@id/siv_bg_warning"
+                app:layout_constraintStart_toStartOf="@id/siv_bg_warning"
+                app:layout_constraintTop_toTopOf="@id/siv_bg_warning"
                 app:tint="@color/color_d62246" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -20,7 +20,7 @@
 
             <argument
                 android:name="project_id"
-                app:argType="integer" />
+                app:argType="long" />
         </action>
 
         <action
@@ -57,5 +57,21 @@
     <fragment
         android:id="@+id/projectWriteContainerFragment"
         android:name="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerFragment"
-        tools:layout="@layout/fragment_project_write_container"/>
+        tools:layout="@layout/fragment_project_write_container">
+
+        <action
+            android:id="@+id/action_projectWriteContainerFragment_to_nav_project_detail"
+            app:destination="@id/nav_project_detail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/projectWriteContainerFragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="project_id"
+                app:argType="long" />
+        </action>
+    </fragment>
 </navigation>

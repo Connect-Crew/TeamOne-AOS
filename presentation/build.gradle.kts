@@ -30,9 +30,6 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-
             buildConfigField("String", "API_URL", localProperties["RELEASE_API_URL"].toString())
 
             // Google

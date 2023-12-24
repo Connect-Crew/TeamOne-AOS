@@ -5,13 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.connectcrew.domain.usecase.project.CreateProjectReportUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.TeamOneException
-import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.model.project.ProjectFeedDetail
 import com.connectcrew.presentation.model.project.ProjectFeedDetailCategory
 import com.connectcrew.presentation.screen.base.BaseViewModel
-import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,10 +22,9 @@ import javax.inject.Inject
 class ProjectDetailContainerViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val createProjectReportUseCase: CreateProjectReportUseCase,
-    signViewModelDelegate: SignViewModelDelegate
-) : BaseViewModel(), SignViewModelDelegate by signViewModelDelegate {
+) : BaseViewModel() {
 
-    val projectId = savedStateHandle.getStateFlow<Int?>(KEY_PROJECT_ID, null)
+    val projectId = savedStateHandle.getStateFlow<Long?>(KEY_PROJECT_ID, null)
 
     private val selectedProjectDetailCategory =
         savedStateHandle.getStateFlow(KEY_PROJECT_DETAIL_CATEGORY, ProjectFeedDetailCategory.INTRODUCTION)
@@ -37,8 +34,8 @@ class ProjectDetailContainerViewModel @Inject constructor(
     private val _invalidateProjectDetail = MutableEventFlow<Unit>()
     val invalidateProjectDetail: EventFlow<Unit> = _invalidateProjectDetail
 
-    private val _navigateToProjectEnrollDialog = MutableEventFlow<Pair<Int, ProjectFeedDetail>>()
-    val navigateToProjectEnrollDialog: EventFlow<Pair<Int, ProjectFeedDetail>> = _navigateToProjectEnrollDialog
+    private val _navigateToProjectEnrollDialog = MutableEventFlow<Pair<Long, ProjectFeedDetail>>()
+    val navigateToProjectEnrollDialog: EventFlow<Pair<Long, ProjectFeedDetail>> = _navigateToProjectEnrollDialog
 
     private val _navigateToProjectReportReasonDialog = MutableEventFlow<Unit>()
     val navigateToProjectReportReasonDialog: EventFlow<Unit> = _navigateToProjectReportReasonDialog
@@ -69,7 +66,7 @@ class ProjectDetailContainerViewModel @Inject constructor(
 
     fun navigateToProjectReportCompletedDialog() {
         viewModelScope.launch {
-            createProjectReportUseCase(CreateProjectReportUseCase.Params(userToken.value, projectId.value ?: -1, projectReportReason.value))
+            createProjectReportUseCase(CreateProjectReportUseCase.Params(projectId.value ?: -1, projectReportReason.value))
                 .asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
                 .collect {
@@ -78,11 +75,7 @@ class ProjectDetailContainerViewModel @Inject constructor(
                         is ApiResult.Success -> _navigateToProjectReportCompletedDialog.emit(Unit)
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
-                            is TeamOneException -> when (it.exception) {
-                                is UnAuthorizedException -> refreshUserToken()
-                                else -> setMessage(it.exception.message.toString())
-                            }
-
+                            is TeamOneException -> setMessage(it.exception.message.toString())
                             else -> setMessage(R.string.unknown_error)
                         }
                     }

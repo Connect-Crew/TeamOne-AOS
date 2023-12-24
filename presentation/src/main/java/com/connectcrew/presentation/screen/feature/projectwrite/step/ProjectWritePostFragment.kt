@@ -143,6 +143,10 @@ class ProjectWritePostFragment : BaseFragment<FragmentProjectWritePostBinding>(R
             btnPrevious.setOnSingleClickListener {
                 findNavController().navigateUp()
             }
+
+            btnPost.setOnSingleClickListener {
+                findNavController().safeNavigate(ProjectWritePostFragmentDirections.actionProjectWritePostFragmentToProjectWriteConfirmDialog())
+            }
         }
     }
 

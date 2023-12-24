@@ -2,10 +2,10 @@ package com.connectcrew.presentation.screen.feature.projectwrite
 
 import com.connectcrew.presentation.R
 
-enum class ProjectWriteProgressState {
-    STATE_IDLE,
-    STATE_PROCEEDING,
-    STATE_PROGRESS_COMPLETED
+enum class ProjectWriteProgressState(val value: String) {
+    STATE_IDLE("NOT_STARTED"),
+    STATE_PROCEEDING("IN_PROGRESS"),
+    STATE_PROGRESS_COMPLETED("COMPLETED")
 }
 
 enum class ProjectWriteLocationType {
@@ -19,20 +19,20 @@ enum class ProjectWritePurposeType(val value: String) {
     TYPE_PORTFOLIO("PORTFOLIO")
 }
 
-enum class ProjectWriteCareerType(val index: Int, val value: String) {
-    NONE(0, "none"),
-    SEEKER(1, "준비생"),
-    ENTRY(2, "신입"),
-    YEAR_1(3, "1년"),
-    YEAR_2(4, "2년"),
-    YEAR_3(5, "3년"),
-    YEAR_4(6, "4년"),
-    YEAR_5(7, "5년"),
-    YEAR_6(8, "6년"),
-    YEAR_7(9, "7년"),
-    YEAR_8(10, "8년"),
-    YEAR_9(11, "9년"),
-    YEAR_10_PLUS(12, "10년+"),
+enum class ProjectWriteCareerType(val index: Int, val key: String,  val value: String) {
+    NONE(0,  "NONE","NONE"),
+    SEEKER(1, "SEEKER","준비생"),
+    ENTRY(2, "ENTRY","신입"),
+    YEAR_1(3, "YEAR_1","1년"),
+    YEAR_2(4, "YEAR_2","2년"),
+    YEAR_3(5, "YEAR_3","3년"),
+    YEAR_4(6, "YEAR_4","4년"),
+    YEAR_5(7, "YEAR_5","5년"),
+    YEAR_6(8, "YEAR_6","6년"),
+    YEAR_7(9, "YEAR_7","7년"),
+    YEAR_8(10, "YEAR_8","8년"),
+    YEAR_9(11, "YEAR_9","9년"),
+    YEAR_10_PLUS(12, "YEAR_10_PLUS","10년+"),
 }
 
 enum class ProjectWriteFieldType(val key: String, val value: String) {

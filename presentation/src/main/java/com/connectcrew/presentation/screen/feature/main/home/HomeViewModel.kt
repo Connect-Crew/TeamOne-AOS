@@ -12,7 +12,6 @@ import com.connectcrew.domain.usecase.project.SetProjectFeedLikeUseCase
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.TeamOneException
-import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.model.project.ProjectCategoryItem
@@ -22,7 +21,6 @@ import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.delegate.ProjectFeedUpdateActionFlow
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
-import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,8 +44,7 @@ class HomeViewModel @Inject constructor(
     private val getProjectFeedsUseCase: GetProjectFeedsUseCase,
     private val setProjectFeedLikeUseCase: SetProjectFeedLikeUseCase,
     projectFeedViewModelDelegate: ProjectFeedViewModelDelegate,
-    signViewModelDelegate: SignViewModelDelegate
-) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate, SignViewModelDelegate by signViewModelDelegate {
+) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate {
 
     private val projectFeedActionReceiver = projectFeedUpdateActionFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, ProjectFeedUpdateActionFlow.None)
@@ -60,8 +57,8 @@ class HomeViewModel @Inject constructor(
         .map { (category, selectedItem) -> category.map { it.copy(isSelected = selectedItem == it.category) } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    private var _projectFeeds: Flow<PagingData<ProjectFeed>> = combine(loadDataSignal, userToken, selectedCategory, ::Triple)
-        .flatMapLatest { (_, token, category) -> getProjectFeedsUseCase(GetProjectFeedsUseCase.Params(userToken = token, part = category.type)) }
+    private var _projectFeeds: Flow<PagingData<ProjectFeed>> = combine(loadDataSignal, selectedCategory, ::Pair)
+        .flatMapLatest { (_, category) -> getProjectFeedsUseCase(GetProjectFeedsUseCase.Params(part = category.type)) }
         .mapLatest { pagingData -> pagingData.map(ProjectFeedEntity::asItem) }
         .cachedIn(viewModelScope)
 
@@ -69,6 +66,8 @@ class HomeViewModel @Inject constructor(
         .flatMapLatest { receiver ->
             when (receiver) {
                 is ProjectFeedUpdateActionFlow.None -> return@flatMapLatest _projectFeeds
+
+                is ProjectFeedUpdateActionFlow.InvalidateProjectFeed -> return@flatMapLatest _projectFeeds.also { _invalidateProjectFeed.emit(Unit) }
 
                 is ProjectFeedUpdateActionFlow.CreateProjectFeed -> _projectFeeds.map { pagingData ->
                     if (receiver.updateAt.isBefore(getProjectFeedsUseCase.loadedAt)) {
@@ -117,8 +116,11 @@ class HomeViewModel @Inject constructor(
     private val _scrollToCenterForProjectCategory = MutableEventFlow<ProjectCategoryType>()
     val scrollToCenterForProjectCategory: EventFlow<ProjectCategoryType> = _scrollToCenterForProjectCategory
 
-    private val _navigateToProjectFeedDetail = MutableEventFlow<Int>()
-    val navigateToProjectFeedDetail: EventFlow<Int> = _navigateToProjectFeedDetail
+    private val _invalidateProjectFeed = MutableEventFlow<Unit>()
+    val invalidateProjectFeed: EventFlow<Unit> = _invalidateProjectFeed
+
+    private val _navigateToProjectFeedDetail = MutableEventFlow<Long>()
+    val navigateToProjectFeedDetail: EventFlow<Long> = _navigateToProjectFeedDetail
 
     private val _navigateToRecruitmentNoticeSummary = MutableEventFlow<Unit>()
     val navigateToRecruitmentNoticeSummary: EventFlow<Unit> = _navigateToRecruitmentNoticeSummary
@@ -134,10 +136,7 @@ class HomeViewModel @Inject constructor(
     fun setProjectFeedLike(projectFeed: ProjectFeed) {
         viewModelScope.launch {
             setProjectFeedLikeUseCase(
-                SetProjectFeedLikeUseCase.Params(
-                    userToken = userToken.value,
-                    projectId = projectFeed.id
-                )
+                SetProjectFeedLikeUseCase.Params(projectFeed.id)
             ).asResult().onEach {
                 setLoading(it is ApiResult.Loading)
             }.collect {
@@ -159,11 +158,7 @@ class HomeViewModel @Inject constructor(
                     is ApiResult.Error -> {
                         when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
-                            is TeamOneException -> when (it.exception) {
-                                is UnAuthorizedException -> refreshUserToken()
-                                else -> setMessage(it.exception.message.toString())
-                            }
-
+                            is TeamOneException -> setMessage(it.exception.message.toString())
                             else -> setMessage(R.string.unknown_error)
                         }
                     }

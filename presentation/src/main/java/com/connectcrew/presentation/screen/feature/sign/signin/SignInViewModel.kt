@@ -1,7 +1,7 @@
 package com.connectcrew.presentation.screen.feature.sign.signin
 
 import androidx.lifecycle.viewModelScope
-import com.connectcrew.domain.usecase.token.GetAccessTokenForGoogle
+import com.connectcrew.domain.usecase.sign.GetAccessTokenForGoogle
 import com.connectcrew.domain.usecase.sign.SignInUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.NotFoundException

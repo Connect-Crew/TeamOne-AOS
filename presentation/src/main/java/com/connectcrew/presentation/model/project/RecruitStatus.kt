@@ -16,7 +16,7 @@ data class RecruitStatus(
 ) : Parcelable {
 
     val isEnroll: Boolean
-        get() = currentCount <= maxCount
+        get() = currentCount < maxCount
 }
 
 fun RecruitStatusEntity.asItem(): RecruitStatus {

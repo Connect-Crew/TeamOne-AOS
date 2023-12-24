@@ -11,13 +11,9 @@ import javax.inject.Inject
 class GetUserInfoUseCase @Inject constructor(
     private val userRepository: UserRepository,
     @IoDispatcher ioDispatcher: CoroutineDispatcher
-) : FlowUseCase<GetUserInfoUseCase.Params, UserEntity>(ioDispatcher) {
+) : FlowUseCase<Unit, UserEntity>(ioDispatcher) {
 
-    override fun execute(params: Params): Flow<UserEntity> = flow {
-        emit(userRepository.getUserInfo(params.accessToken))
+    override fun execute(params: Unit): Flow<UserEntity> = flow {
+        emit(userRepository.getUserInfo())
     }
-
-    data class Params(
-        val accessToken: String?
-    )
 }

@@ -4,14 +4,14 @@ import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import com.connectcrew.domain.usecase.project.entity.RequestRecruitStatusEntity
 
 interface ProjectRepository {
 
     suspend fun getProjectInfo(): ProjectInfoContainerEntity
 
     suspend fun getProjectFeeds(
-        accessToken: String?,
-        lastId: Int?,
+        lastId: Long?,
         loadSize: Int,
         goal: String?,
         career: String?,
@@ -23,11 +23,27 @@ interface ProjectRepository {
         category: String?
     ): List<ProjectFeedEntity>
 
-    suspend fun getProjectFeedDetail(accessToken: String?, projectId: Int): ProjectFeedDetailEntity
+    suspend fun getProjectFeedDetail(projectId: Long): ProjectFeedDetailEntity
 
-    suspend fun setProjectLike(accessToken: String?, projectId: Int): ProjectFeedLikeInfoEntity
+    suspend fun setProjectLike(projectId: Long): ProjectFeedLikeInfoEntity
 
-    suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String)
+    suspend fun setProjectEnrollment(projectId: Long, part: String, message: String)
 
-    suspend fun createProjectReport(accessToken: String?, projectId: Int, reportReason: String)
+    suspend fun createProjectFeed(
+        title: String,
+        region: String,
+        isOnline: Boolean,
+        state: String,
+        careerMin: String,
+        careerMax: String,
+        leaderPart: String,
+        category: List<String>,
+        goal: String,
+        introduction: String,
+        recruits: List<RequestRecruitStatusEntity>,
+        skills: List<String>,
+        bannerImageUrls: List<String>
+    ): Long
+
+    suspend fun createProjectReport(projectId: Long, reportReason: String)
 }

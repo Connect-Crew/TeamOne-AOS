@@ -5,6 +5,7 @@ import androidx.annotation.DrawableRes
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectJobInfoEntity
+import com.connectcrew.domain.usecase.project.entity.RequestRecruitStatusEntity
 import com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteFieldType
 import com.connectcrew.presentation.screen.feature.projectwrite.getFiledIcon
 import kotlinx.parcelize.Parcelize
@@ -32,6 +33,14 @@ data class ProjectJobUiModel(
     val maxCount: Int = 1,
     val comment: String? = null
 ) : Parcelable
+
+fun ProjectJobUiModel.asEntity(): RequestRecruitStatusEntity {
+    return RequestRecruitStatusEntity(
+        part = key,
+        comment = comment.toString(),
+        maxCount = maxCount
+    )
+}
 
 @Parcelize
 data class ProjectInfo(
