@@ -12,9 +12,6 @@ import com.connectcrew.data.datasource.searchhistory.local.SearchHistoryLocalDat
 import com.connectcrew.data.datasource.sign.SignRepositoryImpl
 import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSource
 import com.connectcrew.data.datasource.sign.remote.SignRemoteDataSourceImpl
-import com.connectcrew.data.datasource.token.TokenRepositoryImpl
-import com.connectcrew.data.datasource.token.remote.TokenRemoteDataSource
-import com.connectcrew.data.datasource.token.remote.TokenRemoteDataSourceImpl
 import com.connectcrew.data.datasource.user.UserRepositoryImpl
 import com.connectcrew.data.datasource.user.remote.UserRemoteDataSource
 import com.connectcrew.data.datasource.user.remote.UserRemoteDataSourceImpl
@@ -22,7 +19,6 @@ import com.connectcrew.domain.usecase.media.MediaRepository
 import com.connectcrew.domain.usecase.project.ProjectRepository
 import com.connectcrew.domain.usecase.searchhistory.SearchHistoryRepository
 import com.connectcrew.domain.usecase.sign.SignRepository
-import com.connectcrew.domain.usecase.token.TokenRepository
 import com.connectcrew.domain.usecase.user.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -33,14 +29,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 internal abstract class DataModule {
-
-    @Singleton
-    @Binds
-    abstract fun bindTokenRepository(tokenRepositoryImpl: TokenRepositoryImpl): TokenRepository
-
-    @Singleton
-    @Binds
-    abstract fun bindTokenRemoteDataSource(tokenRemoteDataSourceImpl: TokenRemoteDataSourceImpl): TokenRemoteDataSource
 
     @Singleton
     @Binds

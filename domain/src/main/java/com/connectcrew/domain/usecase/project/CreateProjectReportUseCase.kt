@@ -12,12 +12,11 @@ class CreateProjectReportUseCase @Inject constructor(
 ) : FlowUseCase<CreateProjectReportUseCase.Params, Unit>(ioDispatcher) {
 
     override fun execute(params: Params) = flow {
-        emit(projectRepository.createProjectReport(params.accessToken, params.projectId, params.reportReason))
+        emit(projectRepository.createProjectReport(params.projectId, params.reportReason))
     }
 
     data class Params(
-        val accessToken: String?,
-        val projectId: Int,
+        val projectId: Long,
         val reportReason: String
     )
 }

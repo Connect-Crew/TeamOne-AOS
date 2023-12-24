@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProjectFeedDetail(
-    val id: Int,
+    val id: Long,
     val title: String,
     val bannerImageUrls: List<String>,
     val region: String,

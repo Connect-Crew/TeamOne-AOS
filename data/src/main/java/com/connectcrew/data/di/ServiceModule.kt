@@ -1,6 +1,8 @@
 package com.connectcrew.data.di
 
 import com.connectcrew.data.BuildConfig
+import com.connectcrew.data.token.TokenAuthenticator
+import com.connectcrew.data.token.TokenInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,12 +57,16 @@ internal object ServiceModule {
     fun provideApiOkHttpCallFactory(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         headerInterceptor: Interceptor,
+        tokenInterceptor: TokenInterceptor,
+        tokenAuthenticator: TokenAuthenticator
     ): Call.Factory = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.MINUTES)
         .readTimeout(10, TimeUnit.MINUTES)
         .writeTimeout(10, TimeUnit.MINUTES)
         .addInterceptor(headerInterceptor)
+        .addInterceptor(tokenInterceptor)
         .addInterceptor(httpLoggingInterceptor)
+        .authenticator(tokenAuthenticator)
         .build()
 
     @NormalApiOkHttpCallFactory

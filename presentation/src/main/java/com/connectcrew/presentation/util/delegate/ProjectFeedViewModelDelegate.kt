@@ -19,6 +19,8 @@ interface ProjectFeedViewModelDelegate {
     fun updateProjectFeedAction(projectFeed: ProjectFeed?, updateAt: ZonedDateTime)
 
     fun deleteProjectFeedAction(projectFeed: ProjectFeed?, updateAt: ZonedDateTime)
+
+    fun invalidateProjectFeedAction(updateAt: ZonedDateTime)
 }
 
 sealed class ProjectFeedUpdateActionFlow(open val projectFeed: ProjectFeed?, open val updateAt: ZonedDateTime) {
@@ -30,6 +32,8 @@ sealed class ProjectFeedUpdateActionFlow(open val projectFeed: ProjectFeed?, ope
     data class UpdateProjectFeed(override val projectFeed: ProjectFeed?, override val updateAt: ZonedDateTime) : ProjectFeedUpdateActionFlow(projectFeed, updateAt)
 
     data class DeleteProjectFeed(override val projectFeed: ProjectFeed?, override val updateAt: ZonedDateTime) : ProjectFeedUpdateActionFlow(projectFeed, updateAt)
+
+    data class InvalidateProjectFeed(override val updateAt: ZonedDateTime) : ProjectFeedUpdateActionFlow(null, ZonedDateTime.now())
 }
 
 class ProjectFeedViewModelDelegateDelegateImpl @Inject constructor(
@@ -59,6 +63,12 @@ class ProjectFeedViewModelDelegateDelegateImpl @Inject constructor(
     override fun deleteProjectFeedAction(projectFeed: ProjectFeed?, updateAt: ZonedDateTime) {
         applicationScope.launch {
             _projectFeedUpdateActionFlow.emit(ProjectFeedUpdateActionFlow.DeleteProjectFeed(projectFeed, updateAt))
+        }
+    }
+
+    override fun invalidateProjectFeedAction(updateAt: ZonedDateTime) {
+        applicationScope.launch {
+            _projectFeedUpdateActionFlow.emit(ProjectFeedUpdateActionFlow.InvalidateProjectFeed(updateAt))
         }
     }
 }

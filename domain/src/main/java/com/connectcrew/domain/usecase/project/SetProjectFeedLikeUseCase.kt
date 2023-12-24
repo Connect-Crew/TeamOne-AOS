@@ -14,11 +14,10 @@ class SetProjectFeedLikeUseCase @Inject constructor(
 ) : FlowUseCase<SetProjectFeedLikeUseCase.Params, ProjectFeedLikeInfoEntity>(ioDispatcher) {
 
     override fun execute(params: Params): Flow<ProjectFeedLikeInfoEntity> = flow {
-        emit(projectRepository.setProjectLike(params.userToken, params.projectId))
+        emit(projectRepository.setProjectLike(params.projectId))
     }
 
     data class Params(
-        val userToken: String?,
-        val projectId: Int
+        val projectId: Long
     )
 }

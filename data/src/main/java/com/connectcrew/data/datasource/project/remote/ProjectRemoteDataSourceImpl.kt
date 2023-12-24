@@ -1,18 +1,26 @@
 package com.connectcrew.data.datasource.project.remote
 
 import com.connectcrew.data.model.project.ProjectFeed
+import com.connectcrew.data.model.project.RequestRecruitStatus
 import com.connectcrew.data.model.project.asEntity
 import com.connectcrew.data.service.ProjectApi
-import com.connectcrew.data.util.convertToAccessToken
+import com.connectcrew.data.util.CompressorUtil
+import com.connectcrew.data.util.FileUtil
 import com.connectcrew.data.util.converterException
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.net.URLEncoder
 import javax.inject.Inject
 
 internal class ProjectRemoteDataSourceImpl @Inject constructor(
-    private val projectApi: ProjectApi
+    private val projectApi: ProjectApi,
+    private val fileUtil: FileUtil,
+    private val compressorUtil: CompressorUtil
 ) : ProjectRemoteDataSource {
 
     override suspend fun getProjectInfo(): ProjectInfoContainerEntity {
@@ -20,8 +28,7 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getProjectFeeds(
-        accessToken: String?,
-        lastId: Int?,
+        lastId: Long?,
         loadSize: Int,
         goal: String?,
         career: String?,
@@ -34,7 +41,6 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
     ): List<ProjectFeedEntity> {
         return try {
             projectApi.getProjectFeeds(
-                accessToken = accessToken.convertToAccessToken(),
                 lastId = lastId,
                 loadSize = loadSize,
                 goal = goal,
@@ -45,27 +51,23 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
                 skills = skills,
                 states = states,
                 category = category
-            ).map(ProjectFeed::asEntity)
+            ).map(ProjectFeed::asEntity).sortedByDescending { it.id }
         } catch (e: Exception) {
             throw converterException(e)
         }
     }
 
-    override suspend fun getProjectFeedDetail(accessToken: String?, projectId: Int): ProjectFeedDetailEntity {
+    override suspend fun getProjectFeedDetail(projectId: Long): ProjectFeedDetailEntity {
         return try {
-            projectApi.getProjectFeedDetail(
-                accessToken = accessToken.convertToAccessToken(),
-                projectId = projectId
-            ).asEntity()
+            projectApi.getProjectFeedDetail(projectId).asEntity()
         } catch (e: Exception) {
             throw converterException(e)
         }
     }
 
-    override suspend fun setProjectLike(accessToken: String?, projectId: Int): ProjectFeedLikeInfoEntity {
+    override suspend fun setProjectLike(projectId: Long): ProjectFeedLikeInfoEntity {
         return try {
             projectApi.setProjectLike(
-                accessToken = accessToken.convertToAccessToken(),
                 params = mapOf(KEY_PROJECT_ID to projectId)
             ).asEntity()
         } catch (e: Exception) {
@@ -73,10 +75,9 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun setProjectEnrollment(accessToken: String?, projectId: Int, part: String, message: String) {
+    override suspend fun setProjectEnrollment(projectId: Long, part: String, message: String) {
         return try {
             projectApi.setProjectEnrollment(
-                accessToken = accessToken.convertToAccessToken(),
                 params = mapOf(
                     KEY_PROJECT_ID to projectId,
                     KEY_PROJECT_ENROLLMENT_PART to part,
@@ -88,10 +89,55 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun createProjectReport(accessToken: String?, projectId: Int, reportReason: String) {
+    override suspend fun createProjectFeed(
+        title: String,
+        region: String,
+        isOnline: Boolean,
+        state: String,
+        careerMin: String,
+        careerMax: String,
+        leaderPart: String,
+        category: List<String>,
+        goal: String,
+        introduction: String,
+        recruits: List<RequestRecruitStatus>,
+        skills: List<String>,
+        bannerImageUrls: List<String>
+    ): Long {
+        val partList = bannerImageUrls.map {
+            val compressedFile = compressorUtil.compressFile(fileUtil.from(it))
+
+            MultipartBody.Part.createFormData(
+                name = KEY_PROJECT_BANNER,
+                filename = URLEncoder.encode(compressedFile.name, Charsets.UTF_8.displayName()),
+                body = compressedFile.asRequestBody("image/*".toMediaTypeOrNull())
+            )
+        }
+
+        return try {
+            projectApi.createProjectFeed(
+                title = title,
+                region = region,
+                isOnline = isOnline,
+                state = state,
+                careerMin = careerMin,
+                careerMax = careerMax,
+                leaderPart = listOf(leaderPart),
+                category = category,
+                goal = goal,
+                introduction = introduction,
+                recruits = recruits,
+                skills = skills.ifEmpty { listOf("") },
+                files = partList
+            ).projectId
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun createProjectReport(projectId: Long, reportReason: String) {
         return try {
             projectApi.createProjectReport(
-                accessToken = accessToken.convertToAccessToken(),
                 params = mapOf(
                     KEY_PROJECT_ID to projectId,
                     KEY_PROJECT_REPORT_REASON to reportReason
@@ -107,5 +153,6 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         private const val KEY_PROJECT_ENROLLMENT_PART = "part"
         private const val KEY_PROJECT_ENROLLMENT_REASON = "message"
         private const val KEY_PROJECT_REPORT_REASON = "reason"
+        private const val KEY_PROJECT_BANNER = "banner"
     }
 }

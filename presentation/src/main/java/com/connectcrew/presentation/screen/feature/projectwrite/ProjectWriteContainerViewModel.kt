@@ -2,8 +2,10 @@ package com.connectcrew.presentation.screen.feature.projectwrite
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.connectcrew.domain.usecase.project.CreateProjectFeedUseCase
 import com.connectcrew.domain.usecase.project.GetProjectInfoUseCase
 import com.connectcrew.domain.util.ApiResult
+import com.connectcrew.domain.util.TeamOneException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.domain.util.succeeded
@@ -13,10 +15,12 @@ import com.connectcrew.presentation.model.project.ProjectInfo
 import com.connectcrew.presentation.model.project.ProjectInfoContainer
 import com.connectcrew.presentation.model.project.ProjectJobInfo
 import com.connectcrew.presentation.model.project.ProjectJobUiModel
+import com.connectcrew.presentation.model.project.asEntity
 import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.EditTextState
 import com.connectcrew.presentation.util.Success
+import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,13 +33,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectWriteContainerViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val projectInfoUseCase: GetProjectInfoUseCase
-) : BaseViewModel() {
+    private val projectInfoUseCase: GetProjectInfoUseCase,
+    private val createProjectFeedUseCase: CreateProjectFeedUseCase,
+    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate
+) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate {
 
     private val projectInfoResult = loadDataSignal
         .flatMapLatest { projectInfoUseCase(Unit).asResult() }
@@ -141,6 +149,9 @@ class ProjectWriteContainerViewModel @Inject constructor(
     private val _navigateToExit = MutableEventFlow<Unit>()
     val navigateToExit: EventFlow<Unit> = _navigateToExit
 
+    private val _navigateToProjectDetail = MutableEventFlow<Long>()
+    val navigateToProjectDetail: EventFlow<Long> = _navigateToProjectDetail
+
     fun setWriteProgress(progress: Int) {
         if (projectProgress.value == progress) return
         savedStateHandle.set(KEY_PROJECT_WRITE_STEP, progress)
@@ -230,7 +241,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
         }
     }
 
-    fun setProjectFiled(projectFieldInfo: ProjectFieldInfo) {
+    fun setProjectField(projectFieldInfo: ProjectFieldInfo) {
         savedStateHandle.set(
             KEY_PROJECT_WRITE_SELECT_FIELD,
             projectSelectedFiled.value
@@ -369,6 +380,45 @@ class ProjectWriteContainerViewModel @Inject constructor(
     fun navigateToExit() {
         viewModelScope.launch {
             _navigateToExit.emit(Unit)
+        }
+    }
+
+    fun navigateToProjectDetail() {
+        viewModelScope.launch {
+            createProjectFeedUseCase(
+                CreateProjectFeedUseCase.Params(
+                    title = projectTitle.value,
+                    region = projectLocation.value?.key ?: "NONE",
+                    isOnline = projectLocationType.value!! == ProjectWriteLocationType.TYPE_ONLINE,
+                    state = projectProgressState.value!!.value,
+                    careerMin = projectMinCareer.value.key,
+                    careerMax = projectMaxCareer.value.key,
+                    leaderPart = selectedLeaderSubJobCategory.value!!.key,
+                    category = projectSelectedFiled.value.map { it.category.key },
+                    goal = projectPurposeType.value!!.value,
+                    introduction = projectIntroduction.value,
+                    recruits = recruitmentMembers.value.map(ProjectJobUiModel::asEntity),
+                    skills = projectTechStacks.value,
+                    bannerImageUrls = projectBannerUrls.value
+                )
+            ).asResult()
+                .onEach { setLoading(it is ApiResult.Loading) }
+                .collect {
+                    when (it) {
+                        is ApiResult.Loading -> return@collect
+                        is ApiResult.Success -> {
+                            invalidateProjectFeedAction(ZonedDateTime.now())
+                            _navigateToProjectDetail.emit(it.data)
+                        }
+
+                        is ApiResult.Error -> when (it.exception) {
+                            is IOException -> setMessage(R.string.network_error)
+                            is TeamOneException -> setMessage(it.exception.message.toString())
+
+                            else -> setMessage(R.string.unknown_error)
+                        }
+                    }
+                }
         }
     }
 
