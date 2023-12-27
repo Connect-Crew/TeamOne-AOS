@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Gravity.END
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -133,10 +132,10 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
             }
         }
 
-        navBackStackEntry.getLifecycle().addObserver(resultObserver)
+        navBackStackEntry.lifecycle.addObserver(resultObserver)
         viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_DESTROY) {
-                navBackStackEntry.getLifecycle().removeObserver(resultObserver)
+                navBackStackEntry.lifecycle.removeObserver(resultObserver)
             }
         })
     }

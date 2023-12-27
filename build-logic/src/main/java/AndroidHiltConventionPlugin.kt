@@ -1,3 +1,5 @@
+import com.connectcrew.teamone.convention.implementation
+import com.connectcrew.teamone.convention.ksp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -12,12 +14,12 @@ internal class AndroidHiltConventionPlugin : Plugin<Project> {
 
             with(pluginManager) {
                 apply("dagger.hilt.android.plugin")
-                apply("org.jetbrains.kotlin.kapt")
+                apply("com.google.devtools.ksp")
             }
 
             dependencies {
-                "implementation"(libs.findLibrary("hilt.android").get())
-                "kapt"(libs.findLibrary("hilt.android.compiler").get())
+                implementation(libs.findLibrary("hilt.android").get())
+                ksp(libs.findLibrary("hilt.android.compiler").get())
             }
         }
     }

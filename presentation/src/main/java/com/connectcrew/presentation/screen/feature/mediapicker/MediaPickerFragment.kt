@@ -2,6 +2,7 @@ package com.connectcrew.presentation.screen.feature.mediapicker
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,6 +27,7 @@ import com.connectcrew.presentation.databinding.FragmentMediaPickerBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.Const.KEY_SELECTED_MEDIA_PATHS
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
+import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +37,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fragment_media_picker) {
 
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var requestPermissionCallback: ActivityResultLauncher<Array<String>>
 
     private val mediaPickerViewModel: MediaPickerViewModel by viewModels()
 
@@ -72,8 +74,11 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            if (it) mediaPickerViewModel.initializeMediaAlbum(true)
+        requestPermissionCallback = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { _ ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                dataBinding.llUploadPhotoPicker.isVisible = !isPermissionGranted(arrayOf(Manifest.permission.READ_MEDIA_IMAGES))
+            }
+            mediaPickerViewModel.initializeMediaAlbum(isPermissionGranted())
         }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -111,6 +116,10 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
                 itemAnimator = null
                 setHasFixedSize(true)
             }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                llUploadPhotoPicker.isVisible = !isPermissionGranted(arrayOf(Manifest.permission.READ_MEDIA_IMAGES))
+            }
         }
     }
 
@@ -133,6 +142,10 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
                         else -> false
                     }
                 }
+            }
+
+            btnUploadPhotoPicker.setOnSingleClickListener {
+                requestPermissionCallback.launch(getStoragePermission())
             }
         }
     }
@@ -186,13 +199,12 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
     }
 
     private fun requestStoragePermission() {
-        val isPermissionGranted = getStoragePermission().all { ContextCompat.checkSelfPermission(requireContext(), it) == 0 }
         val isShowPermissionRequest = getStoragePermission().all { shouldShowRequestPermissionRationale(it) }
         val isNotShowingPermission = getStoragePermission().all { ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), it) }
 
         when {
-            isPermissionGranted -> mediaPickerViewModel.initializeMediaAlbum(true)
-            !isShowPermissionRequest || !isNotShowingPermission -> getStoragePermission().map { requestPermissionLauncher.launch(it) }
+            isPermissionGranted() -> mediaPickerViewModel.initializeMediaAlbum(true)
+            !isShowPermissionRequest || !isNotShowingPermission -> requestPermissionCallback.launch(getStoragePermission())
             else -> showPermissionDeniedAlert()
         }
     }
@@ -200,6 +212,14 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
     private fun showPermissionDeniedAlert() {
         if (permissionDialog.isShowing) return
         permissionDialog.show()
+    }
+
+    private fun isPermissionGranted(permissions: Array<String> = getStoragePermission()): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && permissions.contentEquals(getStoragePermission())) {
+            ContextCompat.checkSelfPermission(requireContext(), permissions[1]) == PackageManager.PERMISSION_GRANTED
+        } else {
+            getStoragePermission().all { ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED }
+        }
     }
 
     override fun onDestroyView() {
@@ -212,12 +232,11 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
     }
 
     companion object {
-        fun getStoragePermission() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-        } else {
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        fun getStoragePermission() = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> arrayOf(Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> arrayOf(Manifest.permission.READ_MEDIA_IMAGES)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            else -> arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
     }
 }

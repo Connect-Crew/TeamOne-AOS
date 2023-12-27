@@ -253,10 +253,10 @@ class ProjectWritePostFragment : BaseFragment<FragmentProjectWritePostBinding>(R
                 navBackStackEntry.savedStateHandle.remove<List<String>>(KEY_SELECTED_MEDIA_PATHS)
             }
         }
-        navBackStackEntry.getLifecycle().addObserver(resultObserver)
+        navBackStackEntry.lifecycle.addObserver(resultObserver)
         viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_DESTROY) {
-                navBackStackEntry.getLifecycle().removeObserver(resultObserver)
+                navBackStackEntry.lifecycle.removeObserver(resultObserver)
             }
         })
     }

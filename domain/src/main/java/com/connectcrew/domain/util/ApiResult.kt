@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 sealed class ApiResult<out R> {
-    object Loading : ApiResult<Nothing>()
+    data object Loading : ApiResult<Nothing>()
 
     data class Success<out T>(val data: T) : ApiResult<T>()
 
