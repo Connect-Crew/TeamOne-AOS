@@ -107,7 +107,7 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_team_one_logo_gray"
+                android:src="@drawable/ic_team_one_logo_bg_gray"
                 app:shapeAppearance="@style/ShapeAppearance.TeamOne.SmallComponent" />
 
             <TextView

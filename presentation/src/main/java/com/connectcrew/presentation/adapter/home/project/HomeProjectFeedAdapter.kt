@@ -51,13 +51,13 @@ class HomeProjectFeedAdapter(
 
     override fun onBindViewHolder(holder: HomeProjectFeedViewHolder, position: Int) {
         val projectFeed = getItem(position) ?: return
-        setOnBindViewHolder(holder , projectFeed)
+        setOnBindViewHolder(holder, projectFeed)
     }
 
     override fun onBindViewHolder(holder: HomeProjectFeedViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.contains(PAYLOAD_PROJECT)) {
             val projectFeed = getItem(position) ?: return
-            setOnBindViewHolder(holder , projectFeed)
+            setOnBindViewHolder(holder, projectFeed)
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }
@@ -93,7 +93,7 @@ class HomeProjectFeedAdapter(
 
             projectFeed.thumbnail
                 ?.let { loadImage(ivProjectThumbnail, it) }
-                ?: run { ivProjectThumbnail.setImageResource(R.drawable.ic_team_one_logo) }
+                ?: run { ivProjectThumbnail.setImageResource(R.drawable.ic_team_one_logo_bg_blue) }
 
             (listOf(projectFeed.state, projectFeed.careerMin) + projectFeed.category).mapIndexed { index, item ->
                 if (cgProjectTag.children.none { it.tag == item }) {
