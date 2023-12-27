@@ -276,7 +276,8 @@
                         app:spinner_arrow_tint="@color/color_9e9e9e"
                         app:spinner_popup_animation="dropdown"
                         app:spinner_popup_background="@color/color_f9fafc"
-                        app:spinner_popup_elevation="14dp" />
+                        app:spinner_popup_elevation="14dp"
+                        app:spinner_popup_height="200dp" />
                 </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView

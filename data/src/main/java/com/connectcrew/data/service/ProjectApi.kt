@@ -3,11 +3,15 @@ package com.connectcrew.data.service
 import com.connectcrew.data.model.project.ProjectFeed
 import com.connectcrew.data.model.project.ProjectFeedDetail
 import com.connectcrew.data.model.project.ProjectFeedLikeInfo
+import com.connectcrew.data.model.project.ProjectId
 import com.connectcrew.data.model.project.ProjectInfoContainer
+import com.connectcrew.data.model.project.RequestRecruitStatus
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -16,10 +20,27 @@ internal interface ProjectApi {
     @GET("project/")
     suspend fun getProjectInfo(): ProjectInfoContainer
 
+    @Multipart
+    @POST("project/")
+    suspend fun createProjectFeed(
+        @Part("title") title: String,
+        @Part("region") region: String,
+        @Part("online") isOnline: Boolean,
+        @Part("state") state: String,
+        @Part("careerMin") careerMin: String,
+        @Part("careerMax") careerMax: String,
+        @Part("leaderParts") leaderPart: List<String>,
+        @Part("category") category: List<String>,
+        @Part("goal") goal: String,
+        @Part("introduction") introduction: String,
+        @Part("recruits") recruits: List<RequestRecruitStatus>,
+        @Part("skills") skills: List<String>,
+        @Part files: List<MultipartBody.Part>
+    ): ProjectId
+
     @GET("project/list")
     suspend fun getProjectFeeds(
-        @Header("Authorization") accessToken: String?,
-        @Query("lastId") lastId: Int?,
+        @Query("lastId") lastId: Long?,
         @Query("size") loadSize: Int,
         @Query("goal") goal: String?,
         @Query("career") career: String?,
@@ -32,26 +53,14 @@ internal interface ProjectApi {
     ): List<ProjectFeed>
 
     @GET("project/{projectId}")
-    suspend fun getProjectFeedDetail(
-        @Header("Authorization") accessToken: String?,
-        @Path("projectId") projectId: Int
-    ): ProjectFeedDetail
+    suspend fun getProjectFeedDetail(@Path("projectId") projectId: Long): ProjectFeedDetail
 
     @POST("project/favorite")
-    suspend fun setProjectLike(
-        @Header("Authorization") accessToken: String?,
-        @Body params: Any
-    ): ProjectFeedLikeInfo
+    suspend fun setProjectLike(@Body params: Any): ProjectFeedLikeInfo
 
     @POST("project/apply")
-    suspend fun setProjectEnrollment(
-        @Header("Authorization") accessToken: String?,
-        @Body params: Any
-    )
+    suspend fun setProjectEnrollment(@Body params: Any)
 
     @POST("project/report")
-    suspend fun createProjectReport(
-        @Header("Authorization") accessToken: String?,
-        @Body params: Any
-    )
+    suspend fun createProjectReport(@Body params: Any)
 }

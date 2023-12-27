@@ -24,8 +24,8 @@ class ProjectWriteFieldFragment : BaseFragment<FragmentProjectWriteFieldBinding>
 
     private val projectWriteContainerViewModel: ProjectWriteContainerViewModel by viewModels({ requireParentFragment().requireParentFragment() })
 
-    private val projectWriteFiledAdapter by lazy {
-        ProjectFieldAdapter(projectWriteContainerViewModel::setProjectFiled)
+    private val projectWriteFieldAdapter by lazy {
+        ProjectFieldAdapter(projectWriteContainerViewModel::setProjectField)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class ProjectWriteFieldFragment : BaseFragment<FragmentProjectWriteFieldBinding>
     private fun initView() {
         dataBinding.rvProjectField.apply {
             addItemDecoration(RecyclerviewItemDecoration(0, 20, 0, 20, R.layout.item_project_write_field))
-            adapter = projectWriteFiledAdapter
+            adapter = projectWriteFieldAdapter
             layoutManager = GridLayoutManager(requireContext(), if (resources.getBoolean(R.bool.isTablet)) 5 else 3)
             itemAnimator = null
             setHasFixedSize(true)
@@ -71,7 +71,7 @@ class ProjectWriteFieldFragment : BaseFragment<FragmentProjectWriteFieldBinding>
                     projectWriteContainerViewModel.projectSelectedFiled,
                     ::Pair
                 ).collect { (projectInfoList, selectInfo) ->
-                    projectWriteFiledAdapter.submitList(projectInfoList.category.map { filed -> filed.copy(isSelected = selectInfo.any { it.category == filed.category }) })
+                    projectWriteFieldAdapter.submitList(projectInfoList.category.map { filed -> filed.copy(isSelected = selectInfo.any { it.category == filed.category }) })
                 }
             }
 

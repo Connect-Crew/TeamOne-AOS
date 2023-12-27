@@ -23,15 +23,14 @@ class GetProjectFeedsUseCase @Inject constructor(
     override fun execute(params: Params): Flow<PagingData<ProjectFeedEntity>> = Pager(
         config = PagingConfig(pageSize = params.loadSize, enablePlaceholders = true)
     ) {
-        object : PagingSource<Int, ProjectFeedEntity>() {
-            override fun getRefreshKey(state: PagingState<Int, ProjectFeedEntity>): Int? = null
+        object : PagingSource<Long, ProjectFeedEntity>() {
+            override fun getRefreshKey(state: PagingState<Long, ProjectFeedEntity>): Long? = null
 
-            override suspend fun load(loadParams: LoadParams<Int>): LoadResult<Int, ProjectFeedEntity> {
+            override suspend fun load(loadParams: LoadParams<Long>): LoadResult<Long, ProjectFeedEntity> {
                 val page = loadParams.key
 
                 return try {
                     projectRepository.getProjectFeeds(
-                        accessToken = params.userToken,
                         lastId = page,
                         loadSize = params.loadSize,
                         goal = params.goal,
@@ -57,7 +56,6 @@ class GetProjectFeedsUseCase @Inject constructor(
     }.flow
 
     data class Params(
-        val userToken: String?,
         val loadSize: Int = PROJECT_FEED_LOAD_SIZE,
         val lastId: Int? = null,
         val goal: String? = null,
@@ -71,6 +69,6 @@ class GetProjectFeedsUseCase @Inject constructor(
     )
 
     companion object {
-        private const val PROJECT_FEED_LOAD_SIZE = 40
+        private const val PROJECT_FEED_LOAD_SIZE = 20
     }
 }

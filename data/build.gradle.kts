@@ -25,9 +25,6 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-
             buildConfigField("String", "API_URL", localProperties["RELEASE_API_URL"].toString())
             buildConfigField("String", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
             buildConfigField("String", "GOOGLE_CLIENT_SECRET", localProperties["GOOGLE_CLIENT_SECRET"].toString())
@@ -59,6 +56,8 @@ dependencies {
 
     // log tracker
     api(libs.timber)
+    // file compressor
+    api(libs.compressor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

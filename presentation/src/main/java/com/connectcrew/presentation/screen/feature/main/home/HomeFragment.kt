@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.common.TeamOneLoadAdapter
 import com.connectcrew.presentation.adapter.home.category.HomeCategoryAdapter
@@ -167,12 +166,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                             viewLoading.root.isVisible = state is LoadState.Loading
                             rvProjectFeed.isVisible = state !is LoadState.Error
                             llProjectFeedEmpty.isVisible = state is LoadState.NotLoading && homeProjectFeedAdapter.itemCount == 0
-
-                            if (state is LoadState.Error && state.error is UnAuthorizedException) {
-                                homeViewModel.refreshUserToken()
-                            } else {
-                                viewNetworkError.root.isVisible = state is LoadState.Error
-                            }
+                            viewNetworkError.root.isVisible = state is LoadState.Error
                         }
                     }
             }
@@ -184,6 +178,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                             targetPosition = ProjectCategoryType.values().toList().indexOf(it)
                         })
                     }
+                }
+            }
+
+            launch {
+                homeViewModel.invalidateProjectFeed.collect {
+                    homeProjectFeedAdapter.refresh()
                 }
             }
 

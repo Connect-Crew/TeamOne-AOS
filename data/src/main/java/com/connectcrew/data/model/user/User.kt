@@ -1,16 +1,13 @@
 package com.connectcrew.data.model.user
 
+import com.connectcrew.domain.usecase.sign.entity.TokenEntity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.time.ZonedDateTime
 
 @JsonClass(generateAdapter = true)
 internal data class User(
-    // Token Info
-    @Json(name = "token")
-    val accessToken: String?,
-    @Json(name = "refreshToken")
-    val refreshToken: String?,
     // User Info
     @Json(name = "id")
     val id: Int,
@@ -27,13 +24,21 @@ internal data class User(
     @Json(name = "introduction")
     val introduction: String?,
     @Json(name = "parts")
-    val parts: List<String>?
+    val parts: List<String>?,
+
+    // Token Info
+    @Json(name = "token")
+    val accessToken: String? = null,
+    @Json(name = "exp")
+    val accessTokenExp: String? = null,
+    @Json(name = "refreshToken")
+    val refreshToken: String? = null,
+    @Json(name = "refreshExp")
+    val refreshTokenExp: String? = null
 )
 
 internal fun User.asEntity(): UserEntity {
     return UserEntity(
-        accessToken = accessToken ?: "",
-        refreshToken = refreshToken ?: "",
         id = id,
         nickname = nickname,
         profile = profile,
@@ -45,10 +50,17 @@ internal fun User.asEntity(): UserEntity {
     )
 }
 
+internal fun User.asTokenEntity(): TokenEntity {
+    return TokenEntity(
+        accessToken = accessToken ?: "",
+        accessTokenExpired = accessTokenExp ?: ZonedDateTime.now().toString(),
+        refreshToken = refreshToken ?: "",
+        refreshTokenExpired = refreshTokenExp ?: ZonedDateTime.now().toString(),
+    )
+}
+
 internal fun UserEntity.asExternalModel(): User {
     return User(
-        accessToken = accessToken,
-        refreshToken = refreshToken,
         id = id,
         nickname = nickname,
         profile = profile,

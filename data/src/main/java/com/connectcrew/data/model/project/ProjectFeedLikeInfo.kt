@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 internal data class ProjectFeedLikeInfo(
     @Json(name = "project")
-    val projectId: Int,
+    val projectId: Long,
     @Json(name = "myFavorite")
     val isLike: Boolean,
     @Json(name = "favorite")

@@ -4,7 +4,7 @@ import com.connectcrew.domain.usecase.Entity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 
 data class ProjectFeedDetailEntity(
-    val id: Int,
+    val id: Long,
     val title: String,
     val bannerImageUrls: List<String>,
     val region: String,

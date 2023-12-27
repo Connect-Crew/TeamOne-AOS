@@ -13,12 +13,11 @@ class SetProjectEnrollmentUseCase @Inject constructor(
 ) : FlowUseCase<SetProjectEnrollmentUseCase.Params, Unit>(ioDispatcher) {
 
     override fun execute(params: Params): Flow<Unit> = flow {
-        emit(projectRepository.setProjectEnrollment(params.accessToken, params.projectId, params.enrollmentPart, params.enrollmentReason))
+        emit(projectRepository.setProjectEnrollment(params.projectId, params.enrollmentPart, params.enrollmentReason))
     }
 
     data class Params(
-        val accessToken: String?,
-        val projectId: Int,
+        val projectId: Long,
         val enrollmentPart: String,
         val enrollmentReason: String
     )

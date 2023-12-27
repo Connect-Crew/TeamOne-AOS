@@ -14,11 +14,10 @@ class GetProjectFeedDetailUseCase @Inject constructor(
 ) : FlowUseCase<GetProjectFeedDetailUseCase.Params, ProjectFeedDetailEntity>(ioDispatcher) {
 
     override fun execute(params: Params): Flow<ProjectFeedDetailEntity> = flow {
-        emit(projectRepository.getProjectFeedDetail(params.accessToken, params.projectId))
+        emit(projectRepository.getProjectFeedDetail(params.projectId))
     }
 
     data class Params(
-        val accessToken: String?,
-        val projectId: Int
+        val projectId: Long
     )
 }

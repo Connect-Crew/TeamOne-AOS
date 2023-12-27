@@ -5,13 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.connectcrew.domain.usecase.project.SetProjectEnrollmentUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.TeamOneException
-import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.model.project.ProjectFeedDetail
 import com.connectcrew.presentation.model.project.RecruitStatus
 import com.connectcrew.presentation.screen.base.BaseViewModel
-import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,12 +21,11 @@ import javax.inject.Inject
 @HiltViewModel
 class ProjectEnrollmentViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val setProjectEnrollmentUseCase: SetProjectEnrollmentUseCase,
-    signViewModelDelegate: SignViewModelDelegate
-) : BaseViewModel(), SignViewModelDelegate by signViewModelDelegate {
+    private val setProjectEnrollmentUseCase: SetProjectEnrollmentUseCase
+) : BaseViewModel() {
 
     private val projectId
-        get() = savedStateHandle.get<Int>(KEY_PROJECT_ID)
+        get() = savedStateHandle.get<Long>(KEY_PROJECT_ID)
 
     val selectedRecruitPart
         get() = savedStateHandle.get<RecruitStatus>(KEY_SELECTED_PART)
@@ -56,7 +53,6 @@ class ProjectEnrollmentViewModel @Inject constructor(
         viewModelScope.launch {
             setProjectEnrollmentUseCase(
                 SetProjectEnrollmentUseCase.Params(
-                    accessToken = userToken.value,
                     projectId = projectId!!,
                     enrollmentPart = selectedRecruitPart?.partKey!!,
                     enrollmentReason = enrollmentReason.value
@@ -69,11 +65,7 @@ class ProjectEnrollmentViewModel @Inject constructor(
                         is ApiResult.Success -> _navigateToProjectEnrollmentCompletedDialog.emit(Unit)
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
-                            is TeamOneException -> when (it.exception) {
-                                is UnAuthorizedException -> refreshUserToken()
-                                else -> setMessage(it.exception.message.toString())
-                            }
-
+                            is TeamOneException -> setMessage(it.exception.message.toString())
                             else -> setMessage(R.string.unknown_error)
                         }
                     }

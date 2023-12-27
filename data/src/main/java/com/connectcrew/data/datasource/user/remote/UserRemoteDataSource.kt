@@ -4,5 +4,5 @@ import com.connectcrew.domain.usecase.sign.entity.UserEntity
 
 internal interface UserRemoteDataSource {
 
-    suspend fun getUserInfo(accessToken: String?): UserEntity
+    suspend fun getUserInfo(): UserEntity
 }

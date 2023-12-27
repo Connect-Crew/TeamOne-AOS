@@ -6,7 +6,6 @@ import com.connectcrew.domain.usecase.project.GetProjectFeedDetailUseCase
 import com.connectcrew.domain.usecase.project.SetProjectFeedLikeUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.TeamOneException
-import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.domain.util.succeeded
@@ -18,7 +17,6 @@ import com.connectcrew.presentation.model.project.toSummary
 import com.connectcrew.presentation.model.user.User
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
-import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,15 +39,14 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getProjectFeedDetailUseCase: GetProjectFeedDetailUseCase,
     private val setProjectFeedLikeUseCase: SetProjectFeedLikeUseCase,
-    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate,
-    signViewModelDelegate: SignViewModelDelegate
-) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate, SignViewModelDelegate by signViewModelDelegate {
+    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate
+) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate {
 
-    private val projectId = savedStateHandle.getStateFlow<Int?>(KEY_PROJECT_ID, null)
+    private val projectId = savedStateHandle.getStateFlow<Long?>(KEY_PROJECT_ID, null)
 
-    private val projectFeedDetailResult = combine(loadDataSignal, userToken, projectId, ::Triple)
-        .filter { it.third != null }
-        .flatMapLatest { (_, token, id) -> getProjectFeedDetailUseCase(GetProjectFeedDetailUseCase.Params(token, id!!)).asResult() }
+    private val projectFeedDetailResult = combine(loadDataSignal, projectId, ::Pair)
+        .filter { it.second != null }
+        .flatMapLatest { (_, id) -> getProjectFeedDetailUseCase(GetProjectFeedDetailUseCase.Params(id!!)).asResult() }
         .onEach { if (it.succeeded) _projectDetail.value = it.data!!.asItem() }
         .stateIn(viewModelScope, SharingStarted.Lazily, ApiResult.Loading)
 
@@ -68,26 +65,19 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
                 when (it) {
                     is ApiResult.Loading -> _projectFeedDetailUiState.value = InitializerUiState.Loading
                     is ApiResult.Success -> _projectFeedDetailUiState.value = InitializerUiState.Success
-                    is ApiResult.Error -> when (it.exception) {
-                        is TeamOneException -> when (it.exception) {
-                            is UnAuthorizedException -> refreshUserToken()
-                            else -> _projectFeedDetailUiState.value = InitializerUiState.Error
-                        }
-
-                        else -> _projectFeedDetailUiState.value = InitializerUiState.Error
-                    }
+                    is ApiResult.Error -> _projectFeedDetailUiState.value = InitializerUiState.Error
                 }
             }
         }
     }
 
-    fun setProjectId(projectId: Int) {
+    fun setProjectId(projectId: Long) {
         savedStateHandle.set(KEY_PROJECT_ID, projectId)
     }
 
     fun setProjectFeedLike() {
         viewModelScope.launch {
-            setProjectFeedLikeUseCase(SetProjectFeedLikeUseCase.Params(userToken.value, projectId.value ?: -1))
+            setProjectFeedLikeUseCase(SetProjectFeedLikeUseCase.Params(projectId.value ?: -1))
                 .asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
                 .collect {
@@ -108,11 +98,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
 
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
-                            is TeamOneException -> when (it.exception) {
-                                is UnAuthorizedException -> refreshUserToken()
-                                else -> setMessage(it.exception.message.toString())
-                            }
-
+                            is TeamOneException -> setMessage(it.exception.message.toString())
                             else -> setMessage(R.string.unknown_error)
                         }
                     }
@@ -121,38 +107,46 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     }
 
     fun createProjectDetailIntroductionUiModels(projectFeedDetail: ProjectFeedDetail): List<ProjectDetailIntroductionUiModel> {
-        return listOf(
+        val projectDetailIntroductionUiModels = mutableListOf<ProjectDetailIntroductionUiModel>()
+
+        return projectDetailIntroductionUiModels.apply {
             // 프로젝트 대표 이미지
-            ProjectDetailIntroductionUiModel.ProjectDetailIntroductionBannerUiModel(projectFeedDetail.bannerImageUrls),
+            add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionBannerUiModel(projectFeedDetail.bannerImageUrls))
 
             // 프로젝트 제목
-            ProjectDetailIntroductionUiModel.ProjectDetailIntroductionTitleUiModel(
-                region = projectFeedDetail.region,
-                isOnline = projectFeedDetail.isOnline,
-                title = projectFeedDetail.title,
-                createdAt = projectFeedDetail.createdAt,
-                careerMin = projectFeedDetail.careerMin,
-                projectState = projectFeedDetail.state,
-                category = projectFeedDetail.category
-            ),
+            add(
+                ProjectDetailIntroductionUiModel.ProjectDetailIntroductionTitleUiModel(
+                    region = projectFeedDetail.region,
+                    isOnline = projectFeedDetail.isOnline,
+                    title = projectFeedDetail.title,
+                    createdAt = projectFeedDetail.createdAt,
+                    careerMin = projectFeedDetail.careerMin,
+                    projectState = projectFeedDetail.state,
+                    category = projectFeedDetail.category
+                )
+            )
 
             // 리더 정보
-            ProjectDetailIntroductionUiModel.ProjectDetailIntroductionLeaderUiModel(projectFeedDetail.leader),
+            add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionLeaderUiModel(projectFeedDetail.leader))
 
             // 지원 공고
-            ProjectDetailIntroductionUiModel.ProjectDetailIntroductionRecruitmentNoticeUiModel(
-                projectFeedDetail.recruitStatus,
-                projectFeedDetail.totalCurrentCount,
-                projectFeedDetail.totalMaxCount,
-                projectFeedDetail.isEnroll
-            ),
+            add(
+                ProjectDetailIntroductionUiModel.ProjectDetailIntroductionRecruitmentNoticeUiModel(
+                    recruitStatus = projectFeedDetail.recruitStatus,
+                    totalCurrentCount = projectFeedDetail.totalCurrentCount,
+                    totalMaxCount = projectFeedDetail.totalMaxCount,
+                    isEnroll = projectFeedDetail.isEnroll
+                )
+            )
 
             // 상세 설명
-            ProjectDetailIntroductionUiModel.ProjectDetailIntroductionDescriptionUiModel(projectFeedDetail.projectIntroduction),
+            add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionDescriptionUiModel(projectFeedDetail.projectIntroduction))
 
             // 기술 스택
-            ProjectDetailIntroductionUiModel.ProjectDetailIntroductionTechStack(projectFeedDetail.skills)
-        )
+            if (projectFeedDetail.skills.first().isNotEmpty()) {
+                add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionTechStack(projectFeedDetail.skills))
+            }
+        }
     }
 
     fun navigateToProjectEnrollDialog() {
