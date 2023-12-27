@@ -139,7 +139,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
     ) { projectIntroduction, leaderMainJob, leaderSubJob, recruitmentMembers ->
         Triple(projectIntroduction, leaderMainJob to leaderSubJob, recruitmentMembers)
     }.map { (editTextState, leaderCategory, members) ->
-        editTextState.Success && leaderCategory.first != null && leaderCategory.second != null && recruitmentMembers.value.isNotEmpty()
+        editTextState.Success && leaderCategory.first != null && leaderCategory.second != null && members.isNotEmpty()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
     // endregion Step 5
 

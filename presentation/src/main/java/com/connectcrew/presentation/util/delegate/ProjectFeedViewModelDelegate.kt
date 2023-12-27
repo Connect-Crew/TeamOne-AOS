@@ -25,7 +25,7 @@ interface ProjectFeedViewModelDelegate {
 
 sealed class ProjectFeedUpdateActionFlow(open val projectFeed: ProjectFeed?, open val updateAt: ZonedDateTime) {
 
-    object None : ProjectFeedUpdateActionFlow(null, ZonedDateTime.now())
+    data object None : ProjectFeedUpdateActionFlow(null, ZonedDateTime.now())
 
     data class CreateProjectFeed(override val projectFeed: ProjectFeed?, override val updateAt: ZonedDateTime) : ProjectFeedUpdateActionFlow(projectFeed, updateAt)
 
