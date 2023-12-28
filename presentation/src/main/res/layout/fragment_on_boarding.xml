@@ -31,7 +31,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_1ca3d4"
+                android:background="@color/color_00aee4"
                 app:shapeAppearance="@style/ShapeAppearance.TeamOne.LargeComponent.rectangle" />
 
             <androidx.appcompat.widget.AppCompatImageView

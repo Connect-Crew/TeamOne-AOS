@@ -5,8 +5,9 @@ plugins {
     id("teamone.android.hilt")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
-
     id("com.google.devtools.ksp")
+    kotlin("kapt")
+
 }
 
 android {

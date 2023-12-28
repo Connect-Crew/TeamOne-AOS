@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 sealed class EditTextState {
 
     @Parcelize
-    object Success : EditTextState(), Parcelable
+    data object Success : EditTextState(), Parcelable
 
     @Parcelize
     data class Error(@StringRes val stringRes: Int) : EditTextState(), Parcelable
@@ -16,7 +16,7 @@ sealed class EditTextState {
     data class ErrorMessage(val message: String) : EditTextState(), Parcelable
 
     @Parcelize
-    object Loading : EditTextState(), Parcelable
+    data object Loading : EditTextState(), Parcelable
 
     override fun toString(): String {
         return when (this) {

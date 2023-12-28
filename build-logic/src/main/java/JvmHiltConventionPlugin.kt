@@ -1,3 +1,5 @@
+import com.connectcrew.teamone.convention.implementation
+import com.connectcrew.teamone.convention.ksp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -11,14 +13,12 @@ internal class JvmHiltConventionPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             with(pluginManager) {
-                // KAPT must go last to avoid build warnings.
-                // See: https://stackoverflow.com/questions/70550883/warning-the-following-options-were-not-recognized-by-any-processor-dagger-f
-                apply("org.jetbrains.kotlin.kapt")
+                apply("com.google.devtools.ksp")
             }
 
             dependencies {
-                "implementation"(libs.findLibrary("hilt.core").get())
-                "kapt"(libs.findLibrary("hilt.compiler").get())
+                implementation(libs.findLibrary("hilt.core").get())
+                ksp(libs.findLibrary("hilt.compiler").get())
             }
         }
     }
