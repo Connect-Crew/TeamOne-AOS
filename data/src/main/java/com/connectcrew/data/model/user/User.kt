@@ -1,5 +1,6 @@
 package com.connectcrew.data.model.user
 
+import com.connectcrew.domain.usecase.sign.entity.JobPartEntity
 import com.connectcrew.domain.usecase.sign.entity.TokenEntity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import com.squareup.moshi.Json
@@ -24,7 +25,7 @@ internal data class User(
     @Json(name = "introduction")
     val introduction: String?,
     @Json(name = "parts")
-    val parts: List<String>?,
+    val parts: List<JobPart>?,
 
     // Token Info
     @Json(name = "token")
@@ -37,6 +38,16 @@ internal data class User(
     val refreshTokenExp: String? = null
 )
 
+@JsonClass(generateAdapter = true)
+internal data class JobPart(
+    @Json(name = "key")
+    val key: String,
+    @Json(name = "part")
+    val value: String,
+    @Json(name = "category")
+    val category: String
+)
+
 internal fun User.asEntity(): UserEntity {
     return UserEntity(
         id = id,
@@ -46,7 +57,7 @@ internal fun User.asEntity(): UserEntity {
         temperature = temperature,
         responseRate = responseRate,
         introduction = introduction,
-        parts = parts ?: emptyList()
+        parts = parts?.map(JobPart::asEntity) ?: emptyList()
     )
 }
 
@@ -68,6 +79,22 @@ internal fun UserEntity.asExternalModel(): User {
         temperature = temperature,
         responseRate = responseRate,
         introduction = introduction,
-        parts = parts
+        parts = parts.map(JobPartEntity::asExternalModel)
+    )
+}
+
+internal fun JobPart.asEntity(): JobPartEntity {
+    return JobPartEntity(
+        key = key,
+        value = value,
+        category = category
+    )
+}
+
+internal fun JobPartEntity.asExternalModel(): JobPart {
+    return JobPart(
+        key = key,
+        value = value,
+        category = category
     )
 }

@@ -389,7 +389,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:enabled="@{viewModel.enableProjectPost}"
-                android:text="@string/project_write_post" />
+                android:text="@{viewModel.isUpdateProject ? @string/project_write_post_update : @string/project_write_post}"
+                tools:text="@string/project_write_post" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

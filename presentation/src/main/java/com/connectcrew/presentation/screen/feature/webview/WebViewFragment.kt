@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -69,9 +70,9 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>(R.layout.fragment_w
 
             webView.run {
                 webViewClient = object : WebViewClient() {
-                    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                         webViewModel.setFinished(false)
-                        return super.shouldOverrideUrlLoading(view, url)
+                        return super.shouldOverrideUrlLoading(view, request)
                     }
 
                     override fun onPageFinished(view: WebView?, url: String?) {

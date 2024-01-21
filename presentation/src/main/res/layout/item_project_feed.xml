@@ -29,7 +29,7 @@
                 app:shapeAppearance="?shapeAppearanceSmallComponent"
                 app:strokeColor="@color/color_f5f5f5"
                 app:strokeWidth="1dp"
-                tools:src="@drawable/ic_team_one_logo" />
+                tools:src="@drawable/ic_team_one_logo_bg_blue" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/siv_new_project_feed"

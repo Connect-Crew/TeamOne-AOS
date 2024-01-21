@@ -44,9 +44,9 @@ fun ProjectFeedEntity.asItem(): ProjectFeed {
         category = category,
         goal = goal,
         isLike = isLike,
-        recruitStatus = recruitStatus.map(RecruitStatusEntity::asItem),
-        totalCurrentCount = (recruitStatus.sumOf { it.currentCount }),
-        totalMaxCount = (recruitStatus.sumOf { it.maxCount })
+        recruitStatus = recruitStatus.filter { !it.isLeaderPart }.map(RecruitStatusEntity::asItem),
+        totalCurrentCount = (recruitStatus.filter { !it.isLeaderPart }.sumOf { it.currentCount }),
+        totalMaxCount = (recruitStatus.filter { !it.isLeaderPart }.sumOf { it.maxCount })
     )
 }
 

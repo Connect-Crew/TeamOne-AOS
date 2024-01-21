@@ -27,6 +27,7 @@
         <item name="toolbarStyle">@style/Widget.Teamone.Toolbar</item>
 
         <!-- Alert Dialog -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.TeamOne.AlertDialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.TeamOne.AlertDialog</item>
 
         <!-- Chip -->

@@ -21,24 +21,30 @@
         <action
             android:id="@+id/action_projectDetailContainerFragment_to_projectReportReasonAlertDialog"
             app:destination="@id/projectReportReasonAlertDialog" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectManagementBottomSheetDialogFragment"
+            app:destination="@id/projectManagementBottomSheetDialogFragment" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectWriteContainerFragment"
+            app:destination="@id/projectWriteContainerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <dialog
         android:id="@+id/projectReportReasonAlertDialog"
         android:name="com.connectcrew.presentation.screen.feature.project.projectreport.ProjectReportReasonAlertDialog"
-        tools:layout="@layout/dialog_project_report_reason">
-
-        <action
-            android:id="@+id/action_projectReportReasonAlertDialog_to_projectReportCompletedAlertDialog"
-            app:destination="@id/projectReportCompletedAlertDialog"
-            app:popUpTo="@id/projectReportReasonAlertDialog"
-            app:popUpToInclusive="true" />
-    </dialog>
+        tools:layout="@layout/dialog_project_report_reason" />
 
     <dialog
-        android:id="@+id/projectReportCompletedAlertDialog"
-        android:name="com.connectcrew.presentation.screen.feature.project.projectreport.ProjectReportCompletedAlertDialog"
-        tools:layout="@layout/dialog_project_report_completed" />
+        android:id="@+id/projectManagementBottomSheetDialogFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectManagementBottomSheetDialogFragment"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_project_management" />
 
     <navigation
         android:id="@+id/nav_project_enrollment"
@@ -68,19 +74,16 @@
             android:id="@+id/projectEnrollmentReasonAlertDialog"
             android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentReasonAlertDialog"
             android:label="@string/label_dialog"
-            tools:layout="@layout/dialog_project_enrollment_reason">
-
-            <action
-                android:id="@+id/action_projectEnrollmentReasonAlertDialog_to_projectEnrollmentCompletedAlertDialog"
-                app:destination="@id/projectEnrollmentCompletedAlertDialog"
-                app:popUpTo="@id/projectEnrollmentBottomSheetDialogFragment"
-                app:popUpToInclusive="true" />
-        </dialog>
-
-        <dialog
-            android:id="@+id/projectEnrollmentCompletedAlertDialog"
-            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentCompletedAlertDialog"
-            android:label="@string/label_dialog"
-            tools:layout="@layout/dialog_project_enrollment_completed" />
+            tools:layout="@layout/dialog_project_enrollment_reason"/>
     </navigation>
+
+    <fragment
+        android:id="@+id/projectWriteContainerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerFragment"
+        tools:layout="@layout/fragment_project_write_container">
+
+        <argument
+            android:name="project_feed_detail"
+            app:argType="com.connectcrew.presentation.model.project.ProjectFeedDetail" />
+    </fragment>
 </navigation>

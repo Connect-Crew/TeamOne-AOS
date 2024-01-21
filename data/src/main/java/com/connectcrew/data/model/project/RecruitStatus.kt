@@ -18,6 +18,8 @@ internal data class RecruitStatus(
     val maxCount: Int,
     @Json(name = "category")
     val category: String,
+    @Json(name = "containLeader")
+    val isLeaderPart: Boolean,
     @Json(name = "applied")
     val isApplied: Boolean?
 )
@@ -30,6 +32,7 @@ internal fun RecruitStatus.asEntity(): RecruitStatusEntity {
         currentCount = currentCount,
         maxCount = maxCount,
         category = category,
+        isLeaderPart = isLeaderPart,
         isApplied = isApplied
     )
 }

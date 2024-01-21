@@ -53,6 +53,13 @@ class ProjectIntroductionTitleViewHolder(
     fun bind(titleUiModel: ProjectDetailIntroductionUiModel.ProjectDetailIntroductionTitleUiModel) {
         binding.executeAfter {
             this.titleUiModel = titleUiModel
+
+            tvProjectLocation.text = when {
+                titleUiModel.isOnline && titleUiModel.region == "미설정" -> root.context.resources.getString(R.string.common_online)
+                titleUiModel.isOnline -> root.context.resources.getString(R.string.common_online).plus(", ${titleUiModel.region}")
+                else -> titleUiModel.region
+            }
+
             (listOf(titleUiModel.projectState, titleUiModel.careerMin) + titleUiModel.category).mapIndexed { index, item ->
                 if (cgProjectTag.children.none { it.tag == item }) {
                     val chip = Chip(cgProjectTag.context, null, R.attr.ProjectFeedChipStyle).apply {
@@ -76,6 +83,7 @@ class ProjectIntroductionLeaderViewHolder(
     fun bind(leaderUiModel: ProjectDetailIntroductionUiModel.ProjectDetailIntroductionLeaderUiModel) {
         binding.executeAfter {
             this.leader = leaderUiModel.leaderInfo
+            tvLeaderPart.text = leaderUiModel.leaderInfo.parts.firstOrNull()?.value
         }
     }
 }

@@ -77,6 +77,42 @@ internal class ProjectRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun updateProjectFeed(
+        projectId: Long,
+        title: String,
+        region: String,
+        isOnline: Boolean,
+        state: String,
+        careerMin: String,
+        careerMax: String,
+        leaderPart: String,
+        category: List<String>,
+        goal: String,
+        introduction: String,
+        recruits: List<RequestRecruitStatusEntity>,
+        skills: List<String>,
+        bannerImageUrls: List<String>,
+        removeBannerImageUrls: List<String>
+    ): Long {
+        return remoteDataSource.updateProjectFeed(
+            projectId = projectId,
+            title = title,
+            region = region,
+            isOnline = isOnline,
+            state = state,
+            careerMin = careerMin,
+            careerMax = careerMax,
+            leaderPart = leaderPart,
+            category = category,
+            goal = goal,
+            introduction = introduction,
+            recruits = recruits.map(RequestRecruitStatusEntity::asExternalModel),
+            skills = skills,
+            bannerImageUrls = bannerImageUrls,
+            removeBannerImageUrls = removeBannerImageUrls
+        )
+    }
+
     override suspend fun createProjectReport(projectId: Long, reportReason: String) {
         return remoteDataSource.createProjectReport(projectId, reportReason)
     }

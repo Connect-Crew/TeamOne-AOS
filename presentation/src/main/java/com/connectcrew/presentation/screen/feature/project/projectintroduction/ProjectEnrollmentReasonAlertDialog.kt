@@ -13,7 +13,6 @@ import com.connectcrew.presentation.util.hideKeyboard
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.DebounceEditTextListener
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
-import com.connectcrew.presentation.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -63,6 +62,7 @@ class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProject
             }
 
             btnEnrollment.setOnSingleClickListener {
+                findNavController().navigateUp()
                 projectEnrollmentViewModel.setProjectEnrollment()
             }
         }
@@ -70,21 +70,6 @@ class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProject
 
     private fun initObserver() {
         launchAndRepeatWithViewLifecycle {
-            launch {
-                projectEnrollmentViewModel.navigateToProjectEnrollmentCompletedDialog.collect {
-                    dataBinding.tietWriteEnrollmentReason.hideKeyboard().also {
-                        delay(100)
-                        findNavController().safeNavigate(ProjectEnrollmentReasonAlertDialogDirections.actionProjectEnrollmentReasonAlertDialogToProjectEnrollmentCompletedAlertDialog())
-                    }
-                }
-            }
-
-            launch {
-                projectEnrollmentViewModel.loading.collect {
-                    if (it) showLoadingDialog() else hideLoadingDialog()
-                }
-            }
-
             launch {
                 projectEnrollmentViewModel.messageRes.collect {
                     showToast(it)

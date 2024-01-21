@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.project.introduction.ProjectIntroductionAdapter
 import com.connectcrew.presentation.databinding.FragmentProjectDetailIntroductionBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
+import com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerFragmentDirections
 import com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerViewModel
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
+import com.connectcrew.presentation.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,8 +60,15 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
             }
 
             launch {
+                projectDetailIntroductionViewModel.isProjectLeader.filterNotNull().collect {
+                    projectDetailContainerViewModel.setProjectLeader(it)
+                }
+            }
+
+            launch {
                 projectDetailIntroductionViewModel.projectDetail
                     .filterNotNull()
+                    .onEach { projectDetailContainerViewModel.setProjectFeedDetail(it) }
                     .map { projectDetailIntroductionViewModel.createProjectDetailIntroductionUiModels(it) }
                     .collect { projectIntroductionAdapter.submitList(it) }
             }
@@ -70,7 +81,13 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
 
             launch {
                 projectDetailIntroductionViewModel.navigateToProjectEnrollDialog.collect {
-                    projectDetailContainerViewModel.navigateToProjectEnrollDialog(it)
+                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToNavProjectEnrollment(it.id, it))
+                }
+            }
+
+            launch {
+                projectDetailIntroductionViewModel.navigateToProjectManagementDialog.collect {
+                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToProjectManagementBottomSheetDialogFragment())
                 }
             }
 
