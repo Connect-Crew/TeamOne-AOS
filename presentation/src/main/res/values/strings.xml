@@ -110,6 +110,7 @@
 
     <!-- Project Write -->
     <string name="project_write_exit_title">생성을 중단하시겠습니까?</string>
+    <string name="project_write_update_exit_title">수정을 중단하시겠습니까?</string>
     <string name="project_write_exit_description">확인을 누르시면 모든 내용이 삭제됩니다.</string>
 
     <string name="project_write_container_step_1">이름</string>
@@ -181,6 +182,10 @@
     <string name="project_write_post_confirm_title">프로젝트를 생성하시겠습니까?</string>
     <string name="project_write_post_confirm_description">확인을 누르시면 프로젝트가 생성됩니다.</string>
 
+    <string name="project_write_post_update">프로젝트 수정</string>
+    <string name="project_write_post_update_confirm_title">프로젝트를 수정하시겠습니까?</string>
+    <string name="project_write_post_update_confirm_description">확인을 누르시면 프로젝트가 수정됩니다.</string>
+
     <!-- Project Detail -->
     <string-array name="project_detail_spinner">
         <item>신고하기</item>
@@ -200,12 +205,21 @@
     <string name="project_detail_introduction_enroll_disable">지원이 모두 마감되었습니다.</string>
     <string name="project_detail_introduction_enroll_disable_short">지원마감</string>
     <string name="project_detail_introduction_enroll_completed">지원완료</string>
+    <string name="project_detail_introduction_project_management">프로젝트 관리</string>
+    <string name="project_detail_introduction_applicant_management">지원자 관리</string>
+    <string name="project_detail_introduction_project_completed">프로젝트 완수</string>
+    <string name="project_detail_introduction_project_update">수정하기</string>
+    <string name="project_detail_introduction_project_remove">삭제하기</string>
+    <string name="project_detail_introduction_project_remove_disable">팀원이 한 명 이상 생기면 프로젝트를 삭제할 수 없습니다.</string>
 
     <string name="project_detail_enrollment_reason">%s에 지원합니다.</string>
     <string name="project_detail_enrollment_reason_hint">지원 이유 및 강점 (최대 1,000자 입력 가능합니다.)</string>
 
     <string name="project_detail_enrollment_completed">지원이 완료되었습니다.</string>
     <string name="project_detail_enrollment_completed_description">결과는 지원 현황 페이지에서\n확인하실 수 있습니다.</string>
+
+    <string name="project_detail_introduction_project_remove_title">프로젝트를 삭제하시겠습니까?</string>
+    <string name="project_detail_introduction_project_remove_description">삭제 전 한번 더 고민해보시기 바랍니다.</string>
 
     <string name="project_detail_member">팀원</string>
     <string name="project_detail_chat">채팅</string>

@@ -9,9 +9,12 @@ import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.project.enrollment.ProjectEnrollmentAdapter
 import com.connectcrew.presentation.databinding.DialogProjectEnrollmentBinding
 import com.connectcrew.presentation.screen.base.BaseBottomSheetFragment
+import com.connectcrew.presentation.util.Const
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
+import com.connectcrew.presentation.util.view.createAlert
+import com.connectcrew.presentation.util.view.dialogViewBuilder
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
@@ -51,7 +54,6 @@ class ProjectEnrollmentBottomSheetDialogFragment : BaseBottomSheetFragment<Dialo
     }
 
     private fun initObserver() {
-        // 지원하기
         launchAndRepeatWithViewLifecycle {
             launch {
                 projectEnrollmentViewModel.projectFeedDetail.filterNotNull().collect {
@@ -62,6 +64,32 @@ class ProjectEnrollmentBottomSheetDialogFragment : BaseBottomSheetFragment<Dialo
             launch {
                 projectEnrollmentViewModel.navigateToProjectEnrollmentReasonDialog.collect {
                     findNavController().safeNavigate(ProjectEnrollmentBottomSheetDialogFragmentDirections.actionProjectEnrollmentBottomSheetDialogFragmentToProjectEnrollmentReasonAlertDialog())
+                }
+            }
+
+            launch {
+                projectEnrollmentViewModel.navigateToProjectEnrollmentCompletedDialog.collect {
+                    createAlert(requireContext(), false)
+                        .dialogViewBuilder(
+                            titleRes = R.string.project_detail_enrollment_completed,
+                            descriptionRes = R.string.project_detail_enrollment_completed_description,
+                            isNegativeButtonVisible = false,
+                            onClickPositiveButton = {
+                                findNavController().run {
+                                    getBackStackEntry(R.id.projectDetailContainerFragment).savedStateHandle.apply {
+                                        set(Const.KEY_IS_PROJECT_UPDATE, true)
+                                    }
+                                    navigateUp()
+                                }
+                            }
+                        )
+                        .show()
+                }
+            }
+
+            launch {
+                projectEnrollmentViewModel.loading.collect {
+                    if (it) showLoadingDialog() else hideLoadingDialog()
                 }
             }
         }

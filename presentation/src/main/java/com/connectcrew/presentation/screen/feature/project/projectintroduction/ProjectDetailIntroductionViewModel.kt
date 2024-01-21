@@ -17,6 +17,7 @@ import com.connectcrew.presentation.model.project.toSummary
 import com.connectcrew.presentation.model.user.User
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
+import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -39,8 +43,9 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getProjectFeedDetailUseCase: GetProjectFeedDetailUseCase,
     private val setProjectFeedLikeUseCase: SetProjectFeedLikeUseCase,
-    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate
-) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate {
+    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate,
+    signViewModelDelegate: SignViewModelDelegate
+) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate, SignViewModelDelegate by signViewModelDelegate {
 
     private val projectId = savedStateHandle.getStateFlow<Long?>(KEY_PROJECT_ID, null)
 
@@ -53,23 +58,29 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     private val _projectDetail = MutableStateFlow<ProjectFeedDetail?>(null)
     val projectDetail: StateFlow<ProjectFeedDetail?> = _projectDetail
 
-    private val _projectFeedDetailUiState = MutableStateFlow(InitializerUiState.Loading)
-    val projectFeedDetailUiState: StateFlow<InitializerUiState> = _projectFeedDetailUiState
+    val isProjectLeader = combine(
+        userId.filterNotNull(),
+        projectDetail.filterNotNull(),
+        ::Pair
+    ).mapLatest { (userId, projectFeed) ->
+        userId == projectFeed.leader.id
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    val projectFeedDetailUiState = projectFeedDetailResult
+        .map {
+            when (it) {
+                is ApiResult.Loading -> InitializerUiState.Loading
+                is ApiResult.Success -> InitializerUiState.Success
+                is ApiResult.Error -> InitializerUiState.Error
+            }
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InitializerUiState.Loading)
 
     private val _navigateToProjectEnrollDialog = MutableEventFlow<ProjectFeedDetail>()
     val navigateToProjectEnrollDialog: EventFlow<ProjectFeedDetail> = _navigateToProjectEnrollDialog
 
-    init {
-        viewModelScope.launch {
-            projectFeedDetailResult.collect {
-                when (it) {
-                    is ApiResult.Loading -> _projectFeedDetailUiState.value = InitializerUiState.Loading
-                    is ApiResult.Success -> _projectFeedDetailUiState.value = InitializerUiState.Success
-                    is ApiResult.Error -> _projectFeedDetailUiState.value = InitializerUiState.Error
-                }
-            }
-        }
-    }
+    private val _navigateToProjectManagementDialog = MutableEventFlow<Unit>()
+    val navigateToProjectManagementDialog: EventFlow<Unit> = _navigateToProjectManagementDialog
 
     fun setProjectId(projectId: Long) {
         savedStateHandle.set(KEY_PROJECT_ID, projectId)
@@ -143,7 +154,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
             add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionDescriptionUiModel(projectFeedDetail.projectIntroduction))
 
             // 기술 스택
-            if (projectFeedDetail.skills.first().isNotEmpty()) {
+            if (projectFeedDetail.skills.firstOrNull()?.isNotEmpty() == true) {
                 add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionTechStack(projectFeedDetail.skills))
             }
         }
@@ -152,6 +163,12 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
     fun navigateToProjectEnrollDialog() {
         viewModelScope.launch {
             projectDetail.value?.let { _navigateToProjectEnrollDialog.emit(it) }
+        }
+    }
+
+    fun navigateToProjectManagementDialog() {
+        viewModelScope.launch {
+            _navigateToProjectManagementDialog.emit(Unit)
         }
     }
 

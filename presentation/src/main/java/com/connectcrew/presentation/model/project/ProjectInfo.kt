@@ -61,7 +61,7 @@ fun ProjectInfoContainerEntity.asItem(): ProjectInfoContainer {
         regions = regions.map(ProjectInfoEntity::asItem),
         jobs = jobs.map(ProjectJobInfoEntity::asItem),
         category = category.mapNotNull {
-            val item = ProjectWriteFieldType.values().find { type -> type.key == it.key }
+            val item = ProjectWriteFieldType.entries.find { type -> type.key == it.key }
             if (item != null) ProjectFieldInfo(category = item, categoryIcon = item.getFiledIcon()) else null
         },
         skills = skills

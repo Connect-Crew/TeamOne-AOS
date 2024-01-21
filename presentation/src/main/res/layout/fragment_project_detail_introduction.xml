@@ -59,10 +59,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    app:onSingleClick="@{()-> viewModel.setProjectFeedLike()}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:onSingleClick="@{()-> viewModel.setProjectFeedLike()}">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="wrap_content"
@@ -90,12 +90,29 @@
                     android:layout_marginStart="24dp"
                     android:enabled="@{viewModel.projectDetail.isEnroll}"
                     android:text="@{viewModel.projectDetail.isEnroll ? @string/project_detail_introduction_enroll : @string/project_detail_introduction_enroll_disable}"
+                    app:isGone="@{viewModel.isProjectLeader}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/ll_like_count"
                     app:layout_constraintTop_toTopOf="parent"
                     app:onSingleClick="@{()-> viewModel.navigateToProjectEnrollDialog()}"
                     tools:text="지원하기" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_member_management"
+                    style="@style/Widget.TeamOne.Button"
+                    android:layout_width="0dp"
+                    android:layout_marginVertical="12dp"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/project_detail_introduction_project_management"
+                    android:visibility="gone"
+                    app:isGone="@{!viewModel.isProjectLeader}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ll_like_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:onSingleClick="@{()-> viewModel.navigateToProjectManagementDialog()}"
+                    tools:text="프로젝트 관리" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

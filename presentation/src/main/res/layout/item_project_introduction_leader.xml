@@ -89,7 +89,7 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/iv_profile_url"
                 app:layout_constraintTop_toBottomOf="@id/tv_leader_name"
-                tools:text="사업기획, 프로젝트 매니저" />
+                tools:text="안드로이드 개발" />
 
             <FrameLayout
                 android:id="@+id/fl_leader_response"

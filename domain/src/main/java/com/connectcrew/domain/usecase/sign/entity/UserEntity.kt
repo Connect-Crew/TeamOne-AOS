@@ -10,5 +10,5 @@ data class UserEntity(
     val temperature: Float,
     val responseRate: Float,
     val introduction: String?,
-    val parts: List<String>,
+    val parts: List<JobPartEntity>,
 ) : Entity

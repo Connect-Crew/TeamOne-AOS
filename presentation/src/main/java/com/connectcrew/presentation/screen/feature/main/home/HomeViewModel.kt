@@ -181,7 +181,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun createProjectCategoryFlow() = flow {
-        emit(ProjectCategoryType.values().toList().map { ProjectCategoryItem(it, false) })
+        emit(ProjectCategoryType.entries.map { ProjectCategoryItem(it, false) })
     }
 
     companion object {

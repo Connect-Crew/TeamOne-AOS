@@ -79,27 +79,7 @@
                 android:name="max_select_count"
                 app:argType="integer" />
         </action>
-
-        <action
-            android:id="@+id/action_projectWritePostFragment_to_projectWriteConfirmDialog"
-            app:destination="@id/projectWriteConfirmDialog" />
     </fragment>
-
-    <dialog
-        android:id="@+id/projectWriteConfirmDialog"
-        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWriteConfirmDialog"
-        android:label="@string/label_dialog"
-        tools:layout="@layout/dialog_project_write_confirm" />
-
-    <dialog
-        android:id="@+id/projectWriteExitDialog"
-        android:name="com.connectcrew.presentation.screen.feature.projectwrite.step.ProjectWriteExitDialog"
-        android:label="@string/label_dialog"
-        tools:layout="@layout/dialog_project_write_exit" />
-
-    <action
-        android:id="@+id/action_global_projectWriteExitDialog"
-        app:destination="@id/projectWriteExitDialog" />
 
     <include app:graph="@navigation/nav_media" />
 </navigation>

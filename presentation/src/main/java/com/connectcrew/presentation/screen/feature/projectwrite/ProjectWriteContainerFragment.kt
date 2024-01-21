@@ -5,14 +5,20 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.connectcrew.presentation.NavProjectWriteDirections
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.FragmentProjectWriteContainerBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
+import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.Const
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
+import com.connectcrew.presentation.util.view.createAlert
+import com.connectcrew.presentation.util.view.dialogViewBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -42,7 +48,16 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
             tlProjectWriteContainer.setOnMenuItemSingleClickListener {
                 when (it.itemId) {
                     R.id.menu_close -> {
-                        childNavController?.safeNavigate(NavProjectWriteDirections.actionGlobalProjectWriteExitDialog())
+                        createAlert(requireContext())
+                            .dialogViewBuilder(
+                                titleRes = if (projectWriteContainerViewModel.isUpdateProject) R.string.project_write_update_exit_title else R.string.project_write_exit_title,
+                                descriptionRes = R.string.project_write_exit_description,
+                                strokeColor = R.color.color_d62246,
+                                iconDrawableRes = R.drawable.ic_warning,
+                                iconTint = R.color.color_d62246,
+                                onClickPositiveButton = { projectWriteContainerViewModel.navigateToExit() }
+                            )
+                            .show()
                         true
                     }
 
@@ -57,7 +72,6 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
                     R.id.projectWritePurposeAndCareerFragment -> 3
                     R.id.projectWriteFieldFragment -> 4
                     R.id.projectWritePostFragment -> 5
-                    R.id.projectWriteExitDialog, R.id.projectWriteConfirmDialog -> return@addOnDestinationChangedListener
                     else -> -1
                 }.let {
                     projectWriteContainerViewModel.setWriteProgress(it)
@@ -69,6 +83,20 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
     private fun initObserver() {
         launchAndRepeatWithViewLifecycle {
             launch {
+                combine(
+                    flowOf(projectWriteContainerViewModel.projectFeedDetail),
+                    projectWriteContainerViewModel.projectWriteInitializerUiState,
+                    ::Pair
+                ).filter { (projectFeed, uiState) ->
+                    projectFeed != null && uiState == BaseViewModel.InitializerUiState.Success
+                }.collect { (projectFeed, _) ->
+                    if (projectFeed != null) {
+                        projectWriteContainerViewModel.updateProject(projectFeed)
+                    }
+                }
+            }
+
+            launch {
                 projectWriteContainerViewModel.navigateToExit.collect {
                     findNavController().navigateUp()
                 }
@@ -76,7 +104,16 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
 
             launch {
                 projectWriteContainerViewModel.navigateToProjectDetail.collect {
-                    findNavController().safeNavigate(ProjectWriteContainerFragmentDirections.actionProjectWriteContainerFragmentToNavProjectDetail(it))
+                    findNavController().run {
+                        if (previousBackStackEntry?.destination?.id == R.id.projectDetailContainerFragment) {
+                            findNavController().run {
+                                getBackStackEntry(R.id.projectDetailContainerFragment).savedStateHandle.apply { set(Const.KEY_IS_PROJECT_UPDATE, true) }
+                                navigateUp()
+                            }
+                        } else {
+                            safeNavigate(ProjectWriteContainerFragmentDirections.actionProjectWriteContainerFragmentToNavProjectDetail(it))
+                        }
+                    }
                 }
             }
 

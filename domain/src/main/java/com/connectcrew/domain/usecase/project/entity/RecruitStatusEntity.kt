@@ -9,5 +9,6 @@ data class RecruitStatusEntity(
     val currentCount: Int,
     val maxCount: Int,
     val category: String,
+    val isLeaderPart: Boolean,
     val isApplied: Boolean?
 ) : Entity

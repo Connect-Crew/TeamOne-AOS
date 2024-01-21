@@ -4,12 +4,14 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.connectcrew.domain.usecase.project.CreateProjectFeedUseCase
 import com.connectcrew.domain.usecase.project.GetProjectInfoUseCase
+import com.connectcrew.domain.usecase.project.UpdateProjectFeedUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.TeamOneException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
 import com.connectcrew.domain.util.succeeded
 import com.connectcrew.presentation.R
+import com.connectcrew.presentation.model.project.ProjectFeedDetail
 import com.connectcrew.presentation.model.project.ProjectFieldInfo
 import com.connectcrew.presentation.model.project.ProjectInfo
 import com.connectcrew.presentation.model.project.ProjectInfoContainer
@@ -42,8 +44,15 @@ class ProjectWriteContainerViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val projectInfoUseCase: GetProjectInfoUseCase,
     private val createProjectFeedUseCase: CreateProjectFeedUseCase,
+    private val updateProjectFeedUseCase: UpdateProjectFeedUseCase,
     projectFeedViewModelDelegate: ProjectFeedViewModelDelegate
 ) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate {
+
+    val projectFeedDetail
+        get() = savedStateHandle.get<ProjectFeedDetail?>(KEY_PROJECT_FEED_DETAIL)
+
+    val isUpdateProject: Boolean
+        get() = projectFeedDetail != null
 
     private val projectInfoResult = loadDataSignal
         .flatMapLatest { projectInfoUseCase(Unit).asResult() }
@@ -60,7 +69,8 @@ class ProjectWriteContainerViewModel @Inject constructor(
                 is ApiResult.Success -> InitializerUiState.Success
                 is ApiResult.Error -> InitializerUiState.Error
             }
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InitializerUiState.Loading)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InitializerUiState.Loading)
 
     val projectProgress = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_STEP, 0)
 
@@ -117,6 +127,8 @@ class ProjectWriteContainerViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
 
     val projectBannerUrls = savedStateHandle.getStateFlow<List<String>>(KEY_PROJECT_WRITE_BANNER_URL, emptyList())
+    private val projectRemoveBannerUrls = savedStateHandle.getStateFlow<List<String>>(KEY_PROJECT_WRITE_REMOVE_BANNER_URL, emptyList()) // 프로젝트 수정 시에만 사용됨
+
     val projectIntroduction = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_INTRODUCTION, "")
     private val projectIntroductionEditTextState = savedStateHandle.getStateFlow<EditTextState>(KEY_PROJECT_WRITE_INTRODUCTION_EDIT_TEXT_STATE, EditTextState.Loading)
 
@@ -151,6 +163,77 @@ class ProjectWriteContainerViewModel @Inject constructor(
 
     private val _navigateToProjectDetail = MutableEventFlow<Long>()
     val navigateToProjectDetail: EventFlow<Long> = _navigateToProjectDetail
+
+    fun updateProject(projectFeed: ProjectFeedDetail) {
+        // 프로젝트 제목
+        setProjectTitle(projectFeed.title)
+
+        // 프로젝트 진행 상태 (진행 전, 진행 중)
+        setProjectPeriodProgress(ProjectWriteProgressState.entries.find { it.text == projectFeed.state } ?: ProjectWriteProgressState.STATE_IDLE)
+
+        // 프로젝트 모집 분류 (온라인 / 오프라인 / 온,오프라인)
+        setProjectLocationType(
+            if (projectFeed.isOnline) {
+                if (projectFeed.region == "미설정") ProjectWriteLocationType.TYPE_ONLINE else ProjectWriteLocationType.TYPE_ALL
+            } else {
+                ProjectWriteLocationType.TYPE_OFFLINE
+            }
+        )
+
+        // 프로젝트 모집 지역 (강릉, 서울, 부산...)
+        projectContainerInfo.value
+            ?.regions
+            ?.find { it.name == projectFeed.region }
+            ?.let { setProjectLocation(it) }
+
+        // 프로젝트 목적 (포트폴리오 , 예비 창업)
+        setProjectPurposeType(ProjectWritePurposeType.entries.find { it.text == projectFeed.goal } ?: ProjectWritePurposeType.TYPE_PORTFOLIO)
+
+        // 프로젝트 모집 경력. 경력무관일 경우.
+        setProjectCareerNoLimit(projectFeed.careerMin == ProjectWriteCareerType.NONE.value && projectFeed.careerMax == ProjectWriteCareerType.NONE.value)
+
+        // 프로젝트 모집 최소 경력.
+        setProjectCareer(isMin = true, career = projectFeed.careerMin)
+
+        // 프로젝트 모집 최대 경력.
+        setProjectCareer(isMin = false, career = projectFeed.careerMax)
+
+        // 프로젝트 카테고리 (여행, 연애, 애견)
+        projectFeed.category
+            .mapNotNull { selectedCategory -> projectContainerInfo.value?.category?.find { it.category.value == selectedCategory } }
+            .map { setProjectField(it) }
+
+        // 프로젝트 리더 직무
+        projectFeed.leader.parts.firstOrNull()?.let {
+            setProjectLeaderMainJob(it.category)
+            setProjectLeaderSubJob(it.value)
+        }
+
+        // 프로젝트 멤버 직무
+        projectFeed.recruitStatus.groupBy { it.partKey }.map {
+            val part = it.value.first()
+            setProjectMemberMainJob(part.category)
+            setProjectMemberSubJob(part.part)
+            updateRecruitmentMembersCount(
+                ProjectJobUiModel(
+                    mainJobName = part.category,
+                    key = part.partKey,
+                    name = part.part,
+                    maxCount = part.maxCount,
+                    comment = part.comment
+                )
+            )
+        }
+
+        // 프로젝트 대표 배너
+        setProjectBanner(projectFeed.bannerImageUrls, false)
+
+        // 프로젝트 소개 문구
+        setProjectIntroduction(projectFeed.projectIntroduction)
+
+        // 프로젝트에 사용되는 기술 스택
+        projectFeed.skills.map { setProjectTechStacks(it) }
+    }
 
     fun setWriteProgress(progress: Int) {
         if (projectProgress.value == progress) return
@@ -216,7 +299,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
     }
 
     fun setProjectCareer(isMin: Boolean, career: String) {
-        val careerType = ProjectWriteCareerType.values().toList().find { it.value == career } ?: ProjectWriteCareerType.NONE
+        val careerType = ProjectWriteCareerType.entries.find { it.value == career } ?: ProjectWriteCareerType.NONE
 
         if (isMin) {
             savedStateHandle.set(KEY_PROJECT_WRITE_MIN_CAREER, careerType)
@@ -261,6 +344,15 @@ class ProjectWriteContainerViewModel @Inject constructor(
     }
 
     fun setProjectBanner(imageUrl: List<String>, isRemove: Boolean) {
+        if (isRemove && !imageUrl.first().startsWith("content")) { // 공고 수정 시, 등록된 배너를 삭제하는 경우
+            savedStateHandle.set(
+                KEY_PROJECT_WRITE_REMOVE_BANNER_URL,
+                projectRemoveBannerUrls.value.toMutableList().apply {
+                    addAll(imageUrl)
+                }
+            )
+        }
+
         savedStateHandle.set(
             KEY_PROJECT_WRITE_BANNER_URL,
             projectBannerUrls.value.toMutableList().apply {
@@ -310,20 +402,18 @@ class ProjectWriteContainerViewModel @Inject constructor(
             .let { subJobInfo ->
                 savedStateHandle.set(KEY_PROJECT_WRITE_MEMBER_SUB_JOB, subJobInfo)
 
-                if (subJobInfo != null) {
-                    selectedMemberMainJobCategory.value?.name?.let { mainJobName ->
-                        _recruitmentMembers.value = recruitmentMembers.value
-                            .toMutableList()
-                            .apply {
-                                val projectJobUiModel = ProjectJobUiModel(mainJobName, subJobInfo.key, subJobInfo.name)
+                subJobInfo?.name?.let { mainJobName ->
+                    _recruitmentMembers.value = recruitmentMembers.value
+                        .toMutableList()
+                        .apply {
+                            val projectJobUiModel = ProjectJobUiModel(mainJobName, subJobInfo.key, subJobInfo.name)
 
-                                if (sumOf { it.maxCount } >= PROJECT_WRITE_MAXIMUM_MEMBER_COUNT) {
-                                    setMessage(R.string.project_write_post_part_max_count)
-                                } else if (!contains(projectJobUiModel)) {
-                                    add(projectJobUiModel)
-                                }
+                            if (sumOf { it.maxCount } >= PROJECT_WRITE_MAXIMUM_MEMBER_COUNT) {
+                                setMessage(R.string.project_write_post_part_max_count)
+                            } else if (none { it.key == projectJobUiModel.key }) {
+                                add(projectJobUiModel)
                             }
-                    }
+                        }
                 }
             }
     }
@@ -385,44 +475,66 @@ class ProjectWriteContainerViewModel @Inject constructor(
 
     fun navigateToProjectDetail() {
         viewModelScope.launch {
-            createProjectFeedUseCase(
-                CreateProjectFeedUseCase.Params(
-                    title = projectTitle.value,
-                    region = projectLocation.value?.key ?: "NONE",
-                    isOnline = projectLocationType.value!! == ProjectWriteLocationType.TYPE_ONLINE,
-                    state = projectProgressState.value!!.value,
-                    careerMin = projectMinCareer.value.key,
-                    careerMax = projectMaxCareer.value.key,
-                    leaderPart = selectedLeaderSubJobCategory.value!!.key,
-                    category = projectSelectedFiled.value.map { it.category.key },
-                    goal = projectPurposeType.value!!.value,
-                    introduction = projectIntroduction.value,
-                    recruits = recruitmentMembers.value.map(ProjectJobUiModel::asEntity),
-                    skills = projectTechStacks.value,
-                    bannerImageUrls = projectBannerUrls.value
+            if (projectFeedDetail == null) {
+                createProjectFeedUseCase(
+                    CreateProjectFeedUseCase.Params(
+                        title = projectTitle.value,
+                        region = projectLocation.value?.key ?: "NONE",
+                        isOnline = projectLocationType.value!! != ProjectWriteLocationType.TYPE_OFFLINE,
+                        state = projectProgressState.value!!.value,
+                        careerMin = projectMinCareer.value.key,
+                        careerMax = projectMaxCareer.value.key,
+                        leaderPart = selectedLeaderSubJobCategory.value!!.key,
+                        category = projectSelectedFiled.value.map { it.category.key },
+                        goal = projectPurposeType.value!!.value,
+                        introduction = projectIntroduction.value,
+                        recruits = recruitmentMembers.value.map(ProjectJobUiModel::asEntity),
+                        skills = projectTechStacks.value,
+                        bannerImageUrls = projectBannerUrls.value
+                    )
                 )
-            ).asResult()
-                .onEach { setLoading(it is ApiResult.Loading) }
-                .collect {
-                    when (it) {
-                        is ApiResult.Loading -> return@collect
-                        is ApiResult.Success -> {
-                            invalidateProjectFeedAction(ZonedDateTime.now())
-                            _navigateToProjectDetail.emit(it.data)
-                        }
+            } else {
+                updateProjectFeedUseCase(
+                    UpdateProjectFeedUseCase.Params(
+                        projectId = projectFeedDetail?.id!!,
+                        title = projectTitle.value,
+                        region = projectLocation.value?.key ?: "NONE",
+                        isOnline = projectLocationType.value!! == ProjectWriteLocationType.TYPE_ONLINE,
+                        state = projectProgressState.value!!.value,
+                        careerMin = projectMinCareer.value.key,
+                        careerMax = projectMaxCareer.value.key,
+                        leaderPart = selectedLeaderSubJobCategory.value!!.key,
+                        category = projectSelectedFiled.value.map { it.category.key },
+                        goal = projectPurposeType.value!!.value,
+                        introduction = projectIntroduction.value,
+                        recruits = recruitmentMembers.value.map(ProjectJobUiModel::asEntity),
+                        skills = projectTechStacks.value,
+                        bannerImageUrls = projectBannerUrls.value,
+                        removeBannerImageUrls = projectRemoveBannerUrls.value
+                    )
+                )
+            }.asResult().onEach { setLoading(it is ApiResult.Loading) }.collect {
+                when (it) {
+                    is ApiResult.Loading -> return@collect
+                    is ApiResult.Success -> {
+                        invalidateProjectFeedAction(ZonedDateTime.now())
+                        _navigateToProjectDetail.emit(it.data)
+                    }
 
-                        is ApiResult.Error -> when (it.exception) {
-                            is IOException -> setMessage(R.string.network_error)
-                            is TeamOneException -> setMessage(it.exception.message.toString())
+                    is ApiResult.Error -> when (it.exception) {
+                        is IOException -> setMessage(R.string.network_error)
+                        is TeamOneException -> setMessage(it.exception.message.toString())
 
-                            else -> setMessage(R.string.unknown_error)
-                        }
+                        else -> setMessage(R.string.unknown_error)
                     }
                 }
+            }
         }
     }
 
     companion object {
+        private const val KEY_PROJECT_FEED_DETAIL = "project_feed_detail"
+
         private const val KEY_PROJECT_WRITE_STEP = "project_write_step"
 
         private const val KEY_PROJECT_WRITE_TITLE = "project_write_title"
@@ -441,12 +553,17 @@ class ProjectWriteContainerViewModel @Inject constructor(
         private const val PROJECT_WRITE_FIELD_MAX_SIZE = 3
 
         private const val KEY_PROJECT_WRITE_BANNER_URL = "project_write_banner_url"
+        private const val KEY_PROJECT_WRITE_REMOVE_BANNER_URL = "project_write_remove_banner_url"
+
         private const val KEY_PROJECT_WRITE_INTRODUCTION = "project_write_introduction"
         private const val KEY_PROJECT_WRITE_INTRODUCTION_EDIT_TEXT_STATE = "project_write_introduction_edit_text_state"
+
         private const val KEY_PROJECT_WRITE_LEADER_MAIN_JOB = "project_write_leader_main_job"
         private const val KEY_PROJECT_WRITE_LEADER_SUB_JOB = "project_write_leader_sub_job"
+
         private const val KEY_PROJECT_WRITE_MEMBER_MAIN_JOB = "project_write_member_main_job"
         private const val KEY_PROJECT_WRITE_MEMBER_SUB_JOB = "project_write_member_sub_job"
+
         private const val KEY_PROJECT_WRITE_TECH_STACK = "project_write_tech_stack"
 
         private const val PROJECT_WRITE_BANNER_MAX_SIZE = 3

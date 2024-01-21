@@ -30,6 +30,7 @@ import com.connectcrew.presentation.util.toPx
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -68,6 +69,7 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
     private fun initView() {
         with(dataBinding) {
             (tlProjectContainer.menu.findItem(R.id.menu_more) as MenuItem).let {
+                it.isVisible = false
                 (it.actionView as Spinner).apply {
                     setPadding(0)
                     dropDownVerticalOffset = 46.toPx(requireContext())
@@ -107,14 +109,40 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
             }
 
             launch {
-                projectDetailContainerViewModel.navigateToProjectEnrollDialog.collect { (projectId, projectFeedDetail) ->
-                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToNavProjectEnrollment(projectId, projectFeedDetail))
+                projectDetailContainerViewModel.isProjectLeader.filterNotNull().collect {
+                    dataBinding.tlProjectContainer.menu.findItem(R.id.menu_more).isVisible = !it
                 }
             }
 
             launch {
                 projectDetailContainerViewModel.navigateToProjectReportReasonDialog.collect {
                     findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToProjectReportReasonAlertDialog())
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToProjectRecruit.collect {
+                    if (findNavController().currentDestination?.id == R.id.projectManagementBottomSheetDialogFragment) findNavController().navigateUp()
+                    // TODO:: 지원자 현황으로 이동
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToProjectUpdate.collect {
+                    if (findNavController().currentDestination?.id == R.id.projectManagementBottomSheetDialogFragment) findNavController().navigateUp()
+                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToProjectWriteContainerFragment(it))
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToProjectRemovePopup.collect {
+                    // TODO:: 프로젝트 삭제 확인 팝업으로 이동
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToProjectCompletedPopup.collect {
+                    // TODO:: 프로젝트 완료 확인 팝업으로 이동
                 }
             }
         }
