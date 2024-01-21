@@ -2,10 +2,10 @@ package com.connectcrew.presentation.screen.feature.projectwrite
 
 import com.connectcrew.presentation.R
 
-enum class ProjectWriteProgressState(val value: String) {
-    STATE_IDLE("NOT_STARTED"),
-    STATE_PROCEEDING("IN_PROGRESS"),
-    STATE_PROGRESS_COMPLETED("COMPLETED")
+enum class ProjectWriteProgressState(val value: String, val text: String) {
+    STATE_IDLE("NOT_STARTED", "진행 전"),
+    STATE_PROCEEDING("IN_PROGRESS", "진행 중"),
+    STATE_PROGRESS_COMPLETED("COMPLETED", "진행 완료")
 }
 
 enum class ProjectWriteLocationType {
@@ -14,13 +14,13 @@ enum class ProjectWriteLocationType {
     TYPE_ALL
 }
 
-enum class ProjectWritePurposeType(val value: String) {
-    TYPE_STARTUP("STARTUP"),
-    TYPE_PORTFOLIO("PORTFOLIO")
+enum class ProjectWritePurposeType(val value: String, val text:String) {
+    TYPE_STARTUP("STARTUP", "스타트업"),
+    TYPE_PORTFOLIO("PORTFOLIO", "포트폴리오")
 }
 
 enum class ProjectWriteCareerType(val index: Int, val key: String,  val value: String) {
-    NONE(0,  "NONE","NONE"),
+    NONE(0,  "NONE","경력무관"),
     SEEKER(1, "SEEKER","준비생"),
     ENTRY(2, "ENTRY","신입"),
     YEAR_1(3, "YEAR_1","1년"),

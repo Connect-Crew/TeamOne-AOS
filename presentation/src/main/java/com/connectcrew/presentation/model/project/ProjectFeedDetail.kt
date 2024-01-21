@@ -26,12 +26,18 @@ data class ProjectFeedDetail(
     val leader: User,
     val recruitStatus: List<RecruitStatus>,
     val skills: List<String>,
-    val totalCurrentCount: Int,
-    val totalMaxCount: Int
 ) : Parcelable {
+
+    val totalCurrentCount
+        get() = (recruitStatus.filter { !it.isLeaderPart }.sumOf { it.currentCount })
+    val totalMaxCount
+        get() = (recruitStatus.filter { !it.isLeaderPart }.sumOf { it.maxCount })
 
     val isEnroll: Boolean
         get() = totalCurrentCount < totalMaxCount
+
+    val isRemoveEnable: Boolean
+        get() = totalCurrentCount == 0
 }
 
 fun ProjectFeedDetailEntity.asItem(): ProjectFeedDetail {
@@ -51,10 +57,8 @@ fun ProjectFeedDetailEntity.asItem(): ProjectFeedDetail {
         likeCount = likeCount,
         isLike = isLike,
         leader = leader.asItem(),
-        recruitStatus = recruitStatus.map(RecruitStatusEntity::asItem),
-        skills = skills,
-        totalCurrentCount = (recruitStatus.sumOf { it.currentCount }),
-        totalMaxCount = (recruitStatus.sumOf { it.maxCount })
+        recruitStatus = recruitStatus.filter { !it.isLeaderPart }.map(RecruitStatusEntity::asItem),
+        skills = skills
     )
 }
 

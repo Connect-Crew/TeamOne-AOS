@@ -23,6 +23,8 @@ import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.DebounceEditTextListener
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.connectcrew.presentation.util.safeNavigate
+import com.connectcrew.presentation.util.view.createAlert
+import com.connectcrew.presentation.util.view.dialogViewBuilder
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import com.skydoves.powerspinner.OnSpinnerOutsideTouchListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -145,7 +147,14 @@ class ProjectWritePostFragment : BaseFragment<FragmentProjectWritePostBinding>(R
             }
 
             btnPost.setOnSingleClickListener {
-                findNavController().safeNavigate(ProjectWritePostFragmentDirections.actionProjectWritePostFragmentToProjectWriteConfirmDialog())
+                createAlert(requireContext())
+                    .dialogViewBuilder(
+                        titleRes = if (projectWriteContainerViewModel.isUpdateProject) R.string.project_write_post_update_confirm_title else R.string.project_write_post_confirm_title,
+                        descriptionRes = if (projectWriteContainerViewModel.isUpdateProject) R.string.project_write_post_update_confirm_description else R.string.project_write_post_confirm_description,
+                        iconDrawableRes = R.drawable.ic_pen_stroke,
+                        onClickPositiveButton = { projectWriteContainerViewModel.navigateToProjectDetail() }
+                    )
+                    .show()
             }
         }
     }

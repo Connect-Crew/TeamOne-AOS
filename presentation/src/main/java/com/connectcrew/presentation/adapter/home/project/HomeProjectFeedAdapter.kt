@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -68,9 +67,14 @@ class HomeProjectFeedAdapter(
         holder.binding.executeAfter {
             val recruitmentColor = if (projectFeed.isEnroll) R.color.color_00aee4 else R.color.color_9e9e9e
             val isNew = ZonedDateTime.parse(projectFeed.createdAt).plusDays(6).isAfter(ZonedDateTime.now())
+            val location = when {
+                projectFeed.isOnline && projectFeed.region == "미설정" -> root.context.resources.getString(R.string.common_online)
+                projectFeed.isOnline -> root.context.resources.getString(R.string.common_online).plus(", ${projectFeed.region}")
+                else -> projectFeed.region
+            }
 
             tvProjectTitle.text = projectFeed.title
-            tvProjectLocation.text = if (projectFeed.isOnline) root.context.resources.getString(R.string.common_online) else projectFeed.region
+            tvProjectLocation.text = location
             tvProjectCreatedAt.text = TimeUtil.getDateTimeFormatStringForTimeDifference(
                 dateTime = projectFeed.createdAt,
                 context = tvProjectCreatedAt.context
@@ -95,16 +99,15 @@ class HomeProjectFeedAdapter(
                 ?.let { loadImage(ivProjectThumbnail, it) }
                 ?: run { ivProjectThumbnail.setImageResource(R.drawable.ic_team_one_logo_bg_blue) }
 
-            (listOf(projectFeed.state, projectFeed.careerMin) + projectFeed.category).mapIndexed { index, item ->
-                if (cgProjectTag.children.none { it.tag == item }) {
-                    val chip = Chip(cgProjectTag.context, null, R.attr.ProjectFeedChipStyle).apply {
-                        tag = item
+            cgProjectTag.apply {
+                removeAllViews()
+                (listOf(projectFeed.state, projectFeed.careerMin) + projectFeed.category).mapIndexed { index, item ->
+                    val chip = Chip(context, null, R.attr.ProjectFeedChipStyle).apply {
+                        id = index
                         text = item
                         setChipBackgroundColorResource(if (index < 2) R.color.color_f7cdd5 else R.color.color_eeeeee)
                     }
-                    cgProjectTag.addView(chip)
-                } else {
-                    return@executeAfter
+                    cgProjectTag.addView(chip, index)
                 }
             }
         }

@@ -12,6 +12,7 @@ data class RecruitStatus(
     val currentCount: Int,
     val maxCount: Int,
     val category: String,
+    val isLeaderPart: Boolean,
     val isApplied: Boolean
 ) : Parcelable {
 
@@ -27,6 +28,7 @@ fun RecruitStatusEntity.asItem(): RecruitStatus {
         currentCount = currentCount,
         maxCount = maxCount,
         category = category,
+        isLeaderPart = isLeaderPart,
         isApplied = isApplied ?: false
     )
 }
@@ -39,6 +41,7 @@ fun RecruitStatus.asEntity(): RecruitStatusEntity {
         currentCount = currentCount,
         maxCount = maxCount,
         category = category,
+        isLeaderPart = isLeaderPart,
         isApplied = isApplied
     )
 }

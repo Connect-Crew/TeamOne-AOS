@@ -4,6 +4,7 @@ import com.connectcrew.domain.di.ApplicationScope
 import com.connectcrew.domain.usecase.user.ObserveUserInfoUseCase
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.domain.util.data
+import com.connectcrew.presentation.model.user.JobPart
 import com.connectcrew.presentation.model.user.User
 import com.connectcrew.presentation.model.user.asItem
 import kotlinx.coroutines.CoroutineScope
@@ -18,6 +19,8 @@ interface SignViewModelDelegate {
 
     val user: StateFlow<User?>
 
+    val userId: StateFlow<Int?>
+
     val userNickname: StateFlow<String?>
 
     val userEmail: StateFlow<String?>
@@ -30,7 +33,7 @@ interface SignViewModelDelegate {
 
     val userIntroduction: StateFlow<String?>
 
-    val userParts: StateFlow<List<String>>
+    val userParts: StateFlow<List<JobPart>>
 }
 
 class SignViewModelDelegateImpl @Inject constructor(
@@ -41,6 +44,10 @@ class SignViewModelDelegateImpl @Inject constructor(
     override val user: StateFlow<User?> = observeUserInfoUseCase(Unit)
         .asResult()
         .mapLatest { it.data?.asItem() }
+        .stateIn(applicationScope, SharingStarted.Eagerly, null)
+
+    override val userId: StateFlow<Int?> = user
+        .mapLatest { it?.id }
         .stateIn(applicationScope, SharingStarted.Eagerly, null)
 
     override val userNickname: StateFlow<String?> = user
@@ -67,7 +74,7 @@ class SignViewModelDelegateImpl @Inject constructor(
         .mapLatest { it?.introduction }
         .stateIn(applicationScope, SharingStarted.Eagerly, null)
 
-    override val userParts: StateFlow<List<String>> = user
+    override val userParts: StateFlow<List<JobPart>> = user
         .mapLatest { it?.parts ?: emptyList() }
         .stateIn(applicationScope, SharingStarted.Eagerly, emptyList())
 

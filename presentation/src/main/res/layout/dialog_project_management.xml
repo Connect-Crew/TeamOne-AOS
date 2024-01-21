@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".screen.feature.project.projectintroduction.ProjectManagementBottomSheetDialogFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_project_enroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_handle"
+                android:layout_width="36dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/color_eaeaea"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="?shapeAppearanceLargeComponent" />
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/Widget.TeamOne.TextView.Title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/project_detail_introduction_project_management"
+                android:textColor="@color/color_424242"
+                app:layout_constraintEnd_toEndOf="@id/iv_handle"
+                app:layout_constraintStart_toStartOf="@id/iv_handle"
+                app:layout_constraintTop_toBottomOf="@id/iv_handle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.TeamOne.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_close"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_title"
+                app:layout_constraintTop_toTopOf="@id/tv_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_project_enroll">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:text="@string/project_detail_introduction_applicant_management"
+                app:onSingleClick="@{()-> viewModel.navigateToProjectRecruit()}" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/project_detail_introduction_project_update"
+                android:textColor="@color/color_00aee4"
+                app:onSingleClick="@{()-> viewModel.navigateToProjectUpdate()}"
+                app:strokeColor="@color/color_00aee4"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@android:color/white"
+                android:enabled="@{viewModel.projectFeedDetail.isRemoveEnable}"
+                android:text="@string/project_detail_introduction_project_remove"
+                android:textColor="@{viewModel.projectFeedDetail.isRemoveEnable ? @color/color_00aee4 : @color/color_9e9e9e}"
+                app:onSingleClick="@{()-> viewModel.navigateToProjectRemovePopup()}"
+                app:strokeColor="@{viewModel.projectFeedDetail.isRemoveEnable ? @color/color_00aee4 : @color/color_9e9e9e}"
+                app:strokeWidth="1dp"
+                tools:strokeColor="@color/color_00aee4"
+                tools:textColor="@color/color_00aee4" />
+
+            <TextView
+                style="@style/Widget.TeamOne.TextView.Caption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/project_detail_introduction_project_remove_disable"
+                android:textColor="@color/color_d62246" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/color_eeeeee" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@android:color/white"
+                android:text="@string/project_detail_introduction_project_completed"
+                android:textColor="@color/color_d62246"
+                app:onSingleClick="@{()-> viewModel.navigateToProjectCompletedPopup()}"
+                app:strokeColor="@color/color_d62246"
+                app:strokeWidth="1dp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

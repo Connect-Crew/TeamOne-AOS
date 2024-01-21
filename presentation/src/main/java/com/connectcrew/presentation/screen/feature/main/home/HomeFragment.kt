@@ -175,7 +175,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 homeViewModel.scrollToCenterForProjectCategory.collect {
                     with(dataBinding.rvCategory) {
                         (layoutManager as LinearLayoutManager).startSmoothScroll(projectCategoryScrollListener.apply {
-                            targetPosition = ProjectCategoryType.values().toList().indexOf(it)
+                            targetPosition = ProjectCategoryType.entries.indexOf(it)
                         })
                     }
                 }

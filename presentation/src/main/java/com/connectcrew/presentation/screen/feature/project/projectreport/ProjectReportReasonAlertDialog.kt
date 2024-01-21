@@ -5,7 +5,6 @@ import android.view.View
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.DialogProjectReportReasonBinding
 import com.connectcrew.presentation.screen.base.BaseAlertDialogFragment
@@ -14,7 +13,8 @@ import com.connectcrew.presentation.util.hideKeyboard
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.DebounceEditTextListener
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
-import com.connectcrew.presentation.util.safeNavigate
+import com.connectcrew.presentation.util.view.createAlert
+import com.connectcrew.presentation.util.view.dialogViewBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -63,7 +63,15 @@ class ProjectReportReasonAlertDialog : BaseAlertDialogFragment<DialogProjectRepo
                 projectDetailContainerViewModel.navigateToProjectReportCompletedDialog.collect {
                     dataBinding.tietWriteProjectReportReason.hideKeyboard().also {
                         delay(100)
-                        findNavController().safeNavigate(ProjectReportReasonAlertDialogDirections.actionProjectReportReasonAlertDialogToProjectReportCompletedAlertDialog())
+                        createAlert(requireContext())
+                            .dialogViewBuilder(
+                                titleRes = R.string.project_detail_report_completed,
+                                descriptionRes = R.string.project_detail_report_completed_description,
+                                iconDrawableRes = R.drawable.ic_siren,
+                                isNegativeButtonVisible = false,
+                                onClickPositiveButton = { dismiss() }
+                            )
+                            .show()
                     }
                 }
             }

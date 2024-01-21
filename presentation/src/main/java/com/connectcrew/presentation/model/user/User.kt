@@ -1,6 +1,7 @@
 package com.connectcrew.presentation.model.user
 
 import android.os.Parcelable
+import com.connectcrew.domain.usecase.sign.entity.JobPartEntity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
 import kotlinx.parcelize.Parcelize
 
@@ -13,7 +14,7 @@ data class User(
     val temperature: Float,
     val responseRate: Int,
     val introduction: String?,
-    val parts: List<String>,
+    val parts: List<JobPart>,
 ) : Parcelable
 
 fun UserEntity.asItem(): User {
@@ -25,6 +26,6 @@ fun UserEntity.asItem(): User {
         temperature = temperature,
         responseRate = responseRate.toInt(),
         introduction = introduction,
-        parts = parts
+        parts = parts.map(JobPartEntity::asItem)
     )
 }

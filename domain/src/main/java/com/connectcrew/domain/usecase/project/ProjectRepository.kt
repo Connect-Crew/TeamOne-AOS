@@ -45,5 +45,23 @@ interface ProjectRepository {
         bannerImageUrls: List<String>
     ): Long
 
+    suspend fun updateProjectFeed(
+        projectId: Long,
+        title: String,
+        region: String,
+        isOnline: Boolean,
+        state: String,
+        careerMin: String,
+        careerMax: String,
+        leaderPart: String,
+        category: List<String>,
+        goal: String,
+        introduction: String,
+        recruits: List<RequestRecruitStatusEntity>,
+        skills: List<String>,
+        bannerImageUrls: List<String>,
+        removeBannerImageUrls: List<String>,
+    ): Long
+
     suspend fun createProjectReport(projectId: Long, reportReason: String)
 }

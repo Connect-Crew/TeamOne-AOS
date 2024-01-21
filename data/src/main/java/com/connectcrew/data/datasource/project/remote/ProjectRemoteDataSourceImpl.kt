@@ -24,7 +24,11 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
 ) : ProjectRemoteDataSource {
 
     override suspend fun getProjectInfo(): ProjectInfoContainerEntity {
-        return projectApi.getProjectInfo().asEntity()
+        return try {
+            projectApi.getProjectInfo().asEntity()
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
     }
 
     override suspend fun getProjectFeeds(
@@ -128,6 +132,56 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
                 introduction = introduction,
                 recruits = recruits,
                 skills = skills.ifEmpty { listOf("") },
+                files = partList
+            ).projectId
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun updateProjectFeed(
+        projectId: Long,
+        title: String,
+        region: String,
+        isOnline: Boolean,
+        state: String,
+        careerMin: String,
+        careerMax: String,
+        leaderPart: String,
+        category: List<String>,
+        goal: String,
+        introduction: String,
+        recruits: List<RequestRecruitStatus>,
+        skills: List<String>,
+        bannerImageUrls: List<String>,
+        removeBannerImageUrls: List<String>
+    ): Long {
+        return try {
+            val partList = bannerImageUrls.filter { it.startsWith("content") }.map {
+                val compressedFile = compressorUtil.compressFile(fileUtil.from(it))
+
+                MultipartBody.Part.createFormData(
+                    name = KEY_PROJECT_BANNER,
+                    filename = URLEncoder.encode(compressedFile.name, Charsets.UTF_8.displayName()),
+                    body = compressedFile.asRequestBody("image/*".toMediaTypeOrNull())
+                )
+            }
+
+            projectApi.updateProjectFeed(
+                projectId = projectId,
+                title = title,
+                region = region,
+                isOnline = isOnline,
+                state = state,
+                careerMin = careerMin,
+                careerMax = careerMax,
+                leaderPart = listOf(leaderPart),
+                category = category,
+                goal = goal,
+                introduction = introduction,
+                recruits = recruits,
+                skills = skills.ifEmpty { listOf("") },
+                removeBanners = removeBannerImageUrls,
                 files = partList
             ).projectId
         } catch (e: Exception) {

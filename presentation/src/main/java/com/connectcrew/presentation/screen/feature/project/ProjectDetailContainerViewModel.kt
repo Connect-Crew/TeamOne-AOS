@@ -25,23 +25,43 @@ class ProjectDetailContainerViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val projectId = savedStateHandle.getStateFlow<Long?>(KEY_PROJECT_ID, null)
-
-    private val selectedProjectDetailCategory =
-        savedStateHandle.getStateFlow(KEY_PROJECT_DETAIL_CATEGORY, ProjectFeedDetailCategory.INTRODUCTION)
+    val isProjectLeader = savedStateHandle.getStateFlow<Boolean?>(KEY_IS_PROJECT_LEADER, null)
 
     val projectReportReason = savedStateHandle.getStateFlow(KEY_PROJECT_REPORT_REASON, "")
+    val projectFeedDetail
+        get() = savedStateHandle.get<ProjectFeedDetail?>(KEY_PROJECT_DETAIL)
+
+    private val selectedProjectDetailCategory = savedStateHandle.getStateFlow(KEY_PROJECT_DETAIL_CATEGORY, ProjectFeedDetailCategory.INTRODUCTION)
 
     private val _invalidateProjectDetail = MutableEventFlow<Unit>()
     val invalidateProjectDetail: EventFlow<Unit> = _invalidateProjectDetail
 
-    private val _navigateToProjectEnrollDialog = MutableEventFlow<Pair<Long, ProjectFeedDetail>>()
-    val navigateToProjectEnrollDialog: EventFlow<Pair<Long, ProjectFeedDetail>> = _navigateToProjectEnrollDialog
+    private val _navigateToProjectUpdate = MutableEventFlow<ProjectFeedDetail>()
+    val navigateToProjectUpdate: EventFlow<ProjectFeedDetail> = _navigateToProjectUpdate
+
+    private val _navigateToProjectRemovePopup = MutableEventFlow<Long>()
+    val navigateToProjectRemovePopup: EventFlow<Long> = _navigateToProjectRemovePopup
+
+    private val _navigateToProjectRecruit = MutableEventFlow<Long>()
+    val navigateToProjectRecruit: EventFlow<Long> = _navigateToProjectRecruit
+
+    private val _navigateToProjectCompletedPopup = MutableEventFlow<Long>()
+    val navigateToProjectCompletedPopup: EventFlow<Long> = _navigateToProjectCompletedPopup
 
     private val _navigateToProjectReportReasonDialog = MutableEventFlow<Unit>()
     val navigateToProjectReportReasonDialog: EventFlow<Unit> = _navigateToProjectReportReasonDialog
 
     private val _navigateToProjectReportCompletedDialog = MutableEventFlow<Unit>()
     val navigateToProjectReportCompletedDialog: EventFlow<Unit> = _navigateToProjectReportCompletedDialog
+
+    fun setProjectLeader(isLeader: Boolean) {
+        if (isProjectLeader.value == isLeader) return
+        savedStateHandle.set(KEY_IS_PROJECT_LEADER, isLeader)
+    }
+
+    fun setProjectFeedDetail(projectFeedDetail: ProjectFeedDetail) {
+        savedStateHandle.set(KEY_PROJECT_DETAIL, projectFeedDetail)
+    }
 
     fun setSelectedProjectDetailCategory(category: ProjectFeedDetailCategory) {
         if (selectedProjectDetailCategory.value == category) return
@@ -52,9 +72,27 @@ class ProjectDetailContainerViewModel @Inject constructor(
         savedStateHandle.set(KEY_PROJECT_REPORT_REASON, reason)
     }
 
-    fun navigateToProjectEnrollDialog(projectFeedDetail: ProjectFeedDetail) {
+    fun navigateToProjectUpdate() {
         viewModelScope.launch {
-            _navigateToProjectEnrollDialog.emit(projectId.value!! to projectFeedDetail)
+            projectFeedDetail?.let { _navigateToProjectUpdate.emit(it) }
+        }
+    }
+
+    fun navigateToProjectRemovePopup() {
+        viewModelScope.launch {
+            _navigateToProjectRemovePopup.emit(projectId.value!!)
+        }
+    }
+
+    fun navigateToProjectCompletedPopup() {
+        viewModelScope.launch {
+            _navigateToProjectCompletedPopup.emit(projectId.value!!)
+        }
+    }
+
+    fun navigateToProjectRecruit() {
+        viewModelScope.launch {
+            _navigateToProjectRecruit.emit(projectId.value!!)
         }
     }
 
@@ -91,7 +129,10 @@ class ProjectDetailContainerViewModel @Inject constructor(
 
     companion object {
         private const val KEY_PROJECT_ID = "project_id"
+        private const val KEY_PROJECT_DETAIL = "project_detail"
         private const val KEY_PROJECT_DETAIL_CATEGORY = "project_detail_category"
         private const val KEY_PROJECT_REPORT_REASON = "project_report_reason"
+
+        private const val KEY_IS_PROJECT_LEADER = "is_project_leader"
     }
 }
