@@ -104,7 +104,7 @@ class HomeViewModel @Inject constructor(
                     if (receiver.updateAt.isBefore(getProjectFeedsUseCase.loadedAt)) {
                         pagingData
                     } else {
-                        pagingData.filter { projectFeed -> (projectFeed.id == receiver.projectFeed?.id) }
+                        pagingData.filter { projectFeed -> (projectFeed.id != receiver.projectFeed?.id) }
                     }
                 }
             }.also {

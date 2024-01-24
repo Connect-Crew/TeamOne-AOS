@@ -13,7 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/color_ffffff"
         tools:context=".screen.feature.sign.signup.WriteUserNameFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -24,7 +24,7 @@
                 android:id="@+id/tl_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/white"
+                android:background="@color/color_ffffff"
                 app:navigationIcon="@drawable/ic_arrow"
                 app:title="">
 
@@ -113,7 +113,7 @@
                             style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox.OneLine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/white"
+                            android:background="@color/color_ffffff"
                             android:ellipsize="end"
                             android:hint="@string/write_user_name_nickname_hint"
                             android:imeOptions="actionDone"

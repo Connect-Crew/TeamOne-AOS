@@ -1,9 +1,7 @@
 package com.connectcrew.presentation.adapter.project.introduction
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.DataBindingViewHolder
@@ -16,7 +14,9 @@ import com.connectcrew.presentation.databinding.ItemProjectIntroductionRecruitme
 import com.connectcrew.presentation.databinding.ItemProjectIntroductionTechStackBinding
 import com.connectcrew.presentation.databinding.ItemProjectIntroductionTitleBinding
 import com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectDetailIntroductionUiModel
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
+import com.connectcrew.presentation.util.tintColor
 import com.google.android.material.chip.Chip
 
 class ProjectIntroductionBannerViewHolder(
@@ -97,11 +97,11 @@ class ProjectIntroductionRecruitmentNoticeViewHolder(
         binding.executeAfter {
             val recruitmentColor = if (recruitmentNoticeUiModel.isEnroll) R.color.color_00aee4 else R.color.color_9e9e9e
 
-            ivMember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(ivMember.context, recruitmentColor))
-            tvMember.setTextColor(ContextCompat.getColor(tvMember.context, recruitmentColor))
+            ivMember.imageTintList = ivMember.context.tintColor(recruitmentColor)
+            tvMember.setTextColor(tvMember.context.color(recruitmentColor))
             tvMemberTotalCount.apply {
                 text = "${recruitmentNoticeUiModel.totalCurrentCount} / ${recruitmentNoticeUiModel.totalMaxCount}"
-                setTextColor(ContextCompat.getColor(context, recruitmentColor))
+                setTextColor(context.color(recruitmentColor))
             }
 
             rvMember.adapter = ProjectIntroductionRecruitmentNoticePartAdapter(recruitmentNoticeUiModel.recruitStatus)

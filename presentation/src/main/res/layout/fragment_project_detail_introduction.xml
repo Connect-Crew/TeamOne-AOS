@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            app:cardBackgroundColor="@android:color/white"
+            app:cardBackgroundColor="@color/color_ffffff"
             app:cardCornerRadius="0dp"
             app:cardElevation="4dp"
             app:contentPaddingLeft="24dp"

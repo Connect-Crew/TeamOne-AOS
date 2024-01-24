@@ -15,6 +15,7 @@
     <string name="common_online">온라인</string>
     <string name="common_leader">리더</string>
     <string name="common_report">신고하기</string>
+    <string name="common_empty_view">페이지 준비중입니다.</string>
 
     <!-- Common Error -->
     <string name="network_error_title">접속 실패</string>

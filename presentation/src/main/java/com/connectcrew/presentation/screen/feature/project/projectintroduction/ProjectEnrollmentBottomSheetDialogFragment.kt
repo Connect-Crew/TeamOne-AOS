@@ -25,7 +25,7 @@ class ProjectEnrollmentBottomSheetDialogFragment : BaseBottomSheetFragment<Dialo
 
     override val layoutResId: Int = R.layout.dialog_project_enrollment
 
-    override val backgroundColor: Int = android.R.color.white
+    override val backgroundColor: Int = R.color.color_ffffff
 
     private val projectEnrollmentViewModel: ProjectEnrollmentViewModel by hiltNavGraphViewModels(R.id.nav_project_enrollment)
 

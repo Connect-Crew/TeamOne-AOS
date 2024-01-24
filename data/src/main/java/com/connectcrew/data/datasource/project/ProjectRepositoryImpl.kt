@@ -116,4 +116,8 @@ internal class ProjectRepositoryImpl @Inject constructor(
     override suspend fun createProjectReport(projectId: Long, reportReason: String) {
         return remoteDataSource.createProjectReport(projectId, reportReason)
     }
+
+    override suspend fun deleteProjectFeed(projectId: Long) {
+        return remoteDataSource.deleteProjectFeed(projectId)
+    }
 }

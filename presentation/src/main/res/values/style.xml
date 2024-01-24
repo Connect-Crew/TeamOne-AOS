@@ -13,7 +13,7 @@
     <style name="Widget.Teamone.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
         <item name="titleTextColor">@color/color_424242</item>
         <item name="titleTextAppearance">@style/TextAppearance.TeamOne.Title1</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@color/color_ffffff</item>
     </style>
 
     <!-- Alert Dialog -->
@@ -49,8 +49,8 @@
     </style>
 
     <style name="ThemeOverlay.TeamOne.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="colorBackgroundFloating">@android:color/white</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="colorBackgroundFloating">@color/color_ffffff</item>
+        <item name="android:background">@color/color_ffffff</item>
 
         <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.TeamOne.Dialog.Alert.Title</item>
         <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.TeamOne.Dialog.Alert.Body</item>

@@ -75,7 +75,7 @@
                 android:id="@+id/ll_upload_photo_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
+                android:background="@color/color_ffffff"
                 android:gravity="end"
                 android:orientation="horizontal"
                 android:padding="4dp"

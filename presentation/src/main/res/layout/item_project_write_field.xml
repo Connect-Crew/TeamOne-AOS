@@ -23,7 +23,7 @@
                 android:id="@+id/siv_project_write_filed_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white"
+                android:background="@color/color_ffffff"
                 android:padding="2dp"
                 app:shapeAppearance="?shapeAppearanceLargeComponent"
                 app:strokeColor="@color/color_eeeeee"

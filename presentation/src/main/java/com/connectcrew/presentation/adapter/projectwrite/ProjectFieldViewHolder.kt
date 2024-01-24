@@ -1,17 +1,17 @@
 package com.connectcrew.presentation.adapter.projectwrite
 
-import android.content.res.ColorStateList
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.DataBindingViewHolder
 import com.connectcrew.presentation.databinding.ItemProjectWriteFieldBinding
 import com.connectcrew.presentation.model.project.ProjectFieldInfo
 import com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteFieldType
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
 import com.connectcrew.presentation.util.isNull
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
+import com.connectcrew.presentation.util.tintColor
 
 class ProjectFieldViewHolder(
     val binding: ItemProjectWriteFieldBinding
@@ -62,16 +62,16 @@ class ProjectFieldViewHolder(
         with(binding) {
             sivProjectWriteFiledBg.apply {
                 strokeColor = if (isSelected) {
-                    setBackgroundColor(ContextCompat.getColor(context, fieldBgColor))
-                    ColorStateList.valueOf(ContextCompat.getColor(root.context, fieldBgStrokeColor))
+                    setBackgroundColor(context.color(fieldBgColor))
+                    context.tintColor(fieldBgStrokeColor)
                 } else {
-                    setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
-                    ColorStateList.valueOf(ContextCompat.getColor(root.context, R.color.color_eeeeee))
+                    setBackgroundColor(context.color(R.color.color_ffffff))
+                    context.tintColor(R.color.color_eeeeee)
                 }
             }
             tvProjectWriteField.apply {
                 text = fieldText
-                setTextColor(ContextCompat.getColor(context, if (isSelected) fieldBgStrokeColor else R.color.color_616161))
+                setTextColor(context.color(if (isSelected) fieldBgStrokeColor else R.color.color_616161))
             }
         }
     }
