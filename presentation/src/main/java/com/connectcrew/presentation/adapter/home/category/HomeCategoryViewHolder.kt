@@ -1,17 +1,17 @@
 package com.connectcrew.presentation.adapter.home.category
 
-import android.content.res.ColorStateList
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.DataBindingViewHolder
 import com.connectcrew.presentation.databinding.ItemProjectCategoryBinding
 import com.connectcrew.presentation.model.project.ProjectCategoryItem
 import com.connectcrew.presentation.model.project.ProjectCategoryType
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
+import com.connectcrew.presentation.util.tintColor
 
 class HomeCategoryViewHolder(
     val binding: ItemProjectCategoryBinding
@@ -33,7 +33,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_all,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -55,7 +55,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_develop,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -77,7 +77,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_planner,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -99,7 +99,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_designer,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -121,7 +121,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_marketing,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -143,7 +143,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_sales,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -165,7 +165,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_cs,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -187,7 +187,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_professional,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -209,7 +209,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_engineering,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -231,7 +231,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_media,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -253,7 +253,7 @@ class HomeCategoryViewHolder(
                     } else {
                         setCategoryColor(
                             binding = binding,
-                            categoryBgColor = android.R.color.white,
+                            categoryBgColor = R.color.color_ffffff,
                             categoryBgStrokeWidth = R.color.color_eeeeee,
                             categoryIconRes = R.drawable.ic_category_etc,
                             categoryIconColor = R.color.color_9e9e9e,
@@ -279,18 +279,18 @@ class HomeCategoryViewHolder(
     ) {
         binding.executeAfter {
             ivProjectCategoryBg.apply {
-                setBackgroundColor(ContextCompat.getColor(root.context, categoryBgColor))
-                strokeColor = ColorStateList.valueOf(ContextCompat.getColor(root.context, categoryBgStrokeWidth))
+                strokeColor = context.tintColor(categoryBgStrokeWidth)
+                setBackgroundColor(context.color(categoryBgColor))
             }
 
             ivProjectCategory.apply {
-                imageTintList = ColorStateList.valueOf(ContextCompat.getColor(root.context, categoryIconColor))
+                imageTintList = context.tintColor(categoryIconColor)
                 setImageResource(categoryIconRes)
             }
 
             tvProjectCategory.apply {
-                text = binding.root.resources.getString(categoryTextRes)
-                setTextColor(ContextCompat.getColor(root.context, categoryIconColor))
+                text = resources.getString(categoryTextRes)
+                setTextColor(context.color(categoryIconColor))
             }
         }
     }

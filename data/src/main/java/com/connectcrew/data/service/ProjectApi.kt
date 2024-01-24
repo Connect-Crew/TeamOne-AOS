@@ -8,6 +8,7 @@ import com.connectcrew.data.model.project.ProjectInfoContainer
 import com.connectcrew.data.model.project.RequestRecruitStatus
 import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -84,4 +85,7 @@ internal interface ProjectApi {
 
     @POST("project/report")
     suspend fun createProjectReport(@Body params: Any)
+
+    @DELETE("project/{projectId}/delete")
+    suspend fun deleteProjectFeed(@Path("projectId") projectId: Long)
 }

@@ -15,7 +15,7 @@ class ProjectManagementBottomSheetDialogFragment : BaseBottomSheetFragment<Dialo
 
     override val layoutResId = R.layout.dialog_project_management
 
-    override val backgroundColor: Int = android.R.color.white
+    override val backgroundColor: Int = R.color.color_ffffff
 
     private val projectDetailContainerViewModel: ProjectDetailContainerViewModel by hiltNavGraphViewModels(R.id.nav_project_detail)
 

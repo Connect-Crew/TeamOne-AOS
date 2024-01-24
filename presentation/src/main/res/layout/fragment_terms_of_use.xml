@@ -16,7 +16,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/color_ffffff"
         tools:context=".screen.feature.sign.signup.TermsOfUseFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -27,7 +27,7 @@
                 android:id="@+id/tl_terms_of_use"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/white"
+                android:background="@color/color_ffffff"
                 app:navigationIcon="@drawable/ic_arrow"
                 app:title="">
 

@@ -3,12 +3,12 @@ package com.connectcrew.presentation.adapter.project.enrollment
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.ItemProjectDetailIntroductionEnrollmentBinding
 import com.connectcrew.presentation.model.project.RecruitStatus
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 
@@ -39,21 +39,21 @@ class ProjectEnrollmentAdapter(
             val isEnable = recruitStatus.isEnroll && !recruitStatus.isApplied
 
             cvProjectEnroll.apply {
-                strokeColor = ContextCompat.getColor(cvProjectEnroll.context, if (isEnable) R.color.color_00aee4 else R.color.color_9e9e9e)
-                setCardBackgroundColor(ContextCompat.getColor(cvProjectEnroll.context, if (isEnable) R.color.color_f1fcff else android.R.color.white))
+                strokeColor = context.color(if (isEnable) R.color.color_00aee4 else R.color.color_9e9e9e)
+                setCardBackgroundColor(context.color( if (isEnable) R.color.color_f1fcff else R.color.color_ffffff))
             }
 
             tvMemberCategory.apply {
                 text = recruitStatus.category
-                setTextColor(ContextCompat.getColor(context, if (isEnable) R.color.color_424242 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (isEnable) R.color.color_424242 else R.color.color_9e9e9e))
             }
             tvMemberPart.apply {
                 text = recruitStatus.part
-                setTextColor(ContextCompat.getColor(context, if (isEnable) R.color.color_00aee4 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (isEnable) R.color.color_00aee4 else R.color.color_9e9e9e))
             }
             tvMemberCount.apply {
                 text = "${recruitStatus.currentCount} / ${recruitStatus.maxCount}"
-                setTextColor(ContextCompat.getColor(context, if (isEnable) R.color.color_d62246 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (isEnable) R.color.color_d62246 else R.color.color_9e9e9e))
             }
 
             tvMemberDescription.text = recruitStatus.comment

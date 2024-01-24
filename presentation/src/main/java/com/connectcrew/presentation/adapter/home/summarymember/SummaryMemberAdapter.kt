@@ -3,12 +3,12 @@ package com.connectcrew.presentation.adapter.home.summarymember
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.ItemSummaryMemberBinding
 import com.connectcrew.presentation.model.project.RecruitStatus
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
 
 class SummaryMemberAdapter : ListAdapter<RecruitStatus, SummaryMemberViewHolder>(
@@ -34,11 +34,11 @@ class SummaryMemberAdapter : ListAdapter<RecruitStatus, SummaryMemberViewHolder>
         holder.binding.executeAfter {
             tvPart.apply {
                 text = recruitStatus.part
-                setTextColor(ContextCompat.getColor(tvPart.context, if (recruitStatus.isEnroll) R.color.color_616161 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (recruitStatus.isEnroll) R.color.color_616161 else R.color.color_9e9e9e))
             }
             tvMemberCount.apply {
                 text = "${recruitStatus.currentCount} / ${recruitStatus.maxCount}"
-                setTextColor(ContextCompat.getColor(tvPart.context, if (recruitStatus.isEnroll) R.color.color_d62246 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (recruitStatus.isEnroll) R.color.color_d62246 else R.color.color_9e9e9e))
             }
         }
     }

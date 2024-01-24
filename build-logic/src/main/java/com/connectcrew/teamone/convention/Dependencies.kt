@@ -1,12 +1,22 @@
 package com.connectcrew.teamone.convention
 
+import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.the
 
-fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? {
+internal val Project.libs
+    get() = the<LibrariesForLibs>()
+
+internal fun DependencyHandler.implementation(dependencyNotation: Any): Dependency? {
     return add("implementation", dependencyNotation)
 }
 
-fun DependencyHandler.ksp(dependencyNotation: Any): Dependency? {
+internal fun DependencyHandler.coreLibraryDesugaring(dependencyNotation: Any): Dependency? {
+    return add("coreLibraryDesugaring", dependencyNotation)
+}
+
+internal fun DependencyHandler.ksp(dependencyNotation: Any): Dependency? {
     return add("ksp", dependencyNotation)
 }

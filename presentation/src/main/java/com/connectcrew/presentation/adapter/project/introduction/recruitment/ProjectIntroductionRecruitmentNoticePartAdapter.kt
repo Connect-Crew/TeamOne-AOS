@@ -3,11 +3,11 @@ package com.connectcrew.presentation.adapter.project.introduction.recruitment
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.ItemProjectIntroductionRecruitmentNoticePartBinding
 import com.connectcrew.presentation.model.project.RecruitStatus
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
 
 class ProjectIntroductionRecruitmentNoticePartAdapter(
@@ -26,21 +26,21 @@ class ProjectIntroductionRecruitmentNoticePartAdapter(
             val context = this.root.context
             val isEnrollEnable = (item.maxCount - item.currentCount) > 0
 
-            llPartInfo.setBackgroundColor(ContextCompat.getColor(context, if (isEnrollEnable) R.color.color_f1fcff else android.R.color.white))
+            llPartInfo.setBackgroundColor(context.color(if (isEnrollEnable) R.color.color_f1fcff else R.color.color_ffffff))
 
             tvPart.apply {
                 text = item.category
-                setTextColor(ContextCompat.getColor(context, if (isEnrollEnable) R.color.color_00aee4 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (isEnrollEnable) R.color.color_00aee4 else R.color.color_9e9e9e))
             }
 
             tvSubPart.apply {
                 text = item.part
-                setTextColor(ContextCompat.getColor(context, if (isEnrollEnable) R.color.color_616161 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (isEnrollEnable) R.color.color_616161 else R.color.color_9e9e9e))
             }
 
             tvPartCount.apply {
                 text = "${item.currentCount} / ${item.maxCount}"
-                setTextColor(ContextCompat.getColor(context, if (isEnrollEnable) R.color.color_d62246 else R.color.color_9e9e9e))
+                setTextColor(context.color(if (isEnrollEnable) R.color.color_d62246 else R.color.color_9e9e9e))
             }
         }
     }

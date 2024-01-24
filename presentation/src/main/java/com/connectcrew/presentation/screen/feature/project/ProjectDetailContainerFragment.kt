@@ -27,6 +27,8 @@ import com.connectcrew.presentation.util.Const.KEY_IS_PROJECT_UPDATE
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.toPx
+import com.connectcrew.presentation.util.view.createAlert
+import com.connectcrew.presentation.util.view.dialogViewBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -136,13 +138,46 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
             launch {
                 projectDetailContainerViewModel.navigateToProjectRemovePopup.collect {
-                    // TODO:: 프로젝트 삭제 확인 팝업으로 이동
+                    createAlert(requireContext())
+                        .dialogViewBuilder(
+                            titleRes = R.string.project_detail_introduction_project_remove_title,
+                            descriptionRes = R.string.project_detail_introduction_project_remove_description,
+                            iconDrawableRes = R.drawable.ic_warning,
+                            iconTint = R.color.color_d62246,
+                            onClickPositiveButton = { projectDetailContainerViewModel.deleteAndNavigateToBack() }
+                        )
+                        .show()
                 }
             }
 
             launch {
                 projectDetailContainerViewModel.navigateToProjectCompletedPopup.collect {
                     // TODO:: 프로젝트 완료 확인 팝업으로 이동
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.navigateToBack.collect {
+                    if (findNavController().currentDestination?.id == R.id.projectManagementBottomSheetDialogFragment) findNavController().navigateUp()
+                    findNavController().navigateUp()
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.loading.collect {
+                    if (it) showLoadingDialog() else hideLoadingDialog()
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.message.collect {
+                    showToast(it)
+                }
+            }
+
+            launch {
+                projectDetailContainerViewModel.messageRes.collect {
+                    showToast(it)
                 }
             }
         }
@@ -184,7 +219,6 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
         override fun getItemCount() = PROJECT_FEED_DETAIL_PAGES.size
     }
-
 
     companion object {
         private val PROJECT_FEED_DETAIL_TITLES = arrayOf(

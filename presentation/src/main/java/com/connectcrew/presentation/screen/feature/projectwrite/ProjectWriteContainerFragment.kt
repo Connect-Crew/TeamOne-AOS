@@ -52,7 +52,6 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
                             .dialogViewBuilder(
                                 titleRes = if (projectWriteContainerViewModel.isUpdateProject) R.string.project_write_update_exit_title else R.string.project_write_exit_title,
                                 descriptionRes = R.string.project_write_exit_description,
-                                strokeColor = R.color.color_d62246,
                                 iconDrawableRes = R.drawable.ic_warning,
                                 iconTint = R.color.color_d62246,
                                 onClickPositiveButton = { projectWriteContainerViewModel.navigateToExit() }

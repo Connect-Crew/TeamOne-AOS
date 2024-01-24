@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        app:cardBackgroundColor="@android:color/white"
+        app:cardBackgroundColor="@color/color_ffffff"
         app:cardElevation="0dp"
         app:shapeAppearance="?shapeAppearanceSmallComponent"
         app:strokeColor="@color/color_eeeeee"
@@ -51,7 +51,7 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
                 android:text="@string/home_new_project_feed"
-                android:textColor="@android:color/white"
+                android:textColor="@color/color_ffffff"
                 app:layout_constraintStart_toStartOf="@id/iv_project_thumbnail"
                 app:layout_constraintTop_toTopOf="@id/iv_project_thumbnail" />
 

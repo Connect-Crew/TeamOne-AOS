@@ -23,7 +23,7 @@
                 android:id="@+id/tl_web_view"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/white"
+                android:background="@color/color_ffffff"
                 app:navigationIcon="@drawable/ic_arrow"
                 app:title="">
 

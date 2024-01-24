@@ -189,6 +189,14 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteProjectFeed(projectId: Long) {
+        return try {
+            projectApi.deleteProjectFeed(projectId)
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
     override suspend fun createProjectReport(projectId: Long, reportReason: String) {
         return try {
             projectApi.createProjectReport(

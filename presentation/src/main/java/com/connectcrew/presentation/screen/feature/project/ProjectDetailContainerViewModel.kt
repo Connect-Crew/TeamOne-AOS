@@ -3,26 +3,33 @@ package com.connectcrew.presentation.screen.feature.project
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.connectcrew.domain.usecase.project.CreateProjectReportUseCase
+import com.connectcrew.domain.usecase.project.DeleteProjectFeedUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.TeamOneException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.model.project.ProjectFeedDetail
 import com.connectcrew.presentation.model.project.ProjectFeedDetailCategory
+import com.connectcrew.presentation.model.project.toSummary
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.IOException
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectDetailContainerViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val createProjectReportUseCase: CreateProjectReportUseCase,
-) : BaseViewModel() {
+    private val deleteProjectFeedUseCase: DeleteProjectFeedUseCase,
+    projectFeedViewModelDelegate: ProjectFeedViewModelDelegate
+) : BaseViewModel(), ProjectFeedViewModelDelegate by projectFeedViewModelDelegate {
 
     val projectId = savedStateHandle.getStateFlow<Long?>(KEY_PROJECT_ID, null)
     val isProjectLeader = savedStateHandle.getStateFlow<Boolean?>(KEY_IS_PROJECT_LEADER, null)
@@ -53,6 +60,9 @@ class ProjectDetailContainerViewModel @Inject constructor(
 
     private val _navigateToProjectReportCompletedDialog = MutableEventFlow<Unit>()
     val navigateToProjectReportCompletedDialog: EventFlow<Unit> = _navigateToProjectReportCompletedDialog
+
+    private val _navigateToBack = MutableEventFlow<Unit>()
+    val navigateToBack: EventFlow<Unit> = _navigateToBack
 
     fun setProjectLeader(isLeader: Boolean) {
         if (isProjectLeader.value == isLeader) return
@@ -110,7 +120,32 @@ class ProjectDetailContainerViewModel @Inject constructor(
                 .collect {
                     when (it) {
                         is ApiResult.Loading -> return@collect
-                        is ApiResult.Success -> _navigateToProjectReportCompletedDialog.emit(Unit)
+                        is ApiResult.Success -> {
+                            _navigateToProjectReportCompletedDialog.emit(Unit)
+                        }
+                        is ApiResult.Error -> when (it.exception) {
+                            is IOException -> setMessage(R.string.network_error)
+                            is TeamOneException -> setMessage(it.exception.message.toString())
+                            else -> setMessage(R.string.unknown_error)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun deleteAndNavigateToBack() {
+        viewModelScope.launch {
+            deleteProjectFeedUseCase(DeleteProjectFeedUseCase.Params(projectId.value!!))
+                .asResult()
+                .onEach { setLoading(it is ApiResult.Loading) }
+                .collect {
+                    Timber.e("deleteAndNavigateToBack $it")
+                    when(it) {
+                        is ApiResult.Loading -> return@collect
+                        is ApiResult.Success -> {
+                            deleteProjectFeedAction(projectFeedDetail?.toSummary(), ZonedDateTime.now())
+                            _navigateToBack.emit(Unit)
+                        }
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
                             is TeamOneException -> setMessage(it.exception.message.toString())

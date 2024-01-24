@@ -45,7 +45,7 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:text="@string/home_banner_title"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/color_ffffff"
                         app:layout_constrainedWidth="true"
                         app:layout_constraintBottom_toTopOf="@id/tv_home_banner_description"
                         app:layout_constraintEnd_toStartOf="@id/iv_home_banner"
@@ -62,7 +62,7 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:text="@string/home_banner_description"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/color_ffffff"
                         app:layout_constrainedWidth="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@id/tv_home_banner_title"
@@ -106,7 +106,7 @@
             android:backgroundTint="@color/color_00aee4"
             android:contentDescription="@string/menu_team_recruitment"
             app:icon="@drawable/ic_pen"
-            app:iconTint="@android:color/white" />
+            app:iconTint="@color/color_ffffff" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:id="@+id/rv_category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
+                android:background="@color/color_ffffff"
                 android:clipToPadding="false"
                 android:elevation="1dp"
                 android:paddingHorizontal="20dp"
