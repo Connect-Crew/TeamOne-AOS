@@ -3,7 +3,7 @@
     <style name="Base.Theme.TeamOne" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color-->
         <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorOnPrimary">@color/color_ffffff</item>
         <item name="colorSecondary">@color/color_secondary</item>
         <item name="colorSurface">@color/color_surface</item>
 

@@ -63,5 +63,7 @@ internal interface ProjectRemoteDataSource {
         removeBannerImageUrls: List<String>
     ): Long
 
+    suspend fun deleteProjectFeed(projectId: Long)
+
     suspend fun createProjectReport(projectId: Long, reportReason: String)
 }

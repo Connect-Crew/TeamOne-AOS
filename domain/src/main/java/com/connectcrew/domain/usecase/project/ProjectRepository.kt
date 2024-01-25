@@ -64,4 +64,6 @@ interface ProjectRepository {
     ): Long
 
     suspend fun createProjectReport(projectId: Long, reportReason: String)
+
+    suspend fun deleteProjectFeed(projectId: Long)
 }

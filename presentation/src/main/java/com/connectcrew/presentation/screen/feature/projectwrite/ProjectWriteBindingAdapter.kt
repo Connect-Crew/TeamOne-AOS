@@ -19,7 +19,7 @@ fun setStepTextCircleColor(textView: TextView, progressState: ProjectWriteProgre
             }
 
             ProjectWriteProgressState.STATE_PROCEEDING -> {
-                setTextColor(context.getColor(android.R.color.white))
+                setTextColor(context.getColor(R.color.color_ffffff))
                 drawableRes.setStroke(1, context.getColor(R.color.color_00aee4))
                 drawableRes.setColor(context.getColor(R.color.color_00aee4))
             }

@@ -1,7 +1,6 @@
 package com.connectcrew.presentation.screen.base
 
 import android.app.Dialog
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,12 +11,12 @@ import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDialog
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.DialogLoadingBinding
+import com.connectcrew.presentation.util.tintColor
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -81,7 +80,7 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding> : BottomSheetDialogF
         //Copy the attributes in the new MaterialShapeDrawable
         return MaterialShapeDrawable(shapeAppearanceModel).apply {
             initializeElevationOverlay(context)
-            fillColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), backgroundColor))
+            fillColor = requireContext().tintColor(backgroundColor)
             tintList = currentMaterialShapeDrawable.tintList
             elevation = currentMaterialShapeDrawable.elevation
             strokeWidth = currentMaterialShapeDrawable.strokeWidth

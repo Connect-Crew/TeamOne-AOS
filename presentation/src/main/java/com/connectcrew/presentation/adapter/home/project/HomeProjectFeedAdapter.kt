@@ -1,10 +1,8 @@
 package com.connectcrew.presentation.adapter.home.project
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -12,9 +10,11 @@ import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.ItemProjectFeedBinding
 import com.connectcrew.presentation.model.project.ProjectFeed
 import com.connectcrew.presentation.util.TimeUtil
+import com.connectcrew.presentation.util.color
 import com.connectcrew.presentation.util.executeAfter
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.connectcrew.presentation.util.loadImage
+import com.connectcrew.presentation.util.tintColor
 import com.google.android.material.chip.Chip
 import java.text.DecimalFormat
 import java.time.ZonedDateTime
@@ -83,10 +83,10 @@ class HomeProjectFeedAdapter(
             sivNewProjectFeed.isVisible = isNew
             tvNewProjectFeed.isVisible = isNew
 
-            ivMemberCount.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(ivMemberCount.context, recruitmentColor))
+            ivMemberCount.imageTintList = ivMemberCount.context.tintColor(recruitmentColor)
             tvMemberCount.apply {
                 text = "${projectFeed.totalCurrentCount} / ${projectFeed.totalMaxCount}"
-                setTextColor(ContextCompat.getColor(tvMemberCount.context, recruitmentColor))
+                setTextColor(tvMemberCount.context.color(recruitmentColor))
             }
             llMemberCount.setOnSingleClickListener { onClickMemberCount(projectFeed) }
 

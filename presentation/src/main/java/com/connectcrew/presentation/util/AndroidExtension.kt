@@ -1,8 +1,11 @@
 package com.connectcrew.presentation.util
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -25,6 +28,15 @@ fun NavController.safeNavigate(
     if (action != null && currentDestination?.id != action.destinationId) {
         navigate(navDestination, navOptions)
     }
+}
+
+// context
+fun Context.tintColor(@ColorRes colorRes: Int): ColorStateList {
+    return ColorStateList.valueOf(ContextCompat.getColor(this, colorRes))
+}
+
+fun Context.color(@ColorRes colorRes: Int): Int {
+    return ContextCompat.getColor(this, colorRes)
 }
 
 // dataBinding

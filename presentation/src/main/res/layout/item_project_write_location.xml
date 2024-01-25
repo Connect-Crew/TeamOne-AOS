@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{region.isSelected ? @color/color_f1fcff : @android:color/white}"
+        android:background="@{region.isSelected ? @color/color_f1fcff : @color/color_ffffff}"
         android:paddingVertical="8dp"
         tools:context=".adapter.projectwrite.ProjectLocationAdapter">
 

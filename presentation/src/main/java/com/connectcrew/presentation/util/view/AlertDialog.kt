@@ -1,7 +1,6 @@
 package com.connectcrew.presentation.util.view
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -14,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
+import com.connectcrew.presentation.util.tintColor
 import com.google.android.material.imageview.ShapeableImageView
 
 fun createAlert(context: Context, isCancelable: Boolean = true): AlertDialog {
@@ -25,7 +25,7 @@ fun AlertDialog.dialogViewBuilder(
     descriptionText: String,
     positiveButtonText: String = context.getString(R.string.common_confirm),
     negativeButtonText: String = context.getString(R.string.common_cancel),
-    @ColorRes strokeColor: Int = R.color.color_00aee4,
+    @ColorRes strokeColor: Int? = null,
     @ColorRes iconTint: Int = R.color.color_00aee4,
     @DrawableRes iconDrawableRes: Int = R.drawable.ic_check,
     isNegativeButtonVisible: Boolean = true,
@@ -40,7 +40,7 @@ fun AlertDialog.dialogViewBuilder(
                 description = descriptionText,
                 positiveButtonText = positiveButtonText,
                 negativeButtonText = negativeButtonText,
-                strokeColor = strokeColor,
+                strokeColor = strokeColor ?: iconTint,
                 iconTint = iconTint,
                 iconDrawableRes = iconDrawableRes,
                 isNegativeButtonVisible = isNegativeButtonVisible,
@@ -56,7 +56,7 @@ fun AlertDialog.dialogViewBuilder(
     @StringRes descriptionRes: Int,
     @StringRes positiveButtonTextRes: Int = R.string.common_confirm,
     @StringRes negativeButtonTextRes: Int = R.string.common_cancel,
-    @ColorRes strokeColor: Int = R.color.color_00aee4,
+    @ColorRes strokeColor: Int? = null,
     @ColorRes iconTint: Int = R.color.color_00aee4,
     @DrawableRes iconDrawableRes: Int = R.drawable.ic_check,
     isNegativeButtonVisible: Boolean = true,
@@ -71,7 +71,7 @@ fun AlertDialog.dialogViewBuilder(
                 description = context.getString(descriptionRes),
                 positiveButtonText = context.getString(positiveButtonTextRes),
                 negativeButtonText = context.getString(negativeButtonTextRes),
-                strokeColor = strokeColor,
+                strokeColor = strokeColor ?: iconTint,
                 iconTint = iconTint,
                 iconDrawableRes = iconDrawableRes,
                 isNegativeButtonVisible = isNegativeButtonVisible,
@@ -104,7 +104,7 @@ private fun setDialogView(
         // Icon
         findViewById<ImageView>(R.id.iv_confirm).apply {
             setImageDrawable(ContextCompat.getDrawable(context, iconDrawableRes))
-            imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, iconTint))
+            imageTintList = context.tintColor(iconTint)
         }
 
         // Title
