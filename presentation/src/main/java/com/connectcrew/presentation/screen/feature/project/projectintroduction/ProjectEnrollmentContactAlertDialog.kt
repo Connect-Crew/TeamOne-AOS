@@ -7,28 +7,27 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.connectcrew.presentation.R
-import com.connectcrew.presentation.databinding.DialogProjectEnrollmentReasonBinding
+import com.connectcrew.presentation.databinding.DialogProjectEnrollmentContactBinding
 import com.connectcrew.presentation.screen.base.BaseAlertDialogFragment
 import com.connectcrew.presentation.util.hideKeyboard
 import com.connectcrew.presentation.util.listener.DebounceEditTextListener
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
-import com.connectcrew.presentation.util.safeNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProjectEnrollmentReasonBinding>() {
+class ProjectEnrollmentContactAlertDialog : BaseAlertDialogFragment<DialogProjectEnrollmentContactBinding>() {
 
-    override val layoutResId = R.layout.dialog_project_enrollment_reason
+    override val layoutResId = R.layout.dialog_project_enrollment_contact
 
     private val projectEnrollmentViewModel: ProjectEnrollmentViewModel by hiltNavGraphViewModels(R.id.nav_project_enrollment)
 
-    private val projectEnrollReasonTextChangeListener by lazy {
+    private val projectEnrollContactTextChangeListener by lazy {
         DebounceEditTextListener(
             debouncePeriod = 0L,
             scope = projectEnrollmentViewModel.viewModelScope,
-            onDebounceEditTextChange = projectEnrollmentViewModel::setEnrollmentReason
+            onDebounceEditTextChange = projectEnrollmentViewModel::setEnrollContact
         )
     }
 
@@ -40,20 +39,14 @@ class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProject
             lifecycleOwner = viewLifecycleOwner
         }
 
-        initView()
         initListener()
-    }
-
-    private fun initView() {
-        isCancelable = false
-        projectEnrollmentViewModel.setEnrollmentReason("")
     }
 
     private fun initListener() {
         with(dataBinding) {
             btnCancel.setOnSingleClickListener {
                 lifecycleScope.launch {
-                    dataBinding.tietWriteEnrollmentReason.hideKeyboard().also {
+                    dataBinding.tietWriteEnrollmentContact.hideKeyboard().also {
                         delay(100)
                         dismiss()
                     }
@@ -61,18 +54,19 @@ class ProjectEnrollmentReasonAlertDialog : BaseAlertDialogFragment<DialogProject
             }
 
             btnEnrollment.setOnSingleClickListener {
-                findNavController().safeNavigate(ProjectEnrollmentReasonAlertDialogDirections.actionProjectEnrollmentReasonAlertDialogToProjectEnrollmentContactAlertDialog())
+                findNavController().navigateUp()
+                projectEnrollmentViewModel.setProjectEnrollment()
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        dataBinding.tietWriteEnrollmentReason.addTextChangedListener(projectEnrollReasonTextChangeListener)
+        dataBinding.tietWriteEnrollmentContact.addTextChangedListener(projectEnrollContactTextChangeListener)
     }
 
     override fun onPause() {
         super.onPause()
-        dataBinding.tietWriteEnrollmentReason.removeTextChangedListener(projectEnrollReasonTextChangeListener)
+        dataBinding.tietWriteEnrollmentContact.removeTextChangedListener(projectEnrollContactTextChangeListener)
     }
 }

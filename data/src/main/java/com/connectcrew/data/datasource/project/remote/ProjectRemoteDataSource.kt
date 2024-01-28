@@ -27,7 +27,7 @@ internal interface ProjectRemoteDataSource {
 
     suspend fun setProjectLike(projectId: Long): ProjectFeedLikeInfoEntity
 
-    suspend fun setProjectEnrollment(projectId: Long, part: String, message: String)
+    suspend fun setProjectEnrollment(projectId: Long, part: String, message: String, contact: String)
 
     suspend fun createProjectFeed(
         title: String,
