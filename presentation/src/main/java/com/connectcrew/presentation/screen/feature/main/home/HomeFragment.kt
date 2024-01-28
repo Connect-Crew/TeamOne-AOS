@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by hiltNavGraphViewModels(R.id.nav_home)
 
     private val homeCategoryAdapter by lazy {
-        HomeCategoryAdapter { homeViewModel.setSelectedCategory(it.category) }
+        HomeCategoryAdapter { homeViewModel::setSelectedCategory }
     }
 
     private val homeProjectFeedAdapter by lazy {

@@ -16,27 +16,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context=".screen.feature.project.projectintroduction.ProjectEnrollmentReasonAlertDialog">
+        tools:context=".screen.feature.project.projectintroduction.ProjectEnrollmentContactAlertDialog">
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/Widget.TeamOne.TextView.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@{@string/project_detail_enrollment_reason(viewModel.selectedRecruitPart.part)}"
-            tools:text="백엔드 엔지니어에 지원합니다." />
-
-        <TextView
-            style="@style/Widget.TeamOne.TextView.Body4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/project_detail_enrollment_reason_title"
-            android:textColor="@color/color_616161"
-            tools:text="1. 지원하시는 이유 및 강점을 알려주세요." />
+            android:layout_marginTop="20dp"
+            android:text="@string/project_detail_enrollment_contact_title" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.TeamOne.TextInputLayout.OutlinedBox"
@@ -44,21 +34,33 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="10dp"
             app:endIconMode="none">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_write_enrollment_reason"
+                android:id="@+id/tiet_write_enrollment_contact"
                 style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox.MultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
-                android:hint="@string/project_detail_enrollment_reason_hint"
+                android:hint="@string/project_detail_enrollment_contact_hint"
                 android:maxHeight="260dp"
                 android:minHeight="160dp"
                 android:scrollbars="vertical"
-                android:text="@{viewModel.enrollmentReason}" />
+                android:text="@{viewModel.enrollmentContact}" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/Widget.TeamOne.TextView.Caption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/project_detail_enrollment_contact_description"
+            android:textColor="@color/color_9e9e9e"
+            app:drawableStartCompat="@drawable/ic_warning_circle" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,8 +86,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="@{viewModel.enrollmentReason.length() > 0}"
-                android:text="@string/common_next"
+                android:enabled="@{viewModel.enrollmentContact.length() > 0}"
+                android:text="@string/project_detail_introduction_enroll"
                 android:textAppearance="@style/TextAppearance.TeamOne.Button2"
                 app:cornerRadius="0dp" />
         </LinearLayout>

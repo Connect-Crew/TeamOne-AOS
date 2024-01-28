@@ -29,8 +29,10 @@ class ProjectEnrollmentViewModel @Inject constructor(
 
     val selectedRecruitPart
         get() = savedStateHandle.get<RecruitStatus>(KEY_SELECTED_PART)
+
     val projectFeedDetail = savedStateHandle.getStateFlow<ProjectFeedDetail?>(KEY_PROJECT_FEED_DETAIL, null)
-    val enrollmentReason = savedStateHandle.getStateFlow<String>(KEY_PROJECT_ENROLLMENT_REASON, "")
+    val enrollmentReason = savedStateHandle.getStateFlow(KEY_PROJECT_ENROLLMENT_REASON, "")
+    val enrollmentContact = savedStateHandle.getStateFlow(KEY_PROJECT_ENROLLMENT_CONTACT, "")
 
     private val _navigateToProjectEnrollmentReasonDialog = MutableEventFlow<Unit>()
     val navigateToProjectEnrollmentReasonDialog: EventFlow<Unit> = _navigateToProjectEnrollmentReasonDialog
@@ -40,6 +42,11 @@ class ProjectEnrollmentViewModel @Inject constructor(
 
     fun setEnrollmentReason(text: String) {
         savedStateHandle.set(KEY_PROJECT_ENROLLMENT_REASON, text)
+    }
+
+    fun setEnrollContact(text: String) {
+        if (enrollmentContact.value == text) return
+        savedStateHandle.set(KEY_PROJECT_ENROLLMENT_CONTACT, text)
     }
 
     fun navigateToProjectEnrollmentReasonDialog(recruitStatus: RecruitStatus) {
@@ -55,7 +62,8 @@ class ProjectEnrollmentViewModel @Inject constructor(
                 SetProjectEnrollmentUseCase.Params(
                     projectId = projectId!!,
                     enrollmentPart = selectedRecruitPart?.partKey!!,
-                    enrollmentReason = enrollmentReason.value
+                    enrollmentReason = enrollmentReason.value,
+                    enrollmentContact = enrollmentContact.value
                 )
             ).asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
@@ -77,6 +85,7 @@ class ProjectEnrollmentViewModel @Inject constructor(
         private const val KEY_PROJECT_ID = "project_id"
         private const val KEY_PROJECT_FEED_DETAIL = "project_feed_detail"
         private const val KEY_PROJECT_ENROLLMENT_REASON = "project_enrollment_reason"
+        private const val KEY_PROJECT_ENROLLMENT_CONTACT = "project_enrollment_contact"
         private const val KEY_SELECTED_PART = "selected_part"
     }
 }
