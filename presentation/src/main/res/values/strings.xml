@@ -214,7 +214,11 @@
     <string name="project_detail_introduction_project_remove_disable">팀원이 한 명 이상 생기면 프로젝트를 삭제할 수 없습니다.</string>
 
     <string name="project_detail_enrollment_reason">%s에 지원합니다.</string>
+    <string name="project_detail_enrollment_reason_title">1. 지원하시는 이유 및 강점을 알려주세요.</string>
     <string name="project_detail_enrollment_reason_hint">지원 이유 및 강점 (최대 1,000자 입력 가능합니다.)</string>
+    <string name="project_detail_enrollment_contact_title">2. 연락받을 연락처를 알려주세요.</string>
+    <string name="project_detail_enrollment_contact_hint">전화번호, 카카오톡 아이디 등을 알려주세요.\nex) `카톡아이디 teamone1`</string>
+    <string name="project_detail_enrollment_contact_description">원활한 프로젝트 진행을 위한 목적일 뿐, 어떠한 개인정보도 수집되지 않습니다.</string>
 
     <string name="project_detail_enrollment_completed">지원이 완료되었습니다.</string>
     <string name="project_detail_enrollment_completed_description">결과는 지원 현황 페이지에서\n확인하실 수 있습니다.</string>

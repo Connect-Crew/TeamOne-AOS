@@ -74,7 +74,19 @@
             android:id="@+id/projectEnrollmentReasonAlertDialog"
             android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentReasonAlertDialog"
             android:label="@string/label_dialog"
-            tools:layout="@layout/dialog_project_enrollment_reason"/>
+            tools:layout="@layout/dialog_project_enrollment_reason">
+
+            <action
+                android:id="@+id/action_projectEnrollmentReasonAlertDialog_to_projectEnrollmentContactAlertDialog"
+                app:destination="@id/projectEnrollmentContactAlertDialog"
+                app:popUpTo="@id/projectReportReasonAlertDialog" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/projectEnrollmentContactAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentContactAlertDialog"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment_contact" />
     </navigation>
 
     <fragment

@@ -18,7 +18,6 @@ import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.io.IOException
 import java.time.ZonedDateTime
 import javax.inject.Inject
@@ -139,7 +138,6 @@ class ProjectDetailContainerViewModel @Inject constructor(
                 .asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
                 .collect {
-                    Timber.e("deleteAndNavigateToBack $it")
                     when(it) {
                         is ApiResult.Loading -> return@collect
                         is ApiResult.Success -> {

@@ -79,13 +79,14 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun setProjectEnrollment(projectId: Long, part: String, message: String) {
+    override suspend fun setProjectEnrollment(projectId: Long, part: String, message: String, contact: String) {
         return try {
             projectApi.setProjectEnrollment(
                 params = mapOf(
                     KEY_PROJECT_ID to projectId,
                     KEY_PROJECT_ENROLLMENT_PART to part,
-                    KEY_PROJECT_ENROLLMENT_REASON to message
+                    KEY_PROJECT_ENROLLMENT_REASON to message,
+                    KEY_PROJECT_CONTACT to contact
                 )
             )
         } catch (e: Exception) {
@@ -216,5 +217,6 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         private const val KEY_PROJECT_ENROLLMENT_REASON = "message"
         private const val KEY_PROJECT_REPORT_REASON = "reason"
         private const val KEY_PROJECT_BANNER = "banner"
+        private const val KEY_PROJECT_CONTACT = "contact"
     }
 }
