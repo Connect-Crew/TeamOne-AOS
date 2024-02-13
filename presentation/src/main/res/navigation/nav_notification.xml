@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_my_team"
-    app:startDestination="@id/myTeamFragment">
+    android:id="@+id/nav_notification"
+    app:startDestination="@id/notificationFragment">
 
     <fragment
-        android:id="@+id/myTeamFragment"
-        android:name="com.connectcrew.presentation.screen.feature.main.myteam.MyTeamFragment"
+        android:id="@+id/notificationFragment"
+        android:name="com.connectcrew.presentation.screen.feature.main.notification.NotificationFragment"
         tools:layout="@layout/fragment_team_recrutment" />
 </navigation>

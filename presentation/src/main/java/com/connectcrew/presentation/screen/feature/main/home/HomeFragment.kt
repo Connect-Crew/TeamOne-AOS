@@ -121,11 +121,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             tlHome.apply {
                 setOnMenuItemSingleClickListener {
                     when (it.itemId) {
-                        R.id.menu_notification -> {
-                            //TODO:: 알림 화면으로 이동
-                            true
-                        }
-
                         R.id.menu_search -> {
                             findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToNavSearch())
                             true

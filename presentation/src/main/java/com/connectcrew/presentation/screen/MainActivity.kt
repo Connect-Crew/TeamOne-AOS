@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     companion object {
         private val TOP_LEVEL_DESTINATIONS = listOf(
             R.id.homeFragment,
-            R.id.myTeamFragment,
+            R.id.notificationFragment,
             R.id.myPageFragment
         )
 

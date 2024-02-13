@@ -6,7 +6,7 @@
 
     <include app:graph="@navigation/nav_home" />
 
-    <include app:graph="@navigation/nav_my_team" />
+    <include app:graph="@navigation/nav_notification" />
 
     <include app:graph="@navigation/nav_my_page" />
 </navigation>

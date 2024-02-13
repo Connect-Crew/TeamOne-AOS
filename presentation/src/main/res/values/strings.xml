@@ -44,6 +44,7 @@
     <string name="menu_team_recruitment">모집</string>
     <string name="menu_my_team">나의 팀</string>
     <string name="menu_my_page">마이페이지</string>
+    <string name="menu_notification">알림</string>
 
     <!-- Category -->
     <string name="category_all">전체</string>
