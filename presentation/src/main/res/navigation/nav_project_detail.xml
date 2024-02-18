@@ -33,6 +33,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectEnrollmentsFragment"
+            app:destination="@id/projectEnrollmentsFragment" />
     </fragment>
 
     <dialog
@@ -61,7 +64,7 @@
 
         <dialog
             android:id="@+id/projectEnrollmentBottomSheetDialogFragment"
-            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentBottomSheetDialogFragment"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentBottomSheetDialogFragment"
             android:label="@string/label_dialog"
             tools:layout="@layout/dialog_project_enrollment">
 
@@ -72,7 +75,7 @@
 
         <dialog
             android:id="@+id/projectEnrollmentReasonAlertDialog"
-            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentReasonAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentReasonAlertDialog"
             android:label="@string/label_dialog"
             tools:layout="@layout/dialog_project_enrollment_reason">
 
@@ -83,7 +86,7 @@
 
         <dialog
             android:id="@+id/projectEnrollmentContactAlertDialog"
-            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectEnrollmentContactAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentContactAlertDialog"
             android:label="@string/label_dialog"
             tools:layout="@layout/dialog_project_enrollment_contact" />
     </navigation>
@@ -97,4 +100,51 @@
             android:name="project_feed_detail"
             app:argType="com.connectcrew.presentation.model.project.ProjectFeedDetail" />
     </fragment>
+
+    <fragment
+        android:id="@+id/projectEnrollmentsFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentsFragment"
+        tools:layout="@layout/fragment_project_enrollments">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_projectEnrollmentsFragment_to_projectEnrollmentPartsFragment"
+            app:destination="@id/projectEnrollmentPartsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectEnrollmentPartsFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentPartsFragment"
+        tools:layout="@layout/fragment_project_enrollment_parts">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <argument
+            android:name="project_enrollment_member"
+            app:argType="com.connectcrew.presentation.model.project.ProjectEnrollmentMember" />
+
+        <action
+            android:id="@+id/action_projectEnrollmentPartsFragment_to_projectEnrollmentsRejectReasonDialog"
+            app:destination="@id/projectEnrollmentsRejectReasonDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/projectEnrollmentsRejectReasonDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentsRejectReasonDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_project_enrollments_reject_reason">
+
+        <argument
+            android:name="apply_id"
+            app:argType="integer" />
+    </dialog>
 </navigation>

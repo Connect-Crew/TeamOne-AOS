@@ -95,8 +95,9 @@ class ProjectIntroductionRecruitmentNoticeViewHolder(
     @SuppressLint("SetTextI18n")
     fun bind(recruitmentNoticeUiModel: ProjectDetailIntroductionUiModel.ProjectDetailIntroductionRecruitmentNoticeUiModel) {
         binding.executeAfter {
+            val isAllEnroll = recruitmentNoticeUiModel.recruitStatus.map { it.maxCount - it.currentCount == 0 }.all { it }
             val recruitmentColor = if (recruitmentNoticeUiModel.isEnroll) R.color.color_00aee4 else R.color.color_9e9e9e
-
+            cvNotice.setCardBackgroundColor(cvNotice.context.color(if (isAllEnroll) R.color.color_ffffff else R.color.color_f1fcff))
             ivMember.imageTintList = ivMember.context.tintColor(recruitmentColor)
             tvMember.setTextColor(tvMember.context.color(recruitmentColor))
             tvMemberTotalCount.apply {

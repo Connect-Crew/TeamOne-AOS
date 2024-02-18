@@ -40,7 +40,7 @@
                 style="@style/Widget.TeamOne.TextView.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/project_detail_introduction_current_member"
+                android:text="@string/summary_recruitment_notice_title"
                 android:textColor="@color/color_616161"
                 app:layout_constraintBottom_toBottomOf="@id/iv_member"
                 app:layout_constraintEnd_toStartOf="@id/tv_member_count"

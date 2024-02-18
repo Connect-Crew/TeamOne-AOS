@@ -1,5 +1,7 @@
 package com.connectcrew.data.datasource.project.remote
 
+import com.connectcrew.data.model.project.ProjectEnrollmentMember
+import com.connectcrew.data.model.project.ProjectEnrollmentPartMember
 import com.connectcrew.data.model.project.ProjectFeed
 import com.connectcrew.data.model.project.RequestRecruitStatus
 import com.connectcrew.data.model.project.asEntity
@@ -7,6 +9,8 @@ import com.connectcrew.data.service.ProjectApi
 import com.connectcrew.data.util.CompressorUtil
 import com.connectcrew.data.util.FileUtil
 import com.connectcrew.data.util.converterException
+import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentMemberEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentPartMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
@@ -26,6 +30,34 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
     override suspend fun getProjectInfo(): ProjectInfoContainerEntity {
         return try {
             projectApi.getProjectInfo().asEntity()
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun gerProjectEnrollmentMembers(projectId: Long): List<ProjectEnrollmentMemberEntity> {
+        return try {
+            projectApi.getProjectEnrollmentMembers(projectId).map(ProjectEnrollmentMember::asEntity)
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey: String): List<ProjectEnrollmentPartMemberEntity> {
+        return try {
+            projectApi.getProjectEnrollmentPartMembers(projectId, partKey).map(ProjectEnrollmentPartMember::asEntity)
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun setProjectEnrollmentPartMember(applyId: Int, isPassed: Boolean, leaderMessage: String?) {
+        try {
+            if (isPassed) {
+                projectApi.acceptProjectEnrollmentPartMember(applyId, "")
+            } else {
+                projectApi.rejectProjectEnrollmentPartMember(applyId, leaderMessage ?: "")
+            }
         } catch (e: Exception) {
             throw converterException(e)
         }
@@ -109,6 +141,7 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         skills: List<String>,
         bannerImageUrls: List<String>
     ): Long {
+
         val partList = bannerImageUrls.map {
             val compressedFile = compressorUtil.compressFile(fileUtil.from(it))
 

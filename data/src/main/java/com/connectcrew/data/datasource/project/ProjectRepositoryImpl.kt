@@ -3,6 +3,8 @@ package com.connectcrew.data.datasource.project
 import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSource
 import com.connectcrew.data.model.project.asExternalModel
 import com.connectcrew.domain.usecase.project.ProjectRepository
+import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentMemberEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentPartMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
@@ -16,6 +18,14 @@ internal class ProjectRepositoryImpl @Inject constructor(
 
     override suspend fun getProjectInfo(): ProjectInfoContainerEntity {
         return remoteDataSource.getProjectInfo()
+    }
+
+    override suspend fun gerProjectEnrollmentMembers(projectId: Long): List<ProjectEnrollmentMemberEntity> {
+        return remoteDataSource.gerProjectEnrollmentMembers(projectId)
+    }
+
+    override suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey: String): List<ProjectEnrollmentPartMemberEntity> {
+        return remoteDataSource.getProjectEnrollmentPartMembers(projectId, partKey)
     }
 
     override suspend fun getProjectFeeds(
@@ -43,6 +53,10 @@ internal class ProjectRepositoryImpl @Inject constructor(
 
     override suspend fun setProjectEnrollment(projectId: Long, part: String, message: String, contact: String) {
         return remoteDataSource.setProjectEnrollment(projectId, part, message, contact)
+    }
+
+    override suspend fun setProjectEnrollmentPartMember(applyId: Int, isPassed: Boolean, leaderMessage: String?) {
+        return remoteDataSource.setProjectEnrollmentPartMember(applyId, isPassed, leaderMessage)
     }
 
     override suspend fun createProjectFeed(

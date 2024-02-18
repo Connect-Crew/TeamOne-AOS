@@ -8,11 +8,6 @@ dependencies {
     compileOnly(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 gradlePlugin {
     plugins {
         register("androidApplication") {
