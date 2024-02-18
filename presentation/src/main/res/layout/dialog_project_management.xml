@@ -105,13 +105,28 @@
                 tools:strokeColor="@color/color_00aee4"
                 tools:textColor="@color/color_00aee4" />
 
-            <TextView
-                style="@style/Widget.TeamOne.TextView.Caption2"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/project_detail_introduction_project_remove_disable"
-                android:textColor="@color/color_d62246" />
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_warning_circle"
+                    app:tint="@color/color_d62246" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Caption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/project_detail_introduction_project_remove_disable"
+                    android:textColor="@color/color_d62246" />
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"

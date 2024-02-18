@@ -35,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by hiltNavGraphViewModels(R.id.nav_home)
 
     private val homeCategoryAdapter by lazy {
-        HomeCategoryAdapter { homeViewModel::setSelectedCategory }
+        HomeCategoryAdapter { homeViewModel.setSelectedCategory(it.category) }
     }
 
     private val homeProjectFeedAdapter by lazy {
@@ -97,16 +97,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             rvProjectFeed.apply {
                 setHasFixedSize(true)
-                adapter = homeProjectFeedAdapter.withLoadStateFooter(TeamOneLoadAdapter { homeProjectFeedAdapter.retry() })
+                adapter = homeProjectFeedAdapter.withLoadStateFooter(TeamOneLoadAdapter(homeProjectFeedAdapter::retry))
                 layoutManager = if (resources.getBoolean(R.bool.isTablet)) {
-                    GridLayoutManager(requireContext(), 2).apply {
-                        isMeasurementCacheEnabled = false
-                        this.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                            override fun getSpanSize(position: Int): Int {
-                                return 1
-                            }
-                        }
-                    }
+                    GridLayoutManager(requireContext(), 2)
                 } else {
                     LinearLayoutManager(requireContext())
                 }

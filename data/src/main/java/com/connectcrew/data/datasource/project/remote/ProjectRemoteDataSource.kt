@@ -1,6 +1,8 @@
 package com.connectcrew.data.datasource.project.remote
 
 import com.connectcrew.data.model.project.RequestRecruitStatus
+import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentMemberEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentPartMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
@@ -9,6 +11,10 @@ import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
 internal interface ProjectRemoteDataSource {
 
     suspend fun getProjectInfo(): ProjectInfoContainerEntity
+
+    suspend fun gerProjectEnrollmentMembers(projectId: Long) : List<ProjectEnrollmentMemberEntity>
+
+    suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey:String) : List<ProjectEnrollmentPartMemberEntity>
 
     suspend fun getProjectFeeds(
         lastId: Long?,
@@ -28,6 +34,8 @@ internal interface ProjectRemoteDataSource {
     suspend fun setProjectLike(projectId: Long): ProjectFeedLikeInfoEntity
 
     suspend fun setProjectEnrollment(projectId: Long, part: String, message: String, contact: String)
+
+    suspend fun setProjectEnrollmentPartMember(applyId: Int, isPassed: Boolean, leaderMessage: String?)
 
     suspend fun createProjectFeed(
         title: String,
