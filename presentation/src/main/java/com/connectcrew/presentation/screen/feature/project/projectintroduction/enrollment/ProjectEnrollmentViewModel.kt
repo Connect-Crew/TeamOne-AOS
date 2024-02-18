@@ -1,4 +1,4 @@
-package com.connectcrew.presentation.screen.feature.project.projectintroduction
+package com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope

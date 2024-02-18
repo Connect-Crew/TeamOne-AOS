@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.screen.base.BaseViewModel.InitializerUiState" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentPartsViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentPartsFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tl_project_enrollments_parts"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow">
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{@string/project_enrollments_part(viewModel.projectEnrollmentMember.category)}"
+                    android:textColor="@color/color_424242"
+                    tools:text="마케팅 지원자" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isGone="@{viewModel.projectEnrollmentPartMembersUiState != InitializerUiState.Success}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/srl_project_enrollment_parts"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"
+                app:refreshing="@{viewModel.swipeRefreshing}">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_project_enroll_part_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:isGone="@{viewModel.projectEnrollmentPartMembers.size() == 0}"
+                    tools:listitem="@layout/item_project_enrollment_part_management" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <TextView
+                style="@style/Widget.TeamOne.TextView.Body3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/project_enrollments_empty"
+                android:textColor="@color/color_9e9e9e"
+                android:visibility="gone"
+                app:isGone="@{viewModel.projectEnrollmentPartMembers.size() > 0}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/view_loading"
+            layout="@layout/dialog_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:isGone="@{viewModel.projectEnrollmentPartMembersUiState != InitializerUiState.Loading}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <include
+            android:id="@+id/view_network_error"
+            layout="@layout/layout_network_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:isGone="@{viewModel.projectEnrollmentPartMembersUiState != InitializerUiState.Error}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:viewModel="@{viewModel}" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
