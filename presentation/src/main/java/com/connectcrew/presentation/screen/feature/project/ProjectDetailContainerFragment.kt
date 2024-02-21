@@ -124,8 +124,10 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
             launch {
                 projectDetailContainerViewModel.navigateToProjectRecruit.collect {
-                    if (findNavController().currentDestination?.id == R.id.projectManagementBottomSheetDialogFragment) findNavController().navigateUp()
-                    // TODO:: 지원자 현황으로 이동
+                    findNavController().run {
+                        if (currentDestination?.id == R.id.projectManagementBottomSheetDialogFragment) navigateUp()
+                        safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToProjectEnrollmentsFragment(it))
+                    }
                 }
             }
 

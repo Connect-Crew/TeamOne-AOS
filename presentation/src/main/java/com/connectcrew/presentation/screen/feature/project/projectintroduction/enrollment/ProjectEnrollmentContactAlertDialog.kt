@@ -1,4 +1,4 @@
-package com.connectcrew.presentation.screen.feature.project.projectintroduction
+package com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment
 
 import android.os.Bundle
 import android.view.View

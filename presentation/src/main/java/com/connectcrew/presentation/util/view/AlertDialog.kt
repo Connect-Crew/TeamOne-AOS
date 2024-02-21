@@ -1,10 +1,8 @@
 package com.connectcrew.presentation.util.view
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -12,9 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.connectcrew.presentation.R
+import com.connectcrew.presentation.databinding.DialogCommonAlertBinding
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.connectcrew.presentation.util.tintColor
-import com.google.android.material.imageview.ShapeableImageView
 
 fun createAlert(context: Context, isCancelable: Boolean = true): AlertDialog {
     return AlertDialog.Builder(context).setCancelable(isCancelable).create()
@@ -95,26 +93,27 @@ private fun setDialogView(
     onClickNegativeButton: (Unit) -> Unit,
     onClickPositiveButton: (Unit) -> Unit
 ): View {
-    val dialogLayout = alertDialog.layoutInflater.inflate(R.layout.dialog_common_alert, null)
 
-    return dialogLayout.apply {
+    val dialogBinding = DialogCommonAlertBinding.inflate(LayoutInflater.from(alertDialog.context))
+
+    return dialogBinding.apply {
         // Icon Round Stroke
-        findViewById<ShapeableImageView>(R.id.siv_bg_confirm).setStrokeColorResource(strokeColor)
+        sivBgConfirm.setStrokeColorResource(strokeColor)
 
         // Icon
-        findViewById<ImageView>(R.id.iv_confirm).apply {
+        ivConfirm.apply {
             setImageDrawable(ContextCompat.getDrawable(context, iconDrawableRes))
             imageTintList = context.tintColor(iconTint)
         }
 
         // Title
-        findViewById<TextView>(R.id.tv_title).text = title
+        tvTitle.text = title
 
         // Description
-        findViewById<TextView>(R.id.tv_description).text = description
+        tvDescription.text =description
 
         // NegativeButton
-        findViewById<Button>(R.id.btn_cancel).apply {
+        btnCancel.apply {
             text = negativeButtonText
             isVisible = isNegativeButtonVisible
             setOnSingleClickListener {
@@ -124,12 +123,12 @@ private fun setDialogView(
         }
 
         // PositiveButton
-        findViewById<Button>(R.id.btn_confirm).apply {
+        btnConfirm.apply {
             text = positiveButtonText
             setOnSingleClickListener {
                 alertDialog.dismiss()
                 onClickPositiveButton(Unit)
             }
         }
-    }
+    }.root
 }

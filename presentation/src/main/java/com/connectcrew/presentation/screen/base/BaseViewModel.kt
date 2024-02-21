@@ -26,6 +26,9 @@ open class BaseViewModel : ViewModel() {
     private val _loading = MutableStateFlow<Boolean>(false)
     val loading: StateFlow<Boolean> = _loading
 
+    private val _swipeRefreshing = MutableStateFlow(false)
+    val swipeRefreshing: StateFlow<Boolean> = _swipeRefreshing
+
     private val _messageRes = MutableSharedFlow<Int>()
     val messageRes: SharedFlow<Int> = _messageRes
 
@@ -38,6 +41,15 @@ open class BaseViewModel : ViewModel() {
 
     fun onRefresh() = viewModelScope.launch {
         refreshSignal.emit(Unit)
+    }
+
+    fun onSwipeRefresh() = viewModelScope.launch {
+        isSwipeRefreshing(true)
+        refreshSignal.emit(Unit)
+    }
+
+    fun isSwipeRefreshing(isRefreshing: Boolean) {
+        _swipeRefreshing.value = isRefreshing
     }
 
     fun setMessage(@StringRes messageRes: Int) {

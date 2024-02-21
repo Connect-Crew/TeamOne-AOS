@@ -141,14 +141,16 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
             add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionLeaderUiModel(projectFeedDetail.leader))
 
             // 지원 공고
-            add(
-                ProjectDetailIntroductionUiModel.ProjectDetailIntroductionRecruitmentNoticeUiModel(
-                    recruitStatus = projectFeedDetail.recruitStatus,
-                    totalCurrentCount = projectFeedDetail.totalCurrentCount,
-                    totalMaxCount = projectFeedDetail.totalMaxCount,
-                    isEnroll = projectFeedDetail.isEnroll
+            if (projectFeedDetail.recruitStatus.isNotEmpty()) {
+                add(
+                    ProjectDetailIntroductionUiModel.ProjectDetailIntroductionRecruitmentNoticeUiModel(
+                        recruitStatus = projectFeedDetail.recruitStatus,
+                        totalCurrentCount = projectFeedDetail.totalCurrentCount,
+                        totalMaxCount = projectFeedDetail.totalMaxCount,
+                        isEnroll = projectFeedDetail.isEnroll
+                    )
                 )
-            )
+            }
 
             // 상세 설명
             add(ProjectDetailIntroductionUiModel.ProjectDetailIntroductionDescriptionUiModel(projectFeedDetail.projectIntroduction))

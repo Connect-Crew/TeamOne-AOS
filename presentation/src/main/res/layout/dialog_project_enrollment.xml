@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".screen.feature.project.projectintroduction.ProjectEnrollmentBottomSheetDialogFragment">
+        tools:context=".screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentBottomSheetDialogFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_project_enroll"

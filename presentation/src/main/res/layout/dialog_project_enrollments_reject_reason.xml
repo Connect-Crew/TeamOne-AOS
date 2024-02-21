@@ -7,8 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentViewModel" />
-
+            type="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentsRejectReasonViewModel" />
     </data>
 
     <LinearLayout
@@ -16,27 +15,19 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context=".screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentReasonAlertDialog">
+        tools:context=".screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentsRejectReasonDialog">
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/Widget.TeamOne.TextView.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@{@string/project_detail_enrollment_reason(viewModel.selectedRecruitPart.part)}"
-            tools:text="백엔드 엔지니어에 지원합니다." />
-
-        <TextView
-            style="@style/Widget.TeamOne.TextView.Body4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/project_detail_enrollment_reason_title"
-            android:textColor="@color/color_616161"
-            tools:text="1. 지원하시는 이유 및 강점을 알려주세요." />
+            android:layout_marginTop="24dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/project_enrollments_reject_reason_title"
+            android:textColor="@color/color_616161" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.TeamOne.TextInputLayout.OutlinedBox"
@@ -48,16 +39,16 @@
             app:endIconMode="none">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_write_enrollment_reason"
+                android:id="@+id/tiet_write_reject_reason"
                 style="@style/Widget.TeamOne.TextInputEditText.OutlinedBox.MultiLine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
-                android:hint="@string/project_detail_enrollment_reason_hint"
+                android:hint="@string/project_enrollments_reject_reason_hint"
                 android:maxHeight="260dp"
                 android:minHeight="160dp"
                 android:scrollbars="vertical"
-                android:text="@{viewModel.enrollmentReason}" />
+                android:text="@{viewModel.projectRejectReason}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -79,15 +70,16 @@
                 app:cornerRadius="0dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_enrollment"
+                android:id="@+id/btn_confirm"
                 style="@style/Widget.TeamOne.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:enabled="@{viewModel.enrollmentReason.length() > 0}"
-                android:text="@string/common_next"
+                android:enabled="@{viewModel.projectRejectReason.length() > 0}"
+                android:text="@string/common_reject"
                 android:textAppearance="@style/TextAppearance.TeamOne.Button2"
-                app:cornerRadius="0dp" />
+                app:cornerRadius="0dp"
+                app:onSingleClick="@{()-> viewModel.navigateToBack()}" />
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -1,5 +1,7 @@
 package com.connectcrew.data.service
 
+import com.connectcrew.data.model.project.ProjectEnrollmentMember
+import com.connectcrew.data.model.project.ProjectEnrollmentPartMember
 import com.connectcrew.data.model.project.ProjectFeed
 import com.connectcrew.data.model.project.ProjectFeedDetail
 import com.connectcrew.data.model.project.ProjectFeedLikeInfo
@@ -82,6 +84,18 @@ internal interface ProjectApi {
 
     @POST("project/apply")
     suspend fun setProjectEnrollment(@Body params: Any)
+
+    @GET("project/apply/{projectId}")
+    suspend fun getProjectEnrollmentMembers(@Path("projectId") projectId: Long): List<ProjectEnrollmentMember>
+
+    @GET("project/apply/{projectId}/{part}")
+    suspend fun getProjectEnrollmentPartMembers(@Path("projectId") projectId: Long, @Path("part") partKey: String): List<ProjectEnrollmentPartMember>
+
+    @POST("/project/apply/{applyId}/accept")
+    suspend fun acceptProjectEnrollmentPartMember(@Path("applyId") applyId: Int, @Body params: Any)
+
+    @POST("/project/apply/{applyId}/reject")
+    suspend fun rejectProjectEnrollmentPartMember(@Path("applyId") applyId: Int, @Body params: Any)
 
     @POST("project/report")
     suspend fun createProjectReport(@Body params: Any)

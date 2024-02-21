@@ -15,6 +15,8 @@
     <string name="common_online">온라인</string>
     <string name="common_leader">리더</string>
     <string name="common_report">신고하기</string>
+    <string name="common_pass">승인</string>
+    <string name="common_reject">거절</string>
     <string name="common_empty_view">페이지 준비중입니다.</string>
 
     <!-- Common Error -->
@@ -223,6 +225,19 @@
 
     <string name="project_detail_enrollment_completed">지원이 완료되었습니다.</string>
     <string name="project_detail_enrollment_completed_description">결과는 지원 현황 페이지에서\n확인하실 수 있습니다.</string>
+
+    <string name="project_enrollments_title">지원자 관리</string>
+    <string name="project_enrollments_empty">아직 지원자가 없어요.</string>
+    <string name="project_enrollments_contact_copy">연락처를 복사하였습니다.</string>
+    <string name="project_enrollments_part">%s 지원자</string>
+    <string name="project_enrollments_part_date_for_pass">%s <![CDATA[<font color=#00AEE4>승인</font>]]></string>
+    <string name="project_enrollments_part_date_for_reject">%s <![CDATA[<font color=#D62246>거절</font>]]></string>
+    <string name="project_enrollments_passed_title">%s님의 지원을 승인하시겠습니까?</string>
+    <string name="project_enrollments_passed_description">지원자가 팀원에 합류하게 됩니다.</string>
+    <string name="project_enrollments_reject_title">%S님의 지원을 거절하시겠습니까?</string>
+    <string name="project_enrollments_reject_description">거절한 지원자는 해당 파트 외 다른 직무에 재지원 가능합니다.</string>
+    <string name="project_enrollments_reject_reason_title">거절 사유를 알려주세요</string>
+    <string name="project_enrollments_reject_reason_hint">팀원(TEAM no.1)의 배려있는 문화 만들기에 동참해주세요. (최대 1,000자 입력 가능합니다.)</string>
 
     <string name="project_detail_introduction_project_remove_title">프로젝트를 삭제하시겠습니까?</string>
     <string name="project_detail_introduction_project_remove_description">삭제 전 한번 더 고민해보시기 바랍니다.</string>

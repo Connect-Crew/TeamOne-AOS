@@ -7,7 +7,6 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
     kotlin("kapt")
-
 }
 
 android {
@@ -54,6 +53,7 @@ dependencies {
     implementation(libs.androidx.core.splashScreen)
     implementation(libs.androidx.constraint)
     implementation(libs.androidx.startup)
+    implementation(libs.androidx.swiperefreshlayout)
     // AndroidX Paging
     implementation(libs.androidx.paging.runtime)
     // AndroidX Lifecycle
