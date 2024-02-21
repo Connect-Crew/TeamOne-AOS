@@ -37,6 +37,18 @@ fun loadProfileUrl(view: ImageView, imageUrl: String?) {
         .into(view)
 }
 
+@BindingAdapter("projectUrl")
+fun loadProjectUrl(view: ImageView, imageUrl: String?) {
+    if (!isValidContextForGlide(view.context)) return
+    val profileImageUrl = imageUrl?.let { if (it.startsWith("http")) it else (BuildConfig.API_URL + it) }
+
+    Glide.with(view.context)
+        .load(profileImageUrl ?: R.drawable.ic_team_one_logo_bg_blue)
+        .placeholder(R.color.color_f5f5f5)
+        .error(R.color.color_f5f5f5)
+        .into(view)
+}
+
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean?) {
     if (isGone == null || isGone) {

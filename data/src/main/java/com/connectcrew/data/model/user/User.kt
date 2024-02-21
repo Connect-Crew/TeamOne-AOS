@@ -1,5 +1,8 @@
 package com.connectcrew.data.model.user
 
+import com.connectcrew.data.model.project.RepresentProject
+import com.connectcrew.data.model.project.asEntity
+import com.connectcrew.data.model.project.asExternalModel
 import com.connectcrew.domain.usecase.sign.entity.JobPartEntity
 import com.connectcrew.domain.usecase.sign.entity.TokenEntity
 import com.connectcrew.domain.usecase.sign.entity.UserEntity
@@ -26,6 +29,8 @@ internal data class User(
     val introduction: String?,
     @Json(name = "parts")
     val parts: List<JobPart>?,
+    @Json(name = "representProjects")
+    val representProjects: List<RepresentProject>?,
 
     // Token Info
     @Json(name = "token")
@@ -57,7 +62,8 @@ internal fun User.asEntity(): UserEntity {
         temperature = temperature,
         responseRate = responseRate,
         introduction = introduction,
-        parts = parts?.map(JobPart::asEntity) ?: emptyList()
+        parts = parts?.map(JobPart::asEntity) ?: emptyList(),
+        representProjects = representProjects?.map { it.asEntity() } ?: emptyList()
     )
 }
 
@@ -79,7 +85,8 @@ internal fun UserEntity.asExternalModel(): User {
         temperature = temperature,
         responseRate = responseRate,
         introduction = introduction,
-        parts = parts.map(JobPartEntity::asExternalModel)
+        parts = parts.map(JobPartEntity::asExternalModel),
+        representProjects = representProjects.map { it.asExternalModel() }
     )
 }
 

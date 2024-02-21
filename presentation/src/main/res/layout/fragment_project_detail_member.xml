@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.screen.base.BaseViewModel.InitializerUiState" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.project.projectmember.ProjectDetailMemberViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screen.feature.project.projectmember.ProjectDetailMemberFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_members"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="20dp"
+            android:visibility="gone"
+            app:isGone="@{viewModel.projectDetailMemberUiState != InitializerUiState.Success}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_project_member"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/view_loading"
+            layout="@layout/dialog_loading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:isGone="@{viewModel.projectDetailMemberUiState != InitializerUiState.Loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+        <include
+            android:id="@+id/view_network_error"
+            layout="@layout/layout_network_error"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:isGone="@{viewModel.projectDetailMemberUiState != InitializerUiState.Error}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel}"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
