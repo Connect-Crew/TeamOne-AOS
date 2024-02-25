@@ -76,13 +76,10 @@ class ProjectWriteFieldFragment : BaseFragment<FragmentProjectWriteFieldBinding>
             }
 
             launch {
-                projectWriteContainerViewModel.messageRes.collect {
+                projectWriteContainerViewModel.message.collect {
                     showToast(it)
                 }
             }
         }
     }
 }
-
-
-

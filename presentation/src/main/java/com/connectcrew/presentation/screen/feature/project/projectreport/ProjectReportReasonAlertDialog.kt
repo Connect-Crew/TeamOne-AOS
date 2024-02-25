@@ -87,12 +87,6 @@ class ProjectReportReasonAlertDialog : BaseAlertDialogFragment<DialogProjectRepo
                     showToast(it)
                 }
             }
-
-            launch {
-                projectDetailContainerViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
         }
     }
 

@@ -26,12 +26,14 @@ import com.connectcrew.presentation.adapter.media.MediaAlbumAdapter
 import com.connectcrew.presentation.databinding.FragmentMediaPickerBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.Const.KEY_SELECTED_MEDIA_PATHS
+import com.connectcrew.presentation.util.MessageType
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -191,8 +193,8 @@ class MediaPickerFragment : BaseFragment<FragmentMediaPickerBinding>(R.layout.fr
             }
 
             launch {
-                mediaPickerViewModel.messageRes.collect {
-                    showToast(resources.getString(it, mediaPickerViewModel.selectedMaxCount))
+                mediaPickerViewModel.message.filterIsInstance<MessageType.ResourceType>().collect {
+                    showToast(MessageType.ValueType(resources.getString(it.message, mediaPickerViewModel.selectedMaxCount)))
                 }
             }
         }

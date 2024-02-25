@@ -245,7 +245,7 @@ class ProjectWritePostFragment : BaseFragment<FragmentProjectWritePostBinding>(R
             }
 
             launch {
-                projectWriteContainerViewModel.messageRes.collect {
+                projectWriteContainerViewModel.message.collect {
                     showToast(it)
                 }
             }

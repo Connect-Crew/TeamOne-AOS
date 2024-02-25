@@ -98,7 +98,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
 
             launch {
-                searchViewModel.messageRes.collect {
+                searchViewModel.message.collect {
                     showToast(it)
                 }
             }

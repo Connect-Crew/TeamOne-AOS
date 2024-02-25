@@ -16,6 +16,7 @@ import com.connectcrew.presentation.model.project.ProjectEnrollmentPartMember
 import com.connectcrew.presentation.model.project.ProjectEnrollmentState
 import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -61,7 +62,7 @@ class ProjectEnrollmentPartsViewModel @Inject constructor(
                 is ApiResult.Error -> InitializerUiState.Error.also { isSwipeRefreshing(false) }
             }
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InitializerUiState.Loading)
+        .stateIn(viewModelScope, WhileViewSubscribed, InitializerUiState.Loading)
 
     private val _projectEnrollmentPartMembers = MutableStateFlow<List<ProjectEnrollmentPartMember>>(emptyList())
     val projectEnrollmentPartMembers: StateFlow<List<ProjectEnrollmentPartMember>> = _projectEnrollmentPartMembers

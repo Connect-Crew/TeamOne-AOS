@@ -82,7 +82,7 @@ class ProjectWritePurposeAndCareerFragment : BaseFragment<FragmentProjectWritePu
             }
 
             launch {
-                projectWriteContainerViewModel.messageRes.collect {
+                projectWriteContainerViewModel.message.collect {
                     showToast(it)
                 }
             }

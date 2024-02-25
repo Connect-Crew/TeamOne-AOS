@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.DialogLoadingBinding
+import com.connectcrew.presentation.util.MessageType
 import com.connectcrew.presentation.util.tintColor
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -100,11 +101,18 @@ abstract class BaseBottomSheetFragment<T : ViewDataBinding> : BottomSheetDialogF
         }
     }
 
-    fun showToast(@StringRes id: Int) {
+    fun showToast(toastType: MessageType) {
+        when (toastType) {
+            is MessageType.ResourceType -> showToast(toastType.message)
+            is MessageType.ValueType -> showToast(toastType.message)
+        }
+    }
+
+    private fun showToast(@StringRes id: Int) {
         Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show()
     }
 
-    fun showToast(message: String) {
+    private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
