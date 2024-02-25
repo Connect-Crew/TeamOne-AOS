@@ -123,12 +123,6 @@ class ProjectWriteContainerFragment : BaseFragment<FragmentProjectWriteContainer
             }
 
             launch {
-                projectWriteContainerViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
-
-            launch {
                 projectWriteContainerViewModel.message.collect {
                     showToast(it)
                 }

@@ -15,6 +15,7 @@ import com.connectcrew.presentation.adapter.project.enrollmentManagement.Project
 import com.connectcrew.presentation.databinding.FragmentProjectEnrollmentPartsBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.util.Const.KEY_PROJECT_ENROLLMENT_REJECT_REASON
+import com.connectcrew.presentation.util.MessageType
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.safeNavigate
 import com.connectcrew.presentation.util.view.createAlert
@@ -22,7 +23,6 @@ import com.connectcrew.presentation.util.view.dialogViewBuilder
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ProjectEnrollmentPartsFragment : BaseFragment<FragmentProjectEnrollmentPartsBinding>(R.layout.fragment_project_enrollment_parts) {
@@ -119,12 +119,6 @@ class ProjectEnrollmentPartsFragment : BaseFragment<FragmentProjectEnrollmentPar
             }
 
             launch {
-                projectEnrollmentPartsViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
-
-            launch {
                 projectEnrollmentPartsViewModel.message.collect {
                     showToast(it)
                 }
@@ -152,6 +146,6 @@ class ProjectEnrollmentPartsFragment : BaseFragment<FragmentProjectEnrollmentPar
 
     private fun contactCopyThenPost(textCopied: String) {
         clipboardManager.setPrimaryClip(ClipData.newPlainText("", textCopied))
-        showToast(R.string.project_enrollments_contact_copy)
+        showToast(MessageType.ResourceType(R.string.project_enrollments_contact_copy))
     }
 }

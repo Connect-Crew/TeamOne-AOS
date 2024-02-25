@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.connectcrew.presentation.databinding.DialogLoadingBinding
+import com.connectcrew.presentation.util.MessageType
 
 abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutResId: Int) : Fragment() {
 
@@ -51,11 +52,18 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutRe
         }
     }
 
-    fun showToast(@StringRes id: Int) {
+    fun showToast(toastType: MessageType) {
+        when (toastType) {
+            is MessageType.ResourceType -> showToast(toastType.message)
+            is MessageType.ValueType -> showToast(toastType.message)
+        }
+    }
+
+    private fun showToast(@StringRes id: Int) {
         Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show()
     }
 
-    fun showToast(message: String) {
+    private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 

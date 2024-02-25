@@ -13,11 +13,11 @@ import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.EditTextState
 import com.connectcrew.presentation.util.RegexUtil
 import com.connectcrew.presentation.util.Success
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import com.connectcrew.presentation.util.firebase.FirebaseUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
@@ -49,14 +49,14 @@ class SignUpContainerViewModel @Inject constructor(
         isTermsOfUseForPrivacy,
     ) { service, privacy ->
         service && privacy
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }.stateIn(viewModelScope, WhileViewSubscribed, false)
 
     val userNickName
         get() = savedStateHandle.get<String>(KEY_USER_NICKNAME) ?: ""
     val userNickNameEditTextState: StateFlow<EditTextState> = savedStateHandle.getStateFlow<EditTextState>(KEY_USER_NICKNAME_STATE, EditTextState.Loading)
     val enableUserNickName = userNickNameEditTextState
         .map { it.Success }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+        .stateIn(viewModelScope, WhileViewSubscribed, false)
 
     private val _navigateToTermsOfUseDetail = MutableEventFlow<String>()
     val navigateToTermsOfUseDetail: EventFlow<String> = _navigateToTermsOfUseDetail

@@ -22,6 +22,7 @@ import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
 import com.connectcrew.presentation.util.EditTextState
 import com.connectcrew.presentation.util.Success
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
@@ -70,39 +71,39 @@ class ProjectWriteContainerViewModel @Inject constructor(
                 is ApiResult.Error -> InitializerUiState.Error
             }
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InitializerUiState.Loading)
+        .stateIn(viewModelScope, WhileViewSubscribed, InitializerUiState.Loading)
 
     val projectProgress = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_STEP, 0)
 
     // region Step 1
     val projectStep1State = projectProgress
         .map { getProjectState(1, it) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+        .stateIn(viewModelScope, WhileViewSubscribed, ProjectWriteProgressState.STATE_IDLE)
 
     val projectTitle = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_TITLE, "")
     val projectTitleEditTextState = savedStateHandle.getStateFlow<EditTextState>(KEY_PROJECT_WRITE_TITLE_EDIT_TEXT_STATE, EditTextState.Loading)
     val enableProjectTitle = projectTitleEditTextState
         .map { it.Success }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+        .stateIn(viewModelScope, WhileViewSubscribed, false)
     // endregion Step 1
 
     // region Step 2
     val projectStep2State = projectProgress
         .map { getProjectState(2, it) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+        .stateIn(viewModelScope, WhileViewSubscribed, ProjectWriteProgressState.STATE_IDLE)
 
     val projectProgressState = savedStateHandle.getStateFlow<ProjectWriteProgressState?>(KEY_PROJECT_WRITE_PERIOD_PROGRESS_STATE, null)
     val projectLocationType = savedStateHandle.getStateFlow<ProjectWriteLocationType?>(KEY_PROJECT_WRITE_LOCATION_TYPE, null)
     val projectLocation = savedStateHandle.getStateFlow<ProjectInfo?>(KEY_PROJECT_WRITE_LOCATION, null)
     val enableProjectPeriodAndLocation = combine(projectProgressState, projectLocationType, projectLocation, ::Triple)
         .map { (it.first != null && it.second != null && (if (it.second != ProjectWriteLocationType.TYPE_ONLINE) it.third != null else true)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+        .stateIn(viewModelScope, WhileViewSubscribed, false)
     // endregion Step 2
 
     // region Step 3
     val projectStep3State = projectProgress
         .map { getProjectState(3, it) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+        .stateIn(viewModelScope, WhileViewSubscribed, ProjectWriteProgressState.STATE_IDLE)
 
     val projectPurposeType = savedStateHandle.getStateFlow<ProjectWritePurposeType?>(KEY_PROJECT_WRITE_PURPOSE_TYPE, null)
     val projectMinCareer = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_MIN_CAREER, ProjectWriteCareerType.NONE)
@@ -110,13 +111,13 @@ class ProjectWriteContainerViewModel @Inject constructor(
     val isNoLimitCheck = savedStateHandle.getStateFlow(KEY_PROJECT_WRITE_CAREER_NO_LIMIT, false)
     val enableProjectPurposeAndCareer = combine(projectPurposeType, projectMinCareer, projectMaxCareer, isNoLimitCheck) { type, minCareer, maxCareer, isNoLimitCareer -> Triple(type, Pair(minCareer, maxCareer), isNoLimitCareer) }
         .map { (type, careerRange, isNoLimitCareer) -> (type != null && isNoLimitCareer) || (type != null && careerRange.first != ProjectWriteCareerType.NONE && careerRange.second != ProjectWriteCareerType.NONE) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+        .stateIn(viewModelScope, WhileViewSubscribed, false)
     // endregion Step 3
 
     // region Step 4
     val projectStep4State = projectProgress
         .map { getProjectState(4, it) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+        .stateIn(viewModelScope, WhileViewSubscribed, ProjectWriteProgressState.STATE_IDLE)
 
     val projectSelectedFiled = savedStateHandle.getStateFlow<List<ProjectFieldInfo>>(KEY_PROJECT_WRITE_SELECT_FIELD, emptyList())
     // endregion Step 4
@@ -124,7 +125,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
     // region Step 5
     val projectStep5State = projectProgress
         .map { getProjectState(5, it) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProjectWriteProgressState.STATE_IDLE)
+        .stateIn(viewModelScope, WhileViewSubscribed, ProjectWriteProgressState.STATE_IDLE)
 
     val projectBannerUrls = savedStateHandle.getStateFlow<List<String>>(KEY_PROJECT_WRITE_BANNER_URL, emptyList())
     private val projectRemoveBannerUrls = savedStateHandle.getStateFlow<List<String>>(KEY_PROJECT_WRITE_REMOVE_BANNER_URL, emptyList()) // 프로젝트 수정 시에만 사용됨
@@ -152,7 +153,7 @@ class ProjectWriteContainerViewModel @Inject constructor(
         Triple(projectIntroduction, leaderMainJob to leaderSubJob, recruitmentMembers)
     }.map { (editTextState, leaderCategory, members) ->
         editTextState.Success && leaderCategory.first != null && leaderCategory.second != null && members.isNotEmpty()
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }.stateIn(viewModelScope, WhileViewSubscribed, false)
     // endregion Step 5
 
     private val _navigateToMediaPicker = MutableEventFlow<Int>()

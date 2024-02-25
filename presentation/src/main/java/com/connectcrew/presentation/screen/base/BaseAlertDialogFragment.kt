@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import com.connectcrew.presentation.databinding.DialogLoadingBinding
+import com.connectcrew.presentation.util.MessageType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 abstract class BaseAlertDialogFragment<T : ViewDataBinding> : DialogFragment() {
@@ -57,6 +58,13 @@ abstract class BaseAlertDialogFragment<T : ViewDataBinding> : DialogFragment() {
     fun hideLoadingDialog() {
         if (loadingDialog.isShowing) {
             loadingDialog.dismiss()
+        }
+    }
+
+    fun showToast(toastType: MessageType) {
+        when (toastType) {
+            is MessageType.ResourceType -> showToast(toastType.message)
+            is MessageType.ValueType -> showToast(toastType.message)
         }
     }
 

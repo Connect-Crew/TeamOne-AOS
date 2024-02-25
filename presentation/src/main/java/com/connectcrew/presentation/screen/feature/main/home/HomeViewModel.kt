@@ -19,6 +19,7 @@ import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.model.project.ProjectFeed
 import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.delegate.ProjectFeedUpdateActionFlow
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
@@ -55,7 +56,7 @@ class HomeViewModel @Inject constructor(
     val projectCategoryItems = createProjectCategoryFlow()
         .combine(selectedCategory, ::Pair)
         .map { (category, selectedItem) -> category.map { it.copy(isSelected = selectedItem == it.category) } }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .stateIn(viewModelScope, WhileViewSubscribed, emptyList())
 
     private var _projectFeeds: Flow<PagingData<ProjectFeed>> = combine(loadDataSignal, selectedCategory, ::Pair)
         .flatMapLatest { (_, category) -> getProjectFeedsUseCase(GetProjectFeedsUseCase.Params(part = category.type)) }

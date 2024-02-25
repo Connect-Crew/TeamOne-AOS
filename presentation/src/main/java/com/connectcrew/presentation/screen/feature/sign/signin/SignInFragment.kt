@@ -111,12 +111,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(R.layout.fragment_sig
             }
 
             launch {
-                signInViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
-
-            launch {
                 signInViewModel.message.collect {
                     showToast(it)
                 }

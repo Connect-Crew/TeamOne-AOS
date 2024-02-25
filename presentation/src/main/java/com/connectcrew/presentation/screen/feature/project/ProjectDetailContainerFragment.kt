@@ -176,12 +176,6 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
                     showToast(it)
                 }
             }
-
-            launch {
-                projectDetailContainerViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
         }
     }
 

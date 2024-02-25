@@ -8,5 +8,5 @@
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.connectcrew.presentation.screen.feature.main.notification.NotificationFragment"
-        tools:layout="@layout/fragment_team_recrutment" />
+        tools:layout="@layout/fragment_notification" />
 </navigation>

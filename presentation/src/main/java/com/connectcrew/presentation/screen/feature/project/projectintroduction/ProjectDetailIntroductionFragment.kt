@@ -102,12 +102,6 @@ class ProjectDetailIntroductionFragment : BaseFragment<FragmentProjectDetailIntr
                     showToast(it)
                 }
             }
-
-            launch {
-                projectDetailIntroductionViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
         }
     }
 
