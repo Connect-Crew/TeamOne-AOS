@@ -15,11 +15,11 @@ import com.connectcrew.presentation.model.media.Album
 import com.connectcrew.presentation.model.media.Media
 import com.connectcrew.presentation.model.media.asItem
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
@@ -46,7 +46,7 @@ class MediaPickerViewModel @Inject constructor(
     private val _mediaAlbums = MutableStateFlow<List<Album>>(emptyList())
     val mediaAlbums: StateFlow<List<Album>> = _mediaAlbums
         .combine(selectedAlbum) { albums, selectedAlbum -> albums.map { it.copy(isSelected = it == selectedAlbum) } }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .stateIn(viewModelScope, WhileViewSubscribed, emptyList())
 
     val medias = selectedAlbum
         .filterNotNull()

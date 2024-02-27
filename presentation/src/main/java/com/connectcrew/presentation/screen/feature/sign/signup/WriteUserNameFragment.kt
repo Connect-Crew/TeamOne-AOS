@@ -78,12 +78,6 @@ class WriteUserNameFragment : BaseFragment<FragmentWriteUserNameBinding>(R.layou
                     showToast(it)
                 }
             }
-
-            launch {
-                signUpContainerViewModel.messageRes.collect {
-                    showToast(it)
-                }
-            }
         }
     }
 

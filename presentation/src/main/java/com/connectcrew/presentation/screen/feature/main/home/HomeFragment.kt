@@ -19,6 +19,7 @@ import com.connectcrew.presentation.adapter.home.project.HomeProjectFeedAdapter
 import com.connectcrew.presentation.databinding.FragmentHomeBinding
 import com.connectcrew.presentation.model.project.ProjectCategoryType
 import com.connectcrew.presentation.screen.base.BaseFragment
+import com.connectcrew.presentation.util.MessageType
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.listener.setOnMenuItemSingleClickListener
 import com.connectcrew.presentation.util.listener.setOnSingleClickListener
@@ -63,7 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         override fun handleOnBackPressed() {
             if (System.currentTimeMillis() > backPressedClickTime.plus(2000)) {
                 backPressedClickTime = System.currentTimeMillis()
-                showToast(R.string.back_pressed_description)
+                showToast(MessageType.ResourceType(R.string.back_pressed_description))
                 return
             } else {
                 if (!findNavController().navigateUp()) {
@@ -199,12 +200,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             launch {
                 homeViewModel.message.collect {
-                    showToast(it)
-                }
-            }
-
-            launch {
-                homeViewModel.messageRes.collect {
                     showToast(it)
                 }
             }

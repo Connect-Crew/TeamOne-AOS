@@ -7,10 +7,10 @@ import com.connectcrew.domain.util.ServerErrorException
 import com.connectcrew.domain.util.TeamOneException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.event.EventFlow
 import com.connectcrew.presentation.util.event.MutableEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -23,7 +23,7 @@ class IntroViewModel @Inject constructor(
 
     private val currentUserInfo = getUserInfoUseCase(Unit)
         .asResult()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ApiResult.Loading)
+        .stateIn(viewModelScope, WhileViewSubscribed, ApiResult.Loading)
 
     private val _navigateToHome = MutableEventFlow<Unit>()
     val navigateToHome: EventFlow<Unit> = _navigateToHome

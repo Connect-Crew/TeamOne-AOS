@@ -16,6 +16,7 @@ import com.connectcrew.presentation.model.project.asItem
 import com.connectcrew.presentation.model.project.toSummary
 import com.connectcrew.presentation.model.user.User
 import com.connectcrew.presentation.screen.base.BaseViewModel
+import com.connectcrew.presentation.util.WhileViewSubscribed
 import com.connectcrew.presentation.util.delegate.ProjectFeedViewModelDelegate
 import com.connectcrew.presentation.util.delegate.SignViewModelDelegate
 import com.connectcrew.presentation.util.event.EventFlow
@@ -64,7 +65,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
         ::Pair
     ).mapLatest { (userId, projectFeed) ->
         userId == projectFeed.leader.id
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+    }.stateIn(viewModelScope, WhileViewSubscribed, null)
 
     val projectFeedDetailUiState = projectFeedDetailResult
         .map {
@@ -74,7 +75,7 @@ class ProjectDetailIntroductionViewModel @Inject constructor(
                 is ApiResult.Error -> InitializerUiState.Error
             }
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), InitializerUiState.Loading)
+        .stateIn(viewModelScope, WhileViewSubscribed, InitializerUiState.Loading)
 
     private val _navigateToProjectEnrollDialog = MutableEventFlow<ProjectFeedDetail>()
     val navigateToProjectEnrollDialog: EventFlow<ProjectFeedDetail> = _navigateToProjectEnrollDialog

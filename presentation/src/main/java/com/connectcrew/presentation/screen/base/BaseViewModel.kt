@@ -3,6 +3,7 @@ package com.connectcrew.presentation.screen.base
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.connectcrew.presentation.util.MessageType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,11 +30,8 @@ open class BaseViewModel : ViewModel() {
     private val _swipeRefreshing = MutableStateFlow(false)
     val swipeRefreshing: StateFlow<Boolean> = _swipeRefreshing
 
-    private val _messageRes = MutableSharedFlow<Int>()
-    val messageRes: SharedFlow<Int> = _messageRes
-
-    private val _message = MutableSharedFlow<String>()
-    val message: SharedFlow<String> = _message
+    private val _message = MutableSharedFlow<MessageType>()
+    val message: SharedFlow<MessageType> = _message
 
     fun setLoading(isLoading: Boolean) {
         _loading.value = isLoading
@@ -54,13 +52,13 @@ open class BaseViewModel : ViewModel() {
 
     fun setMessage(@StringRes messageRes: Int) {
         viewModelScope.launch {
-            _messageRes.emit(messageRes)
+            _message.emit(MessageType.ResourceType(messageRes))
         }
     }
 
     fun setMessage(message: String) {
         viewModelScope.launch {
-            _message.emit(message)
+            _message.emit(MessageType.ValueType(message))
         }
     }
 
