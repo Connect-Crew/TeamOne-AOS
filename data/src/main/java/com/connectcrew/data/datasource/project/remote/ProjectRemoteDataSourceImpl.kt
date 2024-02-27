@@ -3,6 +3,7 @@ package com.connectcrew.data.datasource.project.remote
 import com.connectcrew.data.model.project.ProjectEnrollmentMember
 import com.connectcrew.data.model.project.ProjectEnrollmentPartMember
 import com.connectcrew.data.model.project.ProjectFeed
+import com.connectcrew.data.model.project.ProjectMember
 import com.connectcrew.data.model.project.RequestRecruitStatus
 import com.connectcrew.data.model.project.asEntity
 import com.connectcrew.data.service.ProjectApi
@@ -15,6 +16,7 @@ import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectMemberEntity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -239,6 +241,14 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
                     KEY_PROJECT_REPORT_REASON to reportReason
                 )
             )
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
+    override suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity> {
+        return try {
+            projectApi.getProjectMembers(projectId).map(ProjectMember::asEntity)
         } catch (e: Exception) {
             throw converterException(e)
         }

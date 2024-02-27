@@ -7,14 +7,15 @@ import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectMemberEntity
 
 internal interface ProjectRemoteDataSource {
 
     suspend fun getProjectInfo(): ProjectInfoContainerEntity
 
-    suspend fun gerProjectEnrollmentMembers(projectId: Long) : List<ProjectEnrollmentMemberEntity>
+    suspend fun gerProjectEnrollmentMembers(projectId: Long): List<ProjectEnrollmentMemberEntity>
 
-    suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey:String) : List<ProjectEnrollmentPartMemberEntity>
+    suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey: String): List<ProjectEnrollmentPartMemberEntity>
 
     suspend fun getProjectFeeds(
         lastId: Long?,
@@ -74,4 +75,6 @@ internal interface ProjectRemoteDataSource {
     suspend fun deleteProjectFeed(projectId: Long)
 
     suspend fun createProjectReport(projectId: Long, reportReason: String)
+
+    suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity>
 }

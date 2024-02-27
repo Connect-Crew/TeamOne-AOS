@@ -243,6 +243,17 @@
     <string name="project_detail_introduction_project_remove_description">삭제 전 한번 더 고민해보시기 바랍니다.</string>
 
     <string name="project_detail_member">팀원</string>
+    <string name="project_detail_member_leader_title">리더</string>
+    <string name="project_detail_member_part_title">역할</string>
+    <string name="project_detail_member_represent_project_title">대표 프로젝트</string>
+    <string name="project_detail_member_represent_projects_empty">대표 프로젝트가 아직 없습니다.</string>
+
+    <string name="project_detail_member_kick">내보내기</string>
+    <string name="project_detail_member_kick_title">%s 님을 내보내시겠습니까?</string>
+    <string name="project_detail_member_kick_description">팀원들과 상의 후 결정해주시기 바랍니다.</string>
+    <string name="project_detail_member_kick_reason_title">내보내는 사유를 알려주세요.</string>
+    <string name="project_detail_member_kick_reason_empty">내용을 입력해주세요.</string>
+
     <string name="project_detail_chat">채팅</string>
 
     <!-- Search -->

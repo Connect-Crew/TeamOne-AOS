@@ -6,7 +6,7 @@ import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
-import com.connectcrew.domain.usecase.project.entity.RecruitStatusEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectMemberEntity
 import com.connectcrew.domain.usecase.project.entity.RequestRecruitStatusEntity
 
 interface ProjectRepository {
@@ -15,7 +15,7 @@ interface ProjectRepository {
 
     suspend fun gerProjectEnrollmentMembers(projectId: Long): List<ProjectEnrollmentMemberEntity>
 
-    suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey:String) : List<ProjectEnrollmentPartMemberEntity>
+    suspend fun getProjectEnrollmentPartMembers(projectId: Long, partKey: String): List<ProjectEnrollmentPartMemberEntity>
 
     suspend fun getProjectFeeds(
         lastId: Long?,
@@ -75,4 +75,6 @@ interface ProjectRepository {
     suspend fun createProjectReport(projectId: Long, reportReason: String)
 
     suspend fun deleteProjectFeed(projectId: Long)
+
+    suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity>
 }

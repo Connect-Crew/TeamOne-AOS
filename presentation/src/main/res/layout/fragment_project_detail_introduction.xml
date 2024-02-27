@@ -131,8 +131,8 @@
         <include
             android:id="@+id/view_network_error"
             layout="@layout/layout_network_error"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:visibility="gone"
             app:isGone="@{viewModel.projectFeedDetailUiState != InitializerUiState.Error}"
             app:layout_constraintBottom_toBottomOf="parent"

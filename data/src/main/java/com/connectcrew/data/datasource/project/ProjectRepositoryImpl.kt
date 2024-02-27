@@ -9,6 +9,7 @@ import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedLikeInfoEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectInfoContainerEntity
+import com.connectcrew.domain.usecase.project.entity.ProjectMemberEntity
 import com.connectcrew.domain.usecase.project.entity.RequestRecruitStatusEntity
 import javax.inject.Inject
 
@@ -133,5 +134,9 @@ internal class ProjectRepositoryImpl @Inject constructor(
 
     override suspend fun deleteProjectFeed(projectId: Long) {
         return remoteDataSource.deleteProjectFeed(projectId)
+    }
+
+    override suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity> {
+        return remoteDataSource.getProjectMembers(projectId)
     }
 }
