@@ -14,8 +14,6 @@ data class User(
     val nickname: String,
     val profile: String?,
     val email: String?,
-    val temperature: Float,
-    val responseRate: Int,
     val introduction: String?,
     val parts: List<JobPart>,
     val representProjects: List<RepresentProject>
@@ -27,8 +25,6 @@ fun UserEntity.asItem(): User {
         nickname = nickname,
         profile = profile,
         email = email,
-        temperature = temperature,
-        responseRate = responseRate.toInt(),
         introduction = introduction,
         parts = parts.map(JobPartEntity::asItem),
         representProjects = representProjects.map(RepresentProjectEntity::asItem)

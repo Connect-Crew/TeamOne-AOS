@@ -82,7 +82,7 @@ class ProjectIntroductionLeaderViewHolder(
 
     fun bind(leaderUiModel: ProjectDetailIntroductionUiModel.ProjectDetailIntroductionLeaderUiModel) {
         binding.executeAfter {
-            this.leader = leaderUiModel.leaderInfo
+            leader = leaderUiModel.leaderInfo
             tvLeaderPart.text = leaderUiModel.leaderInfo.parts.firstOrNull()?.value
         }
     }

@@ -108,6 +108,16 @@
     <string name="home_empty_project">지원할 프로젝트가 없습니다.</string>
     <string name="home_new_project_feed">NEW</string>
 
+    <!-- MyPage -->
+    <string name="my_profile_menu_title">마이페이지</string>
+    <string name="my_profile_profile_title">나의 프로필</string>
+    <string name="my_profile_project_title">나의 프로젝트</string>
+    <string name="my_profile_represent_project_title">대표 프로젝트</string>
+    <string name="my_profile_project_apply_list">나의 지원 현황</string>
+    <string name="my_profile_project_favorite_list">관심 프로젝트</string>
+    <string name="my_profile_setting">설정</string>
+    <string name="my_profile_cs">고객센터</string>
+
     <!-- Summary Recruitment Notice   -->
     <string name="summary_recruitment_notice_title">모집현황</string>
     <string name="summary_recruitment_notice_detail">상세보기</string>

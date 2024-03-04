@@ -34,7 +34,7 @@ class ProjectDetailMemberViewModel @Inject constructor(
 
     val projectId = savedStateHandle.getStateFlow<Long?>(KEY_PROJECT_ID, null)
 
-    val isProjectLeader = savedStateHandle.getStateFlow<Boolean?>(KEY_IS_PROJECT_LEADER, null)
+    private val isProjectLeader = savedStateHandle.getStateFlow<Boolean?>(KEY_IS_PROJECT_LEADER, null)
 
     private val projectMembersResult = combine(loadDataSignal, projectId, ::Pair)
         .filter { it.second != null }
@@ -59,14 +59,11 @@ class ProjectDetailMemberViewModel @Inject constructor(
     private val _projectMembers = MutableStateFlow<List<ProjectMember>>(emptyList())
     val projectMembers: StateFlow<List<ProjectMember>> = _projectMembers
 
-    val _navigateToMemberProfile = MutableEventFlow<ProjectMember>()
+    private val _navigateToMemberProfile = MutableEventFlow<ProjectMember>()
     val navigateToMemberProfile: EventFlow<ProjectMember> = _navigateToMemberProfile
 
-    val _navigateToMemberKickDialog = MutableEventFlow<ProjectMember>()
+    private val _navigateToMemberKickDialog = MutableEventFlow<ProjectMember>()
     val navigateToMemberKickDialog: EventFlow<ProjectMember> = _navigateToMemberKickDialog
-
-    val _navigateToMemberRepresentProject = MutableEventFlow<Long>()
-    val navigateToMemberRepresentProject: EventFlow<Long> = _navigateToMemberRepresentProject
 
     fun setProjectId(projectId: Long) {
         savedStateHandle.set(KEY_PROJECT_ID, projectId)
@@ -86,12 +83,6 @@ class ProjectDetailMemberViewModel @Inject constructor(
     fun navigateToMemberKickDialog(member: ProjectMember) {
         viewModelScope.launch {
             _navigateToMemberKickDialog.emit(member)
-        }
-    }
-
-    fun navigateToMemberRepresentProject(projectId: Long) {
-        viewModelScope.launch {
-            _navigateToMemberRepresentProject.emit(projectId)
         }
     }
 

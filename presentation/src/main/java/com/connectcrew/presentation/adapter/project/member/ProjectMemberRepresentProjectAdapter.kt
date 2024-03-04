@@ -8,11 +8,8 @@ import com.connectcrew.presentation.R
 import com.connectcrew.presentation.databinding.ItemMemberRepresentProjectBinding
 import com.connectcrew.presentation.model.project.RepresentProject
 import com.connectcrew.presentation.util.executeAfter
-import com.connectcrew.presentation.util.listener.setOnSingleClickListener
 
-class ProjectMemberRepresentProjectAdapter(
-    private val onClickRepresentProject: (Long) -> Unit
-) : ListAdapter<RepresentProject, ProjectMemberRepresentProjectViewholder>(
+class ProjectMemberRepresentProjectAdapter : ListAdapter<RepresentProject, ProjectMemberRepresentProjectViewholder>(
     object : DiffUtil.ItemCallback<RepresentProject>() {
         override fun areItemsTheSame(oldItem: RepresentProject, newItem: RepresentProject): Boolean {
             return oldItem.id == newItem.id
@@ -32,7 +29,6 @@ class ProjectMemberRepresentProjectAdapter(
         val data = getItem(position) ?: return
         holder.binding.executeAfter {
             thumbnail = data.thumbnailUrl
-            ivMemberRepresentProject.setOnSingleClickListener { onClickRepresentProject(data.id.toLong()) }
         }
     }
 

@@ -2,6 +2,7 @@ package com.connectcrew.presentation.screen.feature.project.projectmember
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.connectcrew.presentation.R
@@ -20,13 +21,12 @@ class ProjectDetailMemberFragment : BaseFragment<FragmentProjectDetailMemberBind
 
     private val projectDetailContainerViewModel: ProjectDetailContainerViewModel by hiltNavGraphViewModels(R.id.nav_project_detail)
 
-    private val projectDetailMemberViewModel: ProjectDetailMemberViewModel by hiltNavGraphViewModels(R.id.nav_project_detail)
+    private val projectDetailMemberViewModel: ProjectDetailMemberViewModel by viewModels()
 
     private val projectMemberAdapter: ProjectMemberAdapter by lazy {
         ProjectMemberAdapter(
             onClickKickMember = projectDetailMemberViewModel::navigateToMemberKickDialog,
-            onClickMemberProfile = projectDetailMemberViewModel::navigateToMemberProfile,
-            onClickRepresentProject = projectDetailMemberViewModel::navigateToMemberRepresentProject
+            onClickMemberProfile = projectDetailMemberViewModel::navigateToMemberProfile
         )
     }
 
@@ -58,14 +58,28 @@ class ProjectDetailMemberFragment : BaseFragment<FragmentProjectDetailMemberBind
                     projectDetailMemberViewModel.setProjectId(it)
                 }
             }
+
             launch {
                 projectDetailContainerViewModel.isProjectLeader.filterNotNull().collect {
                     projectDetailMemberViewModel.setProjectLeader(it)
                 }
             }
+
             launch {
                 projectDetailMemberViewModel.projectMembers.collect {
                     projectMemberAdapter.submitList(it)
+                }
+            }
+
+            launch {
+                projectDetailMemberViewModel.navigateToMemberProfile.collect {
+                    //::TODO 상대방 프로필 화면으로 이동
+                }
+            }
+
+            launch {
+                projectDetailMemberViewModel.navigateToMemberKickDialog.collect {
+                    //::TODO 내보내기 다이얼로그 이동
                 }
             }
         }
