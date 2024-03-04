@@ -15,7 +15,6 @@ import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 class ProjectMemberAdapter(
     private val onClickMemberProfile: (ProjectMember) -> Unit,
     private val onClickKickMember: (ProjectMember) -> Unit,
-    private val onClickRepresentProject: (Long) -> Unit
 ) : ListAdapter<ProjectMember, ProjectMemberViewHolder>(
     object : DiffUtil.ItemCallback<ProjectMember>() {
         override fun areItemsTheSame(oldItem: ProjectMember, newItem: ProjectMember): Boolean {
@@ -27,9 +26,17 @@ class ProjectMemberAdapter(
         }
     }
 ) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectMemberViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ProjectMemberViewHolder(ItemProjectMemberBinding.inflate(inflater, parent, false))
+        return ProjectMemberViewHolder(ItemProjectMemberBinding.inflate(inflater, parent, false)).apply {
+            binding.rvMemberRepresentProjects.apply {
+                adapter = ProjectMemberRepresentProjectAdapter()
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                addItemDecoration(RecyclerviewItemDecoration(0, 0, 8, 8, R.layout.item_member_represent_project))
+                setHasFixedSize(true)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ProjectMemberViewHolder, position: Int) {
@@ -37,17 +44,9 @@ class ProjectMemberAdapter(
 
         holder.binding.executeAfter {
             member = data
-
-            tvMemberPart.text = data.parts.joinToString(",")
-
-            with(rvMemberRepresentProjects) {
-                adapter = ProjectMemberRepresentProjectAdapter(onClickRepresentProject).apply { submitList(data.profile.representProjects) }
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                addItemDecoration(RecyclerviewItemDecoration(0, 0, 8, 8, R.layout.item_member_represent_project))
-                setHasFixedSize(true)
-            }
-
-            ivNavigateProfile.setOnSingleClickListener { onClickMemberProfile(data) }
+            tvMemberPart.text = data.parts.joinToString(", ")
+            (rvMemberRepresentProjects.adapter as ProjectMemberRepresentProjectAdapter).submitList(data.profile.representProjects)
+            root.setOnSingleClickListener { onClickMemberProfile(data) }
             btnMemberKick.setOnSingleClickListener { onClickKickMember(data) }
         }
     }

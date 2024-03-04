@@ -8,8 +8,6 @@ data class UserEntity(
     val nickname: String,
     val profile: String?,
     val email: String?,
-    val temperature: Float,
-    val responseRate: Float,
     val introduction: String?,
     val parts: List<JobPartEntity>,
     val representProjects: List<RepresentProjectEntity>

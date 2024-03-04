@@ -68,7 +68,7 @@
                 android:textColor="@color/color_d62246"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@id/tv_leader_name"
-                app:layout_constraintEnd_toStartOf="@id/fl_leader_response"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/tv_leader_name"
                 app:layout_constraintTop_toTopOf="@id/tv_leader_name" />
@@ -85,53 +85,11 @@
                 android:textColor="@color/color_616161"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@id/iv_profile_url"
-                app:layout_constraintEnd_toStartOf="@id/fl_leader_response"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/iv_profile_url"
                 app:layout_constraintTop_toBottomOf="@id/tv_leader_name"
                 tools:text="안드로이드 개발" />
-
-            <FrameLayout
-                android:id="@+id/fl_leader_response"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginBottom="2dp"
-                app:layout_constraintBottom_toTopOf="@id/tv_leader_response"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="@id/tv_leader_response"
-                app:layout_constraintStart_toStartOf="@id/tv_leader_response"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="2dp"
-                    app:shapeAppearance="?shapeAppearanceLargeComponent"
-                    app:strokeColor="@color/color_00aee4"
-                    app:strokeWidth="1dp" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_coffee" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_leader_response"
-                style="@style/Widget.TeamOne.TextView.Caption2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{@string/project_detail_introduction_leader_response(leader.responseRate)}"
-                android:textColor="@color/color_00aee4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/tv_leader_part"
-                tools:text="리더응답률" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -21,10 +21,6 @@ internal data class User(
     val profile: String?,
     @Json(name = "email")
     val email: String?,
-    @Json(name = "temperature")
-    val temperature: Float,
-    @Json(name = "responseRate")
-    val responseRate: Float,
     @Json(name = "introduction")
     val introduction: String?,
     @Json(name = "parts")
@@ -59,8 +55,6 @@ internal fun User.asEntity(): UserEntity {
         nickname = nickname,
         profile = profile,
         email = email,
-        temperature = temperature,
-        responseRate = responseRate,
         introduction = introduction,
         parts = parts?.map(JobPart::asEntity) ?: emptyList(),
         representProjects = representProjects?.map { it.asEntity() } ?: emptyList()
@@ -82,8 +76,6 @@ internal fun UserEntity.asExternalModel(): User {
         nickname = nickname,
         profile = profile,
         email = email,
-        temperature = temperature,
-        responseRate = responseRate,
         introduction = introduction,
         parts = parts.map(JobPartEntity::asExternalModel),
         representProjects = representProjects.map { it.asExternalModel() }
