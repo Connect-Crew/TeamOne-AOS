@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.adapter.project.member.ProjectMemberAdapter
 import com.connectcrew.presentation.databinding.FragmentProjectDetailMemberBinding
 import com.connectcrew.presentation.screen.base.BaseFragment
+import com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerFragmentDirections
 import com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerViewModel
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
+import com.connectcrew.presentation.util.safeNavigate
+import com.connectcrew.presentation.util.view.createAlert
+import com.connectcrew.presentation.util.view.dialogViewBuilder
 import com.connectcrew.presentation.util.widget.RecyclerviewItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
@@ -66,20 +71,41 @@ class ProjectDetailMemberFragment : BaseFragment<FragmentProjectDetailMemberBind
             }
 
             launch {
+                projectDetailContainerViewModel.invalidateProjectDetail.collect {
+                    projectDetailMemberViewModel.onRefresh()
+                }
+            }
+
+            launch {
                 projectDetailMemberViewModel.projectMembers.collect {
                     projectMemberAdapter.submitList(it)
                 }
             }
 
             launch {
-                projectDetailMemberViewModel.navigateToMemberProfile.collect {
-                    //::TODO 상대방 프로필 화면으로 이동
+                projectDetailMemberViewModel.navigateToMemberKickDialog.collect { member ->
+                    createAlert(requireContext())
+                        .dialogViewBuilder(
+                            titleRes = R.string.project_detail_member_kick_title,
+                            titleResArg = member.profile.nickname,
+                            descriptionRes = R.string.project_detail_member_kick_description,
+                            positiveButtonTextRes = R.string.project_detail_member_kick,
+                            iconTint = R.color.color_d62246,
+                            iconDrawableRes = R.drawable.ic_warning,
+                            onClickPositiveButton = { projectDetailMemberViewModel.navigateToMemberKickReasonDialog(member) }
+                        ).show()
                 }
             }
 
             launch {
-                projectDetailMemberViewModel.navigateToMemberKickDialog.collect {
-                    //::TODO 내보내기 다이얼로그 이동
+                projectDetailMemberViewModel.navigateToMemberKickReasonDialog.collect { (projectId, memberId) ->
+                    findNavController().safeNavigate(ProjectDetailContainerFragmentDirections.actionProjectDetailContainerFragmentToProjectMemberKickReasonDialog(projectId, memberId))
+                }
+            }
+
+            launch {
+                projectDetailMemberViewModel.navigateToMemberProfile.collect { memberId ->
+                    //::TODO 상대방 프로필 화면으로 이동
                 }
             }
         }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetProjectInfoUseCase @Inject constructor(
     private val projectRepository: ProjectRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<Unit, ProjectInfoContainerEntity>(ioDispatcher) {
 
     override fun execute(params: Unit): Flow<ProjectInfoContainerEntity> = flow {

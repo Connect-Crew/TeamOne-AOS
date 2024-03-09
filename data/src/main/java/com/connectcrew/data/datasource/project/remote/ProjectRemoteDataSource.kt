@@ -1,5 +1,6 @@
 package com.connectcrew.data.datasource.project.remote
 
+import com.connectcrew.data.model.project.KickReason
 import com.connectcrew.data.model.project.RequestRecruitStatus
 import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentPartMemberEntity
@@ -77,4 +78,10 @@ internal interface ProjectRemoteDataSource {
     suspend fun createProjectReport(projectId: Long, reportReason: String)
 
     suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity>
+
+    suspend fun kickProjectMember(
+        projectId: Long,
+        userId: Int,
+        reasons: List<KickReason>
+    ): ProjectMemberEntity
 }

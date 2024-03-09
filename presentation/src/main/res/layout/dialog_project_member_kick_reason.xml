@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.model.project.KickReasonType" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.project.projectmember.ProjectMemberKickReasonViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_kick_title"
+            style="@style/Widget.TeamOne.TextView.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/project_detail_member_kick_reason_title"
+            android:textColor="@color/color_424242"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_kick_reason_abuse"
+            style="@style/Widget.TeamOne.ColoredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:onCheckedChanged="@{(checkbox, isChecked) -> viewModel.onChangeCheckReason(KickReasonType.TYPE_ABUSE, isChecked) }"
+            android:paddingStart="10dp"
+            android:text="@string/project_member_kick_reason_abuse"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@{viewModel.kickReason.contains(KickReasonType.TYPE_ABUSE) ? @color/color_00aee4 : @color/color_616161}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_kick_title"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_kick_reason_bad_participation"
+            style="@style/Widget.TeamOne.ColoredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:onCheckedChanged="@{(checkbox, isChecked) -> viewModel.onChangeCheckReason(KickReasonType.TYPE_BAD_PARTICIPATION, isChecked)}"
+            android:paddingStart="10dp"
+            android:text="@string/project_member_kick_reason_bad_participation"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@{viewModel.kickReason.contains(KickReasonType.TYPE_BAD_PARTICIPATION) ? @color/color_00aee4 : @color/color_616161}"
+            app:layout_constraintStart_toStartOf="@id/cb_kick_reason_abuse"
+            app:layout_constraintTop_toBottomOf="@id/cb_kick_reason_abuse"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_kick_reason_dissension"
+            style="@style/Widget.TeamOne.ColoredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onCheckedChanged="@{(checkbox, isChecked) -> viewModel.onChangeCheckReason(KickReasonType.TYPE_DISSENSION , isChecked)}"
+            android:paddingStart="10dp"
+            android:text="@string/project_member_kick_reason_dissension"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@{viewModel.kickReason.contains(KickReasonType.TYPE_DISSENSION) ? @color/color_00aee4 : @color/color_616161}"
+            app:layout_constraintStart_toStartOf="@id/cb_kick_reason_abuse"
+            app:layout_constraintTop_toBottomOf="@id/cb_kick_reason_bad_participation"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_kick_reason_given_up"
+            style="@style/Widget.TeamOne.ColoredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onCheckedChanged="@{(checkbox, isChecked) -> viewModel.onChangeCheckReason(KickReasonType.TYPE_GIVEN_UP, isChecked)}"
+            android:paddingStart="10dp"
+            android:text="@string/project_member_kick_reason_given_up"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@{viewModel.kickReason.contains(KickReasonType.TYPE_GIVEN_UP) ? @color/color_00aee4 : @color/color_616161}"
+            app:layout_constraintStart_toStartOf="@id/cb_kick_reason_abuse"
+            app:layout_constraintTop_toBottomOf="@id/cb_kick_reason_dissension"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_kick_reason_obscenity"
+            style="@style/Widget.TeamOne.ColoredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onCheckedChanged="@{(checkbox, isChecked) -> viewModel.onChangeCheckReason(KickReasonType.TYPE_OBSCENITY, isChecked)}"
+            android:paddingStart="10dp"
+            android:text="@string/project_member_kick_reason_obscenity"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@{viewModel.kickReason.contains(KickReasonType.TYPE_OBSCENITY) ? @color/color_00aee4 : @color/color_616161}"
+            app:layout_constraintStart_toStartOf="@id/cb_kick_reason_abuse"
+            app:layout_constraintTop_toBottomOf="@id/cb_kick_reason_given_up"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cb_kick_reason_etc"
+            style="@style/Widget.TeamOne.ColoredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingStart="10dp"
+            android:text="@string/project_member_kick_reason_etc"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@color/color_616161"
+            app:layout_constraintStart_toStartOf="@id/cb_kick_reason_abuse"
+            app:layout_constraintTop_toBottomOf="@id/cb_kick_reason_obscenity"
+            tools:ignore="RtlSymmetry" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_kick_reason_etc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cb_kick_reason_etc"
+            app:layout_constraintTop_toTopOf="@id/cb_kick_reason_etc">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_kick_reason_etc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/color_d62246"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:paddingStart="0dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="4dp"
+                android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                android:textColor="@color/color_9e9e9e"
+                tools:ignore="RtlSymmetry"
+                tools:text="마음에 안들어요." />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="iv_warning, tv_warning" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_warning_circle"
+            app:layout_constraintStart_toStartOf="@id/til_kick_reason_etc"
+            app:layout_constraintTop_toBottomOf="@id/til_kick_reason_etc"
+            app:tint="@color/color_d62246" />
+
+        <TextView
+            android:id="@+id/tv_warning"
+            style="@style/Widget.TeamOne.TextView.Caption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/project_detail_member_kick_reason_empty"
+            android:textColor="@color/color_d62246"
+            app:layout_constraintBottom_toBottomOf="@id/iv_warning"
+            app:layout_constraintStart_toEndOf="@id/iv_warning"
+            app:layout_constraintTop_toTopOf="@id/iv_warning" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.TeamOne.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/color_eeeeee"
+            android:text="@string/common_cancel"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@color/color_616161"
+            app:cornerRadius="0dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_confirm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_warning"  />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_confirm"
+            style="@style/Widget.TeamOne.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:enabled="@{!viewModel.kickReason.empty}"
+            android:text="@string/project_detail_member_kick"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            app:cornerRadius="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_cancel"
+            app:layout_constraintTop_toTopOf="@id/btn_cancel"
+            app:onSingleClick="@{() -> viewModel.kickProjectMember()}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

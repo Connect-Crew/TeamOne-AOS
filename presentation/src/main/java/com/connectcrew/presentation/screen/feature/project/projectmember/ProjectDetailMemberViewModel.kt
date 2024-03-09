@@ -65,6 +65,9 @@ class ProjectDetailMemberViewModel @Inject constructor(
     private val _navigateToMemberKickDialog = MutableEventFlow<ProjectMember>()
     val navigateToMemberKickDialog: EventFlow<ProjectMember> = _navigateToMemberKickDialog
 
+    private val _navigateToMemberKickReasonDialog = MutableEventFlow<Pair<Long, Int>>()
+    val navigateToMemberKickReasonDialog: EventFlow<Pair<Long, Int>> = _navigateToMemberKickReasonDialog
+
     fun setProjectId(projectId: Long) {
         savedStateHandle.set(KEY_PROJECT_ID, projectId)
     }
@@ -83,6 +86,12 @@ class ProjectDetailMemberViewModel @Inject constructor(
     fun navigateToMemberKickDialog(member: ProjectMember) {
         viewModelScope.launch {
             _navigateToMemberKickDialog.emit(member)
+        }
+    }
+
+    fun navigateToMemberKickReasonDialog(member: ProjectMember) {
+        viewModelScope.launch {
+            projectId.value?.let { _navigateToMemberKickReasonDialog.emit(Pair(it, member.profile.id)) }
         }
     }
 

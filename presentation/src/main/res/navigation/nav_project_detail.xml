@@ -33,9 +33,14 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
         <action
             android:id="@+id/action_projectDetailContainerFragment_to_projectEnrollmentsFragment"
             app:destination="@id/projectEnrollmentsFragment" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectMemberKickReasonDialog"
+            app:destination="@id/projectMemberKickReasonDialog" />
     </fragment>
 
     <dialog
@@ -145,6 +150,21 @@
 
         <argument
             android:name="apply_id"
+            app:argType="integer" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/projectMemberKickReasonDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectmember.ProjectMemberKickReasonDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_project_member_kick_reason">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <argument
+            android:name="member_id"
             app:argType="integer" />
     </dialog>
 </navigation>
