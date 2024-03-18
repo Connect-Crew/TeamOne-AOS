@@ -263,6 +263,15 @@
     <string name="project_detail_member_kick_description">팀원들과 상의 후 결정해주시기 바랍니다.</string>
     <string name="project_detail_member_kick_reason_title">내보내는 사유를 알려주세요.</string>
     <string name="project_detail_member_kick_reason_empty">내용을 입력해주세요.</string>
+    <string name="project_member_kick_reason_abuse">욕설/비하발언</string>
+    <string name="project_member_kick_reason_bad_participation">참여율 저조\n(응답률, 접속률, 투표 진행 등)</string>
+    <string name="project_member_kick_reason_dissension">팀원과의 불화</string>
+    <string name="project_member_kick_reason_given_up">자진 중도 포기</string>
+    <string name="project_member_kick_reason_obscenity">19+ 음란성, 만남 유도</string>
+    <string name="project_member_kick_reason_etc">기타</string>
+
+    <string name="project_detail_member_kick_completed">내보내기가 완료되었습니다.</string>
+    <string name="project_detail_member_kick_completed_description">소중한 의견 감사합니다.</string>
 
     <string name="project_detail_chat">채팅</string>
 

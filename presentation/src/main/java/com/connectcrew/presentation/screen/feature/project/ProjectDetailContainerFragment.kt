@@ -23,6 +23,7 @@ import com.connectcrew.presentation.screen.base.BaseFragment
 import com.connectcrew.presentation.screen.feature.project.projectchat.ProjectDetailChatFragment
 import com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectDetailIntroductionFragment
 import com.connectcrew.presentation.screen.feature.project.projectmember.ProjectDetailMemberFragment
+import com.connectcrew.presentation.util.Const.KEY_IS_MEMBER_KICKED
 import com.connectcrew.presentation.util.Const.KEY_IS_PROJECT_UPDATE
 import com.connectcrew.presentation.util.launchAndRepeatWithViewLifecycle
 import com.connectcrew.presentation.util.safeNavigate
@@ -184,10 +185,11 @@ class ProjectDetailContainerFragment : BaseFragment<FragmentProjectDetailContain
 
         val resultObserver = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
-                if (!navBackStackEntry.savedStateHandle.contains(KEY_IS_PROJECT_UPDATE)) return@LifecycleEventObserver
-                val isUpdate: Boolean = navBackStackEntry.savedStateHandle[KEY_IS_PROJECT_UPDATE] ?: false
+                if (!navBackStackEntry.savedStateHandle.contains(KEY_IS_PROJECT_UPDATE) && !navBackStackEntry.savedStateHandle.contains(KEY_IS_MEMBER_KICKED)) return@LifecycleEventObserver
+                val isUpdate: Boolean = (navBackStackEntry.savedStateHandle[KEY_IS_PROJECT_UPDATE] ?: false) || (navBackStackEntry.savedStateHandle[KEY_IS_MEMBER_KICKED] ?: false)
                 if (isUpdate) projectDetailContainerViewModel.invalidateProjectDetail()
                 navBackStackEntry.savedStateHandle.remove<Boolean>(KEY_IS_PROJECT_UPDATE)
+                navBackStackEntry.savedStateHandle.remove<Boolean>(KEY_IS_MEMBER_KICKED)
             }
         }
 

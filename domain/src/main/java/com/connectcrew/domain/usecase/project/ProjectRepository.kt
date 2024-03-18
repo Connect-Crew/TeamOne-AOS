@@ -1,5 +1,6 @@
 package com.connectcrew.domain.usecase.project
 
+import com.connectcrew.domain.usecase.project.entity.KickReasonEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentPartMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
@@ -77,4 +78,6 @@ interface ProjectRepository {
     suspend fun deleteProjectFeed(projectId: Long)
 
     suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity>
+
+    suspend fun kickProjectMember(projectId: Long, userId: Int, reasons: List<KickReasonEntity>): ProjectMemberEntity
 }

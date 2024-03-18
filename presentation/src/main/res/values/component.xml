@@ -162,5 +162,12 @@
         <item name="buttonIconTint">@drawable/selected_checkbox</item>
     </style>
 
+    <style name="Widget.TeamOne.ColoredCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:buttonTintMode">multiply</item>
+        <item name="buttonCompat">@drawable/selected_checkbox_colored</item>
+        <item name="buttonIconTint">@drawable/selected_checkbox_colored</item>
+    </style>
     <!-- endregion CheckBox -->
 </resources>

@@ -1,5 +1,6 @@
 package com.connectcrew.data.datasource.project.remote
 
+import com.connectcrew.data.model.project.KickReason
 import com.connectcrew.data.model.project.ProjectEnrollmentMember
 import com.connectcrew.data.model.project.ProjectEnrollmentPartMember
 import com.connectcrew.data.model.project.ProjectFeed
@@ -254,6 +255,21 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         }
     }
 
+//    ::TODO API 수정 이후 변경
+    override suspend fun kickProjectMember(projectId: Long, userId: Int, reasons: List<KickReason>): ProjectMemberEntity {
+        return try {
+            projectApi.kickProjectMember(
+                params = mapOf(
+                    "project" to projectId,
+                    KEY_USER_ID to userId,
+                    KEY_PROJECT_MEMBER_KICK_REASONS to reasons
+                )
+            ).asEntity()
+        } catch (e: Exception) {
+            throw converterException(e)
+        }
+    }
+
     companion object {
         private const val KEY_PROJECT_ID = "projectId"
         private const val KEY_PROJECT_ENROLLMENT_PART = "part"
@@ -261,5 +277,7 @@ internal class ProjectRemoteDataSourceImpl @Inject constructor(
         private const val KEY_PROJECT_REPORT_REASON = "reason"
         private const val KEY_PROJECT_BANNER = "banner"
         private const val KEY_PROJECT_CONTACT = "contact"
+        private const val KEY_USER_ID = "userId"
+        private const val KEY_PROJECT_MEMBER_KICK_REASONS = "reasons"
     }
 }

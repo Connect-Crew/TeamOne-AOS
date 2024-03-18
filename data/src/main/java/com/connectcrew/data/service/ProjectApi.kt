@@ -106,4 +106,7 @@ internal interface ProjectApi {
 
     @GET("project/members/{projectId}")
     suspend fun getProjectMembers(@Path("projectId") projectId: Long): List<ProjectMember>
+
+    @POST("project/kick")
+    suspend fun kickProjectMember(@Body params: Any): ProjectMember
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetProjectEnrollmentMembersUseCase @Inject constructor(
     private val projectRepository: ProjectRepository,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+    @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) : FlowUseCase<GetProjectEnrollmentMembersUseCase.Params, List<ProjectEnrollmentMemberEntity>>(ioDispatcher) {
 
     override fun execute(params: Params): Flow<List<ProjectEnrollmentMemberEntity>> = flow {

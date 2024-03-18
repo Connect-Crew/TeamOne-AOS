@@ -122,6 +122,7 @@ class ProjectDetailContainerViewModel @Inject constructor(
                         is ApiResult.Success -> {
                             _navigateToProjectReportCompletedDialog.emit(Unit)
                         }
+
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
                             is TeamOneException -> setMessage(it.exception.message.toString())
@@ -138,12 +139,13 @@ class ProjectDetailContainerViewModel @Inject constructor(
                 .asResult()
                 .onEach { setLoading(it is ApiResult.Loading) }
                 .collect {
-                    when(it) {
+                    when (it) {
                         is ApiResult.Loading -> return@collect
                         is ApiResult.Success -> {
                             deleteProjectFeedAction(projectFeedDetail?.toSummary(), ZonedDateTime.now())
                             _navigateToBack.emit(Unit)
                         }
+
                         is ApiResult.Error -> when (it.exception) {
                             is IOException -> setMessage(R.string.network_error)
                             is TeamOneException -> setMessage(it.exception.message.toString())

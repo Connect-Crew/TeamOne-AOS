@@ -3,6 +3,7 @@ package com.connectcrew.data.datasource.project
 import com.connectcrew.data.datasource.project.remote.ProjectRemoteDataSource
 import com.connectcrew.data.model.project.asExternalModel
 import com.connectcrew.domain.usecase.project.ProjectRepository
+import com.connectcrew.domain.usecase.project.entity.KickReasonEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectEnrollmentPartMemberEntity
 import com.connectcrew.domain.usecase.project.entity.ProjectFeedDetailEntity
@@ -138,5 +139,13 @@ internal class ProjectRepositoryImpl @Inject constructor(
 
     override suspend fun getProjectMembers(projectId: Long): List<ProjectMemberEntity> {
         return remoteDataSource.getProjectMembers(projectId)
+    }
+
+    override suspend fun kickProjectMember(projectId: Long, userId: Int, reasons: List<KickReasonEntity>): ProjectMemberEntity {
+        return remoteDataSource.kickProjectMember(
+            projectId = projectId,
+            userId = userId,
+            reasons = reasons.map(KickReasonEntity::asExternalModel)
+        )
     }
 }
