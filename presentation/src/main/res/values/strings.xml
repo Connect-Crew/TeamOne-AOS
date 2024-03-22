@@ -18,6 +18,7 @@
     <string name="common_pass">승인</string>
     <string name="common_reject">거절</string>
     <string name="common_empty_view">페이지 준비중입니다.</string>
+    <string name="submit">전송하기</string>
 
     <!-- Common Error -->
     <string name="network_error_title">접속 실패</string>
@@ -100,7 +101,6 @@
 
     <!-- Home -->
     <string name="home_menu_title">모집</string>
-    <string name="home_menu_notification">알림</string>
     <string name="home_menu_filter">필터</string>
     <string name="home_menu_search">검색</string>
     <string name="home_banner_title">프로젝트 구경하러 가기 (준비 중)</string>
@@ -274,6 +274,13 @@
     <string name="project_detail_member_kick_completed_description">소중한 의견 감사합니다.</string>
 
     <string name="project_detail_chat">채팅</string>
+
+    <!-- Notification Menu-->
+    <string name="notification_title">알림</string>
+    <string name="notification_message_empty">받은 알림이 없어요.</string>
+    <string name="notification_menu_feedback">피드백</string>
+    <string name="notification_menu_feedback_hint">팀원(TEAM no.1)의 배려있는 문화 만들기에 동참해주세요. (최대 1,000자 입력 가능합니다.)</string>
+    <string name="notification_menu_feedback_title">팀원(TEAM no.1)에게 바랍니다.</string>
 
     <!-- Search -->
     <string name="search_history_title">최근 검색</string>
