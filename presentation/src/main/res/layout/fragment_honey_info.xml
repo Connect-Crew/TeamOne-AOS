@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.feature.mypage.HoneyGradeInfoFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_project_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tl_project_container"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow"
+                app:title="@string/honey_grade_info_title" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="24dp"
+                android:paddingHorizontal="24dp">
+
+                <ImageView
+                    android:id="@+id/iv_bee_charactor"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_bee_title"
+                    style="@style/Widget.TeamOne.TextView.Title1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:lineHeight="25sp"
+                    android:text="@string/honey_grade_info_bee_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_bee_charactor" />
+
+                <TextView
+                    android:id="@+id/tv_bee_description"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/honey_grade_info_bee_description"
+                    android:textColor="@color/color_9e9e9e"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bee_title" />
+
+                <TextView
+                    android:id="@+id/tv_grade_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52dp"
+                    android:text="@string/honey_grade_info_grade_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bee_description" />
+
+                <ImageView
+                    android:id="@+id/iv_grade"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="center"
+                    android:src="@drawable/img_honey_grade"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_grade_title" />
+
+                <TextView
+                    android:id="@+id/tv_grade_change_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:text="@string/honey_grade_info_grade_change_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_grade" />
+
+                <ImageView
+                    android:id="@+id/iv_grade_change"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    android:src="@drawable/img_change_grade"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_grade_change_title" />
+
+                <TextView
+                    android:id="@+id/tv_policy_title"
+                    style="@style/Widget.TeamOne.TextView.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:text="@string/honey_grade_info_policy_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_grade_change" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_get_honey_title"
+                    style="@style/Widget.TeamOne.TextView.Body3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:drawableStart="@drawable/ic_smile_face"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/honey_grade_info_get_honey_title"
+                    android:textColor="@color/color_00aee4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_policy_title" />
+
+                <TextView
+                    android:id="@+id/tv_get_honey_register"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/honey_grade_info_get_honey_register"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_get_honey_title" />
+
+                <TextView
+                    android:id="@+id/tv_get_honey_project_join_or_accept"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_get_honey_project_join_or_accept"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_get_honey_register" />
+
+                <TextView
+                    android:id="@+id/tv_get_honey_complete_project"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_get_honey_complete_project"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_get_honey_project_join_or_accept" />
+
+                <TextView
+                    android:id="@+id/tv_get_honey_complete_project_increase"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_get_honey_complete_project_increase"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_get_honey_complete_project" />
+
+                <TextView
+                    android:id="@+id/tv_get_honey_upload_portfolio"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_get_honey_upload_portfolio"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_get_honey_complete_project_increase" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_lose_honey_title"
+                    style="@style/Widget.TeamOne.TextView.Body3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:drawableStart="@drawable/ic_sad_face"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/honey_grade_info_lose_honey_title"
+                    android:textColor="@color/color_d62246"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_get_honey_upload_portfolio" />
+
+                <TextView
+                    android:id="@+id/tv_lose_honey_project_deleted"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/honey_grade_info_lose_honey_project_deleted"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lose_honey_title" />
+
+                <TextView
+                    android:id="@+id/tv_lose_honey_user_reported"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_lose_honey_user_reported"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lose_honey_project_deleted" />
+
+                <TextView
+                    android:id="@+id/tv_lose_honey_user_kicked"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_lose_honey_user_kicked"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lose_honey_user_reported" />
+
+                <TextView
+                    android:id="@+id/tv_lose_honey_delete_portfolio"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_lose_honey_delete_portfolio"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lose_honey_user_kicked" />
+
+                <TextView
+                    android:id="@+id/tv_lose_honey_account_deactivated"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/honey_grade_info_lose_honey_account_deactivated"
+                    android:textColor="@color/color_616161"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lose_honey_delete_portfolio" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
