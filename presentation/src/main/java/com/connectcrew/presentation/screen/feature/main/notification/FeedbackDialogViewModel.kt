@@ -26,7 +26,7 @@ class FeedbackDialogViewModel @Inject constructor(
 
     fun submitFeedback() {
         viewModelScope.launch {
-            TODO("피드백 데이터 전송 구현")
+            //::TODO("피드백 데이터 전송 구현")
         }
     }
 

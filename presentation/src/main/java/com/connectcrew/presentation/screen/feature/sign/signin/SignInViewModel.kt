@@ -6,6 +6,7 @@ import com.connectcrew.domain.usecase.sign.SignInUseCase
 import com.connectcrew.domain.util.ApiResult
 import com.connectcrew.domain.util.NotFoundException
 import com.connectcrew.domain.util.TeamOneException
+import com.connectcrew.domain.util.UnAuthorizedException
 import com.connectcrew.domain.util.asResult
 import com.connectcrew.presentation.R
 import com.connectcrew.presentation.model.token.TokenInfo
@@ -76,6 +77,7 @@ class SignInViewModel @Inject constructor(
                             when (apiResult.exception) {
                                 is IOException -> setMessage(R.string.network_error)
                                 is TeamOneException -> when (apiResult.exception) {
+                                    is UnAuthorizedException,
                                     is NotFoundException -> _navigateToSignUp.emit(Triple(TokenInfo(token, oAuthType), email, profileUrl))
                                     else -> setMessage(apiResult.exception.message.toString())
                                 }
