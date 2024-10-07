@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_00aee4"
+        tools:context=".screen.feature.intro.IntroFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_splash"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/ic_team_one_logo"
+            app:layout_constraintBottom_toTopOf="@id/tv_splash"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_splash"
+            style="@style/Widget.TeamOne.TextView.LargeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/intro_title"
+            android:textColor="@color/color_ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/iv_splash"
+            app:layout_constraintStart_toStartOf="@id/iv_splash"
+            app:layout_constraintTop_toBottomOf="@id/iv_splash" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

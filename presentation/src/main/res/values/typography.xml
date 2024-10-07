@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.TeamOne" parent="TextAppearance.AppCompat" />
+
+    <style name="TextAppearance.TeamOne.LargeTitle">
+        <item name="android:fontFamily">@font/font_bold</item>
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Title1">
+        <item name="android:fontFamily">@font/font_bold</item>
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Title2">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Body1">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">17dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Body2">
+        <item name="android:fontFamily">@font/font_bold</item>
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Body3">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Body4">
+        <item name="android:fontFamily">@font/font_bold</item>
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Button1">
+        <item name="android:fontFamily">@font/font_bold</item>
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Button2">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Caption1">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Caption2">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView" parent="@style/Widget.MaterialComponents.TextView" />
+
+    <style name="Widget.TeamOne.TextView.LargeTitle">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.LargeTitle</item>
+        <item name="lineHeight">32dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Title1">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Title1</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Title2">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Title2</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Body1">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Body2">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body2</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Body3">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body3</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Body4">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body4</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Button1">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button1</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Button2">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button2</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Caption1">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">18dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextView.Caption2">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="lineHeight">14dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        app:cardBackgroundColor="@color/color_ffffff"
+        app:cardElevation="0dp"
+        app:shapeAppearance="?shapeAppearanceSmallComponent"
+        app:strokeColor="@color/color_eeeeee"
+        app:strokeWidth="1dp"
+        tools:context=".adapter.home.project.HomeProjectFeedAdapter">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_project_thumbnail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="?shapeAppearanceSmallComponent"
+                app:strokeColor="@color/color_f5f5f5"
+                app:strokeWidth="1dp"
+                tools:src="@drawable/ic_team_one_logo_bg_blue" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/siv_new_project_feed"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/color_d62246"
+                app:layout_constraintBottom_toBottomOf="@id/tv_new_project_feed"
+                app:layout_constraintEnd_toEndOf="@id/tv_new_project_feed"
+                app:layout_constraintStart_toStartOf="@id/tv_new_project_feed"
+                app:layout_constraintTop_toTopOf="@id/tv_new_project_feed"
+                app:shapeAppearance="?shapeAppearanceLargeComponent" />
+
+            <TextView
+                android:id="@+id/tv_new_project_feed"
+                style="@style/Widget.TeamOne.TextView.Caption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="@string/home_new_project_feed"
+                android:textColor="@color/color_ffffff"
+                app:layout_constraintStart_toStartOf="@id/iv_project_thumbnail"
+                app:layout_constraintTop_toTopOf="@id/iv_project_thumbnail" />
+
+            <TextView
+                android:id="@+id/tv_project_title"
+                style="@style/Widget.TeamOne.TextView.Body4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_424242"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_project_thumbnail"
+                app:layout_constraintTop_toTopOf="@id/iv_project_thumbnail"
+                tools:text="강아지 의료 플랫폼 기획" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_project_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_location"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="@id/tv_project_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_project_title" />
+
+            <TextView
+                android:id="@+id/tv_project_location"
+                style="@style/Widget.TeamOne.TextView.Caption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_616161"
+                app:layout_constraintBottom_toBottomOf="@id/iv_project_location"
+                app:layout_constraintStart_toEndOf="@id/iv_project_location"
+                app:layout_constraintTop_toTopOf="@id/iv_project_location"
+                tools:text="서울" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="1dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/color_616161"
+                app:layout_constraintBottom_toBottomOf="@id/tv_project_location"
+                app:layout_constraintStart_toEndOf="@id/tv_project_location"
+                app:layout_constraintTop_toTopOf="@id/tv_project_location" />
+
+            <TextView
+                android:id="@+id/tv_project_created_at"
+                style="@style/Widget.TeamOne.TextView.Caption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/color_616161"
+                app:layout_constraintBottom_toBottomOf="@id/view_line"
+                app:layout_constraintStart_toEndOf="@id/view_line"
+                app:layout_constraintTop_toTopOf="@id/view_line"
+                tools:text="방금 전" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_project_tag"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                app:chipSpacing="4dp"
+                app:layout_constraintBottom_toTopOf="@id/view_horizontal_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_project_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/iv_project_location"
+                app:layout_constraintVertical_bias="0" />
+
+            <View
+                android:id="@+id/view_horizontal_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/color_eeeeee"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_project_thumbnail" />
+
+            <LinearLayout
+                android:id="@+id/ll_member_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/view_vertical_line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_horizontal_line">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_member_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_member" />
+
+                <TextView
+                    android:id="@+id/tv_member_count"
+                    style="@style/Widget.TeamOne.TextView.Caption1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_00aee4"
+                    tools:text="3 / 7" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_vertical_line"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/color_eeeeee"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_horizontal_line" />
+
+            <LinearLayout
+                android:id="@+id/ll_like_count"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?selectableItemBackground"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/view_vertical_line"
+                app:layout_constraintTop_toBottomOf="@id/view_horizontal_line">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_like" />
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_d62246"
+                    tools:text="49" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

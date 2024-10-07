@@ -1,45 +1,45 @@
 [versions]
 # Project
-androidGradlePlugin = "8.0.0"
-playservicesGradlePlugin = "4.3.15"
+androidGradlePlugin = "8.2.2"
+playservicesGradlePlugin = "4.4.1"
 firebaseCrashlyticsGradlePlugin = "2.9.9"
 
 # AndroidX
-androidxCore = "1.9.0"
-androidxCoreSplashScreen = "1.0.0"
+androidxCore = "1.12.0"
+androidxCoreSplashScreen = "1.0.1"
 androidxConstraint = "2.1.4"
-androidxRecyclerView = "1.3.0"
+androidxSwiperefreshlayout = "1.1.0"
 androidxStartUp = "1.1.1"
-androidxActivity = "1.7.0"
-androidxLifecycle = "2.6.1"
-androidxRoom = "2.5.0"
-androidxPaging = "3.1.1"
-androidxNavigation = "2.5.3"
-androidxHilt = "1.0.0"
+androidxLifecycle = "2.7.0"
+androidxRoom = "2.6.1"
+androidxPaging = "3.2.1"
+androidxNavigation = "2.7.7"
+androidxHilt = "1.2.0"
 androidxDataStore = "1.0.0"
 
 # Kotlin
-kotlin = "1.8.20"
-kotlinxCoroutines = "1.6.4"
-ksp = "1.8.20-1.0.11"
+kotlin = "1.9.22"
+kotlinxCoroutines = "1.7.3"
+ksp = "1.9.22-1.0.16"
 
 # Firebase
-firebaseBom = "32.3.1"
+firebaseBom = "32.7.2"
 
 # hilt
-hilt = "2.44.2"
+hilt = "2.50"
 
 # material
-androidMaterial = "1.8.0"
+androidMaterial = "1.11.0"
 
 # coreDseugar
-androidDesugarJdkLibs = "1.1.5"
+androidDesugarJdkLibs = "2.0.4"
 
-## ETC
+# ETC
+powerspinner = "1.2.7"
 retrofit = "2.9.0"
-okhttp = "4.11.0"
+okhttp = "4.12.0"
 moshi = "1.14.0"
-glide = "4.14.2"
+glide = "4.16.0"
 lottie = "6.1.0"
 timber = "5.0.1"
 easyPermission = "3.0.0"
@@ -48,16 +48,17 @@ leakCanary = "2.9.1"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
-appcompat = "1.6.1"
+kakaoCore = "2.17.0"
+googleAuth = "21.0.0"
 
 [libraries]
 # AndroidX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashScreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashScreen" }
 androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraint" }
-androidx-recyclerView = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerView" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartUp" }
 androidx-dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidxSwiperefreshlayout" }
 
 # AndroidX Lifecycle
 androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
@@ -93,6 +94,7 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-crashlytics-gradle = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradlePlugin" }
+firebase-messageing = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 
 # Hilt
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
@@ -107,6 +109,7 @@ android-material = { group = "com.google.android.material", name = "material", v
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" } # coreLibraryDesugaring
 
 # ETC
+powerspinner = { group = "com.github.skydoves", name = "powerspinner", version.ref = "powerspinner" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
@@ -120,6 +123,8 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 glide-compiler = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 compressor = { group = "id.zelory", name = "compressor", version.ref = "compressor" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+kakao-login = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakaoCore" }
+google-login = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googleAuth" }
 leakCanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakCanary" }
 
 # Dependencies of the included build-logic
@@ -129,7 +134,6 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [bundles]
 androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewModel", "androidx-lifecycle-liveData", "androidx-lifecycle-savedState"]

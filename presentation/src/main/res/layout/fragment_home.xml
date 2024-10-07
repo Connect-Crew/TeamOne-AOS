@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.main.home.HomeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.feature.main.home.HomeFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/abl_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_home_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:background="@drawable/gradient_primary"
+                    android:foreground="?selectableItemBackground"
+                    android:minHeight="150dp">
+
+                    <TextView
+                        android:id="@+id/tv_home_banner_title"
+                        style="@style/Widget.TeamOne.TextView.Body2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/home_banner_title"
+                        android:textColor="@color/color_ffffff"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toTopOf="@id/tv_home_banner_description"
+                        app:layout_constraintEnd_toStartOf="@id/iv_home_banner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/tv_home_banner_description"
+                        style="@style/Widget.TeamOne.TextView.Caption2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/home_banner_description"
+                        android:textColor="@color/color_ffffff"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/tv_home_banner_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_home_banner_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_home_banner_title" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_home_banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="26dp"
+                        android:src="@drawable/img_home_banner_sample"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_home_banner_description"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_max="112dp"
+                        app:layout_constraintStart_toEndOf="@id/tv_home_banner_title"
+                        app:layout_constraintTop_toTopOf="@id/tv_home_banner_title"
+                        app:layout_constraintWidth_max="112dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tl_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+                    app:menu="@menu/menu_home"
+                    app:title="@string/home_menu_title"
+                    app:titleMarginStart="24dp" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_team_recruitment_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/color_00aee4"
+            android:contentDescription="@string/menu_team_recruitment"
+            app:icon="@drawable/ic_pen"
+            app:iconTint="@color/color_ffffff" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_background"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/color_ffffff"
+                android:clipToPadding="false"
+                android:elevation="1dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_project_category"
+                tools:orientation="horizontal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_project_feed"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="20dp"
+                android:splitMotionEvents="false"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_category"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/ll_project_feed_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_category"
+                app:layout_constraintVertical_bias="0.3">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_team_one_logo_bg_gray"
+                    app:shapeAppearance="@style/ShapeAppearance.TeamOne.SmallComponent" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="26dp"
+                    android:text="@string/home_empty_project"
+                    android:textColor="@color/color_9e9e9e" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/view_loading"
+                layout="@layout/dialog_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/color_primary"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_min="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_category"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintWidth_min="80dp" />
+
+            <include
+                android:id="@+id/view_network_error"
+                layout="@layout/layout_network_error"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_category"
+                app:layout_constraintVertical_bias="0.3"
+                app:viewModel="@{viewModel}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

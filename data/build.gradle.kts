@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.connectcrew.teamone.convention.TeamOneConfig
+
 plugins {
     id("teamone.android.library")
     id("teamone.android.hilt")
@@ -5,16 +8,26 @@ plugins {
 }
 
 android {
+    val localProperties = gradleLocalProperties(rootDir)
+
     defaultConfig {
         namespace = "com.connectcrew.data"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "VERSION_NAME", "\"${TeamOneConfig.versionName}\"")
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "API_URL", localProperties["DEV_API_URL"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_SECRET", localProperties["GOOGLE_CLIENT_SECRET"].toString())
+        }
+
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("String", "API_URL", localProperties["RELEASE_API_URL"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_ID", localProperties["GOOGLE_CLIENT_ID"].toString())
+            buildConfigField("String", "GOOGLE_CLIENT_SECRET", localProperties["GOOGLE_CLIENT_SECRET"].toString())
         }
     }
 }
@@ -25,6 +38,7 @@ dependencies {
     // AndroidX Room
     implementation(libs.bundles.androidx.room)
     ksp(libs.androidx.room.compiler)
+
     // AndroidX DataStore
     implementation(libs.androidx.dataStore)
 
@@ -42,6 +56,8 @@ dependencies {
 
     // log tracker
     api(libs.timber)
+    // file compressor
+    api(libs.compressor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

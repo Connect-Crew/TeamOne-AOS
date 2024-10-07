@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.sign.signin.SignInViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        tools:context=".screen.feature.sign.signin.SignInFragment">
+
+        <FrameLayout
+            android:id="@+id/fl_team_one_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_sign_in_introduction"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_max="164dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="18dp"
+                android:src="@drawable/ic_team_one_logo_bg_blue"
+                app:shapeAppearance="?shapeAppearanceMediumComponent" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_sign_in_introduction"
+            style="@style/Widget.TeamOne.TextView.Title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:text="@string/sign_in_introduction"
+            android:textColor="@color/color_424242"
+            app:layout_constraintBottom_toTopOf="@id/cv_sign_in_recommend_kakao"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fl_team_one_logo" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_sign_in_recommend_kakao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            app:cardBackgroundColor="@color/color_f5f5f5"
+            app:layout_constraintBottom_toTopOf="@id/btn_kakao_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_in_introduction"
+            app:shapeAppearance="?shapeAppearanceLargeComponent"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="8dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_lightning" />
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sign_in_kakao_recommend"
+                    android:textColor="@color/color_c0c0c0" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_kakao_login"
+            style="@style/Widget.TeamOne.Button"
+            android:layout_height="46dp"
+            android:layout_marginHorizontal="46dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/color_fee500"
+            android:text="@string/sign_in_kakao"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@android:color/black"
+            app:icon="@drawable/ic_kakao_logo"
+            app:iconGravity="start"
+            app:iconPadding="0dp"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toTopOf="@id/btn_google_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_sign_in_recommend_kakao"
+            app:onSingleClick="@{() -> viewModel.navigateToSignInForKakao()}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_google_login"
+            style="@style/Widget.TeamOne.Button"
+            android:layout_height="46dp"
+            android:layout_marginHorizontal="46dp"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@color/color_ffffff"
+            android:text="@string/sign_in_google"
+            android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+            android:textColor="@color/color_616161"
+            app:icon="@drawable/ic_google_logo"
+            app:iconGravity="start"
+            app:iconPadding="0dp"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_kakao_login"
+            app:onSingleClick="@{() -> viewModel.navigateToSignInForGoogle()}"
+            app:strokeColor="@color/color_8a000000"
+            app:strokeWidth="0.5dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

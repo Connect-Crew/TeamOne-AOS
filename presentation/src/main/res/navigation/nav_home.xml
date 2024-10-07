@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.connectcrew.presentation.screen.feature.main.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_nav_project_detail"
+            app:destination="@id/nav_project_detail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+
+            <argument
+                android:name="project_id"
+                app:argType="long" />
+        </action>
+
+        <action
+            android:id="@+id/action_homeFragment_to_summaryRecruitmentNoticeDialog"
+            app:destination="@id/summaryRecruitmentNoticeDialog" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_nav_search"
+            app:destination="@id/nav_search"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_projectWriteContainerFragment"
+            app:destination="@id/projectWriteContainerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/summaryRecruitmentNoticeDialog"
+        android:name="com.connectcrew.presentation.screen.feature.main.home.SummaryRecruitmentNoticeDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_summary_recruitment_notice" />
+
+    <include app:graph="@navigation/nav_project_detail" />
+
+    <include app:graph="@navigation/nav_search" />
+
+    <fragment
+        android:id="@+id/projectWriteContainerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerFragment"
+        tools:layout="@layout/fragment_project_write_container">
+
+        <action
+            android:id="@+id/action_projectWriteContainerFragment_to_nav_project_detail"
+            app:destination="@id/nav_project_detail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/projectWriteContainerFragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="project_id"
+                app:argType="long" />
+        </action>
+    </fragment>
+</navigation>

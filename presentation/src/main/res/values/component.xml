@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- region Button -->
+    <style name="Widget.TeamOne.Button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">?shapeAppearanceSmallComponent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button1</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:textColor">@color/enable_button_text</item>
+        <item name="backgroundTint">@color/enable_button</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Widget.TeamOne.Button.StrokeButton">
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button2</item>
+        <item name="android:textColor">@color/selected_stroke_button_text</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="strokeColor">@color/selected_stroke_button_stroke</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="backgroundTint">@color/selected_stroke_button</item>
+    </style>
+
+    <style name="Widget.TeamOne.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="shapeAppearance">?shapeAppearanceSmallComponent</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body3</item>
+        <item name="android:textColor">@color/color_616161</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+    <!-- endregion Button -->
+
+    <!-- region TextField -->
+    <style name="Widget.TeamOne.TextInputLayout.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:padding">0dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="helperTextEnabled">false</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="endIconTint">@null</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearance">@style/ShapeAppearance.TeamOne.SmallComponent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/color_9e9e9e</item>
+        <item name="boxBackgroundColor">@color/color_ffffff</item>
+        <item name="endIconMode">custom</item>
+        <item name="endIconTint">@null</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorTextAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="errorTextColor">@color/color_d62246</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.OutlinedBox" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/color_424242</item>
+        <item name="android:textColorHint">@color/color_9e9e9e</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.OutlinedBox.OneLine" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:textColor">@color/color_424242</item>
+        <item name="android:textColorHint">@color/color_9e9e9e</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Body1</item>
+        <item name="android:imeOptions">flagNoExtractUi</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.OutlinedBox.MultiLine">
+        <item name="android:padding">16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:letterSpacing">-0.04</item>
+        <item name="lineHeight">16dp</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputLayout.SearchBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:textColor">@color/color_424242</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="boxStrokeColor">@color/color_9e9e9e</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconTint">@null</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="Widget.TeamOne.TextInputEditText.SearchBox" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:imeOptions">flagNoExtractUi</item>
+        <item name="android:inputType">text</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Button2</item>
+        <item name="android:textColor">@color/color_616161</item>
+        <item name="android:textColorHint">@color/color_9e9e9e</item>
+        <item name="hintTextAppearance">@style/TextAppearance.TeamOne.Button2</item>
+    </style>
+    <!-- endregion TextField -->
+
+    <!-- region Chip -->
+    <style name="Widget.TeamOne.Chip.ProjectFeed" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:clickable">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="android:textColor">@color/color_616161</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="maxLines">1</item>
+        <item name="closeIconVisible">false</item>
+        <item name="chipBackgroundColor">@color/color_eeeeee</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipMinHeight">17dp</item>
+        <item name="chipMinTouchTargetSize">17dp</item>
+        <item name="rippleColor">@null</item>
+    </style>
+
+    <style name="Widget.TeamOne.Chip.TechStack" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:clickable">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAppearance">@style/TextAppearance.TeamOne.Caption1</item>
+        <item name="android:textColor">@color/color_00aee4</item>
+        <item name="textEndPadding">12dp</item>
+        <item name="textStartPadding">12dp</item>
+        <item name="maxLines">1</item>
+        <item name="closeIconVisible">false</item>
+        <item name="chipBackgroundColor">@color/color_background</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/color_00aee4</item>
+        <item name="chipMinHeight">24dp</item>
+        <item name="chipMinTouchTargetSize">24dp</item>
+        <item name="rippleColor">@null</item>
+    </style>
+    <!-- endregion Chip -->
+
+    <!-- region CheckBox -->
+    <style name="Widget.TeamOne.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:buttonTintMode">multiply</item>
+        <item name="buttonCompat">@drawable/selected_checkbox</item>
+        <item name="buttonIconTint">@drawable/selected_checkbox</item>
+    </style>
+
+    <style name="Widget.TeamOne.ColoredCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:buttonTintMode">multiply</item>
+        <item name="buttonCompat">@drawable/selected_checkbox_colored</item>
+        <item name="buttonIconTint">@drawable/selected_checkbox_colored</item>
+    </style>
+    <!-- endregion CheckBox -->
+</resources>

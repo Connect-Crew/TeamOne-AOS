@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.mediapicker.MediaPickerViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.feature.mediapicker.MediaPickerFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tl_media"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/menu_confirm"
+                app:navigationIcon="@drawable/ic_arrow"
+                app:title="">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/Widget.TeamOne.TextView.Body3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{Integer.toString(viewModel.selectedMedias.size()) + ` / ` + Integer.toString(viewModel.selectedMaxCount)}"
+                    tools:text="1 / 3" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_media_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_media_album"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:elevation="6dp"
+                app:layout_constraintBottom_toTopOf="@id/ll_upload_photo_picker"
+                app:layout_constraintEnd_toStartOf="@id/rv_media_image"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_min="100dp"
+                tools:listitem="@layout/item_media_album" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_media_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@id/ll_upload_photo_picker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/rv_media_album"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_media"
+                tools:spanCount="3" />
+
+            <LinearLayout
+                android:id="@+id/ll_upload_photo_picker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/color_ffffff"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_upload_photo_picker"
+                    style="@style/Widget.TeamOne.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/media_picker_photo_picker_upload" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_media_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_team_one_logo_bg_gray"
+                app:shapeAppearance="@style/ShapeAppearance.TeamOne.SmallComponent" />
+
+            <TextView
+                style="@style/Widget.TeamOne.TextView.Body3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:text="@string/media_picker_empty_images"
+                android:textColor="@color/color_9e9e9e" />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

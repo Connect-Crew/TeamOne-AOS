@@ -4,6 +4,22 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <!-- Media  -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
     <application
         android:name=".TeamOneApplication"
         android:allowBackup="true"
@@ -14,6 +30,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TeamOne"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <provider
@@ -23,8 +40,20 @@
             tools:node="merge">
 
             <meta-data
-                android:name="com.connectcrew.teamone.initalize.TimberInitializer"
+                android:name="com.connectcrew.teamone.util.initalize.TimberInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="com.connectcrew.teamone.util.initalize.FirebaseInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="com.connectcrew.presentation.util.initialize.KakaoInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}" />
     </application>
 </manifest>

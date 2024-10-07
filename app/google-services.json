@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "1073196297662",
+    "project_id": "teamone-1af21",
+    "storage_bucket": "teamone-1af21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073196297662:android:e65ba973946b5c4a145def",
+        "android_client_info": {
+          "package_name": "com.connectcrew.teamone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073196297662-7r1mft5auck7l7eiijd0d05neikgnumh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectcrew.teamone",
+            "certificate_hash": "7a2f686e4fde206e215665bda7dd4dcbe815a4e5"
+          }
+        },
+        {
+          "client_id": "1073196297662-db1ohqulk5n80sadd2tv2hrk1ms9b1kr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectcrew.teamone",
+            "certificate_hash": "b24f4a351865b245cf0387dfe495561bc1463ccf"
+          }
+        },
+        {
+          "client_id": "1073196297662-jsotal0v10rmdm6g4ghfih4148258397.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.connectcrew.teamone",
+            "certificate_hash": "6f5342113ca1a9afe5c758a6b0b17bc0ec460103"
+          }
+        },
+        {
+          "client_id": "1073196297662-1v2sar9pmssm7n4v3d6sgd25cr6dreee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4wJ8sSM_kmLpP3t2ega7hmy_p2xX3UyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073196297662-1v2sar9pmssm7n4v3d6sgd25cr6dreee.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1073196297662-69cra4rr9ccd04bgtb8d6mdb8pilhvoq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.connectCrew.TeamOne"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

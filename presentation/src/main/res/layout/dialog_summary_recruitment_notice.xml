@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.main.home.HomeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".screen.feature.main.home.SummaryRecruitmentNoticeDialog">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_member"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_member"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/color_616161" />
+
+            <TextView
+                android:id="@+id/tv_member"
+                style="@style/Widget.TeamOne.TextView.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/summary_recruitment_notice_title"
+                android:textColor="@color/color_616161"
+                app:layout_constraintBottom_toBottomOf="@id/iv_member"
+                app:layout_constraintEnd_toStartOf="@id/tv_member_count"
+                app:layout_constraintStart_toEndOf="@id/iv_member"
+                app:layout_constraintTop_toTopOf="@id/iv_member" />
+
+            <TextView
+                android:id="@+id/tv_member_count"
+                style="@style/Widget.TeamOne.TextView.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{Integer.toString(viewModel.selectedProjectFeed.totalCurrentCount) + ` / ` + Integer.toString(viewModel.selectedProjectFeed.totalMaxCount)}"
+                android:textColor="@color/color_616161"
+                app:layout_constraintBottom_toBottomOf="@id/tv_member"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_member"
+                app:layout_constraintTop_toTopOf="@id/tv_member"
+                tools:text="3 / 7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_member"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:itemCount="7"
+            tools:listitem="@layout/item_summary_member" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/color_eeeeee"
+                android:text="@string/common_cancel"
+                android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                android:textColor="@color/color_616161"
+                app:cornerRadius="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_detail"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/summary_recruitment_notice_detail"
+                android:textAppearance="@style/TextAppearance.TeamOne.Button2"
+                app:cornerRadius="0dp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

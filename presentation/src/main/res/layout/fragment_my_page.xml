@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.screen.base.BaseViewModel.InitializerUiState" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.main.mypage.MyPageViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.feature.main.mypage.MyPageFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_fdfdfd"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:title="@string/my_profile_menu_title"
+                app:titleMarginStart="24dp" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_fdfdfd"
+            android:fillViewport="true"
+            app:isGone="@{viewModel.myPageUiState != InitializerUiState.Success}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_my_profile"
+                    style="@style/Widget.TeamOne.TextView.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/my_profile_profile_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_user_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="@color/color_fdfdfd"
+                    app:cardElevation="0dp"
+                    app:contentPadding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_my_profile"
+                    app:shapeAppearance="?shapeAppearanceSmallComponent"
+                    app:strokeColor="@color/color_eeeeee"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/siv_user_profile_img"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:profileUrl="@{viewModel.userProfileUrl}"
+                            app:shapeAppearance="?shapeAppearanceLargeComponent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/tv_user_nickname"
+                            style="@style/Widget.TeamOne.TextView.Body4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{viewModel.userNickname}"
+                            android:textColor="@color/color_424242"
+                            app:layout_constrainedWidth="true"
+                            app:layout_constraintBottom_toTopOf="@id/tv_user_parts"
+                            app:layout_constraintEnd_toStartOf="@id/iv_user_level"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toEndOf="@id/siv_user_profile_img"
+                            app:layout_constraintTop_toTopOf="@id/siv_user_profile_img"
+                            tools:text="커넥션 크루" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_user_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:src="@drawable/ic_honey"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
+                            app:layout_constraintEnd_toStartOf="@id/iv_user_more_info"
+                            app:layout_constraintStart_toEndOf="@id/tv_user_nickname"
+                            app:layout_constraintTop_toTopOf="@id/tv_user_nickname" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_user_more_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:rotation="270"
+                            android:src="@drawable/ic_arrow_thick"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_user_level"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/iv_user_level" />
+
+                        <TextView
+                            android:id="@+id/tv_user_parts"
+                            style="@style/Widget.TeamOne.TextView.Caption2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/color_9e9e9e"
+                            app:isGone="@{viewModel.userParts.isEmpty()}"
+                            app:layout_constraintBottom_toTopOf="@id/tv_user_introduction"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
+                            app:layout_constraintTop_toBottomOf="@id/tv_user_nickname"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="디자인 3년" />
+
+                        <TextView
+                            android:id="@+id/tv_user_introduction"
+                            style="@style/Widget.TeamOne.TextView.Caption1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{viewModel.userIntroduction}"
+                            android:textColor="@color/color_616161"
+                            app:isGone="@{viewModel.userIntroduction.isEmpty()}"
+                            app:layout_constraintBottom_toBottomOf="@id/siv_user_profile_img"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/tv_user_nickname"
+                            app:layout_constraintTop_toBottomOf="@id/tv_user_parts"
+                            tools:text="Flutter, JAVA 위주 개발자입니다." />
+
+                        <TextView
+                            android:id="@+id/tv_represent_project_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/my_profile_represent_project_title"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/siv_user_profile_img" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_user_represent_projects"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_represent_project_title"
+                            app:layout_constraintVertical_bias="0"
+                            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:orientation="horizontal" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/color_eeeeee"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_empty_project"
+                            app:layout_constraintEnd_toEndOf="@id/tv_empty_project"
+                            app:layout_constraintStart_toStartOf="@id/tv_empty_project"
+                            app:layout_constraintTop_toTopOf="@id/tv_empty_project"
+                            app:shapeAppearance="?shapeAppearanceMediumComponent" />
+
+                        <TextView
+                            android:id="@+id/tv_empty_project"
+                            style="@style/Widget.TeamOne.TextView.Caption2"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/project_detail_member_represent_projects_empty"
+                            android:textColor="@color/color_616161"
+                            android:visibility="gone"
+                            app:isGone="@{!viewModel.representProjects.isEmpty()}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_represent_project_title" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <View
+                    android:id="@+id/view_user_info_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/color_eeeeee"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_user_profile" />
+
+                <TextView
+                    android:id="@+id/tv_user_project_title"
+                    style="@style/Widget.TeamOne.TextView.Body4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/my_profile_project_title"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_user_info_line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_user_project"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="?selectableItemBackground"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_user_project_title">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_users" />
+
+                    <TextView
+                        style="@style/Widget.TeamOne.TextView.Button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/my_profile_project_title"
+                        android:textColor="@color/color_424242" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_user_resume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_user_project">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_user_resume" />
+
+                    <TextView
+                        style="@style/Widget.TeamOne.TextView.Button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/my_profile_project_apply_list"
+                        android:textColor="@color/color_424242" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_user_favorite_project"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_user_resume">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_like_off"
+                        app:tint="@color/color_616161" />
+
+                    <TextView
+                        style="@style/Widget.TeamOne.TextView.Button2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/my_profile_project_favorite_list"
+                        android:textColor="@color/color_424242" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_user_project_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_eeeeee"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_user_favorite_project" />
+
+                <TextView
+                    android:id="@+id/tv_setting"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="?selectableItemBackground"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/my_profile_setting"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_user_project_line" />
+
+                <TextView
+                    android:id="@+id/tv_customer_service"
+                    style="@style/Widget.TeamOne.TextView.Button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:background="?selectableItemBackground"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/my_profile_cs"
+                    android:textColor="@color/color_424242"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_setting"
+                    app:layout_constraintVertical_bias="0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/view_loading"
+            layout="@layout/dialog_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:isGone="@{viewModel.myPageUiState != InitializerUiState.Loading}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <include
+            android:id="@+id/view_network_error"
+            layout="@layout/layout_network_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:isGone="@{viewModel.myPageUiState != InitializerUiState.Error}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:viewModel="@{viewModel}" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

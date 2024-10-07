@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 sealed class ApiResult<out R> {
-    object Loading : ApiResult<Nothing>()
+    data object Loading : ApiResult<Nothing>()
 
     data class Success<out T>(val data: T) : ApiResult<T>()
 
@@ -29,9 +29,7 @@ val <T> ApiResult<T>.data: T?
 
 fun <T> Flow<T>.asResult(): Flow<ApiResult<T>> {
     return this
-        .map<T, ApiResult<T>> {
-            ApiResult.Success(it)
-        }
+        .map<T, ApiResult<T>> { ApiResult.Success(it) }
         .onStart { emit(ApiResult.Loading) }
-        .catch { emit(ApiResult.Error(exception = Exception(it))) }
+        .catch { emit(ApiResult.Error(it as? Exception ?: Exception(it))) }
 }

@@ -5,11 +5,7 @@ plugins {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    compileOnly(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
 
 gradlePlugin {

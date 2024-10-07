@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.sign.signup.SignUpContainerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.feature.sign.signup.OnBoardingFragment">
+
+        <FrameLayout
+            android:id="@+id/fl_team_one_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_onboarding_title"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_max="164dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_00aee4"
+                app:shapeAppearance="@style/ShapeAppearance.TeamOne.LargeComponent.rectangle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="18dp"
+                android:src="@drawable/ic_team_one_logo" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_onboarding_title"
+            style="@style/Widget.TeamOne.TextView.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/onboarding_sign_up_complete"
+            android:textColor="@color/color_9e9e9e"
+            app:layout_constraintBottom_toTopOf="@id/tv_onboarding_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fl_team_one_logo" />
+
+        <TextView
+            android:id="@+id/tv_onboarding_description"
+            style="@style/Widget.TeamOne.TextView.Title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="@string/onboarding_sign_up_complete_description"
+            android:textColor="@color/color_424242"
+            app:layout_constraintBottom_toTopOf="@id/btn_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_onboarding_title" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start"
+            style="@style/Widget.TeamOne.Button"
+            android:layout_marginHorizontal="26dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/onboarding_start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:onSingleClick="@{()-> viewModel.navigateToHome()}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

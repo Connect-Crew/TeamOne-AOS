@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.connectcrew.presentation.util.Const" />
+
+        <variable
+            name="viewModel"
+            type="com.connectcrew.presentation.screen.feature.sign.signup.SignUpContainerViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        tools:context=".screen.feature.sign.signup.TermsOfUseFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tl_terms_of_use"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_ffffff"
+                app:navigationIcon="@drawable/ic_arrow"
+                app:title="">
+
+                <TextView
+                    style="@style/Widget.TeamOne.TextView.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/terms_of_use_title" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="24dp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="24dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toTopOf="@id/btn_confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_terms_confirm_title"
+                        style="@style/Widget.TeamOne.TextView.Title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="38dp"
+                        android:text="@string/terms_of_use_confirm"
+                        android:textColor="@color/color_424242"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_terms_confirm_description"
+                        style="@style/Widget.TeamOne.TextView.Body3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/terms_of_use_confirm_description"
+                        android:textColor="@color/color_9e9e9e"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_terms_confirm_title" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:onClick="@{() -> viewModel.setTermsOfUseAllAgree(!(viewModel.isTermsOfUseForService &amp;&amp; viewModel.isTermsOfUseForPrivacy))}"
+                        android:src="@drawable/ic_check"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_terms_confirm_description"
+                        app:selected="@{viewModel.isTermsOfUseForService &amp;&amp; viewModel.isTermsOfUseForPrivacy}"
+                        app:tint="@color/selected_checked" />
+
+                    <TextView
+                        android:id="@+id/tv_terms_all_agree"
+                        style="@style/Widget.TeamOne.TextView.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/terms_of_use_all_agree"
+                        android:textColor="@color/color_424242"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_check"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toEndOf="@id/iv_check"
+                        app:layout_constraintTop_toTopOf="@id/iv_check" />
+
+                    <View
+                        android:id="@+id/view_line"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/color_9e9e9e"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_check" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_terms_for_service"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="26dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()-> viewModel.setTermsOfUseForService(!viewModel.isTermsOfUseForService)}"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        app:layout_constraintEnd_toStartOf="@id/iv_terms_for_service"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_line">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="26dp"
+                            android:src="@drawable/ic_check"
+                            android:tint="@color/selected_checked"
+                            app:selected="@{viewModel.isTermsOfUseForService}" />
+
+                        <TextView
+                            style="@style/Widget.TeamOne.TextView.Button2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/terms_of_use_for_service"
+                            android:textColor="@color/color_424242" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_terms_for_service"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/ll_terms_for_service"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/ll_terms_for_service"
+                        app:onSingleClick="@{()-> viewModel.navigateToTermsOfUseDetail(Const.URL_TERMS_OF_USE_FOR_SERVICE)}" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_terms_for_privacy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()-> viewModel.setTermsOfUseForPrivacy(!viewModel.isTermsOfUseForPrivacy)}"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        app:layout_constraintEnd_toStartOf="@id/iv_terms_for_privacy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ll_terms_for_service">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="26dp"
+                            android:src="@drawable/ic_check"
+                            android:tint="@color/selected_checked"
+                            app:selected="@{viewModel.isTermsOfUseForPrivacy}" />
+
+                        <TextView
+                            style="@style/Widget.TeamOne.TextView.Button2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/terms_of_use_for_privacy"
+                            android:textColor="@color/color_424242" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_terms_for_privacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/ll_terms_for_privacy"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/ll_terms_for_privacy"
+                        app:onSingleClick="@{()-> viewModel.navigateToTermsOfUseDetail(Const.URL_TERMS_OF_USE_FOR_PRIVACY)}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_confirm"
+                style="@style/Widget.TeamOne.Button"
+                android:layout_marginBottom="24dp"
+                android:enabled="@{viewModel.enableTermsOfUse}"
+                android:text="@string/common_next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:onSingleClick="@{()-> viewModel.navigateToWriteUserName()}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

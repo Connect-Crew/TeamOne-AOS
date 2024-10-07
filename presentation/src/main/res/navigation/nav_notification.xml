@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_notification"
+    app:startDestination="@id/notificationFragment">
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.connectcrew.presentation.screen.feature.main.notification.NotificationFragment"
+        tools:layout="@layout/fragment_notification" >
+
+        <action
+            android:id="@+id/action_notificationFragment_to_feedbackDialog"
+            app:destination="@id/feedbackDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/feedbackDialog"
+        android:name="com.connectcrew.presentation.screen.feature.main.notification.FeedbackDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_feedback"/>
+</navigation>

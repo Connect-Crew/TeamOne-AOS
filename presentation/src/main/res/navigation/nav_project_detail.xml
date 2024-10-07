@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_project_detail"
+    app:startDestination="@id/projectDetailContainerFragment">
+
+    <argument
+        android:name="project_id"
+        app:argType="long" />
+
+    <fragment
+        android:id="@+id/projectDetailContainerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.ProjectDetailContainerFragment"
+        tools:layout="@layout/fragment_project_detail_container">
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_nav_project_enrollment"
+            app:destination="@id/nav_project_enrollment" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectReportReasonAlertDialog"
+            app:destination="@id/projectReportReasonAlertDialog" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectManagementBottomSheetDialogFragment"
+            app:destination="@id/projectManagementBottomSheetDialogFragment" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectWriteContainerFragment"
+            app:destination="@id/projectWriteContainerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectEnrollmentsFragment"
+            app:destination="@id/projectEnrollmentsFragment" />
+
+        <action
+            android:id="@+id/action_projectDetailContainerFragment_to_projectMemberKickReasonDialog"
+            app:destination="@id/projectMemberKickReasonDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/projectReportReasonAlertDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectreport.ProjectReportReasonAlertDialog"
+        tools:layout="@layout/dialog_project_report_reason" />
+
+    <dialog
+        android:id="@+id/projectManagementBottomSheetDialogFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.ProjectManagementBottomSheetDialogFragment"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_project_management" />
+
+    <navigation
+        android:id="@+id/nav_project_enrollment"
+        app:startDestination="@id/projectEnrollmentBottomSheetDialogFragment">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <argument
+            android:name="project_feed_detail"
+            app:argType="com.connectcrew.presentation.model.project.ProjectFeedDetail"
+            app:nullable="false" />
+
+        <dialog
+            android:id="@+id/projectEnrollmentBottomSheetDialogFragment"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentBottomSheetDialogFragment"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment">
+
+            <action
+                android:id="@+id/action_projectEnrollmentBottomSheetDialogFragment_to_projectEnrollmentReasonAlertDialog"
+                app:destination="@id/projectEnrollmentReasonAlertDialog" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/projectEnrollmentReasonAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentReasonAlertDialog"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment_reason">
+
+            <action
+                android:id="@+id/action_projectEnrollmentReasonAlertDialog_to_projectEnrollmentContactAlertDialog"
+                app:destination="@id/projectEnrollmentContactAlertDialog" />
+        </dialog>
+
+        <dialog
+            android:id="@+id/projectEnrollmentContactAlertDialog"
+            android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentContactAlertDialog"
+            android:label="@string/label_dialog"
+            tools:layout="@layout/dialog_project_enrollment_contact" />
+    </navigation>
+
+    <fragment
+        android:id="@+id/projectWriteContainerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.projectwrite.ProjectWriteContainerFragment"
+        tools:layout="@layout/fragment_project_write_container">
+
+        <argument
+            android:name="project_feed_detail"
+            app:argType="com.connectcrew.presentation.model.project.ProjectFeedDetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectEnrollmentsFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentsFragment"
+        tools:layout="@layout/fragment_project_enrollments">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_projectEnrollmentsFragment_to_projectEnrollmentPartsFragment"
+            app:destination="@id/projectEnrollmentPartsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectEnrollmentPartsFragment"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentPartsFragment"
+        tools:layout="@layout/fragment_project_enrollment_parts">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <argument
+            android:name="project_enrollment_member"
+            app:argType="com.connectcrew.presentation.model.project.ProjectEnrollmentMember" />
+
+        <action
+            android:id="@+id/action_projectEnrollmentPartsFragment_to_projectEnrollmentsRejectReasonDialog"
+            app:destination="@id/projectEnrollmentsRejectReasonDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/projectEnrollmentsRejectReasonDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectintroduction.enrollmentmanagment.ProjectEnrollmentsRejectReasonDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_project_enrollments_reject_reason">
+
+        <argument
+            android:name="apply_id"
+            app:argType="integer" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/projectMemberKickReasonDialog"
+        android:name="com.connectcrew.presentation.screen.feature.project.projectmember.ProjectMemberKickReasonDialog"
+        android:label="@string/label_dialog"
+        tools:layout="@layout/dialog_project_member_kick_reason">
+
+        <argument
+            android:name="project_id"
+            app:argType="long" />
+
+        <argument
+            android:name="member_id"
+            app:argType="integer" />
+    </dialog>
+</navigation>

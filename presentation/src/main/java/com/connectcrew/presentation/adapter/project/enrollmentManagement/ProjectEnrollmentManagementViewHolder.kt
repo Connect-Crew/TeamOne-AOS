@@ -1,0 +1,8 @@
+package com.connectcrew.presentation.adapter.project.enrollmentManagement
+
+import com.connectcrew.presentation.adapter.DataBindingViewHolder
+import com.connectcrew.presentation.databinding.ItemProjectEnrollmentManagementBinding
+
+class ProjectEnrollmentManagementViewHolder(
+    val binding : ItemProjectEnrollmentManagementBinding
+): DataBindingViewHolder<ItemProjectEnrollmentManagementBinding>(binding)

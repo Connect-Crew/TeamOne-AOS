@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Bottom Menu -->
+    <style name="Widget.TeamOne.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.TeamOne.Caption2</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemTextColor">@color/selected_bottom_menu</item>
+    </style>
+
+    <!-- Toolbar -->
+    <style name="Widget.Teamone.Toolbar" parent="@style/Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/color_424242</item>
+        <item name="titleTextAppearance">@style/TextAppearance.TeamOne.Title1</item>
+        <item name="android:background">@color/color_ffffff</item>
+    </style>
+
+    <!-- Alert Dialog -->
+    <style name="TextAppearance.TeamOne.Dialog.Alert.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:fontFamily">@font/font_bold</item>
+        <item name="fontFamily">@font/font_bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TextAppearance.TeamOne.Dialog.Alert.Body" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Widget.TeamOne.Dialog.Alert.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:fontFamily">@font/font_regular</item>
+        <item name="fontFamily">@font/font_regular</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
+    <style name="Widget.TeamOne.Dialog.Alert.Button.TextButton.Positive">
+        <item name="android:textColor">@color/color_424242</item>
+    </style>
+
+    <style name="Widget.TeamOne.Dialog.Alert.Button.TextButton.Negative">
+        <item name="android:textColor">@color/color_d62246</item>
+    </style>
+
+    <style name="ThemeOverlay.TeamOne.AlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorBackgroundFloating">@color/color_ffffff</item>
+        <item name="android:background">@color/color_ffffff</item>
+
+        <item name="materialAlertDialogTitleTextStyle">@style/TextAppearance.TeamOne.Dialog.Alert.Title</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/TextAppearance.TeamOne.Dialog.Alert.Body</item>
+
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.TeamOne.Dialog.Alert.Button.TextButton.Positive</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Widget.TeamOne.Dialog.Alert.Button.TextButton.Positive</item>
+
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.TeamOne.Dialog.Alert.Button.TextButton.Negative</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Widget.TeamOne.Dialog.Alert.Button.TextButton.Negative</item>
+
+        <item name="dialogCornerRadius">12dp</item>
+    </style>
+
+    <!-- BottomSheet -->
+    <style name="Widget.TeamOne.BottomSheet.Model" parent="@style/Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_skipCollapsed">true</item>
+        <item name="shapeAppearance">?shapeAppearanceSmallComponent</item>
+    </style>
+
+    <style name="Theme.TeamOne.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="colorOnSurface">@color/color_eeeeee</item>
+        <item name="bottomSheetStyle">@style/Widget.TeamOne.BottomSheet.Model</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+</resources>

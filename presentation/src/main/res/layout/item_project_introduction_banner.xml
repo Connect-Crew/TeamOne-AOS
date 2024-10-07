@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="images"
+            type="List&lt;String&gt;" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".adapter.project.introduction.ProjectIntroductionBannerViewHolder">
+
+        <com.connectcrew.presentation.util.widget.NestedScrollableHost
+            android:id="@+id/nsh_project_banner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/tab_banner_image"
+            app:layout_constraintDimensionRatio="3:1.4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_project_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:isGone="@{images.size() == 0}" />
+        </com.connectcrew.presentation.util.widget.NestedScrollableHost>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/color_f1fcff"
+            android:visibility="gone"
+            app:isGone="@{images.size() > 0}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="3:1.4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_team_one_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="?shapeAppearanceMediumComponent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_banner_image"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="8dp"
+            android:background="@android:color/transparent"
+            app:isGone="@{images.size() &lt; 2}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nsh_project_banner"
+            app:tabBackground="@drawable/selected_tab_indicator"
+            app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabPaddingEnd="8dp"
+            app:tabPaddingStart="8dp"
+            app:tabRippleColor="@null" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

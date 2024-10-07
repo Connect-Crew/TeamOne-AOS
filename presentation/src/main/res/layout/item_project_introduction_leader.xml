@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="leader"
+            type="com.connectcrew.presentation.model.user.User" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="4dp"
+        app:cardBackgroundColor="@color/color_ffffff"
+        app:cardElevation="0dp"
+        app:contentPaddingBottom="10dp"
+        app:contentPaddingLeft="12dp"
+        app:contentPaddingRight="12dp"
+        app:contentPaddingTop="10dp"
+        app:shapeAppearance="?shapeAppearanceSmallComponent"
+        app:strokeColor="@color/color_eeeeee"
+        app:strokeWidth="1dp"
+        tools:context=".adapter.project.introduction.ProjectIntroductionLeaderViewHolder">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile_url"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:profileUrl="@{leader.profile}"
+                app:shapeAppearance="?shapeAppearanceLargeComponent"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_leader_name"
+                style="@style/Widget.TeamOne.TextView.Body4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{leader.nickname}"
+                android:textColor="@color/color_616161"
+                app:layout_constraintBottom_toTopOf="@id/tv_leader_part"
+                app:layout_constraintStart_toEndOf="@id/iv_profile_url"
+                app:layout_constraintTop_toTopOf="@id/iv_profile_url"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Liiz" />
+
+            <TextView
+                android:id="@+id/tv_leader"
+                style="@style/Widget.TeamOne.TextView.Caption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/common_leader"
+                android:textColor="@color/color_d62246"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_leader_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/tv_leader_name"
+                app:layout_constraintTop_toTopOf="@id/tv_leader_name" />
+
+            <TextView
+                android:id="@+id/tv_leader_part"
+                style="@style/Widget.TeamOne.TextView.Caption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_616161"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@id/iv_profile_url"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/iv_profile_url"
+                app:layout_constraintTop_toBottomOf="@id/tv_leader_name"
+                tools:text="안드로이드 개발" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

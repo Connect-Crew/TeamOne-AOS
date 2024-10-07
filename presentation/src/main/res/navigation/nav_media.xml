@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_media"
+    app:startDestination="@id/mediaPickerFragment">
+
+    <argument
+        android:name="max_select_count"
+        app:argType="integer" />
+
+    <fragment
+        android:id="@+id/mediaPickerFragment"
+        android:name="com.connectcrew.presentation.screen.feature.mediapicker.MediaPickerFragment"
+        tools:layout="@layout/fragment_media_picker" />
+</navigation>

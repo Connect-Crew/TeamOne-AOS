@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".screen.feature.project.projectintroduction.enrollment.ProjectEnrollmentBottomSheetDialogFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_project_enroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            app:layout_constraintBottom_toTopOf="@id/rv_project_enroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_handle"
+                android:layout_width="36dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/color_eaeaea"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="?shapeAppearanceLargeComponent" />
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/Widget.TeamOne.TextView.Title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/project_detail_introduction_enroll"
+                android:textColor="@color/color_424242"
+                app:layout_constraintEnd_toEndOf="@id/iv_handle"
+                app:layout_constraintStart_toStartOf="@id/iv_handle"
+                app:layout_constraintTop_toBottomOf="@id/iv_handle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.TeamOne.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_close"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_title"
+                app:layout_constraintTop_toTopOf="@id/tv_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_project_enroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/color_fdfdfd"
+            android:clipToPadding="false"
+            android:elevation="8dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_project_enroll"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_project_detail_introduction_enrollment" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

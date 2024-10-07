@@ -1,3 +1,299 @@
 <resources>
     <string name="app_name">TeamOne</string>
+
+    <!--  Navigation Label -->
+    <string name="label_dialog">dialog</string>
+
+    <!-- Common -->
+    <string name="common_confirm">확인</string>
+    <string name="common_cancel">취소</string>
+    <string name="common_next">다음</string>
+    <string name="common_previous">이전</string>
+    <string name="common_close">닫기</string>
+    <string name="common_exit">종료</string>
+    <string name="common_refresh">새로고침</string>
+    <string name="common_online">온라인</string>
+    <string name="common_leader">리더</string>
+    <string name="common_report">신고하기</string>
+    <string name="common_pass">승인</string>
+    <string name="common_reject">거절</string>
+    <string name="common_empty_view">페이지 준비중입니다.</string>
+    <string name="submit">전송하기</string>
+
+    <!-- Common Error -->
+    <string name="network_error_title">접속 실패</string>
+    <string name="network_error">현재 서버와의 연결이 불안정합니다.\n잠시 후 다시 시도해주세요.</string>
+    <string name="unknown_error">알 수 없는 에러가 발생했습니다.\n잠시 후 다시 시도해주세요.</string>
+
+    <!-- Back Pressed Callback -->
+    <string name="back_pressed_description">뒤로가기를 한 번 더 누르시면 종료됩니다.</string>
+
+    <!-- Format -->
+    <string name="decimal_format_not_digit">###,###</string>
+    <string name="date_format_time_difference_second">방금 전</string>
+    <string name="date_format_time_difference_minute">%s분 전</string>
+    <string name="date_format_time_difference_hour">%s시간 전</string>
+    <string name="date_format_time_difference_day">%s일 전</string>
+    <string name="date_format_time_date">yyyy.MM.dd</string>
+
+    <!-- Unit -->
+    <string name="unit_member">%d 명</string>
+    <string name="unit_range">~</string>
+    <string name="unit_minus">-</string>
+    <string name="unit_plus">+</string>
+
+    <!-- Bottom Menu -->
+    <string name="menu_home">홈</string>
+    <string name="menu_team_recruitment">모집</string>
+    <string name="menu_my_team">나의 팀</string>
+    <string name="menu_my_page">마이페이지</string>
+    <string name="menu_notification">알림</string>
+
+    <!-- Category -->
+    <string name="category_all">전체</string>
+    <string name="category_develop">개발</string>
+    <string name="category_plan">기획</string>
+    <string name="category_design">디자인</string>
+    <string name="category_marketing">마케팅</string>
+    <string name="category_sales">영업</string>
+    <string name="category_cs">고객서비스</string>
+    <string name="category_professional">전문직</string>
+    <string name="category_engineering">엔지니어링</string>
+    <string name="category_media">미디어</string>
+    <string name="category_etc">기타</string>
+
+    <!-- Intro -->
+    <string name="intro_title">TEAM no.1</string>
+
+    <!-- Sign In -->
+    <string name="sign_in_introduction">함께 만들어가는\n프로젝트, 팀 원</string>
+
+    <string name="sign_in_kakao_recommend"><b><font color="#9E9E9E">카카오</font></b>로 3초만에 빠르게 회원가입!</string>
+    <string name="sign_in_kakao">카카오로 로그인</string>
+    <string name="sign_in_kakao_fail">카카오 로그인에 실패했습니다.</string>
+
+    <string name="sign_in_google">Google 계정으로 로그인</string>
+    <string name="sign_in_google_fail">Google 로그인에 실패했습니다.</string>
+
+    <!-- Terms Of Use -->
+    <string name="terms_of_use_title">약관 동의</string>
+    <string name="terms_of_use_confirm">약관을 확인해 주세요.</string>
+    <string name="terms_of_use_confirm_description">팀원을 보다 안전하고 즐겁게 이용하기 위한 약관이에요. 약관 동의 후 회원가입이 시작됩니다.</string>
+    <string name="terms_of_use_all_agree">전체 동의하기</string>
+    <string name="terms_of_use_for_service">서비스 이용약관</string>
+    <string name="terms_of_use_for_privacy">개인정보 처리방침</string>
+    <string name="terms_of_use_for_community">커뮤니티 정책</string>
+    <string name="terms_of_use_for_ad">광고성 혜택 알림 수신동의 (선택)</string>
+
+    <!-- Write User Name -->
+    <string name="write_user_name_title">회원가입</string>
+    <string name="write_user_name_setting">닉네임을 설정해주세요.</string>
+    <string name="write_user_name_setting_description">팀원에서 사용할 닉네임을 만들어주세요.\n건강한 프로젝트 모임을 만들어 나가요!</string>
+    <string name="write_user_name_nickname">닉네임</string>
+    <string name="write_user_name_nickname_hint">최소 2글자 이상 입력해주세요!</string>
+    <string name="write_user_name_nickname_pattern_error">공백과 특수문자는 들어갈 수 없어요.</string>
+    <string name="write_user_name_nickname_duplicated_error">이미 사용중인 닉네임이에요.</string>
+
+    <!-- OnBoarding -->
+    <string name="onboarding_sign_up_complete">회원가입 완료!</string>
+    <string name="onboarding_sign_up_complete_description">지금 당장\n빛나는 아이디어를 함께할\n팀원들을 모집해보세요!</string>
+    <string name="onboarding_start">시작하기</string>
+
+    <!-- Home -->
+    <string name="home_menu_title">모집</string>
+    <string name="home_menu_filter">필터</string>
+    <string name="home_menu_search">검색</string>
+    <string name="home_banner_title">프로젝트 구경하러 가기 (준비 중)</string>
+    <string name="home_banner_description">이번 달에 완성된 프로젝트를 구경하고\n직접 커피챗을 보내보세요!</string>
+    <string name="home_empty_project">지원할 프로젝트가 없습니다.</string>
+    <string name="home_new_project_feed">NEW</string>
+
+    <!-- MyPage -->
+    <string name="my_profile_menu_title">마이페이지</string>
+    <string name="my_profile_profile_title">나의 프로필</string>
+    <string name="my_profile_project_title">나의 프로젝트</string>
+    <string name="my_profile_represent_project_title">대표 프로젝트</string>
+    <string name="my_profile_project_apply_list">나의 지원 현황</string>
+    <string name="my_profile_project_favorite_list">관심 프로젝트</string>
+    <string name="my_profile_setting">설정</string>
+    <string name="my_profile_cs">고객센터</string>
+
+    <!-- Summary Recruitment Notice   -->
+    <string name="summary_recruitment_notice_title">모집현황</string>
+    <string name="summary_recruitment_notice_detail">상세보기</string>
+
+    <!-- Project Write -->
+    <string name="project_write_exit_title">생성을 중단하시겠습니까?</string>
+    <string name="project_write_update_exit_title">수정을 중단하시겠습니까?</string>
+    <string name="project_write_exit_description">확인을 누르시면 모든 내용이 삭제됩니다.</string>
+
+    <string name="project_write_container_step_1">이름</string>
+    <string name="project_write_container_step_2">기간/장소</string>
+    <string name="project_write_container_step_3">목적/경력</string>
+    <string name="project_write_container_step_4">분야</string>
+    <string name="project_write_container_step_5">게시글 작성</string>
+
+    <string name="project_write_title">프로젝트 이름을 만들어볼까요?</string>
+    <string name="project_write_title_description">최소 2글자 이상, 최대 30자 이하로 입력해주세요.</string>
+    <string name="project_write_title_hint">프로젝트 이름</string>
+    <string name="project_write_title_error">*최소 두 글자 이상 입력해주세요.</string>
+
+    <string name="project_write_period_title">프로젝트를 시작하신 상태인가요?</string>
+    <string name="project_write_period_sub_title">프로젝트 진행 상태를 선택해주세요.</string>
+    <string name="project_write_period_before">진행 전</string>
+    <string name="project_write_period_proceeding">진행 중</string>
+    <string name="project_write_location_title">프로젝트를 어디에서 진행하시나요?</string>
+    <string name="project_write_location_sub_title">프로젝트 진행 방식 및 지역을 선택해주세요.</string>
+    <string name="project_write_location_is_online">온라인</string>
+    <string name="project_write_location_is_offline">오프라인</string>
+    <string name="project_write_location_is_online_and_offline">온/오프라인</string>
+
+    <string name="project_write_purpose_title">프로젝트의 목적이 무엇인가요?</string>
+    <string name="project_write_purpose_sub_title">두 가지 용도 중 하나를 선택해주세요.</string>
+    <string name="project_write_purpose_type_start_up">예비창업</string>
+    <string name="project_write_purpose_type_portfolio">포트폴리오</string>
+    <string name="project_write_career_title">선호하는 팀원들의 경력을 알려주세요.</string>
+    <string name="project_write_career_sub_title">취준생부터 경력 10년 이상까지 선택가능합니다.</string>
+    <string name="project_write_career_no_limit">경력 무관</string>
+    <string name="project_write_career_choice">경력 선택</string>
+    <string name="project_write_career_min_choice_error">최소 경력이 최대 경력보다 높을 수 없습니다</string>
+    <string name="project_write_career_max_choice_error">최대 경력이 최소 경력보다 낮을 수 없습니다</string>
+    <string-array name="project_write_career_spinner">
+        <item>준비생</item>
+        <item>신입</item>
+        <item>1년</item>
+        <item>2년</item>
+        <item>3년</item>
+        <item>4년</item>
+        <item>5년</item>
+        <item>6년</item>
+        <item>7년</item>
+        <item>8년</item>
+        <item>9년</item>
+        <item>10년+</item>
+    </string-array>
+
+    <string name="project_write_field_title">프로젝트 분야가 무엇인가요?</string>
+    <string name="project_write_field_sub_title">모집 화면에 태그가 생성되어 더욱 눈에 뛸 수 있어요!\n최대 3개까지 선택할 수 있어요! <font color="#D62246">(최소 1개 선택)</font></string>
+    <string name="project_write_field_max_selected_description">분야는 최대 3개 까지만 선택 가능합니다.</string>
+
+    <string name="project_write_post_banner_title">대표 이미지 업로드</string>
+    <string name="project_write_post_banner_description">최대 3장까지 가능합니다.</string>
+    <string name="project_write_post_introduction_title"><font color="#D62246">*</font> 프로젝트 소개</string>
+    <string name="project_write_post_introduction_hint">어떤 아이디어에서 시작됐는지, 어떤 프로젝트인지 등\n자유롭게 알려주세요! (글자수 공백포함 1,000자)</string>
+    <string name="project_write_post_leader_title"><font color="#D62246">*</font> 리더의 역할</string>
+    <string name="project_write_post_leader_description">자신이 맡을 역할을 알려주세요.</string>
+    <string name="project_write_post_member_title"><font color="#D62246">*</font> 팀원 모집</string>
+    <string name="project_write_post_member_description">리더 포함 최대 30인까지 모집 가능합니다.</string>
+    <string name="project_write_post_tech_stack_title">기술 스택</string>
+    <string name="project_write_post_tech_stack_hint">프로젝트에 사용할 기술을 선택해주세요.</string>
+
+    <string name="project_write_post">프로젝트 생성</string>
+    <string name="project_write_post_part_main_category_hint">직무 대분류 선택</string>
+    <string name="project_write_post_part_sub_category_hint">직무 소분류 선택</string>
+    <string name="project_write_post_part_introduction_hint">(선택) 직무를 설명해주세요.</string>
+    <string name="project_write_post_part_max_count">리더 포함 최대 30인까지만 설정 가능합니다.</string>
+    <string name="project_write_post_confirm_title">프로젝트를 생성하시겠습니까?</string>
+    <string name="project_write_post_confirm_description">확인을 누르시면 프로젝트가 생성됩니다.</string>
+
+    <string name="project_write_post_update">프로젝트 수정</string>
+    <string name="project_write_post_update_confirm_title">프로젝트를 수정하시겠습니까?</string>
+    <string name="project_write_post_update_confirm_description">확인을 누르시면 프로젝트가 수정됩니다.</string>
+
+    <!-- Project Detail -->
+    <string-array name="project_detail_spinner">
+        <item>신고하기</item>
+    </string-array>
+
+    <string name="project_detail_report">이 프로젝트를 신고하시겠습니까?</string>
+    <string name="project_detail_report_hint">신고 사유를 최대 100자 까지 작성해주세요.</string>
+    <string name="project_detail_report_completed">신고가 완료되었습니다.</string>
+    <string name="project_detail_report_completed_description">소중한 의견 감사합니다.</string>
+
+    <string name="project_detail_introduction">소개</string>
+    <string name="project_detail_introduction_leader_response">리더 응답률 %d%%</string>
+    <string name="project_detail_introduction_current_member">모집현황</string>
+    <string name="project_detail_introduction_description_title">프로젝트 소개</string>
+    <string name="project_detail_introduction_tech_stack_title">기술 스택</string>
+    <string name="project_detail_introduction_enroll">지원하기</string>
+    <string name="project_detail_introduction_enroll_disable">지원이 모두 마감되었습니다.</string>
+    <string name="project_detail_introduction_enroll_disable_short">지원마감</string>
+    <string name="project_detail_introduction_enroll_completed">지원완료</string>
+    <string name="project_detail_introduction_project_management">프로젝트 관리</string>
+    <string name="project_detail_introduction_applicant_management">지원자 관리</string>
+    <string name="project_detail_introduction_project_completed">프로젝트 완수</string>
+    <string name="project_detail_introduction_project_update">수정하기</string>
+    <string name="project_detail_introduction_project_remove">삭제하기</string>
+    <string name="project_detail_introduction_project_remove_disable">팀원이 한 명 이상 생기면 프로젝트를 삭제할 수 없습니다.</string>
+
+    <string name="project_detail_enrollment_reason">%s에 지원합니다.</string>
+    <string name="project_detail_enrollment_reason_title">1. 지원하시는 이유 및 강점을 알려주세요.</string>
+    <string name="project_detail_enrollment_reason_hint">지원 이유 및 강점 (최대 1,000자 입력 가능합니다.)</string>
+    <string name="project_detail_enrollment_contact_title">2. 연락받을 연락처를 알려주세요.</string>
+    <string name="project_detail_enrollment_contact_hint">전화번호, 카카오톡 아이디 등을 알려주세요.\nex) `카톡아이디 teamone1`</string>
+    <string name="project_detail_enrollment_contact_description">원활한 프로젝트 진행을 위한 목적일 뿐, 어떠한 개인정보도 수집되지 않습니다.</string>
+
+    <string name="project_detail_enrollment_completed">지원이 완료되었습니다.</string>
+    <string name="project_detail_enrollment_completed_description">결과는 지원 현황 페이지에서\n확인하실 수 있습니다.</string>
+
+    <string name="project_enrollments_title">지원자 관리</string>
+    <string name="project_enrollments_empty">아직 지원자가 없어요.</string>
+    <string name="project_enrollments_contact_copy">연락처를 복사하였습니다.</string>
+    <string name="project_enrollments_part">%s 지원자</string>
+    <string name="project_enrollments_part_date_for_pass">%s <![CDATA[<font color=#00AEE4>승인</font>]]></string>
+    <string name="project_enrollments_part_date_for_reject">%s <![CDATA[<font color=#D62246>거절</font>]]></string>
+    <string name="project_enrollments_passed_title">%s님의 지원을 승인하시겠습니까?</string>
+    <string name="project_enrollments_passed_description">지원자가 팀원에 합류하게 됩니다.</string>
+    <string name="project_enrollments_reject_title">%S님의 지원을 거절하시겠습니까?</string>
+    <string name="project_enrollments_reject_description">거절한 지원자는 해당 파트 외 다른 직무에 재지원 가능합니다.</string>
+    <string name="project_enrollments_reject_reason_title">거절 사유를 알려주세요</string>
+    <string name="project_enrollments_reject_reason_hint">팀원(TEAM no.1)의 배려있는 문화 만들기에 동참해주세요. (최대 1,000자 입력 가능합니다.)</string>
+
+    <string name="project_detail_introduction_project_remove_title">프로젝트를 삭제하시겠습니까?</string>
+    <string name="project_detail_introduction_project_remove_description">삭제 전 한번 더 고민해보시기 바랍니다.</string>
+
+    <string name="project_detail_member">팀원</string>
+    <string name="project_detail_member_leader_title">리더</string>
+    <string name="project_detail_member_part_title">역할</string>
+    <string name="project_detail_member_represent_project_title">대표 프로젝트</string>
+    <string name="project_detail_member_represent_projects_empty">대표 프로젝트가 아직 없습니다.</string>
+
+    <string name="project_detail_member_kick">내보내기</string>
+    <string name="project_detail_member_kick_title">%s 님을 내보내시겠습니까?</string>
+    <string name="project_detail_member_kick_description">팀원들과 상의 후 결정해주시기 바랍니다.</string>
+    <string name="project_detail_member_kick_reason_title">내보내는 사유를 알려주세요.</string>
+    <string name="project_detail_member_kick_reason_empty">내용을 입력해주세요.</string>
+    <string name="project_member_kick_reason_abuse">욕설/비하발언</string>
+    <string name="project_member_kick_reason_bad_participation">참여율 저조\n(응답률, 접속률, 투표 진행 등)</string>
+    <string name="project_member_kick_reason_dissension">팀원과의 불화</string>
+    <string name="project_member_kick_reason_given_up">자진 중도 포기</string>
+    <string name="project_member_kick_reason_obscenity">19+ 음란성, 만남 유도</string>
+    <string name="project_member_kick_reason_etc">기타</string>
+
+    <string name="project_detail_member_kick_completed">내보내기가 완료되었습니다.</string>
+    <string name="project_detail_member_kick_completed_description">소중한 의견 감사합니다.</string>
+
+    <string name="project_detail_chat">채팅</string>
+
+    <!-- Notification Menu-->
+    <string name="notification_title">알림</string>
+    <string name="notification_message_empty">받은 알림이 없어요.</string>
+    <string name="notification_menu_feedback">피드백</string>
+    <string name="notification_menu_feedback_hint">팀원(TEAM no.1)의 배려있는 문화 만들기에 동참해주세요. (최대 1,000자 입력 가능합니다.)</string>
+    <string name="notification_menu_feedback_title">팀원(TEAM no.1)에게 바랍니다.</string>
+
+    <!-- Search -->
+    <string name="search_history_title">최근 검색</string>
+    <string name="search_history_delete_all">전체 삭제</string>
+    <string name="search_hint">두 글자 이상 입력해주세요.</string>
+    <string name="search_error">검색어는 두 글자 이상 입력해주세요</string>
+    <string name="search_empty_history">검색 기록이 없습니다.</string>
+
+    <!-- media picker -->
+    <string name="media_picker_permission_storage">이미지 첨부를 원하시는 경우\n저장 공간 접근 권한이 필요합니다.</string>
+    <string name="media_picker_permission_setting_storage_title">권한 설정</string>
+    <string name="media_picker_permission_setting_storage_description">저장공간 접근 권한이 필요합니다. 휴대폰 설정 > 앱 > 저장공간 권한을 허용으로 변경해주세요.</string>
+    <string name="media_picker_max_selected_description">최대 %d장까지 선택 가능합니다.</string>
+    <string name="media_picker_empty_images">가져올 수 있는 이미지가 없습니다.</string>
+    <string name="media_picker_photo_picker_upload">이미지 추가</string>
 </resources>

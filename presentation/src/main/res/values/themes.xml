@@ -1,9 +1,49 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TeamOne" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.TeamOne" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color-->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorOnPrimary">@color/color_ffffff</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSurface">@color/color_surface</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.TeamOne.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.TeamOne.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TeamOne.LargeComponent.circle</item>
+
+        <!-- bottomSheet -->
+        <item name="bottomSheetDialogTheme">@style/Theme.TeamOne.BottomSheetDialog</item>
+
+        <!-- Bottom Navigation -->
+        <item name="bottomNavigationStyle">@style/Widget.TeamOne.BottomNavigation</item>
+
+        <!-- Menu Style -->
+        <item name="actionMenuTextAppearance">@style/TextAppearance.TeamOne.Body3</item>
+        <item name="toolbarStyle">@style/Widget.Teamone.Toolbar</item>
+
+        <!-- Alert Dialog -->
+        <item name="alertDialogTheme">@style/ThemeOverlay.TeamOne.AlertDialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.TeamOne.AlertDialog</item>
+
+        <!-- Chip -->
+        <item name="ProjectFeedChipStyle">@style/Widget.TeamOne.Chip.ProjectFeed</item>
+        <item name="ProjectTechStackChipStyle">@style/Widget.TeamOne.Chip.TechStack</item>
     </style>
 
     <style name="Theme.TeamOne" parent="Base.Theme.TeamOne" />
+
+    <!-- Splash Screen -->
+    <style name="Theme.TeamOne.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.TeamOne</item>
+        <item name="windowSplashScreenBackground">@color/color_primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@color/color_primary</item>
+        <item name="android:statusBarColor">@color/color_primary</item>
+        <item name="android:navigationBarColor">@color/color_primary</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>
